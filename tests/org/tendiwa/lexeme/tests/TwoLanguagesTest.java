@@ -18,8 +18,7 @@ public void test() {
 	english.loadCorpus(getClass().getResourceAsStream("/messages.en_US.texts"));
 	russian.loadCorpus(getClass().getResourceAsStream("/messages.ru_RU.texts"));
 
-	System.out.println("Text in English:");
-	System.out.println(english.getLocalizedText(
+	String englishText = english.getLocalizedText(
 		"log.get_damage",
 		new Localizable() {
 			@Override
@@ -39,9 +38,8 @@ public void test() {
 				return "human";
 			}
 		}
-	));
-	System.out.println("Text in Russian:");
-	System.out.println(russian.getLocalizedText(
+	);
+	String russianText = russian.getLocalizedText(
 		"log.get_damage",
 		new Localizable() {
 			@Override
@@ -61,6 +59,8 @@ public void test() {
 				return "human";
 			}
 		}
-	));
+	);
+	assertEquals(englishText, "Bear bites human");
+	assertEquals(russianText, "Медведь кусает человека");
 }
 }
