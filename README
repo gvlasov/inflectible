@@ -1,7 +1,1 @@
-A java library for user interface internationalization and localization. It allows writing texts
-that use grammatically appropriate word forms (lexemes). It is based on user-written
-vocabularies, and also text corpuses (collections of translations to a specific language)
-that consult vocabularies for a correct lexeme. The approach it uses is not completely
-correct in a linguistic sense, but it provides an easy way to translate applications
-(particularly games with full-blown ontologies) to multiple languages where usage of correct word
-forms is crucial (more crucial than in English).
+A java library for user interface internationalization and localization. It allows writing texts that use grammatically appropriate word forms (lexemes). It is based on user-written vocabularies, and also text corpuses (collections of translations to a specific language) that consult vocabularies for a correct lexeme. The approach it uses is not completely correct in a linguistic sense, but it provides an easy way to translate applications (particularly games with full-blown ontologies) to multiple languages where usage of correct word forms is crucial (more crucial than in English).
