@@ -92,15 +92,21 @@ public void loadCorpus(File corpus) {
 		reader = new FileReader(corpus);
 	} catch (FileNotFoundException e) {
 		e.printStackTrace();
-		throw new RuntimeException("Could not load corpus " + corpus + ": file does not exist")
+		throw new RuntimeException("Could not load corpus " + corpus + ": file does not exist");
 	}
 	BufferedReader bufReader = new BufferedReader(reader);
 	String currentLine = null;
 	VocabularyEntry entry = null;
 	String localizationId = null;
+	StringBuilder builder = new StringBuilder();
 	try {
 		while ((currentLine = bufReader.readLine()) != null) {
-			currentLine = currentLine.trim();
+			currentLine = currentLine.trim() + "\n";
+			builder.append(currentLine);
+			if (currentLine.charAt(0) == '}') {
+				// When the end of a raw text is reached, save that raw text in a localizable form.
+
+			}
 		}
 	} catch (IOException e) {
 		throw new RuntimeException("Error reading from file " + corpus + ": file was successfully opened, but reading failed");
@@ -125,51 +131,51 @@ protected abstract Modifier stringToModifier(String modifier);
 
 private class VocabularyEntry {
 	private List<Modifier> permanentModifiers = new LinkedList<>();
-	private List<WordForm> localizationToModifiers = new LinkedList<>();
-	private WordForm baseForm;
+	private List<Lexeme> localizationToModifiers = new LinkedList<>();
+	private Lexeme baseForm;
 
 	public void addPermanentModifier(Modifier modifier) {
 		permanentModifiers.add(modifier);
 	}
 
 	public void addWordForm(String wordFormString, List<Modifier> modifiers) {
-		WordForm wordForm = new WordForm(wordFormString, modifiers);
+		Lexeme lexeme = new Lexeme(wordFormString, modifiers);
 		if (baseForm == null) {
-			baseForm = wordForm;
+			baseForm = lexeme;
 		}
-		localizationToModifiers.add(wordForm);
+		localizationToModifiers.add(lexeme);
 	}
 
-	public WordForm getBaseForm() {
+	public Lexeme getBaseForm() {
 		return baseForm;
 	}
 
-	public WordForm findWordForm(Modifier... modifiers) {
+	public Lexeme findWordForm(Modifier... modifiers) {
 		int maxMatchingModifiers = 0;
-		WordForm bestSuitedWordForm = null;
-		for (WordForm form : localizationToModifiers) {
+		Lexeme bestSuitedLexeme = null;
+		for (Lexeme form : localizationToModifiers) {
 			int matchingModifiers = 0;
 			for (Modifier modifier : modifiers) {
 				if (form.modifiers.contains(modifier)) {
 					matchingModifiers++;
 					if (matchingModifiers > maxMatchingModifiers) {
 						maxMatchingModifiers = matchingModifiers;
-						bestSuitedWordForm = form;
+						bestSuitedLexeme = form;
 					}
 				}
 			}
 		}
-		assert bestSuitedWordForm != null;
-		return bestSuitedWordForm;
+		assert bestSuitedLexeme != null;
+		return bestSuitedLexeme;
 	}
 
 }
 
-private class WordForm {
+private class Lexeme {
 	private final String asString;
 	private final List<Modifier> modifiers;
 
-	private WordForm(String asString, List<Modifier> modifiers) {
+	private Lexeme(String asString, List<Modifier> modifiers) {
 		this.asString = asString;
 		this.modifiers = modifiers;
 	}
@@ -181,27 +187,34 @@ private class WordForm {
 }
 
 private class MarkedUpText {
-	private final String originalText;
+
+	private final String rawMarkedUpText;
+	/**
+	 * Words sorted by start index.
+	 */
+	private List<VariableWord> variableWords;
 
 	/**
 	 * Text from file containing a header and body in the following form:
 	 * <pre>
 	 * text_localization_id (param1, param2, param3) {
-	 *     Text about [param1] and [param2][Plur] with some mentioning of [param3][Gerund].
+	 *     Text about [param1] and [param2][Plur] with some
+	 *     mentioning of [param3][Gerund].
 	 * }
 	 * </pre>
 	 *
 	 * @param textEntry
 	 */
 	private MarkedUpText(String textEntry) {
+		this.rawMarkedUpText = textEntry.replaceAll("\n}\n", "");
 		String textName = textEntry.split("[\\(\\{]")[0].trim();
 		List<String> paramNames = Arrays.asList(
 			textEntry.split("[\\(\\)]")[1].split(", ")
 		);
 		String actualText = textEntry.split("[{}]")[1].trim();
-		originalText = textEntry;
 		int lastIndex = 0;
 		int actualTextLength = actualText.length();
+		int variableWordIndex = 0;
 		while (lastIndex < actualTextLength) {
 			// Search for '[' until the end of text;
 			// if a '[' is found, then extract that block describing a word form to a list of variableWords.
@@ -214,11 +227,11 @@ private class MarkedUpText {
 				throw new RuntimeException("SyntaxError in text " + textName
 					+ ": missing matching ']'");
 			}
-			boolean variableWordHasParams = false;
+			boolean variableWordHasModifiers = false;
 			if (actualText.length() > variableWordEnd + 1 && actualText.charAt(variableWordEnd + 1) == '[') {
 				// If there are parameters given in the second [] block after a word,
 				// for example [attacker][Plur]
-				variableWordHasParams = true;
+				variableWordHasModifiers = true;
 				variableWordEnd = textEntry.indexOf(']', variableWordEnd);
 
 			}
@@ -232,12 +245,71 @@ private class MarkedUpText {
 					+ ": parameter " + paramName + " is used in text but it is not declared in header"
 				);
 			}
-
+			Modifier[] modifiers;
+			if (variableWordHasModifiers) {
+				String[] modifierStrings = variableWord
+					.substring(variableWord.indexOf(']' + 2), variableWord.length() - 1)
+					.split(" ");
+				modifiers = new Modifier[modifierStrings.length];
+				for (int i = 0; i < modifierStrings.length; i++) {
+					modifiers[i] = stringToModifier(modifierStrings[i]);
+				}
+			} else {
+				modifiers = new Modifier[0];
+			}
+			variableWords.add(new VariableWord(variableWordIndex++, modifiers, variableWordStart, variableWordEnd));
 		}
 	}
 
+	/**
+	 * Builds a final text with particular lexemes from this raw MarkedUpText.
+	 *
+	 * @param params
+	 * 	Particular concepts to be put in an appropriate form.
+	 * @return A final localized text readable by end user.
+	 */
 	private String localize(Localizable... params) {
+		StringBuilder builder = new StringBuilder();
+		int shiftFromReplacedWords = 0;
+		int lastIndexInOriginalText = 0;
+		for (VariableWord word : variableWords) {
+			String localizedWord = getLocalizedWord(
+				params[word.paramNumber].getLocalizationId(),
+				word.modifiers
+			);
+			// Original raw text after previous localized word (or raw text beginning) and before current localized word.
+			builder.append(
+				rawMarkedUpText.substring(
+					lastIndexInOriginalText + shiftFromReplacedWords,
+					word.wordStartIndex + shiftFromReplacedWords
+				)
+			);
+			builder.append(localizedWord);
+			lastIndexInOriginalText = word.wordEndIndex;
+			shiftFromReplacedWords += localizedWord.length() - (word.wordEndIndex - word.wordStartIndex);
+		}
+		if (lastIndexInOriginalText < rawMarkedUpText.length()) {
+			builder.append(rawMarkedUpText.substring(lastIndexInOriginalText, rawMarkedUpText.length()));
+		}
+		return builder.toString();
+	}
 
+	/**
+	 * Represents a part of text in a form of [role][mo di fi ers] where this template is going to be substituted by a
+	 * particular lexeme.
+	 */
+	private class VariableWord {
+		private Modifier[] modifiers;
+		private int paramNumber;
+		private int wordStartIndex;
+		private int wordEndIndex;
+
+		public VariableWord(int paramNumber, Modifier[] modifiers, int wordStartIndex, int wordEndIndex) {
+			this.paramNumber = paramNumber;
+			this.modifiers = modifiers;
+			this.wordStartIndex = wordStartIndex;
+			this.wordEndIndex = wordEndIndex;
+		}
 	}
 }
 }
