@@ -1,0 +1,8 @@
+log.get_damage(attacker, action, aim) {
+	// Bear bites human
+	[Attacker] [action][III] [aim][Sing].
+}
+log.make_sound(shouter, action) {
+	// Elephant trumpets as all elephants usually trumpet!
+	[Shouter] [action][III] as all [shouter]s usually [action]!
+}
