@@ -1,6 +1,6 @@
 log.get_damage(attacker, action, aim) {
 	// Медведь кусает человека
-	[Attacker] [action][III] [aim][Р].
+	[Attacker] [action][III] [aim][Р], [aim] получает пизды.
 }
 log.make_sound(shouter, action) {
 	// Медведь рычит!
