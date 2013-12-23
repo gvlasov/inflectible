@@ -64,12 +64,12 @@ public void test() {
 		"log.make_sound",
 		new Bear(),
 		new ToRoar(),
-		Language.number(27),
+		Language.number(23),
 		new Human(),
 		new ToShout()
 	);
 	assertEquals(englishText, "Bear bites human.");
 	assertEquals(russianText, "Медведь кусает человека, человек получает пизды.");
-	assertEquals(russianText2, "Медведь рычит, отчего 27 человек кричат!");
+	assertEquals(russianText2, "Медведь рычит, отчего 23 человека кричат!");
 }
 }

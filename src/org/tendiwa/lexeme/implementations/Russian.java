@@ -35,7 +35,7 @@ public List<Modifier> processTemplate(LexemeTemplate lexemeTemplate, Localizable
 					&& !lexemeTemplate.getModifiers().contains(Russian.Modifiers.Т)
 					&& !lexemeTemplate.getModifiers().contains(Russian.Modifiers.П)
 				) {
-				return Lists.<Modifier>newArrayList(Modifiers.Ед, Modifiers.Р);
+				return Lists.<Modifier>newArrayList(Modifiers.Мн, Modifiers.Р, Modifiers.Числ2До4);
 			} else {
 				return null;
 			}
@@ -113,7 +113,11 @@ public enum Modifiers implements Modifier {
 	/**
 	 * Настоящее время
 	 */
-	Наст
+	Наст,
+	/**
+	 * Числительное, заканчивающееся на цифру от 2 до 4, но не 12, 13 и не 14.
+	 */
+	Числ2До4
 
 }
 }
