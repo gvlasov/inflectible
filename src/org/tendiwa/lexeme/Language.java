@@ -25,6 +25,18 @@ protected Language(String localizedName, String localeName) {
 	this.localizedName = localizedName;
 	this.localeName = localeName;
 }
+
+/**
+ * Creates a localizable object out of an int. Its localizationId will be this very int stringified, for example "27"
+ * for 27.
+ *
+ * @param number
+ * @return
+ */
+public static Localizable number(int number) {
+	return new LocalizableNumber(number);
+}
+
 public Collection<Word> getLoadedWords() {
 	return entires.values();
 }
@@ -37,14 +49,30 @@ public void setFallbackLanguage(Language language) {
 	fallbackLanguage = language;
 }
 
-public String getLocalizedText(String textLocalizationId, Localizable... params) {
-	return texts.get(textLocalizationId).localize(params);
+/**
+ * Returns a text translated to this language, ready to be displayed to the end user.
+ *
+ * @param textLocalizationId
+ * 	The first word of text section in a .texts file, before parenthesis.
+ * @param denotations
+ * 	Things that are being translated to this language.
+ * @return A text translated to this language, ready to be displayed to the end user.
+ */
+public String getLocalizedText(String textLocalizationId, Localizable... denotations) {
+	if (!texts.containsKey(textLocalizationId)) {
+		throw new RuntimeException("No text with name " + textLocalizationId + " in language " + localeName + " (" + localizedName + ")");
+	}
+	return new TextCase(
+		this,
+		texts.get(textLocalizationId),
+		denotations
+	).localize();
 }
 
 /**
  * Translates description of a lexeme to an actual String with that lexeme.
  *
- * @param wordLocalizationId
+ * @param denotation
  * 	A word wrapped in quotation marks in headers of entries in .words files (dictionaries).
  * @param capitalizeFirstLetter
  * 	Should the first letter of a word be capitalized.
@@ -52,20 +80,23 @@ public String getLocalizedText(String textLocalizationId, Localizable... params)
  * 	Modifiers that determine the particular lexeme to return.
  * @return Particular lexeme to be inserted in a text intended for an end user.
  */
-public String getLocalizedWord(String wordLocalizationId, boolean capitalizeFirstLetter, Modifier... modifiers) {
-	if (!capitalizeFirstLetter) {
-		if (!entires.containsKey(wordLocalizationId)) {
-			throw new RuntimeException("No word with localizationId=" + wordLocalizationId + " found in dictionaries");
+public String getLocalizedWord(String denotation, boolean capitalizeFirstLetter, List<Modifier> modifiers) {
+	if (!entires.containsKey(denotation)) {
+		if (denotation.matches("^\\d+$")) {
+			return denotation;
 		}
-		return entires.get(wordLocalizationId).findWordForm(modifiers).toString();
+		throw new RuntimeException("No word with localizationId=" + denotation + " found in dictionaries");
+	}
+	if (!capitalizeFirstLetter) {
+		return entires.get(denotation).findWordForm(modifiers).toString();
 	} else {
-		String lexeme = entires.get(wordLocalizationId).findWordForm(modifiers).toString();
+		String lexeme = entires.get(denotation).findWordForm(modifiers).toString();
 		return Character.toUpperCase(lexeme.charAt(0)) + lexeme.substring(1);
 	}
 }
 
-public String getLocalizedWord(String wordLocalizationId, Modifier... modifiers) {
-	return getLocalizedWord(wordLocalizationId, false, modifiers);
+public String getLocalizedWord(String denotation, List<Modifier> modifiers) {
+	return getLocalizedWord(denotation, false, modifiers);
 }
 
 /**
@@ -176,6 +207,8 @@ public void loadCorpus(InputStream corpusStream) {
 		throw new RuntimeException("Error reading from stream");
 	}
 }
+
+
 public void loadCorpus(URL corpus) {
 	try {
 		currentCorpus = corpus;
@@ -203,4 +236,5 @@ protected abstract Modifier stringToModifier(String modifier);
 
 public abstract String getMissingWord();
 
+public abstract List<Modifier> processTemplate(LexemeTemplate lexemeTemplate, Localizable localizable);
 }

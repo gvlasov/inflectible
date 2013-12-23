@@ -60,7 +60,16 @@ public void test() {
 			}
 		}
 	);
-//	assertEquals(englishText, "Bear bites human");
+	String russianText2 = russian.getLocalizedText(
+		"log.make_sound",
+		new Bear(),
+		new ToRoar(),
+		Language.number(27),
+		new Human(),
+		new ToShout()
+	);
+	assertEquals(englishText, "Bear bites human.");
 	assertEquals(russianText, "Медведь кусает человека, человек получает пизды.");
+	assertEquals(russianText2, "Медведь рычит, отчего 27 человек кричат!");
 }
 }

@@ -31,7 +31,7 @@ public Lexeme getBaseForm() {
 	return baseForm;
 }
 
-public Lexeme findWordForm(Modifier... modifiers) {
+public Lexeme findWordForm(List<Modifier> modifiers) {
 	int maxMatchingModifiers = 0;
 	Lexeme bestSuitedLexeme = null;
 	for (Lexeme form : localizationToModifiers) {

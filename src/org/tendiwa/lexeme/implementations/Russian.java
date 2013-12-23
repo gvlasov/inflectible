@@ -1,7 +1,9 @@
 package org.tendiwa.lexeme.implementations;
 
-import org.tendiwa.lexeme.Language;
-import org.tendiwa.lexeme.Modifier;
+import com.google.common.collect.Lists;
+import org.tendiwa.lexeme.*;
+
+import java.util.List;
 
 public class Russian extends Language {
 
@@ -17,6 +19,34 @@ protected Modifier stringToModifier(String modifier) {
 @Override
 public String getMissingWord() {
 	return "[параметр пропущен]";
+}
+
+@Override
+public List<Modifier> processTemplate(LexemeTemplate lexemeTemplate, Localizable localizable) {
+	if (localizable instanceof LocalizableNumber) {
+		// Согласование с числительным выраженным цифрами (не словом).
+		int asInt = Integer.parseInt(localizable.getLocalizationId());
+		if (asInt % 10 >= 2 && asInt % 10 <= 4 && asInt % 100 > 20) {
+			// 2 медведя, но 12 медведей
+			if (
+				!lexemeTemplate.getModifiers().contains(Russian.Modifiers.Р)
+					&& !lexemeTemplate.getModifiers().contains(Russian.Modifiers.В)
+					&& !lexemeTemplate.getModifiers().contains(Russian.Modifiers.Д)
+					&& !lexemeTemplate.getModifiers().contains(Russian.Modifiers.Т)
+					&& !lexemeTemplate.getModifiers().contains(Russian.Modifiers.П)
+				) {
+				return Lists.<Modifier>newArrayList(Modifiers.Ед, Modifiers.Р);
+			} else {
+				return null;
+			}
+		} else if (asInt % 10 == 1) {
+			return Lists.<Modifier>newArrayList(Modifiers.Ед);
+		} else {
+			return Lists.<Modifier>newArrayList(Modifiers.Мн);
+		}
+	} else {
+		return null;
+	}
 }
 
 public enum Modifiers implements Modifier {
@@ -71,6 +101,19 @@ public enum Modifiers implements Modifier {
 	/**
 	 * Единственное число
 	 */
-	Ед
+	Ед,
+	/**
+	 * Существительное
+	 */
+	Сущ,
+	/**
+	 * Глагол
+	 */
+	Глаг,
+	/**
+	 * Настоящее время
+	 */
+	Наст
+
 }
 }

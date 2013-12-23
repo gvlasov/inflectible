@@ -7,12 +7,13 @@ class MarkedUpText {
 /**
  * First line is header, lines after it are text body. The closing curly brace is omitted.
  */
-private final String rawMarkedUpText;
+final String rawMarkedUpText;
 /**
  * First word from entry header.
  */
 private final String textName;
 private final Language language;
+private final Map<String, Integer> paramsToParamNumbers;
 /**
  * Words sorted by start index.
  */
@@ -38,7 +39,7 @@ MarkedUpText(Language language, String textEntry, int startTextLineInFile) {
 	List<String> paramNames = Arrays.asList(
 		textEntry.split("[\\(\\)]")[1].split(", ")
 	);
-	Map<String, Integer> paramsToParamNumbers = new HashMap<>();
+	paramsToParamNumbers = new HashMap<>();
 	int paramOrder = 0;
 	for (String param : paramNames) {
 		paramsToParamNumbers.put(param, paramOrder++);
@@ -80,93 +81,46 @@ MarkedUpText(Language language, String textEntry, int startTextLineInFile) {
 				+ "\": parameter " + paramNameLowercase + " is used in text but it is not declared in header"
 			);
 		}
-		Modifier[] modifiers;
+		List<Modifier> modifiers;
+		String agreeingParameterName = null;
 		if (variableWordHasModifiers) {
+			// If there is a ; in lexeme parameters, then we'll save what is after it to use for agreement later.
+			int indexOfSemicolon = variableWord.indexOf(';');
+			if (indexOfSemicolon != -1) {
+				String[] split = variableWord.split(";");
+				if (split.length > 1) {
+					agreeingParameterName = split[1].substring(0, split[1].length() - 1);
+				}
+				variableWord = variableWord.substring(0, indexOfSemicolon) + "]";
+			}
+
 			String[] modifierStrings = variableWord
 				.substring(variableWord.indexOf(']') + 2, variableWord.length() - 1)
 				.split(" ");
-			modifiers = new Modifier[modifierStrings.length];
+			modifiers = new LinkedList<>();
 			for (int i = 0; i < modifierStrings.length; i++) {
-				modifiers[i] = language.stringToModifier(modifierStrings[i]);
+				if (modifierStrings[i].length() == 0) {
+					continue;
+				}
+				modifiers.add(language.stringToModifier(modifierStrings[i]));
 			}
 		} else {
-			modifiers = new Modifier[0];
+			modifiers = new LinkedList<>();
 		}
-		lexemeTemplates.add(new LexemeTemplate(paramsToParamNumbers.get(paramNameLowercase), modifiers, variableWordStart, variableWordEnd, firstLetterCapital));
+		lexemeTemplates.add(new LexemeTemplate(paramsToParamNumbers.get(paramNameLowercase), modifiers, variableWordStart, variableWordEnd, firstLetterCapital, agreeingParameterName));
 	}
+}
+
+List<LexemeTemplate> getLexemeTemplates() {
+	return lexemeTemplates;
 }
 
 String getTextName() {
 	return textName;
 }
 
-/**
- * Builds a final text with particular lexemes from this raw MarkedUpText.
- *
- * @param params
- * 	Particular concepts to be put in an appropriate form.
- * @return A final localized text readable by end user.
- */
-String localize(Localizable... params) {
-	StringBuilder builder = new StringBuilder();
-	int lastIndexInOriginalText = 1;
-	for (LexemeTemplate template : lexemeTemplates) {
-		String localizedWord;
-		if (template.paramNumber >= params.length) {
-			localizedWord = language.getMissingWord();
-		} else {
-			localizedWord = language.getLocalizedWord(
-				params[template.paramNumber].getLocalizationId(),
-				template.isFirstLetterCapital,
-				template.modifiers
-			);
-		}
-		// Original raw text after previous localized word (or raw text beginning) and before current localized word.
-		builder.append(rawMarkedUpText.substring(
-			lastIndexInOriginalText - 1,
-			template.wordStartIndex
-		));
-		builder.append(localizedWord);
-		lastIndexInOriginalText = template.wordEndIndex + 1;
-	}
-	if (lastIndexInOriginalText < rawMarkedUpText.length()) {
-		builder.append(rawMarkedUpText.substring(lastIndexInOriginalText-1, rawMarkedUpText.length()));
-	}
-	String s = builder.toString();
-	return s.substring(s.indexOf('\n') + 1);
+LexemeTemplate getTemplateByParamName(String paramName) {
+	return lexemeTemplates.get(paramsToParamNumbers.get(paramName));
 }
 
-/**
- * Represents a part of text entry in .texts file in a form of [role][mo di fi ers] where this template is going to be
- * substituted by a particular lexeme.
- */
-private class LexemeTemplate {
-	private final boolean isFirstLetterCapital;
-	private Modifier[] modifiers;
-	private int paramNumber;
-	private int wordStartIndex;
-	private int wordEndIndex;
-
-	/**
-	 * @param paramNumber
-	 * 	In the first bracket pair of a LexemeTemplate there is a localizationId; {@paramNumber} index of that
-	 * 	localizationId in MarkedUpText's header.
-	 * @param modifiers
-	 * 	Modifiers from the second bracket pair, or an empty array if there wasn't one.
-	 * @param wordStartIndex
-	 * 	Index in {@link MarkedUpText#rawMarkedUpText} String on which the LexemeTemplate template starts.
-	 * @param wordEndIndex
-	 * 	Index in {@link MarkedUpText#rawMarkedUpText} String on which the LexemeTemplate template starts.
-	 * @param firstLetterCapital
-	 * 	Should the first letter of lexeme be capitalized.
-	 */
-	public LexemeTemplate(int paramNumber, Modifier[] modifiers, int wordStartIndex, int wordEndIndex, boolean firstLetterCapital) {
-		this.paramNumber = paramNumber;
-		this.modifiers = modifiers;
-		this.wordStartIndex = wordStartIndex;
-		this.wordEndIndex = wordEndIndex;
-		this.isFirstLetterCapital = firstLetterCapital;
-	}
-
-}
 }
