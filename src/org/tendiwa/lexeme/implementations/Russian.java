@@ -42,7 +42,7 @@ public List<Modifier> processTemplate(LexemeTemplate lexemeTemplate, Localizable
 		} else if (asInt % 10 == 1) {
 			return Lists.<Modifier>newArrayList(Modifiers.Ед);
 		} else {
-			return Lists.<Modifier>newArrayList(Modifiers.Мн);
+			return Lists.<Modifier>newArrayList(Modifiers.Мн, Modifiers.Р);
 		}
 	} else {
 		return null;
