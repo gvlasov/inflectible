@@ -1,4 +1,4 @@
-package org.tendiwa.lexeme.tests;
+package tests;
 
 import junit.framework.TestCase;
 import org.tendiwa.lexeme.Language;

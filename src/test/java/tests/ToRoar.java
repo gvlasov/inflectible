@@ -1,9 +1,9 @@
-package org.tendiwa.lexeme.tests;
+package tests;
 
 import org.tendiwa.lexeme.Localizable;
 
-public class ToShout implements Localizable {
-String id = "to shout";
+public class ToRoar implements Localizable {
+String id = "to roar";
 
 @Override
 public String getLocalizationId() {

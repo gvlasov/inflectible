@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact name="liblexeme:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/liblexeme_jar</output-path>
+    <root id="root">
+      <element id="archive" name="liblexeme.jar">
+        <element id="module-output" name="liblexeme" />
+      </element>
+      <element id="file-copy" path="$APPLICATION_HOME_DIR$/lib/junit.jar" />
+    </root>
+  </artifact>
+</component>

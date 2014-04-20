@@ -1,4 +1,4 @@
-package org.tendiwa.lexeme.tests;
+package tests;
 
 import org.tendiwa.lexeme.Localizable;
 
