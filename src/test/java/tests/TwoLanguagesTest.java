@@ -1,13 +1,16 @@
 package tests;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 import org.tendiwa.lexeme.Language;
 import org.tendiwa.lexeme.Localizable;
 import org.tendiwa.lexeme.implementations.English;
 import org.tendiwa.lexeme.implementations.Russian;
 
-public class TwoLanguagesTest extends TestCase {
-public void test() {
+import static junit.framework.Assert.assertEquals;
+
+public class TwoLanguagesTest {
+    @Test
+    public void parameters() {
 	Language english = new English();
 	Language russian = new Russian();
 

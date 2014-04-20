@@ -34,7 +34,7 @@ MarkedUpText(Language language, String textEntry, int startTextLineInFile) {
 	this.language = language;
 	this.rawMarkedUpText = textEntry = textEntry.replaceAll("\n}\n", "");
 	textName = textEntry.split("[\\(\\{]")[0].trim();
-	assert textEntry.matches("^.+\\(.*\\)\\s*\\{\\s*\\n[\\s\\S]*") : textEntry;
+	assert textEntry.matches("^.+\\s*\\{\\s*\\n[\\s\\S]*") : textEntry;
 	// Map parameter names to parameter order number
 	List<String> paramNames = Arrays.asList(
 		textEntry.split("[\\(\\)]")[1].split(", ")
