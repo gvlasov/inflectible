@@ -2,7 +2,7 @@ package org.tendiwa.lexeme;
 
 /**
  * Text with unfilled placeholders.
- * @author Georgy Vlasov (wlasowegor@gmail.com)
+ * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  */
 public interface MarkedUpText {

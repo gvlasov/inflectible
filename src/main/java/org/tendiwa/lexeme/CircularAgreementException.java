@@ -8,7 +8,7 @@ package org.tendiwa.lexeme;
  *         [Actor][;seer]. And then [seer][;actor].
  *     }
  * </pre>
- * @author Georgy Vlasov (wlasowegor@gmail.com)
+ * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
