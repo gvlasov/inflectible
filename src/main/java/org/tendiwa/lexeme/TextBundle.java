@@ -7,7 +7,9 @@ import java.util.List;
  * @version $Id$
  * @since 0.1
  */
-public interface Lexeme {
-    // TODO: Get rid of this interface, a String will do.
-    List<Grammeme> getGrammemes();
+public interface TextBundle {
+    /**
+     * @return Texts in this corpus.
+     */
+    List<MarkedUpText> texts();
 }

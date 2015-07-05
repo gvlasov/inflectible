@@ -1,4 +1,4 @@
 package org.tendiwa.lexeme;
 
-public interface Modifier {
+public interface Grammeme {
 }

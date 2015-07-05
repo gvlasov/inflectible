@@ -5,11 +5,14 @@ import java.util.List;
 /**
  * Represents a part of text entry in .texts file in a form of [role][mo di fi ers] where this template is going to be
  * substituted by a particular lexeme.
+ * @author Georgy Vlasov (suseika@tendiwa.org)
+ * @version $Id$
+ * @since 0.1
  */
 public class LexemeTemplate {
 private final boolean isFirstLetterCapital;
 private final String agreeingParameterName;
-private List<Modifier> modifiers;
+private List<Grammeme> grammemes;
 private int paramNumber;
 private int wordStartIndex;
 private int wordEndIndex;
@@ -18,20 +21,20 @@ private int wordEndIndex;
  * @param paramNumber
  * 	In the first bracket pair of a LexemeTemplate there is a localizationId; {@paramNumber} index of that localizationId
  * 	in MarkedUpText's header.
- * @param modifiers
+ * @param grammemes
  * 	Modifiers from the second bracket pair, or an empty array if there wasn't one.
  * @param wordStartIndex
- * 	Index in {@link org.tendiwa.lexeme.MarkedUpText#rawMarkedUpText} String on which the LexemeTemplate template
+ * 	Index in {@link BasicMarkedUpText#rawMarkedUpText} String on which the LexemeTemplate template
  * 	starts.
  * @param wordEndIndex
- * 	Index in {@link org.tendiwa.lexeme.MarkedUpText#rawMarkedUpText} String on which the LexemeTemplate template
+ * 	Index in {@link BasicMarkedUpText#rawMarkedUpText} String on which the LexemeTemplate template
  * 	starts.
  * @param firstLetterCapital
  * @param agreeingParameterName
  */
-public LexemeTemplate(int paramNumber, List<Modifier> modifiers, int wordStartIndex, int wordEndIndex, boolean firstLetterCapital, String agreeingParameterName) {
+public LexemeTemplate(int paramNumber, List<Grammeme> grammemes, int wordStartIndex, int wordEndIndex, boolean firstLetterCapital, String agreeingParameterName) {
 	this.paramNumber = paramNumber;
-	this.modifiers = modifiers;
+	this.grammemes = grammemes;
 	this.wordStartIndex = wordStartIndex;
 	this.wordEndIndex = wordEndIndex;
 	this.isFirstLetterCapital = firstLetterCapital;
@@ -50,8 +53,8 @@ public boolean isFirstLetterCapital() {
 	return isFirstLetterCapital;
 }
 
-public List<Modifier> getModifiers() {
-	return modifiers;
+public List<Grammeme> getGrammemes() {
+	return grammemes;
 }
 
 public int getWordStartIndex() {

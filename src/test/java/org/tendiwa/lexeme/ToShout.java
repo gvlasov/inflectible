@@ -1,6 +1,4 @@
-package tests;
-
-import org.tendiwa.lexeme.Localizable;
+package org.tendiwa.lexeme;
 
 public class ToShout implements Localizable {
 String id = "to shout";

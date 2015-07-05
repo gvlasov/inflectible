@@ -1,6 +1,4 @@
-package tests;
-
-import org.tendiwa.lexeme.Localizable;
+package org.tendiwa.lexeme;
 
 public class Human implements Localizable {
 String id = "human";

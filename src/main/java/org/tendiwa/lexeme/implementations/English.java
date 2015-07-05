@@ -1,35 +1,53 @@
 package org.tendiwa.lexeme.implementations;
 
-import org.tendiwa.lexeme.Language;
+import java.util.List;
+import org.tendiwa.lexeme.AbstractLanguage;
+import org.tendiwa.lexeme.Grammeme;
 import org.tendiwa.lexeme.LexemeTemplate;
 import org.tendiwa.lexeme.Localizable;
-import org.tendiwa.lexeme.Modifier;
 
-import java.util.List;
+/**
+ * English language.
+ * @author Georgy Vlasov (suseika@tendiwa.org)
+ * @version $Id$
+ * @since 0.1
+ */
+public class English extends AbstractLanguage {
+	public English() {
+		super("English", "en_US");
+	}
 
-public class English extends Language {
-public English() {
-	super("English", "en_US");
-}
+	@Override
+	public Grammeme stringToModifier(String modifier) {
+		return English.Modifiers.valueOf(modifier);
+	}
 
-protected Modifier stringToModifier(String modifier) {
-	return English.Modifiers.valueOf(modifier);
-}
+	@Override
+	public String getMissingWord() {
+		return "[parameter_missing]";
+	}
 
-@Override
-public String getMissingWord() {
-	return "[parameter_missing]";
-}
+	@Override
+	public List<Grammeme> processTemplate(LexemeTemplate lexemeTemplate, Localizable localizable) {
+		return null;
+	}
 
-@Override
-public List<Modifier> processTemplate(LexemeTemplate lexemeTemplate, Localizable localizable) {
-	return null;
-}
-
-public enum Modifiers implements Modifier {
-	Ger,
-	Sing,
-	Plur,
-	III
-}
+	public enum Modifiers implements Grammeme {
+        /**
+         * Gerund.
+         */
+		Ger,
+        /**
+         * Singular.
+         */
+		Sing,
+        /**
+         * Plural.
+         */
+		Plur,
+        /**
+         * Third person.
+         */
+		III
+	}
 }
