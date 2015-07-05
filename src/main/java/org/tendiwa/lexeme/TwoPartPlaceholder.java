@@ -8,7 +8,7 @@ import org.tendiwa.lexeme.antlr.TextBundleParser;
 
 /**
  * Placeholder with two parts in brackets: first one with argument name,
- * second one with possible categories and agreement argument.
+ * second one with possible grammemes and agreement argument.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
@@ -40,7 +40,7 @@ public class TwoPartPlaceholder implements Placeholder {
 
     @Override
     public ImmutableList<String> explicitGrammemes() {
-        final List<TerminalNode> categoryNodes = this.placeholderCtx.CATEGORY();
+        final List<TerminalNode> categoryNodes = this.placeholderCtx.GRAMMEME();
         final ImmutableList.Builder<String> categories =
             ImmutableList.builder();
         for (TerminalNode node : categoryNodes) {

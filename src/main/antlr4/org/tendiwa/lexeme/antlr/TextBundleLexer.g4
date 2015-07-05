@@ -25,13 +25,13 @@ LINE_CONTENT_NL: NL -> popMode, type(NL), skip;
 fragment SEA_CHAR: ~('\n' | '\r' | '[' | '}');
 
 mode PLACEHOLDER_ID;
-NO_CATEGORY_PLACEHOLDER_END: ']' -> popMode;
-CATEGORIES_TRANSITION: '][' -> pushMode(GRAMMAR_CATEGORIES);
+NO_GRAMMEME_PLACEHOLDER_END: ']' -> popMode;
+GRAMMEMES_TRANSITION: '][' -> pushMode(GRAMMEMES);
 CAPITALIZABLE_ID: [a-zA-Z] [a-zA-Z_0-9]*;
 
-mode GRAMMAR_CATEGORIES;
-GRAMMAR_CATEGORIES_WS: WS -> type(WS), skip;
-CATEGORY: Identifier;
+mode GRAMMEMES;
+GRAMMEMES_WS: WS -> type(WS), skip;
+GRAMMEME: Identifier;
 PLACEHOLDER_END: ']' -> popMode, popMode; // Pops through PLACEHOLDER_ID
 AGREEMENT_DELIMITER: ';' -> pushMode(AGREEMENT);
 
