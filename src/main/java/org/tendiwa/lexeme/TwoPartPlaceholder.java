@@ -7,20 +7,21 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import org.tendiwa.lexeme.antlr.TextBundleParser;
 
 /**
- * Placeholder in a parse tree.
+ * Placeholder with two parts in brackets: first one with argument name,
+ * second one with possible categories and agreement argument.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-public class ParsedPlaceholder implements Placeholder {
+public class TwoPartPlaceholder implements Placeholder {
     private final TextBundleParser.PlaceholderContext placeholderCtx;
 
     /**
-     * Creates a placeholder from a parse tree.
-     * @param placeholderCtx A piece of parse tree containing the placeholder
-     * tokens.
+     * Creates a two part placeholder from a parse tree.
+     * @param placeholderCtx A piece of parse tree containing the
+     * two-part-placeholder's tokens.
      */
-    public ParsedPlaceholder(TextBundleParser.PlaceholderContext placeholderCtx) {
+    public TwoPartPlaceholder(TextBundleParser.PlaceholderContext placeholderCtx) {
         this.placeholderCtx = placeholderCtx;
     }
 

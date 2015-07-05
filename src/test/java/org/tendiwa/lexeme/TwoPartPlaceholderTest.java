@@ -5,15 +5,15 @@ import junit.framework.Assert;
 import org.junit.Test;
 import org.tendiwa.lexeme.antlr.TextBundleLexer;
 
-public final class ParsedPlaceholderTest {
+public final class TwoPartPlaceholderTest {
     @Test
     public void decapitalizesId() throws Exception {
         Assert.assertEquals(
             "man",
-            new ParsedPlaceholder(
+            new TwoPartPlaceholder(
                 new TextBundleParserFactory().createInMode(
                     TextBundleLexer.LINE_CONTENT,
-                    "[Man]"
+                    "[Man][These Dont Matter]"
                 ).placeholder()
             ).id()
         );
@@ -23,7 +23,7 @@ public final class ParsedPlaceholderTest {
     public void findsGrammemes() throws Exception {
         Assert.assertEquals(
             ImmutableList.of("Sing", "Masculine"),
-            new ParsedPlaceholder(
+            new TwoPartPlaceholder(
                 new TextBundleParserFactory().createInMode(
                     TextBundleLexer.LINE_CONTENT,
                     "[Man][Sing Masculine]"
@@ -36,7 +36,7 @@ public final class ParsedPlaceholderTest {
     public void findsAgreementId() throws Exception {
         Assert.assertEquals(
             "woman",
-            new ParsedPlaceholder(
+            new TwoPartPlaceholder(
                 new TextBundleParserFactory().createInMode(
                     TextBundleLexer.LINE_CONTENT,
                     "[action][Plur;woman]"

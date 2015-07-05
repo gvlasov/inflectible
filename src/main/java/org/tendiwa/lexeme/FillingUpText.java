@@ -25,7 +25,7 @@ class FillingUpText extends TextBundleParserBaseListener {
 
     @Override
     public final void enterPlaceholder(TextBundleParser.PlaceholderContext placeholderCtx) {
-        final ParsedPlaceholder placeholder = new ParsedPlaceholder(placeholderCtx);
+        final TwoPartPlaceholder placeholder = new TwoPartPlaceholder(placeholderCtx);
         this.builder.append(
             this.arguments
                 .getArgument(

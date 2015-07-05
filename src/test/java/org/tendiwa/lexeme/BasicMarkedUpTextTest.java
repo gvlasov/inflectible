@@ -7,7 +7,7 @@ import org.mockito.Mockito;
 public final class BasicMarkedUpTextTest {
 
     /**
-     * Basic marked up text knows its id.
+     * BasicMarkedUpText knows its id.
      */
     @Test
     public void knowsItsId() {
