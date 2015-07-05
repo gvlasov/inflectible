@@ -23,7 +23,7 @@ public class English extends AbstractLanguage {
 	}
 
 	@Override
-	public String getMissingWord() {
+	public String missingWord() {
 		return "[parameter_missing]";
 	}
 

@@ -18,7 +18,7 @@ public final class TextuaryTest {
             "hello",
             new InputStreamTextuary(
                 Mockito.mock(Language.class),
-                Mockito.mock(Vocabulary.class),
+                Mockito.mock(NativeSpeaker.class),
                 IOUtils.toInputStream(
                     Joiner.on('\n').join(
                         "hey(you) {",

@@ -12,7 +12,7 @@ import org.tendiwa.lexeme.antlr.TextBundleParser;
  */
 class BasicMarkedUpText implements MarkedUpText {
     private final Language language;
-    private final Vocabulary vocabulary;
+    private final NativeSpeaker nativeSpeaker;
     private final TextBundleParser.TextContext ctx;
 
     /**
@@ -27,11 +27,11 @@ class BasicMarkedUpText implements MarkedUpText {
      */
     BasicMarkedUpText(
         Language language,
-        Vocabulary vocabulary,
+        NativeSpeaker nativeSpeaker,
         TextBundleParser.TextContext ctx
     ) {
         this.language = language;
-        this.vocabulary = vocabulary;
+        this.nativeSpeaker = nativeSpeaker;
         this.ctx = ctx;
     }
 
@@ -44,7 +44,7 @@ class BasicMarkedUpText implements MarkedUpText {
     public final String fillUp(Localizable... denotations) {
         final FillingUpText text = new FillingUpText(
             this.language,
-            new MarkupArguments(this.ctx, this.words(denotations))
+            new MarkupArguments(this.ctx, this.lexemes(denotations))
         );
         ParseTreeWalker.DEFAULT.walk(
             text,
@@ -53,14 +53,14 @@ class BasicMarkedUpText implements MarkedUpText {
         return text.toString();
     }
 
-    private List<Word> words(Localizable[] denotations) {
-        List<Word> words = new ArrayList<>(denotations.length);
-        for (Localizable denotation : denotations) {
-            words.add(
-                this.vocabulary.getWord(denotation.getLocalizationId())
+    private List<Lexeme> lexemes(Localizable[] conceptions) {
+        List<Lexeme> lexemes = new ArrayList<>(conceptions.length);
+        for (Localizable denotation : conceptions) {
+            lexemes.add(
+                this.nativeSpeaker.wordFor(denotation)
             );
         }
-        return words;
+        return lexemes;
     }
 
 }

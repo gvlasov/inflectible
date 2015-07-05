@@ -17,13 +17,13 @@ public final class InputStreamTextuary implements Textuary {
     /**
      *
      * @param language
-     * @param vocabulary
+     * @param nativeSpeaker
      * @param corpusStreams InputStreams from which corpuses are loaded. Closed
      * automatically.
      */
     public InputStreamTextuary(
         Language language,
-        Vocabulary vocabulary,
+        NativeSpeaker nativeSpeaker,
         InputStream... corpusStreams
     ) {
         this.texts = new HashMap<>(corpusStreams.length);
@@ -31,7 +31,7 @@ public final class InputStreamTextuary implements Textuary {
             try (InputStream stream = corpusStream) {
                 final TextBundle textBundle = new TextBundleFromStream(
                     language,
-                    vocabulary,
+                    nativeSpeaker,
                     stream
                 );
                 for (MarkedUpText text : textBundle.texts()) {
@@ -49,7 +49,7 @@ public final class InputStreamTextuary implements Textuary {
     }
 
     @Override
-    public MarkedUpText getText(String id) {
-        return this.texts.get(id);
+    public MarkedUpText getText(String textId) {
+        return this.texts.get(textId);
     }
 }

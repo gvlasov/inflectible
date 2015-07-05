@@ -14,8 +14,8 @@ import org.tendiwa.lexeme.antlr.TextBundleParserBaseListener;
  * @since 0.1
  */
 final class MarkupArguments extends TextBundleParserBaseListener {
-    private final Map<String, Word> declarationsToValues = new HashMap<>();
-    private final List<Word> argumentValues;
+    private final Map<String, Lexeme> declarationsToValues = new HashMap<>();
+    private final List<Lexeme> argumentValues;
 
     /**
      * @param ctx A single parsed marked up text.
@@ -23,7 +23,7 @@ final class MarkupArguments extends TextBundleParserBaseListener {
      */
     public MarkupArguments(
         org.tendiwa.lexeme.antlr.TextBundleParser.TextContext ctx,
-        List<Word> argumentValues
+        List<Lexeme> argumentValues
     ) {
         this.argumentValues = argumentValues;
         ParseTreeWalker.DEFAULT.walk(this, ctx);
@@ -41,13 +41,13 @@ final class MarkupArguments extends TextBundleParserBaseListener {
         }
     }
 
-    public final Word getArgument(String declaredName) {
-        final Word word = this.declarationsToValues.get(declaredName);
-        if (word == null) {
+    public final Lexeme getArgument(String declaredName) {
+        final Lexeme lexeme = this.declarationsToValues.get(declaredName);
+        if (lexeme == null) {
             throw new IllegalArgumentException(
                 "No argument with id \"" + declaredName + "\" "
             );
         }
-        return word;
+        return lexeme;
     }
 }

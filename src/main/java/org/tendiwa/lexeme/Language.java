@@ -28,7 +28,7 @@ public interface Language {
      */
     Grammeme stringToModifier(String modifier);
 
-    String getMissingWord();
+    String missingWord();
 
     List<Grammeme> processTemplate(LexemeTemplate lexemeTemplate, Localizable localizable);
 

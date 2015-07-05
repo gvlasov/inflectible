@@ -26,7 +26,7 @@ public class Russian extends LanguageWithFallback {
 	}
 
 	@Override
-	public String getMissingWord() {
+	public String missingWord() {
 		return "[параметр пропущен]";
 	}
 

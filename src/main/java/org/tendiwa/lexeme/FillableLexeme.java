@@ -10,9 +10,9 @@ import java.util.List;
  * @version $Id$
  * @since 0.1
  */
-public class FillableWord implements Word {
+public class FillableLexeme implements Lexeme {
     private List<Grammeme> permanentGrammemes = new LinkedList<>();
-    private List<Lexeme> localizationToModifiers = new LinkedList<>();
+    private List<WordForm> localizationToModifiers = new LinkedList<>();
     private String baseForm;
 
     public void addPermanentModifier(Grammeme grammeme) {
@@ -25,30 +25,30 @@ public class FillableWord implements Word {
     }
 
     public void addWordForm(String wordFormString, List<Grammeme> grammemes) {
-        Lexeme lexeme = new BasicLexeme(wordFormString, grammemes);
+        WordForm wordForm = new BasicWordForm(wordFormString, grammemes);
         if (this.baseForm == null) {
-            this.baseForm = lexeme.toString();
+            this.baseForm = wordForm.toString();
         }
-        localizationToModifiers.add(lexeme);
+        localizationToModifiers.add(wordForm);
     }
 
     @Override
-    public String getBaseForm() {
+    public String baseForm() {
         return baseForm;
     }
 
     @Override
-    public String findWordForm(GrammaticalMeaning meaning) {
+    public String form(GrammaticalMeaning meaning) {
         int maxMatchingModifiers = 0;
-        Lexeme bestSuitedLexeme = null;
-        for (Lexeme form : localizationToModifiers) {
+        WordForm bestSuitedWordForm = null;
+        for (WordForm form : localizationToModifiers) {
             int matchingModifiers = 0;
             for (Grammeme grammeme : meaning.grammemes()) {
                 if (form.getGrammemes().contains(grammeme)) {
                     matchingModifiers++;
                     if (matchingModifiers > maxMatchingModifiers) {
                         maxMatchingModifiers = matchingModifiers;
-                        bestSuitedLexeme = form;
+                        bestSuitedWordForm = form;
                     }
                 }
             }
@@ -57,9 +57,9 @@ public class FillableWord implements Word {
             return baseForm;
         }
 //		if (bestSuitedLexeme == null) {
-//			throw new RuntimeException("A lexeme of word "+baseForm+" for modifiers "+Arrays.asList(modifiers)+" could not be found");
+//			throw new RuntimeException("A lexeme of lexeme "+baseForm+" for modifiers "+Arrays.asList(modifiers)+" could not be found");
 //		}
-        return bestSuitedLexeme.toString();
+        return bestSuitedWordForm.toString();
     }
 
     @Override
@@ -68,7 +68,7 @@ public class FillableWord implements Word {
             @Override
             public ImmutableSet<Grammeme> grammemes() {
                 return ImmutableSet.copyOf(
-                    FillableWord.this.permanentGrammemes
+                    FillableLexeme.this.permanentGrammemes
                 );
             }
         };

@@ -31,7 +31,7 @@ class FillingUpText extends TextBundleParserBaseListener {
                 .getArgument(
                     placeholder.id()
                 )
-                .findWordForm(
+                .form(
                     new PlaceholderGrammaticalMeaning(
                         placeholder,
                         this.language,
@@ -57,7 +57,7 @@ class FillingUpText extends TextBundleParserBaseListener {
                         .CAPITALIZABLE_ID()
                         .getText()
                 )
-                .getBaseForm()
+                .baseForm()
         );
     }
 

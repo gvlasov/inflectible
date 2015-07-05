@@ -39,7 +39,7 @@ mode LEXEMES;
 LEXEMES_END: '}' -> popMode;
 LEXEMES_WS: WS -> type(WS), skip;
 LEXEMES_LBRACKET: LBRACKET -> type(LBRACKET), pushMode(LEXEMES_GRAMMEMES);
-WORD: ~[ \n\r\t\[\]]+;
+WORD_FORM: ~[ \n\r\t\[\]]+;
 
 mode LEXEMES_GRAMMEMES;
 LEXEMES_GRAMMEMES_RBRACKET: RBRACKET -> type(RBRACKET), popMode;

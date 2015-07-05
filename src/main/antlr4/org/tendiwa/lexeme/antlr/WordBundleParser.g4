@@ -12,9 +12,7 @@ denotation: OPENING_QUOTE DENOTATION_ID CLOSING_QUOTE;
 
 persistent_grammemes: grammemes;
 
-entry: lexeme grammemes?;
+entry: WORD_FORM grammemes?;
 
-lexeme: WORD;
-
-grammemes: LBRACKET GRAMMEME+ RBRACKET;
+grammemes: BRACKET GRAMMEME+ RBRACKET;
 

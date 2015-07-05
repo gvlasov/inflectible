@@ -14,7 +14,7 @@ public final class TextBundleFromStreamTest {
             3,
             new TextBundleFromStream(
                 Mockito.mock(Language.class),
-                Mockito.mock(Vocabulary.class),
+                Mockito.mock(NativeSpeaker.class),
                 IOUtils.toInputStream(
                     Joiner.on('\n').join(
                         "id(args) {",
