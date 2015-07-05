@@ -1,0 +1,21 @@
+architect:
+  suseika
+
+decrypt:
+  settings.xml: "repo/settings.xml.asc"
+  pubring.gpg: "repo/pubring.gpg.asc"
+  secring.gpg: "repo/secring.gpg.asc"
+docker:
+  image: "maven:3.2.5-jdk-8"
+release:
+  script: |
+    mvn versions:set "-DnewVersion=${tag}"
+    git commit -am "${tag}"
+    mvn clean deploy --settings /home/r/settings.xml -Psonatype -Pjcabi-gpg -Procollections
+  commanders:
+  - suseika
+deploy:
+  script: |-
+    mvn clean deploy --settings /home/r/settings.xml -Psonatype -Pjcabi-gpg
+  commanders:
+  - suseika
