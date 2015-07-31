@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.tendiwa.lexeme.antlr.TextBundleParser;
+import org.tendiwa.rocollections.ReadOnlyList;
+import org.tendiwa.rocollections.WrappingReadOnlyList;
 
 /**
  * @author Georgy Vlasov (suseika@tendiwa.org)
@@ -44,7 +46,10 @@ class BasicMarkedUpText implements MarkedUpText {
     public final String fillUp(Localizable... denotations) {
         final FillingUpText text = new FillingUpText(
             this.language,
-            new MarkupArguments(this.ctx, this.lexemes(denotations))
+            new ActualArguments(
+                new ParsedDeclaredArguments(this.ctx),
+                this.lexemes(denotations)
+            )
         );
         ParseTreeWalker.DEFAULT.walk(
             text,
@@ -53,14 +58,14 @@ class BasicMarkedUpText implements MarkedUpText {
         return text.toString();
     }
 
-    private List<Lexeme> lexemes(Localizable[] conceptions) {
+    private ReadOnlyList<Lexeme> lexemes(Localizable[] conceptions) {
         List<Lexeme> lexemes = new ArrayList<>(conceptions.length);
         for (Localizable denotation : conceptions) {
             lexemes.add(
                 this.nativeSpeaker.wordFor(denotation)
             );
         }
-        return lexemes;
+        return new WrappingReadOnlyList<>(lexemes);
     }
 
 }
