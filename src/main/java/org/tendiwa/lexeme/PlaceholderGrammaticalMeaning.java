@@ -21,7 +21,7 @@ public final class PlaceholderGrammaticalMeaning
     public PlaceholderGrammaticalMeaning(
         Placeholder placeholder,
         Language language,
-        MarkupArguments arguments
+        ActualArguments arguments
     ) {
         super(
              PlaceholderGrammaticalMeaning.grammemes(
@@ -35,7 +35,7 @@ public final class PlaceholderGrammaticalMeaning
     private static ImmutableSet<Grammeme> grammemes(
         Placeholder placeholder,
         Language language,
-        MarkupArguments arguments
+        ActualArguments arguments
     ) {
         final ImmutableSet.Builder<Grammeme> builder = ImmutableSet.builder();
         if (placeholder.agreementId().isPresent()) {
@@ -53,7 +53,7 @@ public final class PlaceholderGrammaticalMeaning
     }
 
     private static ImmutableSet<Grammeme> agreementGrammemes(
-        MarkupArguments arguments,
+        ActualArguments arguments,
         Placeholder placeholder
     ) {
         return arguments

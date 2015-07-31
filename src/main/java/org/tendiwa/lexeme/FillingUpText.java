@@ -12,12 +12,12 @@ import org.tendiwa.lexeme.antlr.TextBundleParserBaseListener;
  */
 class FillingUpText extends TextBundleParserBaseListener {
     private final Language language;
-    private final MarkupArguments arguments;
+    private final ActualArguments arguments;
     private final StringBuilder builder;
 
     FillingUpText(
         Language language,
-        MarkupArguments arguments
+        ActualArguments arguments
     ) {
         this.language = language;
         this.arguments = arguments;
