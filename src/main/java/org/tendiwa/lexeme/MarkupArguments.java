@@ -41,11 +41,15 @@ final class MarkupArguments extends TextBundleParserBaseListener {
         }
     }
 
-    public final Lexeme getArgument(String declaredName) {
+    /**
+     * @param declaredName Name of argument.
+     * @return Value of the argument with particular name.
+     */
+    public final Lexeme argumentValue(String declaredName) {
         final Lexeme lexeme = this.declarationsToValues.get(declaredName);
         if (lexeme == null) {
             throw new IllegalArgumentException(
-                "No argument with id \"" + declaredName + "\" "
+                "No argument with name \"" + declaredName + "\" "
             );
         }
         return lexeme;

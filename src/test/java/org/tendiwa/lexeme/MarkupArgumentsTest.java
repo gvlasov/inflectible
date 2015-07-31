@@ -27,18 +27,18 @@ public final class MarkupArgumentsTest {
         );
         Assert.assertEquals(
             actor,
-            arguments.getArgument("actor")
+            arguments.argumentValue("actor")
         );
         Assert.assertEquals(
             seer,
-            arguments.getArgument("seer")
+            arguments.argumentValue("seer")
         );
         Assert.assertEquals(
             receiver,
-            arguments.getArgument("receiver")
+            arguments.argumentValue("receiver")
         );
         Assert.assertFalse(
-            receiver.equals(arguments.getArgument("seer"))
+            receiver.equals(arguments.argumentValue("seer"))
         );
     }
 }

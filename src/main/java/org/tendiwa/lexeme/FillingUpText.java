@@ -29,7 +29,7 @@ class FillingUpText extends TextBundleParserBaseListener {
         final TwoPartPlaceholder placeholder = new TwoPartPlaceholder(placeholderCtx);
         this.builder.append(
             this.arguments
-                .getArgument(
+                .argumentValue(
                     placeholder.id()
                 )
                 .form(
@@ -53,7 +53,7 @@ class FillingUpText extends TextBundleParserBaseListener {
     public final void enterNo_category_placeholder(TextBundleParser.No_category_placeholderContext noCategoryPlaceholderCtx) {
         this.builder.append(
             this.arguments
-                .getArgument(
+                .argumentValue(
                     noCategoryPlaceholderCtx
                         .CAPITALIZABLE_ID()
                         .getText()

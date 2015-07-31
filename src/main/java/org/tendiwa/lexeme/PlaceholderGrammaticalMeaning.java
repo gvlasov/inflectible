@@ -57,7 +57,7 @@ public final class PlaceholderGrammaticalMeaning
         Placeholder placeholder
     ) {
         return arguments
-            .getArgument(placeholder.agreementId().get())
+            .argumentValue(placeholder.agreementId().get())
             .persistentGrammemes();
     }
 }
