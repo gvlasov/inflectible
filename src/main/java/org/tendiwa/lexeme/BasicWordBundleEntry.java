@@ -55,7 +55,7 @@ final class BasicWordBundleEntry implements WordBundleEntry {
             .GRAMMEME()
             .stream()
             .map(TerminalNode::getText)
-            .map(this.language::stringToModifier)
+            .map(this.language::grammemeByName)
             .collect(Collectors.toImmutableSet());
     }
 }

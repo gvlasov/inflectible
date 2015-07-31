@@ -15,8 +15,8 @@ public class English extends AbstractLanguage {
 	}
 
 	@Override
-	public Grammeme stringToModifier(String modifier) {
-		return English.Modifiers.valueOf(modifier);
+	public Grammeme grammemeByName(String name) {
+		return Grammemes.valueOf(name);
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class English extends AbstractLanguage {
 		return "[parameter_missing]";
 	}
 
-	public enum Modifiers implements Grammeme {
+	public enum Grammemes implements Grammeme {
         /**
          * Gerund.
          */

@@ -36,7 +36,7 @@ final class BasicGrammaticalMeaning
         final List<TerminalNode> grammemeNodes = grammemesCtx.GRAMMEME();
         final ImmutableSet.Builder<Grammeme> builder = ImmutableSet.builder();
         for (TerminalNode node : grammemeNodes) {
-            builder.add(language.stringToModifier(node.getText()));
+            builder.add(language.grammemeByName(node.getText()));
         }
         return builder.build();
     }

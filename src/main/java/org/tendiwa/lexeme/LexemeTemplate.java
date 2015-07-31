@@ -18,17 +18,14 @@ private int wordStartIndex;
 private int wordEndIndex;
 
 /**
- * @param paramNumber
- * 	In the first bracket pair of a LexemeTemplate there is a localizationId; {@paramNumber} index of that localizationId
- * 	in MarkedUpText's header.
- * @param grammemes
- * 	Modifiers from the second bracket pair, or an empty array if there wasn't one.
- * @param wordStartIndex
- * 	Index in {@link BasicMarkedUpText#rawMarkedUpText} String on which the LexemeTemplate template
- * 	starts.
- * @param wordEndIndex
- * 	Index in {@link BasicMarkedUpText#rawMarkedUpText} String on which the LexemeTemplate template
- * 	starts.
+ * @param paramNumber In the first bracket pair of a LexemeTemplate there is
+ * a localizationId; {@paramNumber} index of that localizationId in MarkedUpText's header.
+ * @param grammemes Grammemes from the second bracket pair, or an empty array
+ * if there wasn't one.
+ * @param wordStartIndex Index in {@link BasicMarkedUpText#rawMarkedUpText}
+ * String on which the LexemeTemplate template starts.
+ * @param wordEndIndex Index in {@link BasicMarkedUpText#rawMarkedUpText} String
+ * on which the LexemeTemplate template starts.
  * @param firstLetterCapital
  * @param agreeingParameterName
  */
