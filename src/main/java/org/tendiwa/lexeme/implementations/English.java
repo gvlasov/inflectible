@@ -1,10 +1,7 @@
 package org.tendiwa.lexeme.implementations;
 
-import java.util.List;
 import org.tendiwa.lexeme.AbstractLanguage;
 import org.tendiwa.lexeme.Grammeme;
-import org.tendiwa.lexeme.LexemeTemplate;
-import org.tendiwa.lexeme.Localizable;
 
 /**
  * English language.
@@ -25,11 +22,6 @@ public class English extends AbstractLanguage {
 	@Override
 	public String missingWord() {
 		return "[parameter_missing]";
-	}
-
-	@Override
-	public List<Grammeme> processTemplate(LexemeTemplate lexemeTemplate, Localizable localizable) {
-		return null;
 	}
 
 	public enum Modifiers implements Grammeme {

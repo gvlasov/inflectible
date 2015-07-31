@@ -1,5 +1,7 @@
 package org.tendiwa.lexeme;
 
+import com.google.common.collect.ImmutableSet;
+
 /**
  * Collection of word forms belonging to the same conception.
  * @author Georgy Vlasov (suseika@tendiwa.org)
@@ -22,14 +24,14 @@ public interface Lexeme {
      * @param meaning Grammatical meaning.
      * @return The word form that corresponds to some grammatical meaning.
      */
-    String form(GrammaticalMeaning meaning);
+    String form(final GrammaticalMeaning meaning);
 
     /**
      * Grammemes inherent to this lexeme.
      * <p>For example, in Russian language, a word <i>кошка</i> (a cat)
-     * inherently contains feminine grammeme from the grammatical category of
+     * inherently contains Feminine grammeme from the grammatical category of
      * gender. No matter the word form of <i>кошка</i>, all of them will
      * contain Feminine grammeme (Russian.Grammemes.Жен)
      */
-    GrammaticalMeaning permanentModifiers();
+    ImmutableSet<Grammeme> persistentGrammemes();
 }

@@ -7,7 +7,7 @@ package org.tendiwa.lexeme;
  * @version $Id$
  * @since 0.1
  */
-public interface ArgumentUsage {
+interface ArgumentUsage {
     /**
      * Name of the argument, as declared in the header line.
      * @return A string that is a valid Java identifier starting with a

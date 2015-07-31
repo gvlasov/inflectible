@@ -24,9 +24,10 @@ public abstract class AbstractLanguage implements Language {
 
 
     @Override
-    public boolean validateLanguage(URL url) {
-        String regex = "(.*\\.)" + getLocaleName() + "(\\..*)";
-        return url.getPath().matches(regex);
+    public final boolean validateLanguage(URL url) {
+        return url.getPath().matches(
+            "(.*\\.)" + this.getLocaleName() + "(\\..*)"
+        );
     }
 
 

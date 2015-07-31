@@ -1,7 +1,7 @@
 lexer grammar WordBundleLexer;
 
 WS: [ \n\r\t] -> skip;
-OPENING_QUOTE: QUOTE -> pushMode(DENOTATION);
+OPENING_QUOTE: QUOTE -> pushMode(CONCEPTION);
 LEXEMES_START: '{' -> pushMode(LEXEMES);
 LBRACKET: '[';
 RBRACKET: ']';
@@ -31,8 +31,8 @@ fragment JavaLetterOrDigit
         {Character.isJavaIdentifierPart(Character.toCodePoint((char)_input.LA(-2), (char)_input.LA(-1)))}?
     ;
 
-mode DENOTATION;
-DENOTATION_ID: [a-z] [a-z ]* [a-z];
+mode CONCEPTION;
+CONCEPTION_ID: [a-z] [a-z ]* [a-z];
 CLOSING_QUOTE: QUOTE -> popMode;
 
 mode LEXEMES;

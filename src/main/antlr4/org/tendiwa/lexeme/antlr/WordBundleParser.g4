@@ -6,11 +6,13 @@ options {
 
 word_bundle: word+;
 
-word: denotation persistent_grammemes? LEXEMES_START entry+ LEXEMES_END;
+word: conception persistent_grammemes? LEXEMES_START word_forms LEXEMES_END;
 
-denotation: OPENING_QUOTE DENOTATION_ID CLOSING_QUOTE;
+conception: OPENING_QUOTE CONCEPTION_ID CLOSING_QUOTE;
 
 persistent_grammemes: grammemes;
+
+word_forms: entry+;
 
 entry: WORD_FORM grammemes?;
 
