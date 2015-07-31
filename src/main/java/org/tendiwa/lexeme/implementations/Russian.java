@@ -21,8 +21,8 @@ public class Russian extends LanguageWithFallback {
 	}
 
 	@Override
-	public Grammeme stringToModifier(String modifier) {
-		return Modifiers.valueOf(modifier);
+	public Grammeme grammemeByName(String name) {
+		return Grammemes.valueOf(name);
 	}
 
 	@Override
@@ -37,27 +37,27 @@ public class Russian extends LanguageWithFallback {
 			if (asInt % 10 >= 2 && asInt % 10 <= 4 && asInt % 100 > 20) {
 				// 2 медведя, но 12 медведей
 				if (
-					!lexemeTemplate.getGrammemes().contains(Russian.Modifiers.Р)
-						&& !lexemeTemplate.getGrammemes().contains(Russian.Modifiers.В)
-						&& !lexemeTemplate.getGrammemes().contains(Russian.Modifiers.Д)
-						&& !lexemeTemplate.getGrammemes().contains(Russian.Modifiers.Т)
-						&& !lexemeTemplate.getGrammemes().contains(Russian.Modifiers.П)
+					!lexemeTemplate.getGrammemes().contains(Grammemes.Р)
+						&& !lexemeTemplate.getGrammemes().contains(Grammemes.В)
+						&& !lexemeTemplate.getGrammemes().contains(Grammemes.Д)
+						&& !lexemeTemplate.getGrammemes().contains(Grammemes.Т)
+						&& !lexemeTemplate.getGrammemes().contains(Grammemes.П)
 					) {
-					return Lists.<Grammeme>newArrayList(Modifiers.Мн, Modifiers.Р, Modifiers.Числ2До4);
+					return Lists.<Grammeme>newArrayList(Grammemes.Мн, Grammemes.Р, Grammemes.Числ2До4);
 				} else {
 					return null;
 				}
 			} else if (asInt % 10 == 1) {
-				return Lists.<Grammeme>newArrayList(Modifiers.Ед);
+				return Lists.<Grammeme>newArrayList(Grammemes.Ед);
 			} else {
-				return Lists.<Grammeme>newArrayList(Modifiers.Мн, Modifiers.Р);
+				return Lists.<Grammeme>newArrayList(Grammemes.Мн, Grammemes.Р);
 			}
 		} else {
 			return null;
 		}
 	}
 
-	public enum Modifiers implements Grammeme {
+	public enum Grammemes implements Grammeme {
 		/**
 		 * Мужской род.
 		 * <p>Masculine gender.

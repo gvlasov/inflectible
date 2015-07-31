@@ -47,7 +47,7 @@ public final class PlaceholderGrammaticalMeaning
             );
         }
         for (String grammemeName : placeholder.explicitGrammemes()) {
-            builder.add(language.stringToModifier(grammemeName));
+            builder.add(language.grammemeByName(grammemeName));
         }
         return builder.build();
     }
