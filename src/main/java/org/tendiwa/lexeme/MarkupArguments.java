@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import org.tendiwa.lexeme.antlr.TextBundleParser;
 import org.tendiwa.lexeme.antlr.TextBundleParserBaseListener;
 
 /**
@@ -22,7 +23,7 @@ final class MarkupArguments extends TextBundleParserBaseListener {
      * @param argumentValues Values of arguments.
      */
     public MarkupArguments(
-        org.tendiwa.lexeme.antlr.TextBundleParser.TextContext ctx,
+        TextBundleParser.TextContext ctx,
         List<Lexeme> argumentValues
     ) {
         this.argumentValues = argumentValues;
