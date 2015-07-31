@@ -1,7 +1,6 @@
 package org.tendiwa.lexeme;
 
 import java.net.URL;
-import java.util.List;
 
 /**
  * @author Georgy Vlasov (suseika@tendiwa.org)
@@ -28,9 +27,8 @@ public interface Language {
      */
     Grammeme stringToModifier(String modifier);
 
-    String getMissingWord();
+    String missingWord();
 
-    List<Grammeme> processTemplate(LexemeTemplate lexemeTemplate, Localizable localizable);
 
     String getLocaleName();
 

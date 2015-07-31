@@ -26,11 +26,10 @@ public class Russian extends LanguageWithFallback {
 	}
 
 	@Override
-	public String getMissingWord() {
+	public String missingWord() {
 		return "[параметр пропущен]";
 	}
 
-	@Override
 	public List<Grammeme> processTemplate(LexemeTemplate lexemeTemplate, Localizable localizable) {
 		if (localizable instanceof LocalizableNumber) {
 			// Согласование с числительным, выраженным цифрами (не словом).

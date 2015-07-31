@@ -4,7 +4,8 @@ import org.tendiwa.lexeme.antlr.TextBundleParser;
 import org.tendiwa.lexeme.antlr.TextBundleParserBaseListener;
 
 /**
- * Complete plain text that fills itself by walking a parse tree.
+ * Complete plain text with filled up placeholders that constructs itself by
+ * walking a parse tree.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
@@ -31,7 +32,7 @@ class FillingUpText extends TextBundleParserBaseListener {
                 .getArgument(
                     placeholder.id()
                 )
-                .findWordForm(
+                .form(
                     new PlaceholderGrammaticalMeaning(
                         placeholder,
                         this.language,
@@ -57,7 +58,7 @@ class FillingUpText extends TextBundleParserBaseListener {
                         .CAPITALIZABLE_ID()
                         .getText()
                 )
-                .getBaseForm()
+                .baseForm()
         );
     }
 

@@ -8,7 +8,10 @@ import org.tendiwa.lexeme.antlr.TextBundleParser;
 
 /**
  * Placeholder with two parts in brackets: first one with argument name,
- * second one with possible grammemes and agreement argument.
+ *  second one with possible grammemes and agreement argument.
+ *  <p/>
+ *  Example of a two-part placeholder:
+ *  <pre>[attacker][Plur]</pre>
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1

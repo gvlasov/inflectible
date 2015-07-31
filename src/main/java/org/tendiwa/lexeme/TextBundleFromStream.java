@@ -18,7 +18,7 @@ import org.tendiwa.lexeme.antlr.TextBundleParser;
 public class TextBundleFromStream implements TextBundle {
 
     private final Language language;
-    private final Vocabulary vocabulary;
+    private final NativeSpeaker nativeSpeaker;
     private final InputStream stream;
 
     /**
@@ -26,11 +26,11 @@ public class TextBundleFromStream implements TextBundle {
      */
     TextBundleFromStream(
         Language language,
-        Vocabulary vocabulary,
+        NativeSpeaker nativeSpeaker,
         InputStream stream
     ) {
         this.language = language;
-        this.vocabulary = vocabulary;
+        this.nativeSpeaker = nativeSpeaker;
         this.stream = stream;
     }
 
@@ -52,7 +52,7 @@ public class TextBundleFromStream implements TextBundle {
                 answer.add(
                     new BasicMarkedUpText(
                         this.language,
-                        this.vocabulary,
+                        this.nativeSpeaker,
                         ctx
                     )
                 );

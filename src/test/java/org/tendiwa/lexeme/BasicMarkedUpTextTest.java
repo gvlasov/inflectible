@@ -15,7 +15,7 @@ public final class BasicMarkedUpTextTest {
             "action.act",
             new BasicMarkedUpText(
                 Mockito.mock(Language.class),
-                Mockito.mock(Vocabulary.class),
+                Mockito.mock(NativeSpeaker.class),
                 new TextBundleParserFactory()
                     .create(
                         "action.act(actor, seer) {",

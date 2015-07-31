@@ -11,7 +11,7 @@ release:
   script: |
     mvn versions:set "-DnewVersion=${tag}"
     git commit -am "${tag}"
-    mvn clean deploy --settings /home/r/settings.xml -Psonatype -Pjcabi-gpg -Procollections
+    mvn clean deploy --settings /home/r/settings.xml -Psonatype -Pjcabi-gpg -Prultor-decrypt
   commanders:
   - suseika
 deploy:

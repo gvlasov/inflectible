@@ -13,9 +13,9 @@ import org.mockito.Mockito;
 public final class MarkupArgumentsTest {
     @Test
     public void mapsArgumentNamesToWords() {
-        final Word actor = Mockito.mock(Word.class);
-        final Word seer = Mockito.mock(Word.class);
-        final Word receiver = Mockito.mock(Word.class);
+        final Lexeme actor = Mockito.mock(Lexeme.class);
+        final Lexeme seer = Mockito.mock(Lexeme.class);
+        final Lexeme receiver = Mockito.mock(Lexeme.class);
         final MarkupArguments arguments = new MarkupArguments(
             new TextBundleParserFactory()
                 .create(

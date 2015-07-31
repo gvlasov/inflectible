@@ -1,6 +1,7 @@
 package org.tendiwa.lexeme;
 
 import com.google.common.collect.ImmutableSet;
+import org.tendiwa.rocollections.WrappingReadOnlySet;
 
 /**
  * Grammatical meaning of a placeholder in some marked up text.
@@ -8,10 +9,9 @@ import com.google.common.collect.ImmutableSet;
  * @version $Id$
  * @since 0.1
  */
-public final class PlaceholderGrammaticalMeaning implements GrammaticalMeaning {
-    private final Language language;
-    private final Placeholder placeholder;
-    private final MarkupArguments arguments;
+public final class PlaceholderGrammaticalMeaning
+    extends WrappingReadOnlySet<Grammeme>
+    implements GrammaticalMeaning {
 
     /**
      * @param placeholder Placeholder in the marked up text.
@@ -23,27 +23,41 @@ public final class PlaceholderGrammaticalMeaning implements GrammaticalMeaning {
         Language language,
         MarkupArguments arguments
     ) {
-        this.language = language;
-        this.placeholder = placeholder;
-        this.arguments = arguments;
+        super(
+             PlaceholderGrammaticalMeaning.grammemes(
+                placeholder,
+                language,
+                arguments
+            )
+        );
     }
 
-    @Override
-    public ImmutableSet<Grammeme> grammemes() {
+    private static ImmutableSet<Grammeme> grammemes(
+        Placeholder placeholder,
+        Language language,
+        MarkupArguments arguments
+    ) {
         final ImmutableSet.Builder<Grammeme> builder = ImmutableSet.builder();
-        if (this.placeholder.agreementId().isPresent()) {
-            builder.addAll(this.agreementGrammemes());
+        if (placeholder.agreementId().isPresent()) {
+            builder.addAll(
+                PlaceholderGrammaticalMeaning.agreementGrammemes(
+                    arguments,
+                    placeholder
+                )
+            );
         }
-        for (String grammemeName : this.placeholder.explicitGrammemes()) {
-            builder.add(this.language.stringToModifier(grammemeName));
+        for (String grammemeName : placeholder.explicitGrammemes()) {
+            builder.add(language.stringToModifier(grammemeName));
         }
         return builder.build();
     }
 
-    private ImmutableSet<Grammeme> agreementGrammemes() {
-        return this.arguments
-            .getArgument(this.placeholder.agreementId().get())
-            .permanentModifiers()
-            .grammemes();
+    private static ImmutableSet<Grammeme> agreementGrammemes(
+        MarkupArguments arguments,
+        Placeholder placeholder
+    ) {
+        return arguments
+            .getArgument(placeholder.agreementId().get())
+            .persistentGrammemes();
     }
 }

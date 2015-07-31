@@ -11,8 +11,7 @@ import com.google.common.collect.ImmutableList;
  */
 public interface Placeholder {
     /**
-     * @return Argument declared name in the first pair of brackets.
-     *
+     * @return Argument's declared name in the first pair of brackets.
      */
     String id();
 
