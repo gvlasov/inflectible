@@ -25,8 +25,11 @@ class FillingUpText extends TextBundleParserBaseListener {
     }
 
     @Override
-    public final void enterPlaceholder(TextBundleParser.PlaceholderContext placeholderCtx) {
-        final TwoPartPlaceholder placeholder = new TwoPartPlaceholder(placeholderCtx);
+    public final void enterPlaceholder(
+        TextBundleParser.PlaceholderContext placeholderCtx
+    ) {
+        final TwoPartPlaceholder placeholder =
+            new TwoPartPlaceholder(placeholderCtx);
         this.builder.append(
             this.arguments
                 .argumentValue(
@@ -43,14 +46,18 @@ class FillingUpText extends TextBundleParserBaseListener {
     }
 
     @Override
-    public final void enterRaw_text(TextBundleParser.Raw_textContext rawTextCtx) {
+    public final void enterRaw_text(
+        TextBundleParser.Raw_textContext rawTextCtx
+    ) {
         this.builder.append(
             rawTextCtx.getText()
         );
     }
 
     @Override
-    public final void enterNo_category_placeholder(TextBundleParser.No_category_placeholderContext noCategoryPlaceholderCtx) {
+    public final void enterNo_category_placeholder(
+        TextBundleParser.No_category_placeholderContext noCategoryPlaceholderCtx
+    ) {
         this.builder.append(
             this.arguments
                 .argumentValue(
