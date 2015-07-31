@@ -1,12 +1,7 @@
 package org.tendiwa.lexeme.implementations;
 
-import com.google.common.collect.Lists;
-import java.util.List;
 import org.tendiwa.lexeme.Grammeme;
 import org.tendiwa.lexeme.LanguageWithFallback;
-import org.tendiwa.lexeme.LexemeTemplate;
-import org.tendiwa.lexeme.Localizable;
-import org.tendiwa.lexeme.LocalizableNumber;
 
 /**
  * Russian language.
@@ -28,33 +23,6 @@ public class Russian extends LanguageWithFallback {
 	@Override
 	public String missingWord() {
 		return "[параметр пропущен]";
-	}
-
-	public List<Grammeme> processTemplate(LexemeTemplate lexemeTemplate, Localizable localizable) {
-		if (localizable instanceof LocalizableNumber) {
-			// Согласование с числительным, выраженным цифрами (не словом).
-			int asInt = Integer.parseInt(localizable.getLocalizationId());
-			if (asInt % 10 >= 2 && asInt % 10 <= 4 && asInt % 100 > 20) {
-				// 2 медведя, но 12 медведей
-				if (
-					!lexemeTemplate.getGrammemes().contains(Grammemes.Р)
-						&& !lexemeTemplate.getGrammemes().contains(Grammemes.В)
-						&& !lexemeTemplate.getGrammemes().contains(Grammemes.Д)
-						&& !lexemeTemplate.getGrammemes().contains(Grammemes.Т)
-						&& !lexemeTemplate.getGrammemes().contains(Grammemes.П)
-					) {
-					return Lists.<Grammeme>newArrayList(Grammemes.Мн, Grammemes.Р, Grammemes.Числ2До4);
-				} else {
-					return null;
-				}
-			} else if (asInt % 10 == 1) {
-				return Lists.<Grammeme>newArrayList(Grammemes.Ед);
-			} else {
-				return Lists.<Grammeme>newArrayList(Grammemes.Мн, Grammemes.Р);
-			}
-		} else {
-			return null;
-		}
 	}
 
 	public enum Grammemes implements Grammeme {
