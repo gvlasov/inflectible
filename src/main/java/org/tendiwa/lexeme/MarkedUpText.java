@@ -1,7 +1,20 @@
 package org.tendiwa.lexeme;
 
+import org.tendiwa.lexeme.antlr.TextBundleParser;
+
 /**
  * Text with unfilled placeholders.
+ * A single marked up text. It consists of three parts:
+ * <ol>
+ *     <li>Localization id;</li>
+ *     <li>List of argument names;</li>
+ *     <li>Template body.</li>
+ * </ol>
+ * <pre>
+ * localization_id (param1, param2, param3) {
+ *     Text about [param1] and [param2][Plur] mentioning [param3][Gerund].
+ * }
+ * </pre>
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  */
@@ -12,11 +25,14 @@ public interface MarkedUpText {
      * @return Id of this text.
      */
     String id();
+
     /**
-     * Fill up placehodlers with lexemes.
-     * @param denotations Localizables whose lexemes to use to fill up the
-     * marked up text.
-     * @return Plain localized text.
+     * @return Names of arguments from the header of this marked up text.
      */
-    String fillUp(Localizable... denotations);
+    DeclaredArguments declaredArguments();
+
+    /**
+     * @return Parse tree of the body body (everything within brackets).
+     */
+    TextBundleParser.TemplateContext body();
 }

@@ -2,7 +2,6 @@ package org.tendiwa.lexeme;
 
 import junit.framework.Assert;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 public final class BasicMarkedUpTextTest {
 
@@ -14,8 +13,6 @@ public final class BasicMarkedUpTextTest {
         Assert.assertEquals(
             "action.act",
             new BasicMarkedUpText(
-                Mockito.mock(Language.class),
-                Mockito.mock(NativeSpeaker.class),
                 new TextBundleParserFactory()
                     .create(
                         "action.act(actor, seer) {",

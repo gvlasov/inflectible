@@ -3,7 +3,7 @@ package org.tendiwa.lexeme;
 import java.util.List;
 
 /**
- * Represents a part of text entry in .texts file in a form of [role][mo di fi ers] where this template is going to be
+ * Represents a part of text entry in .texts file in a form of [role][mo di fi ers] where this body is going to be
  * substituted by a particular lexeme.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
@@ -23,9 +23,9 @@ private int wordEndIndex;
  * @param grammemes Grammemes from the second bracket pair, or an empty array
  * if there wasn't one.
  * @param wordStartIndex Index in {@link BasicMarkedUpText#rawMarkedUpText}
- * String on which the LexemeTemplate template starts.
+ * String on which the LexemeTemplate body starts.
  * @param wordEndIndex Index in {@link BasicMarkedUpText#rawMarkedUpText} String
- * on which the LexemeTemplate template starts.
+ * on which the LexemeTemplate body starts.
  * @param firstLetterCapital
  * @param agreeingParameterName
  */
