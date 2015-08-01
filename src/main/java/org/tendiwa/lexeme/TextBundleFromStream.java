@@ -39,20 +39,18 @@ public class TextBundleFromStream implements TextBundle {
         try {
             final List<TextBundleParser.TextContext> texts =
                 new TextBundleParser(
-                new CommonTokenStream(
-                    new TextBundleLexer(
-                        new ANTLRInputStream(
-                            this.stream
+                    new CommonTokenStream(
+                        new TextBundleLexer(
+                            new ANTLRInputStream(
+                                this.stream
+                            )
                         )
                     )
-                )
-            ).text_bundle().text();
+                ).text_bundle().text();
             final List<MarkedUpText> answer = new ArrayList<>(texts.size());
             for (TextBundleParser.TextContext ctx : texts) {
                 answer.add(
                     new BasicMarkedUpText(
-                        this.language,
-                        this.nativeSpeaker,
                         ctx
                     )
                 );
