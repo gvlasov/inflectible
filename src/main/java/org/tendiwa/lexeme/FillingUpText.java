@@ -55,8 +55,8 @@ class FillingUpText extends TextBundleParserBaseListener {
     }
 
     @Override
-    public final void enterNo_category_placeholder(
-        TextBundleParser.No_category_placeholderContext noCategoryPlaceholderCtx
+    public final void enterBase_form_placeholder(
+        TextBundleParser.Base_form_placeholderContext noCategoryPlaceholderCtx
     ) {
         this.builder.append(
             this.arguments

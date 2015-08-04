@@ -15,10 +15,10 @@ import org.tendiwa.lexeme.antlr.TextBundleParser;
  */
 final class IdOnlyPlaceholder implements Placeholder {
 
-    private final TextBundleParser.No_category_placeholderContext ctx;
+    private final TextBundleParser.Base_form_placeholderContext ctx;
 
     public IdOnlyPlaceholder(
-        TextBundleParser.No_category_placeholderContext noCategoryPlaceholderCtx
+        TextBundleParser.Base_form_placeholderContext noCategoryPlaceholderCtx
     ) {
         this.ctx = noCategoryPlaceholderCtx;
     }

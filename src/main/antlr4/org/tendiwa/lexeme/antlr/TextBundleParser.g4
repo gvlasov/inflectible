@@ -16,13 +16,13 @@ template: line*;
 
 line: ((COMMENT) | (piece+));
 
-piece: no_category_placeholder
+piece: base_form_placeholder
     | placeholder
     | raw_text;
 
 raw_text: (~(PLACEHOLDER_START | TEMPLATE_INDENT | TEMPLATE_END))+;
 
-no_category_placeholder: PLACEHOLDER_START CAPITALIZABLE_ID NO_GRAMMEME_PLACEHOLDER_END;
+base_form_placeholder: PLACEHOLDER_START CAPITALIZABLE_ID NO_GRAMMEME_PLACEHOLDER_END;
 
 placeholder: PLACEHOLDER_START CAPITALIZABLE_ID GRAMMEMES_TRANSITION GRAMMEME* agreement? PLACEHOLDER_END;
 

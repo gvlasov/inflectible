@@ -57,8 +57,8 @@ final class ParsedMarkedUpTextBody implements MarkedUpTextBody {
         }
 
         @Override
-        public final void enterNo_category_placeholder(
-            TextBundleParser.No_category_placeholderContext ctx
+        public final void enterBase_form_placeholder(
+            TextBundleParser.Base_form_placeholderContext ctx
         ) {
             this.walker.enterPlaceholder(
                 new IdOnlyPlaceholder(ctx)
