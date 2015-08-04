@@ -1,8 +1,8 @@
 package org.tendiwa.lexeme;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import java.util.List;
+import java.util.Optional;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.tendiwa.lexeme.antlr.TextBundleParser;
 

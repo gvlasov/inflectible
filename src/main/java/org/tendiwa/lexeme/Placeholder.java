@@ -1,7 +1,7 @@
 package org.tendiwa.lexeme;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
+import java.util.Optional;
 
 /**
  * Placeholder in place of a lexeme in a marked up text.

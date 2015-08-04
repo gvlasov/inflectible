@@ -1,7 +1,7 @@
 package org.tendiwa.lexeme;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
+import java.util.Optional;
 import org.tendiwa.lexeme.antlr.TextBundleParser;
 
 /**
@@ -30,7 +30,7 @@ final class IdOnlyPlaceholder implements Placeholder {
 
     @Override
     public Optional<String> agreementId() {
-        return Optional.absent();
+        return Optional.empty();
     }
 
     @Override
