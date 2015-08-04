@@ -13,11 +13,11 @@ final class BasicLexemeEntry implements LexemeEntry {
     private final String wordForm;
 
     BasicLexemeEntry(
-        final Language language,
+        final Grammar grammar,
         final WordBundleParser.EntryContext entryCtx
     ) {
         this.grammemes = new BasicGrammaticalMeaning(
-            language,
+            grammar,
             entryCtx.grammemes()
         );
         this.wordForm = this.extractWordForm(entryCtx);

@@ -14,19 +14,19 @@ public final class PlaceholderGrammaticalMeaning
     implements GrammaticalMeaning {
 
     /**
-     * @param placeholder Placeholder in the marked up text.
-     * @param language Language of the marked up text.
-     * @param arguments Arguments in the marked up text.
+     * @param placeholder Placeholder in the marked up text
+     * @param grammar Grammar of the target language
+     * @param arguments Arguments in the marked up text
      */
     public PlaceholderGrammaticalMeaning(
         Placeholder placeholder,
-        Language language,
+        Grammar grammar,
         ActualArguments arguments
     ) {
         super(
              PlaceholderGrammaticalMeaning.grammemes(
                 placeholder,
-                language,
+                grammar,
                 arguments
             )
         );
@@ -34,7 +34,7 @@ public final class PlaceholderGrammaticalMeaning
 
     private static ImmutableSet<Grammeme> grammemes(
         Placeholder placeholder,
-        Language language,
+        Grammar grammar,
         ActualArguments arguments
     ) {
         final ImmutableSet.Builder<Grammeme> builder = ImmutableSet.builder();
@@ -47,7 +47,7 @@ public final class PlaceholderGrammaticalMeaning
             );
         }
         for (String grammemeName : placeholder.explicitGrammemes()) {
-            builder.add(language.grammemeByName(grammemeName));
+            builder.add(grammar.grammemeByName(grammemeName));
         }
         return builder.build();
     }

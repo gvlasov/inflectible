@@ -11,23 +11,33 @@ public abstract class AbstractLanguage implements Language {
 
     private final String localizedName;
 
-
     private final String localeName;
+    private final Class<? extends Grammeme> grammemesClass;
 
     /**
-     * @param localizedName Name of the language in that language, for example "Русский" for Russian.
+     * @param localizedName Name of the language in that language, for example
+     *  "Русский" for Russian.
      */
-    protected AbstractLanguage(String localizedName, String localeName) {
+    protected AbstractLanguage(
+        String localizedName,
+        String localeName,
+        Class<? extends Grammeme> grammemesClass
+    ) {
         this.localizedName = localizedName;
         this.localeName = localeName;
+        this.grammemesClass = grammemesClass;
     }
-
 
     @Override
     public final boolean validateLanguage(URL url) {
         return url.getPath().matches(
             "(.*\\.)" + this.getLocaleName() + "(\\..*)"
         );
+    }
+
+    @Override
+    public Grammar grammar() {
+        return new EnumBasedGrammar(this.grammemesClass);
     }
 
 

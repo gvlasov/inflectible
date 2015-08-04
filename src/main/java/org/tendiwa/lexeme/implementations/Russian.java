@@ -12,18 +12,14 @@ import org.tendiwa.lexeme.LanguageWithFallback;
 public class Russian extends LanguageWithFallback {
 
 	public Russian() {
-		super("Русский", "ru_RU", new English());
-	}
-
-	@Override
-	public Grammeme grammemeByName(String name) {
-		return Grammemes.valueOf(name);
+		super("Русский", "ru_RU", Russian.Grammemes.class, new English());
 	}
 
 	@Override
 	public String missingWord() {
 		return "[параметр пропущен]";
 	}
+
 
 	public enum Grammemes implements Grammeme {
 		/**

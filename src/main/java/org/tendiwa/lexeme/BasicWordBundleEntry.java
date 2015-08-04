@@ -13,11 +13,14 @@ import org.tenidwa.collections.utils.Collectors;
  * @since 0.1
  */
 final class BasicWordBundleEntry implements WordBundleEntry {
-    private final Language language;
+    private final Grammar grammar;
     private final WordBundleParser.WordContext wordCtx;
 
-    public BasicWordBundleEntry(Language language, WordBundleParser.WordContext wordCtx) {
-        this.language = language;
+    public BasicWordBundleEntry(
+        Grammar grammar,
+        WordBundleParser.WordContext wordCtx
+    ) {
+        this.grammar = grammar;
         this.wordCtx = wordCtx;
     }
 
@@ -41,7 +44,7 @@ final class BasicWordBundleEntry implements WordBundleEntry {
             .stream()
             .map(
                 entryCtx -> new BasicLexemeEntry(
-                    this.language,
+                    this.grammar,
                     entryCtx
                 )
             )
@@ -55,7 +58,7 @@ final class BasicWordBundleEntry implements WordBundleEntry {
             .GRAMMEME()
             .stream()
             .map(TerminalNode::getText)
-            .map(this.language::grammemeByName)
+            .map(this.grammar::grammemeByName)
             .collect(Collectors.toImmutableSet());
     }
 }

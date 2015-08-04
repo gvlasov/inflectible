@@ -13,7 +13,7 @@ public final class InputStreamWordBundleTest {
     @Test
     public void findsWords() {
         final ImmutableList<WordBundleEntry> words = new InputStreamWordBundle(
-            new Russian(),
+            new Russian().grammar(),
             IOUtils.toInputStream(
                 Joiner.on('\n').join(
                     "\"dragon\" [Муж] {",

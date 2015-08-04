@@ -19,13 +19,16 @@ public final class InputStreamWordBundle implements WordBundle {
     private final ImmutableList<WordBundleEntry> words;
 
     InputStreamWordBundle(
-        Language language,
+        Grammar grammar,
         InputStream in
     ) {
-        this.words = this.parseWords(language, in);
+        this.words = this.parseWords(grammar, in);
     }
 
-    private ImmutableList<WordBundleEntry> parseWords(Language language, InputStream in) {
+    private ImmutableList<WordBundleEntry> parseWords(
+        Grammar grammar,
+        InputStream in
+    ) {
         try {
             return
                 new WordBundleParser(
@@ -40,7 +43,7 @@ public final class InputStreamWordBundle implements WordBundle {
                     .word_bundle()
                     .word()
                     .stream()
-                    .map(word -> new BasicWordBundleEntry(language, word))
+                    .map(word -> new BasicWordBundleEntry(grammar, word))
                     .collect(Collectors.toImmutableList());
         } catch (IOException e) {
             throw new RuntimeException(e);

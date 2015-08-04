@@ -11,15 +11,15 @@ import org.tendiwa.lexeme.antlr.TextBundleParserBaseListener;
  * @since 0.1
  */
 class FillingUpText extends TextBundleParserBaseListener {
-    private final Language language;
+    private final Grammar grammar;
     private final ActualArguments arguments;
     private final StringBuilder builder;
 
     FillingUpText(
-        Language language,
+        Grammar grammar,
         ActualArguments arguments
     ) {
-        this.language = language;
+        this.grammar = grammar;
         this.arguments = arguments;
         this.builder = new StringBuilder();
     }
@@ -38,7 +38,7 @@ class FillingUpText extends TextBundleParserBaseListener {
                 .form(
                     new PlaceholderGrammaticalMeaning(
                         placeholder,
-                        this.language,
+                        this.grammar,
                         this.arguments
                     )
                 )

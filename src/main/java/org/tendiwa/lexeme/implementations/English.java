@@ -11,12 +11,7 @@ import org.tendiwa.lexeme.Grammeme;
  */
 public class English extends AbstractLanguage {
 	public English() {
-		super("English", "en_US");
-	}
-
-	@Override
-	public Grammeme grammemeByName(String name) {
-		return Grammemes.valueOf(name);
+		super("English", "en_US", English.Grammemes.class);
 	}
 
 	@Override
@@ -29,14 +24,17 @@ public class English extends AbstractLanguage {
          * Gerund.
          */
 		Ger,
+
         /**
          * Singular.
          */
 		Sing,
+
         /**
          * Plural.
          */
 		Plur,
+
         /**
          * Third person.
          */

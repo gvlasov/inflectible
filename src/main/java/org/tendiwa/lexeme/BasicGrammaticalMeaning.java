@@ -17,26 +17,26 @@ final class BasicGrammaticalMeaning
     implements GrammaticalMeaning {
 
     /**
-     * @param language Target language
+     * @param grammar Grammar of the target language
      * @param grammemesCtx Parse tree
      */
     public BasicGrammaticalMeaning(
-        Language language,
+        Grammar grammar,
         WordBundleParser.GrammemesContext grammemesCtx
     ) {
         super(
-            BasicGrammaticalMeaning.grammemes(language, grammemesCtx)
+            BasicGrammaticalMeaning.grammemes(grammar, grammemesCtx)
         );
     }
 
     private static ImmutableSet<Grammeme> grammemes(
-        Language language,
+        Grammar grammar,
         WordBundleParser.GrammemesContext grammemesCtx
     ) {
         final List<TerminalNode> grammemeNodes = grammemesCtx.GRAMMEME();
         final ImmutableSet.Builder<Grammeme> builder = ImmutableSet.builder();
         for (TerminalNode node : grammemeNodes) {
-            builder.add(language.grammemeByName(node.getText()));
+            builder.add(grammar.grammemeByName(node.getText()));
         }
         return builder.build();
     }

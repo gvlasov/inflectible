@@ -14,9 +14,10 @@ public abstract class LanguageWithFallback extends AbstractLanguage {
     protected LanguageWithFallback(
         String localizedName,
         String localeName,
+        Class<? extends Grammeme> grammemesClass,
         Language fallbackLanguage
     ) {
-        super(localizedName, localeName);
+        super(localizedName, localeName, grammemesClass);
         this.fallbackLanguage = fallbackLanguage;
     }
 }
