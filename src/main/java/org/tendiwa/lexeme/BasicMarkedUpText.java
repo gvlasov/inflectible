@@ -31,7 +31,7 @@ class BasicMarkedUpText implements MarkedUpText {
     }
 
     @Override
-    public final TextBundleParser.TemplateContext body() {
-        return this.ctx.template();
+    public final MarkedUpTextBody body() {
+        return new ParsedMarkedUpTextBody(this.ctx.template());
     }
 }

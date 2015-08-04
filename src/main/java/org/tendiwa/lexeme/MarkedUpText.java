@@ -1,7 +1,5 @@
 package org.tendiwa.lexeme;
 
-import org.tendiwa.lexeme.antlr.TextBundleParser;
-
 /**
  * Text with unfilled placeholders.
  * A single marked up text. It consists of three parts:
@@ -27,12 +25,12 @@ public interface MarkedUpText {
     String id();
 
     /**
-     * @return Names of arguments from the header of this marked up text.
+     * @return Names of arguments from the header of this text.
      */
     DeclaredArguments declaredArguments();
 
     /**
-     * @return Parse tree of the body body (everything within brackets).
+     * @return Body of this text.
      */
-    TextBundleParser.TemplateContext body();
+    MarkedUpTextBody body();
 }
