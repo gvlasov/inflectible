@@ -1,7 +1,9 @@
 package org.tendiwa.lexeme;
 
+import com.google.common.collect.ImmutableList;
+import org.antlr.v4.runtime.tree.TerminalNode;
 import org.tendiwa.lexeme.antlr.WordBundleParser;
-import org.tendiwa.rocollections.ReadOnlyList;
+import org.tenidwa.collections.utils.Collectors;
 
 /**
  * WordFormMarkup parsed from an ANTLR parse tree.
@@ -17,11 +19,14 @@ final class ParsedWordFormMarkup implements WordFormMarkup {
     }
     @Override
     public String spelling() {
-        return null;
+        return this.ctx.WORD_FORM().getText();
     }
 
     @Override
-    public ReadOnlyList<String> grammemes() {
-        return null;
+    public ImmutableList<String> grammemes() {
+        return this.ctx.grammemes().GRAMMEME()
+            .stream()
+            .map(TerminalNode::getText)
+            .collect(Collectors.toImmutableList());
     }
 }
