@@ -42,7 +42,7 @@ public final class ParsedLexemeMarkupTest {
         );
         MatcherAssert.assertThat(
             markup.persistentGrammemes(),
-            CoreMatchers.equalTo(ImmutableList.of("grammeme"))
+            CoreMatchers.equalTo(ImmutableList.of("Grammeme"))
         );
         MatcherAssert.assertThat(
             markup.wordForms().isEmpty(),
