@@ -10,6 +10,7 @@ import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.tendiwa.lexeme.antlr.WordBundleLexer;
 import org.tendiwa.lexeme.antlr.WordBundleParser;
+import org.tenidwa.collections.utils.Collectors;
 
 /**
  * @since 0.1
@@ -41,11 +42,16 @@ public final class ParsedLexemeMarkupTest {
             CoreMatchers.equalTo("dude")
         );
         MatcherAssert.assertThat(
-            markup.persistentGrammemes(),
+            markup
+                .persistentGrammemes()
+                .collect(Collectors.toImmutableList()),
             CoreMatchers.equalTo(ImmutableList.of("Grammeme"))
         );
         MatcherAssert.assertThat(
-            markup.wordForms().isEmpty(),
+            markup
+                .wordForms()
+                .collect(Collectors.toImmutableList())
+                .isEmpty(),
             CoreMatchers.is(false)
         );
     }

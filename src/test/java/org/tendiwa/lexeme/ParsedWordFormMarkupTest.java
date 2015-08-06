@@ -9,6 +9,7 @@ import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.tendiwa.lexeme.antlr.WordBundleLexer;
 import org.tendiwa.lexeme.antlr.WordBundleParser;
+import org.tenidwa.collections.utils.Collectors;
 
 /**
  * @since 0.1
@@ -29,7 +30,9 @@ public final class ParsedWordFormMarkupTest {
             CoreMatchers.is("dudes")
         );
         MatcherAssert.assertThat(
-            markup.grammemes().contains("Plur"),
+            markup.grammemes()
+                .collect(Collectors.toImmutableList())
+                .contains("Plur"),
             CoreMatchers.is(true)
         );
     }
