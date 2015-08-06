@@ -1,19 +1,17 @@
 package org.tendiwa.lexeme;
 
 import com.google.common.base.Joiner;
-import com.google.common.collect.ImmutableList;
-import junit.framework.Assert;
+import java.util.stream.Stream;
 import org.apache.commons.io.IOUtils;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
-import org.tendiwa.lexeme.implementations.Russian;
+import org.tenidwa.collections.utils.Collectors;
 
 public final class InputStreamWordBundleTest {
     @Test
     public void findsWords() {
-        final ImmutableList<WordBundleEntry> words = new InputStreamWordBundle(
-            new Russian().grammar(),
+        final Stream<LexemeMarkup> words = new InputStreamWordBundle(
             IOUtils.toInputStream(
                 Joiner.on('\n').join(
                     "\"dragon\" [Муж] {",
@@ -28,15 +26,13 @@ public final class InputStreamWordBundleTest {
             )
         )
             .words();
-        Assert.assertEquals(
-            2,
-            words.size()
+        MatcherAssert.assertThat(
+            words.collect(Collectors.toImmutableList()).size(),
+            CoreMatchers.equalTo(2)
         );
         MatcherAssert.assertThat(
-            words.asList().get(0).conceptionId(),
+            words.collect(Collectors.toImmutableList()).get(0).conceptionId(),
             CoreMatchers.equalTo("dragon")
         );
     }
-
-
 }
