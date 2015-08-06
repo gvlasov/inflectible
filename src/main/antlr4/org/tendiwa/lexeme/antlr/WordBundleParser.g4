@@ -16,5 +16,5 @@ word_forms: entry+;
 
 entry: WORD_FORM grammemes?;
 
-grammemes: BRACKET GRAMMEME+ RBRACKET;
+grammemes: LBRACKET GRAMMEME+ RBRACKET;
 
