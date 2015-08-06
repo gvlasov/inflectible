@@ -27,7 +27,7 @@ public final class ParsedWordFormMarkupTest {
                     )
                 )
             )
-                .word()
+                .entry()
         );
         MatcherAssert.assertThat(
             markup.spelling(),

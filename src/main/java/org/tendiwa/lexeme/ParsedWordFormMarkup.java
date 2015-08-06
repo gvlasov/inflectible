@@ -10,11 +10,9 @@ import org.tendiwa.rocollections.ReadOnlyList;
  * @since 0.1
  */
 final class ParsedWordFormMarkup implements WordFormMarkup {
-    private final WordBundleParser.WordContext ctx;
+    private final WordBundleParser.EntryContext ctx;
 
-    ParsedWordFormMarkup(
-        WordBundleParser.WordContext ctx
-    ) {
+    ParsedWordFormMarkup(WordBundleParser.EntryContext ctx) {
         this.ctx = ctx;
     }
     @Override
