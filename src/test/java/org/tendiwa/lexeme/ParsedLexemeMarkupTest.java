@@ -24,7 +24,7 @@ public final class ParsedLexemeMarkupTest {
                         new ANTLRInputStream(
                             IOUtils.toInputStream(
                                 Joiner.on('\n').join(
-                                    "dude [grammeme] {",
+                                    "\"dude\" [Grammeme] {",
                                     "  dude",
                                     "  dudes [Plur]",
                                     "}"
