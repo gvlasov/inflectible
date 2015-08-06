@@ -1,5 +1,6 @@
 package org.tendiwa.lexeme;
 
+import java.io.IOException;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.apache.commons.io.IOUtils;
@@ -15,17 +16,11 @@ import org.tendiwa.lexeme.antlr.WordBundleParser;
 public final class ParsedWordFormMarkupTest {
     @Test
     public void seesAllComponents() throws Exception {
+        final WordBundleLexer lexer = lexerInLexemesMode("dudes [Plur]");
+        lexer.mode(WordBundleLexer.LEXEMES);
         final WordFormMarkup markup = new ParsedWordFormMarkup(
             new WordBundleParser(
-                new CommonTokenStream(
-                    new WordBundleLexer(
-                        new ANTLRInputStream(
-                            IOUtils.toInputStream(
-                                "  dudes [Plur]"
-                            )
-                        )
-                    )
-                )
+                new CommonTokenStream(lexer)
             )
                 .entry()
         );
@@ -36,6 +31,20 @@ public final class ParsedWordFormMarkupTest {
         MatcherAssert.assertThat(
             markup.grammemes().contains("Plur"),
             CoreMatchers.is(true)
+        );
+    }
+
+    /**
+     * Constructs a lexer that starts in {@link WordBundleLexer#LEXEMES} mode.
+     * @param input Text to parse.
+     * @return Lexer in {@link WordBundleLexer#LEXEMES} mode.
+     */
+    private WordBundleLexer lexerInLexemesMode(String input)
+        throws IOException {
+        return new WordBundleLexer(
+            new ANTLRInputStream(
+                IOUtils.toInputStream(input)
+            )
         );
     }
 
