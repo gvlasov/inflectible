@@ -19,12 +19,12 @@ import org.tendiwa.rocollections.ReadOnlyList;
  * <pre>
  * cats [Plur]
  * </pre>
- * @see "WordBundleParser.g4, rule `entry` for how MarkedUpWordForm is parsed."
+ * @see "WordBundleParser.g4, rule `entry` for how WordFormMarkup is parsed."
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-interface MarkedUpWordForm {
+interface WordFormMarkup {
     /**
      * @return The actual spelling of a word form.
      */

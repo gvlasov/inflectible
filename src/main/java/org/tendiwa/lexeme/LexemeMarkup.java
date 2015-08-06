@@ -1,6 +1,6 @@
 package org.tendiwa.lexeme;
 
-import org.tendiwa.rocollections.ReadOnlyList;
+import com.google.common.collect.ImmutableList;
 
 /**
  * A piece of textual markup for a single lexeme.
@@ -27,7 +27,7 @@ import org.tendiwa.rocollections.ReadOnlyList;
  * @version $Id$
  * @since 0.1
  */
-interface MarkedUpLexeme {
+interface LexemeMarkup {
     /**
      * @see Localizable#getLocalizationId()
      * @return Identifier of a conception that is represented by this lexeme.
@@ -37,11 +37,11 @@ interface MarkedUpLexeme {
     /**
      * @return Names of grammemes that every word form in this lexeme will have.
      */
-    ReadOnlyList<String> persistentGrammemes();
+    ImmutableList<String> persistentGrammemes();
 
     /**
      * @return Possible forms this lexeme can assume in various grammatical
      * meanings.
      */
-    ReadOnlyList<MarkedUpWordForm> wordForms();
+    ImmutableList<WordFormMarkup> wordForms();
 }
