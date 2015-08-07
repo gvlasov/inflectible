@@ -1,6 +1,6 @@
 package org.tendiwa.lexeme;
 
-import java.util.stream.Stream;
+import org.tendiwa.rocollections.ReadOnlyList;
 
 /**
  *
@@ -9,5 +9,5 @@ import java.util.stream.Stream;
  * @since 0.1
  */
 public interface WordBundle {
-    Stream<LexemeMarkup> words();
+    ReadOnlyList<LexemeMarkup> words();
 }

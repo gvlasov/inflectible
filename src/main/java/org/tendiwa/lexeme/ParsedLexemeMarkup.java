@@ -27,12 +27,12 @@ public final class ParsedLexemeMarkup implements LexemeMarkup {
 
     @Override
     public Stream<String> persistentGrammemes() {
-        return
-            this.ctx
-                .persistent_grammemes()
-                .grammemes()
-                .GRAMMEME().stream()
-                .map(TerminalNode::getText);
+        return this.ctx
+            .persistent_grammemes()
+            .grammemes()
+            .GRAMMEME()
+            .stream()
+            .map(TerminalNode::getText);
     }
 
     @Override
