@@ -8,5 +8,12 @@ package org.tendiwa.lexeme;
  * @since 0.1
  */
 public interface MarkedUpTextBody {
-    void walk(BodyWalker walker);
+    /**
+     * Walks itself with {@code walker} applying
+     * {@link BodyWalker#enterPlaceholder(Placeholder)} to every placeholder to
+     * turn it into actual text.
+     * @param walker Body walker
+     * @return Text with placeholders filled up.
+     */
+    String walk(BodyWalker walker);
 }

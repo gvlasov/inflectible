@@ -24,16 +24,12 @@ package org.tendiwa.lexeme;
  * @version $Id$
  * @since 0.1
  */
+@FunctionalInterface
 public interface BodyWalker {
     /**
      * Called when a placeholder is encountered.
      * @param placeholder Encountered placeholder.
+     * @return Text that {@code placehodler} is turned into.
      */
-    void enterPlaceholder(Placeholder placeholder);
-
-    /**
-     * Called when plain text part is encountered.
-     * @param plainText Encountered plain text part.
-     */
-    void enterPlaintext(String plainText);
+    String enterPlaceholder(Placeholder placeholder);
 }

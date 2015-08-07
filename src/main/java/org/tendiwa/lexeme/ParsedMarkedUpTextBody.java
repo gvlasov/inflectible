@@ -22,11 +22,10 @@ final class ParsedMarkedUpTextBody implements MarkedUpTextBody {
     }
 
     @Override
-    public void walk(BodyWalker walker) {
-        ParseTreeWalker.DEFAULT.walk(
-            new ParseTreeListener(walker),
-            this.ctx
-        );
+    public String walk(BodyWalker walker) {
+        final ParseTreeListener listener = new ParseTreeListener(walker);
+        ParseTreeWalker.DEFAULT.walk(listener, this.ctx);
+        return listener.filledUpText();
     }
 
     /**
@@ -36,33 +35,47 @@ final class ParsedMarkedUpTextBody implements MarkedUpTextBody {
     private static final class ParseTreeListener
         extends TextBundleParserBaseListener  {
 
+        private final StringBuilder builder;
+
         private final BodyWalker walker;
 
         ParseTreeListener(BodyWalker walker) {
             this.walker = walker;
+            this.builder = new StringBuilder();
         }
 
         @Override
         public final void enterPlaceholder(
             TextBundleParser.PlaceholderContext ctx
         ) {
-            this.walker.enterPlaceholder(
-                new TwoPartPlaceholder(ctx)
+            this.builder.append(
+                this.walker.enterPlaceholder(
+                    new TwoPartPlaceholder(ctx)
+                )
             );
         }
 
         @Override
         public final void enterRaw_text(TextBundleParser.Raw_textContext ctx) {
-            this.walker.enterPlaintext(ctx.getText());
+            this.builder.append(ctx.getText());
         }
 
         @Override
         public final void enterBase_form_placeholder(
             TextBundleParser.Base_form_placeholderContext ctx
         ) {
-            this.walker.enterPlaceholder(
-                new IdOnlyPlaceholder(ctx)
+            this.builder.append(
+                this.walker.enterPlaceholder(
+                    new IdOnlyPlaceholder(ctx)
+                )
             );
+        }
+
+        /**
+         * @return Text collected by this listener after walking the parse tree.
+         */
+        private String filledUpText() {
+            return this.builder.toString();
         }
     }
 }
