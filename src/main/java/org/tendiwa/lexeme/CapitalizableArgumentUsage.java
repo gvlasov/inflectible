@@ -1,7 +1,7 @@
 package org.tendiwa.lexeme;
 
 /**
- * Argument used in a placeholder with first letter probably capitalized..
+ * Argument used in a placeholder with first letter probably capitalized.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1

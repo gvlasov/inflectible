@@ -1,21 +1,24 @@
 package org.tendiwa.lexeme;
 
 import com.google.common.collect.ImmutableList;
+import java.util.stream.IntStream;
 import junit.framework.Assert;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.tendiwa.lexeme.antlr.TextBundleLexer;
 
-public final class TwoPartPlaceholderTest {
+public final class TwoPartPlaceholderMarkupTest {
     @Test
     public void decapitalizesId() throws Exception {
         Assert.assertEquals(
             "man",
-            new TwoPartPlaceholder(
+            new TwoPartPlaceholderMarkup(
                 new TextBundleParserFactory().createInMode(
                     TextBundleLexer.LINE_CONTENT,
                     "[Man][These Dont Matter]"
                 ).placeholder()
-            ).id()
+            ).argumentName()
         );
     }
 
@@ -23,7 +26,7 @@ public final class TwoPartPlaceholderTest {
     public void findsGrammemes() throws Exception {
         Assert.assertEquals(
             ImmutableList.of("Sing", "Masculine"),
-            new TwoPartPlaceholder(
+            new TwoPartPlaceholderMarkup(
                 new TextBundleParserFactory().createInMode(
                     TextBundleLexer.LINE_CONTENT,
                     "[Man][Sing Masculine]"
@@ -36,7 +39,7 @@ public final class TwoPartPlaceholderTest {
     public void findsAgreementId() throws Exception {
         Assert.assertEquals(
             "woman",
-            new TwoPartPlaceholder(
+            new TwoPartPlaceholderMarkup(
                 new TextBundleParserFactory().createInMode(
                     TextBundleLexer.LINE_CONTENT,
                     "[action][Plur;woman]"
@@ -45,4 +48,24 @@ public final class TwoPartPlaceholderTest {
         );
     }
 
+    @Test
+    public void canBeUsedMultipleTimes() throws Exception {
+        final TwoPartPlaceholderMarkup markup = new TwoPartPlaceholderMarkup(
+            new TextBundleParserFactory().createInMode(
+                TextBundleLexer.LINE_CONTENT,
+                "[action][Plur]"
+            ).placeholder()
+        );
+        IntStream.range(0, 1).forEach(
+            i ->
+                MatcherAssert.assertThat(
+                    markup.argumentName(),
+                    CoreMatchers.equalTo("action")
+                )
+        );
+        MatcherAssert.assertThat(
+            markup.explicitGrammemes().contains("Plur"),
+            CoreMatchers.equalTo(true)
+        );
+    }
 }

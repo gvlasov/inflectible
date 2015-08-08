@@ -50,7 +50,7 @@ final class ParsedMarkedUpTextBody implements MarkedUpTextBody {
         ) {
             this.builder.append(
                 this.walker.enterPlaceholder(
-                    new TwoPartPlaceholder(ctx)
+                    new TwoPartPlaceholderMarkup(ctx)
                 )
             );
         }
@@ -66,7 +66,7 @@ final class ParsedMarkedUpTextBody implements MarkedUpTextBody {
         ) {
             this.builder.append(
                 this.walker.enterPlaceholder(
-                    new IdOnlyPlaceholder(ctx)
+                    new IdOnlyPlaceholderMarkup(ctx)
                 )
             );
         }

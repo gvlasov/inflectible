@@ -2,7 +2,7 @@ package org.tendiwa.lexeme;
 
 /**
  * Anything that can be named. For each Localizable, there may be a single
- * lexeme in each language, identified by localization id.
+ * lexeme in each language, identified by localization argumentName.
  */
 public interface Localizable {
 	/**

@@ -1,7 +1,5 @@
 package org.tendiwa.lexeme;
 
-import com.google.common.collect.ImmutableSet;
-
 /**
  * Collection of word forms belonging to the same conception.
  * @author Georgy Vlasov (suseika@tendiwa.org)
@@ -33,5 +31,5 @@ public interface Lexeme {
      * gender. No matter the word form of <i>кошка</i>, all of them will
      * contain Feminine grammeme (Russian.Grammemes.Жен)
      */
-    ImmutableSet<Grammeme> persistentGrammemes();
+   GrammaticalMeaning persistentGrammemes();
 }

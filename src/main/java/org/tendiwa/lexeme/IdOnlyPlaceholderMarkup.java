@@ -13,19 +13,22 @@ import org.tendiwa.lexeme.antlr.TextBundleParser;
  * @version $Id$
  * @since 0.1
  */
-final class IdOnlyPlaceholder implements Placeholder {
+final class IdOnlyPlaceholderMarkup implements PlaceholderMarkup {
 
     private final TextBundleParser.Base_form_placeholderContext ctx;
 
-    public IdOnlyPlaceholder(
+    public IdOnlyPlaceholderMarkup(
         TextBundleParser.Base_form_placeholderContext noCategoryPlaceholderCtx
     ) {
         this.ctx = noCategoryPlaceholderCtx;
     }
 
     @Override
-    public String id() {
-        return this.ctx.CAPITALIZABLE_ID().getText();
+    public String argumentName() {
+        return
+            new CapitalizableArgumentUsage(
+                this.ctx.CAPITALIZABLE_ID().getText()
+            ).declaredName();
     }
 
     @Override
@@ -37,4 +40,5 @@ final class IdOnlyPlaceholder implements Placeholder {
     public ImmutableList<String> explicitGrammemes() {
         return ImmutableList.of();
     }
+
 }

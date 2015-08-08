@@ -31,7 +31,7 @@ public class TextBundleParserFactory {
 
     /**
      * Create from plain text with lexer initialized in a particular mode.
-     * @param mode Mode id.
+     * @param mode Mode argumentName.
      * @param corpusText Lines of corpus text. Will be joined with \n to
      * produce the actual text.
      * @return Parsed corpus.

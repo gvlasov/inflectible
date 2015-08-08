@@ -11,7 +11,7 @@ import org.junit.Test;
 public final class BasicMarkedUpTextTest {
 
     /**
-     * BasicMarkedUpText knows its id.
+     * BasicMarkedUpText knows its argumentName.
      */
     @Test
     public void knowsItsId() {
@@ -43,8 +43,8 @@ public final class BasicMarkedUpTextTest {
                     .text()
             )
                 .body()
-                .walk(Placeholder::id),
-            CoreMatchers.equalTo("Dude and dudette once ate a taco.")
+                .walk(PlaceholderMarkup::argumentName),
+            CoreMatchers.equalTo("dude and dudette once ate a taco.")
         );
     }
 }

@@ -1,8 +1,9 @@
 package org.tendiwa.lexeme;
 
-import java.util.stream.Stream;
+import com.google.common.collect.ImmutableList;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.tendiwa.lexeme.antlr.WordBundleParser;
+import org.tenidwa.collections.utils.Collectors;
 
 /**
  * {@link LexemeMarkup} parsed from an ANTLR parse tree.
@@ -14,33 +15,34 @@ public final class ParsedLexemeMarkup implements LexemeMarkup {
 
     private final WordBundleParser.WordContext ctx;
 
-    public ParsedLexemeMarkup(
-        WordBundleParser.WordContext ctx
-    ) {
+    public ParsedLexemeMarkup(WordBundleParser.WordContext ctx) {
         this.ctx = ctx;
     }
 
+    // TODO: To be refactored in #47
     @Override
     public String conceptionId() {
         return this.ctx.conception().CONCEPTION_ID().getText();
     }
 
     @Override
-    public Stream<String> persistentGrammemes() {
+    public ImmutableList<String> persistentGrammemes() {
         return this.ctx
             .persistent_grammemes()
             .grammemes()
             .GRAMMEME()
             .stream()
-            .map(TerminalNode::getText);
+            .map(TerminalNode::getText)
+            .collect(Collectors.toImmutableList());
     }
 
     @Override
-    public Stream<WordFormMarkup> wordForms() {
+    public ImmutableList<WordFormMarkup> wordForms() {
         return this.ctx
             .word_forms()
             .entry()
             .stream()
-            .map(ParsedWordFormMarkup::new);
+            .map(ParsedWordFormMarkup::new)
+            .collect(Collectors.toImmutableList());
     }
 }

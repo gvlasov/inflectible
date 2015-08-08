@@ -1,8 +1,9 @@
 package org.tendiwa.lexeme;
 
-import java.util.stream.Stream;
+import com.google.common.collect.ImmutableList;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.tendiwa.lexeme.antlr.WordBundleParser;
+import org.tenidwa.collections.utils.Collectors;
 
 /**
  * WordFormMarkup parsed from an ANTLR parse tree.
@@ -16,15 +17,17 @@ final class ParsedWordFormMarkup implements WordFormMarkup {
     ParsedWordFormMarkup(WordBundleParser.EntryContext ctx) {
         this.ctx = ctx;
     }
+
     @Override
     public String spelling() {
         return this.ctx.WORD_FORM().getText();
     }
 
     @Override
-    public Stream<String> grammemes() {
+    public ImmutableList<String> grammemes() {
         return this.ctx.grammemes().GRAMMEME()
             .stream()
-            .map(TerminalNode::getText);
+            .map(TerminalNode::getText)
+            .collect(Collectors.toImmutableList());
     }
 }

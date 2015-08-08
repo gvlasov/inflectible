@@ -1,6 +1,6 @@
 package org.tendiwa.lexeme;
 
-import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableList;
 import java.util.List;
 
 /**
@@ -11,47 +11,47 @@ import java.util.List;
  */
 final class BasicLexeme implements Lexeme {
 
-    private final ImmutableSet<Grammeme> persistentGrammemes;
-    private final List<LexemeEntry> formsWithGrammemes;
+    private final GrammaticalMeaning persistentGrammemes;
+    private final List<WordForm> forms;
 
     /**
-     * @param persistentGrammemes Grammemes that belong to each word form of
-     * this lexeme.
-     * @param formsWithGrammemes Word forms with grammemes that belong to
-     * them. Don't contain grammemes from {@code persistentGrammemes}.
+     * @param forms Word forms
      */
     public BasicLexeme(
-        final ImmutableSet<Grammeme> persistentGrammemes,
-        final List<LexemeEntry> formsWithGrammemes
+        GrammaticalMeaning persistentGrammemes,
+        ImmutableList<WordForm> forms
     ) {
         this.persistentGrammemes = persistentGrammemes;
-        this.formsWithGrammemes = formsWithGrammemes;
+        this.forms = forms;
     }
 
     @Override
     public String form(final GrammaticalMeaning meaning) {
-        int maxScore = this.persistentGrammemes.size();
         int bestScore = 0;
-        LexemeEntry bestMatch = null;
-        for (LexemeEntry entry : this.formsWithGrammemes) {
-            int score = entry.grammaticalMeaning().similarity(meaning);
-            if (score == maxScore) {
-                return entry.wordForm();
-            } else if (score > bestScore) {
+        WordForm bestMatch = null;
+        for (WordForm form : this.forms) {
+            int score = form.grammaticalMeaning().similarity(meaning);
+            if (score > bestScore) {
                 bestScore = score;
-                bestMatch = entry;
+                bestMatch = form;
             }
         }
-        return bestMatch.wordForm();
+        if (bestMatch == null) {
+            throw new IllegalArgumentException(
+                "Word form for grammatical meaning "+meaning+" not found"
+            );
+        }
+        return bestMatch.spelling();
+    }
+
+    @Override
+    public GrammaticalMeaning persistentGrammemes() {
+        return this.persistentGrammemes;
     }
 
     @Override
     public String baseForm() {
-        return this.formsWithGrammemes.get(0).wordForm();
+        return this.forms.get(0).spelling();
     }
 
-    @Override
-    public ImmutableSet<Grammeme> persistentGrammemes() {
-        return this.persistentGrammemes;
-    }
 }

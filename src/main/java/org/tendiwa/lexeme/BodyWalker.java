@@ -31,5 +31,5 @@ public interface BodyWalker {
      * @param placeholder Encountered placeholder.
      * @return Text that {@code placehodler} is turned into.
      */
-    String enterPlaceholder(Placeholder placeholder);
+    String enterPlaceholder(PlaceholderMarkup placeholder);
 }

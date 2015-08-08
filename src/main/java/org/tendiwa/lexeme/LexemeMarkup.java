@@ -1,13 +1,13 @@
 package org.tendiwa.lexeme;
 
-import java.util.stream.Stream;
+import com.google.common.collect.ImmutableList;
 
 /**
  * A piece of textual markup for a single lexeme.
  * <p/>
  * Consists of:
  * <ol>
- *     <li>Conception id</li>
+ *     <li>Conception argumentName</li>
  *     <li>Names of persistent grammemes</li>
  *     <li>Word forms</li>
  * </ol>
@@ -37,11 +37,11 @@ interface LexemeMarkup {
     /**
      * @return Names of grammemes that every word form in this lexeme will have.
      */
-    Stream<String> persistentGrammemes();
+    ImmutableList<String> persistentGrammemes();
 
     /**
      * @return Possible forms this lexeme can assume in various grammatical
      * meanings.
      */
-    Stream<WordFormMarkup> wordForms();
+    ImmutableList<WordFormMarkup> wordForms();
 }

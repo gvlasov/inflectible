@@ -9,7 +9,6 @@ import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.tendiwa.lexeme.antlr.WordBundleLexer;
 import org.tendiwa.lexeme.antlr.WordBundleParser;
-import org.tenidwa.collections.utils.Collectors;
 
 /**
  * @since 0.1
@@ -17,22 +16,20 @@ import org.tenidwa.collections.utils.Collectors;
 public final class ParsedWordFormMarkupTest {
     @Test
     public void seesAllComponents() throws Exception {
-        final WordBundleLexer lexer = lexerInLexemesMode("dudes [Plur]");
-        lexer.mode(WordBundleLexer.LEXEMES);
-        final WordFormMarkup markup = new ParsedWordFormMarkup(
-            new WordBundleParser(
-                new CommonTokenStream(lexer)
-            )
-                .entry()
-        );
+        final WordFormMarkup markup =
+            new ParsedWordFormMarkup(
+                new WordBundleParser(
+                    new CommonTokenStream(
+                        this.lexerInLexemesMode("dudes [Plur]")
+                    )
+                ).entry()
+            );
         MatcherAssert.assertThat(
             markup.spelling(),
             CoreMatchers.is("dudes")
         );
         MatcherAssert.assertThat(
-            markup.grammemes()
-                .collect(Collectors.toImmutableList())
-                .contains("Plur"),
+            markup.grammemes().contains("Plur"),
             CoreMatchers.is(true)
         );
     }
@@ -44,11 +41,13 @@ public final class ParsedWordFormMarkupTest {
      */
     private WordBundleLexer lexerInLexemesMode(String input)
         throws IOException {
-        return new WordBundleLexer(
+        final WordBundleLexer lexer = new WordBundleLexer(
             new ANTLRInputStream(
                 IOUtils.toInputStream(input)
             )
         );
+        lexer.mode(WordBundleLexer.LEXEMES);
+        return lexer;
     }
 
 }

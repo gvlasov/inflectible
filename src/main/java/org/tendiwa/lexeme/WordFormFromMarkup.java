@@ -1,0 +1,35 @@
+package org.tendiwa.lexeme;
+
+
+import org.tenidwa.collections.utils.Collectors;
+
+/**
+ * @author Georgy Vlasov (suseika@tendiwa.org)
+ * @version $Id$
+ * @since 0.1
+ */
+public final class WordFormFromMarkup implements WordForm {
+    private final WordFormMarkup markup;
+    private final Grammar grammar;
+
+    WordFormFromMarkup(WordFormMarkup markup, Grammar grammar) {
+        this.markup = markup;
+        this.grammar = grammar;
+    }
+
+    @Override
+    public String spelling() {
+        return this.markup.spelling();
+    }
+
+    @Override
+    public GrammaticalMeaning grammaticalMeaning() {
+        return
+            new BasicGrammaticalMeaning(
+                this.markup.grammemes()
+                    .stream()
+                    .map(this.grammar::grammemeByName)
+                    .collect(Collectors.toImmutableSet())
+            );
+    }
+}

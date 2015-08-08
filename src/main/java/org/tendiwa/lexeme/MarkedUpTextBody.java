@@ -10,7 +10,7 @@ package org.tendiwa.lexeme;
 public interface MarkedUpTextBody {
     /**
      * Walks itself with {@code walker} applying
-     * {@link BodyWalker#enterPlaceholder(Placeholder)} to every placeholder to
+     * {@link BodyWalker#enterPlaceholder(PlaceholderMarkup)} to every placeholder to
      * turn it into actual text.
      * @param walker Body walker
      * @return Text with placeholders filled up.

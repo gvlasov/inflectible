@@ -16,7 +16,7 @@ import org.tendiwa.lexeme.antlr.TextBundleParser;
  * @version $Id$
  * @since 0.1
  */
-public class TwoPartPlaceholder implements Placeholder {
+public class TwoPartPlaceholderMarkup implements PlaceholderMarkup {
     private final TextBundleParser.PlaceholderContext placeholderCtx;
 
     /**
@@ -24,20 +24,30 @@ public class TwoPartPlaceholder implements Placeholder {
      * @param placeholderCtx A piece of parse tree containing the
      * two-part-placeholder's tokens.
      */
-    public TwoPartPlaceholder(TextBundleParser.PlaceholderContext placeholderCtx) {
+    public TwoPartPlaceholderMarkup(
+        TextBundleParser.PlaceholderContext placeholderCtx
+    ) {
         this.placeholderCtx = placeholderCtx;
     }
 
+
     @Override
-    public final String id() {
-        final String capitalizableId =
-            this.placeholderCtx.CAPITALIZABLE_ID().getText();
-        final char firstChar = capitalizableId.charAt(0);
-        if (Character.isLowerCase(firstChar)) {
-            return capitalizableId;
+    public String argumentName() {
+        return new CapitalizableArgumentUsage(
+            this.placeholderCtx.CAPITALIZABLE_ID().getText()
+        ).declaredName();
+    }
+
+    @Override
+    public final Optional<String> agreementId() {
+        final TextBundleParser.AgreementContext agreement =
+            this.placeholderCtx.agreement();
+        if (agreement != null) {
+            return Optional.of(
+                agreement.AGREEMENT_ID().getText()
+            );
         } else {
-            return Character.toLowerCase(firstChar)
-                + capitalizableId.substring(1);
+            return Optional.empty();
         }
     }
 
@@ -50,12 +60,5 @@ public class TwoPartPlaceholder implements Placeholder {
             categories.add(node.getText());
         }
         return categories.build();
-    }
-
-    @Override
-    public final Optional<String> agreementId() {
-        return Optional.of(
-            this.placeholderCtx.agreement().AGREEMENT_ID().getText()
-        );
     }
 }

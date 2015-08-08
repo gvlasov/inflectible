@@ -9,11 +9,11 @@ import java.util.Optional;
  * @version $Id$
  * @since 0.1
  */
-public interface Placeholder {
+public interface PlaceholderMarkup {
     /**
      * @return Argument's declared name in the first pair of brackets.
      */
-    String id();
+    String argumentName();
 
     /**
      * @return Another argument's declared name in the second pair of
@@ -26,4 +26,8 @@ public interface Placeholder {
      * no second pair of brackets, it will be empty.
      */
     ImmutableList<String> explicitGrammemes();
+
+    default boolean isCapitalized() {
+        return Character.isUpperCase(this.argumentName().charAt(0));
+    }
 }

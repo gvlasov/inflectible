@@ -1,43 +1,22 @@
 package org.tendiwa.lexeme;
 
 import com.google.common.collect.ImmutableSet;
-import java.util.List;
-import org.antlr.v4.runtime.tree.TerminalNode;
-import org.tendiwa.lexeme.antlr.WordBundleParser;
 import org.tendiwa.rocollections.WrappingReadOnlySet;
 
 /**
- * Grammatical meaning coming from a parse tree.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-final class BasicGrammaticalMeaning
+public final class BasicGrammaticalMeaning
     extends WrappingReadOnlySet<Grammeme>
     implements GrammaticalMeaning {
 
-    /**
-     * @param grammar Grammar of the target language
-     * @param grammemesCtx Parse tree
-     */
-    public BasicGrammaticalMeaning(
-        Grammar grammar,
-        WordBundleParser.GrammemesContext grammemesCtx
-    ) {
-        super(
-            BasicGrammaticalMeaning.grammemes(grammar, grammemesCtx)
-        );
+    public BasicGrammaticalMeaning(ImmutableSet<Grammeme> collect) {
+        super(collect);
     }
 
-    private static ImmutableSet<Grammeme> grammemes(
-        Grammar grammar,
-        WordBundleParser.GrammemesContext grammemesCtx
-    ) {
-        final List<TerminalNode> grammemeNodes = grammemesCtx.GRAMMEME();
-        final ImmutableSet.Builder<Grammeme> builder = ImmutableSet.builder();
-        for (TerminalNode node : grammemeNodes) {
-            builder.add(grammar.grammemeByName(node.getText()));
-        }
-        return builder.build();
+    public BasicGrammaticalMeaning(Grammeme... grammemes) {
+        this(ImmutableSet.copyOf(grammemes));
     }
 }

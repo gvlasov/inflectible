@@ -4,7 +4,7 @@ package org.tendiwa.lexeme;
  * Text with unfilled placeholders.
  * A single marked up text. It consists of three parts:
  * <ol>
- *     <li>Localization id;</li>
+ *     <li>Localization argumentName;</li>
  *     <li>List of argument names;</li>
  *     <li>Template body.</li>
  * </ol>
