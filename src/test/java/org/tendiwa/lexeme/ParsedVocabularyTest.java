@@ -6,7 +6,7 @@ import org.apache.commons.io.IOUtils;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
-import org.tendiwa.lexeme.implementations.Russian;
+import org.tendiwa.lexeme.implementations.English;
 
 /**
  * @since 0.1
@@ -16,17 +16,17 @@ public final class ParsedVocabularyTest {
     public void findsWords() throws Exception {
         final ParsedVocabulary bundle =
             new ParsedVocabulary(
-                new Russian().grammar(),
+                new English().grammar(),
                 Collections.singletonList(
                     IOUtils.toInputStream(
                         Joiner.on('\n').join(
-                            "\"dragon\" [Муж] {",
-                            "   дракон  [И Ед]",
-                            "   драконы [И Мн]",
+                            "\"dragon\" {",
+                            "   dragon  [Sing]",
+                            "   dragons [Plur]",
                             "}",
                             "\"bee\" [Жен] {",
-                            "   пчела  [И Ед]",
-                            "   пчёлы  [И Мн]",
+                            "   bee  [Sing]",
+                            "   bees [Plur]",
                             "}"
                         )
                     )
@@ -42,15 +42,15 @@ public final class ParsedVocabularyTest {
         );
         MatcherAssert.assertThat(
             bundle.lexemes().get("dragon").baseForm(),
-            CoreMatchers.equalTo("дракон")
+            CoreMatchers.equalTo("dragon")
         );
         MatcherAssert.assertThat(
             bundle.lexemes().get("dragon").form(
                 new BasicGrammaticalMeaning(
-                    Russian.Grammemes.Мн
+                    English.Grammemes.Plur
                 )
             ),
-            CoreMatchers.equalTo("драконы")
+            CoreMatchers.equalTo("dragons")
         );
     }
 }
