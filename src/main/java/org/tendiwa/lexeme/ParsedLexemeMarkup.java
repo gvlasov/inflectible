@@ -27,13 +27,18 @@ public final class ParsedLexemeMarkup implements LexemeMarkup {
 
     @Override
     public ImmutableList<String> persistentGrammemes() {
-        return this.ctx
-            .persistent_grammemes()
-            .grammemes()
-            .GRAMMEME()
-            .stream()
-            .map(TerminalNode::getText)
-            .collect(Collectors.toImmutableList());
+        final WordBundleParser.Persistent_grammemesContext persistent =
+            this.ctx.persistent_grammemes();
+        if (persistent == null) {
+            return ImmutableList.of();
+        } else {
+            return persistent
+                .grammemes()
+                .GRAMMEME()
+                .stream()
+                .map(TerminalNode::getText)
+                .collect(Collectors.toImmutableList());
+        }
     }
 
     @Override

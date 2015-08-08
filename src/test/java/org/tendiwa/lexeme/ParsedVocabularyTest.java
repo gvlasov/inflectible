@@ -24,7 +24,7 @@ public final class ParsedVocabularyTest {
                             "   dragon  [Sing]",
                             "   dragons [Plur]",
                             "}",
-                            "\"bee\" [Жен] {",
+                            "\"bee\" {",
                             "   bee  [Sing]",
                             "   bees [Plur]",
                             "}"
