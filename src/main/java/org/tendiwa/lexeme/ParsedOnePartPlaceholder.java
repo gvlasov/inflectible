@@ -22,7 +22,10 @@ public final class ParsedOnePartPlaceholder
     public ImmutableSet<Grammeme> grammaticalMeaning() {
         return ImmutableSet.of();
     }
-
+    @Override
+    public final String fillUp(ActualArguments arguments) {
+        return arguments.argumentValue(this.argumentName()).baseForm();
+    }
 
     @Override
     protected String identifier() {

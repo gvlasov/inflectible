@@ -12,17 +12,16 @@ abstract class AbstractVariableConceptPlaceholder implements Placeholder {
     }
 
     @Override
-    public final String fillUp(ActualArguments arguments) {
-        return arguments.argumentValue(this.argumentName())
-            .formForPlaceholder(this);
-    }
-
-    @Override
     public final boolean capitalizes() {
         return new BasicCapitalization(this.identifier())
             .isFirstLetterCapital();
     }
 
+    /**
+     * @return Name of the argument that provides a lexeme for this placeholder.
+     * @see AbstractVariableConceptPlaceholder#identifier() For that same
+     *  name, but possibly capitalized.
+     */
     protected final String argumentName() {
         return new BasicCapitalization(this.identifier()).uncapitalized();
     }
