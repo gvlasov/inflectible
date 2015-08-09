@@ -6,7 +6,7 @@ package org.tendiwa.lexeme;
  * @version $Id$
  * @since 0.1
  */
-abstract class AbstractVariableConceptPlaceholder implements Placeholder {
+abstract class AbstractVariableConceptPlaceholder implements FillablePlaceholder {
     protected AbstractVariableConceptPlaceholder() {
 
     }

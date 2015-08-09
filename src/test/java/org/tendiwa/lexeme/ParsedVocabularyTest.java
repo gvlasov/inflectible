@@ -34,7 +34,7 @@ public final class ParsedVocabularyTest {
             bundle.get("dragon").baseForm(),
             CoreMatchers.equalTo("dragon")
         );
-        Placeholder placeholder = Mockito.mock(Placeholder.class);
+        Placeholder placeholder = Mockito.mock(FillablePlaceholder.class);
         Mockito.when(placeholder.grammaticalMeaning())
             .thenReturn(ImmutableSet.of(English.Grammemes.Plur));
         MatcherAssert.assertThat(

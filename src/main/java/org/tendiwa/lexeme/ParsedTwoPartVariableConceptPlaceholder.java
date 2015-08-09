@@ -13,6 +13,7 @@ import org.tenidwa.collections.utils.Collectors;
 final class ParsedTwoPartVariableConceptPlaceholder
     extends AbstractVariableConceptPlaceholder {
     private final Grammar grammar;
+
     private final TextBundleParser.PlaceholderContext ctx;
 
     ParsedTwoPartVariableConceptPlaceholder(
@@ -73,15 +74,6 @@ final class ParsedTwoPartVariableConceptPlaceholder
                 )
                 .addAll(this.lexeme.persistentGrammemes())
                 .build();
-        }
-
-        @Override
-        public String fillUp(ActualArguments arguments) {
-            return arguments
-                .argumentValue(
-                    ParsedTwoPartVariableConceptPlaceholder.this.argumentName()
-                )
-                .formForPlaceholder(this);
         }
 
         @Override

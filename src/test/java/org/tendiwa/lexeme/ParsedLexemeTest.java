@@ -35,7 +35,7 @@ public final class ParsedLexemeTest {
 
     @Test
     public void canAssumeCorrectForm() throws Exception {
-        Placeholder placeholder = Mockito.mock(Placeholder.class);
+        Placeholder placeholder = Mockito.mock(FillablePlaceholder.class);
         Mockito.when(placeholder.grammaticalMeaning())
             .thenReturn(ImmutableSet.of(English.Grammemes.Plur));
         MatcherAssert.assertThat(
