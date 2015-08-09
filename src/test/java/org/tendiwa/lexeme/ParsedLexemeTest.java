@@ -6,7 +6,6 @@ import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.tendiwa.lexeme.implementations.English;
-import org.tendiwa.lexeme.implementations.Russian;
 
 /**
  * @since 0.1
@@ -16,7 +15,7 @@ public final class ParsedLexemeTest {
     public void hasBaseForm() throws Exception {
         MatcherAssert.assertThat(
             this
-                .firstWordOfBundle("characters.en_US.words", new English())
+                .firstWordOfBundle("characters.en_US.words")
                 .baseForm(),
             CoreMatchers.equalTo("bear")
         );
@@ -24,12 +23,12 @@ public final class ParsedLexemeTest {
 
 
     @Test
-    public void hasPersistentGrammemes() throws Exception {
+    public void worksWithZeroPersistentGrammemes() throws Exception {
         MatcherAssert.assertThat(
             this
-                .firstWordOfBundle("characters.ru_RU.words", new Russian())
+                .firstWordOfBundle("characters.en_US.words")
                 .persistentGrammemes(),
-            CoreMatchers.equalTo(ImmutableSet.of(Russian.Grammemes.Муж))
+            CoreMatchers.equalTo(ImmutableSet.of())
         );
     }
 
@@ -37,7 +36,7 @@ public final class ParsedLexemeTest {
     public void canAssumeCorrectForm() throws Exception {
         MatcherAssert.assertThat(
             this
-                .firstWordOfBundle("characters.en_US.words", new English())
+                .firstWordOfBundle("characters.en_US.words")
                 .form(ImmutableSet.of(English.Grammemes.Plur)),
             CoreMatchers.equalTo("bears")
         );
@@ -46,7 +45,7 @@ public final class ParsedLexemeTest {
     @Test
     public void canBeUsedMultipleTimes() throws Exception {
         final ParsedLexeme lexeme =
-            this.firstWordOfBundle("characters.en_US.words", new English());
+            this.firstWordOfBundle("characters.en_US.words");
         IntStream.range(0, 1).forEach(
             i->
                 MatcherAssert.assertThat(
@@ -57,11 +56,10 @@ public final class ParsedLexemeTest {
     }
 
     private ParsedLexeme firstWordOfBundle(
-        String resourceName,
-        Language language
+        String resourceName
     ) {
         return new ParsedLexeme(
-            language.grammar(),
+            new English().grammar(),
             new BasicWordBundleParser(
                 ParsedLexemeTest.class.getResourceAsStream(
                     resourceName
