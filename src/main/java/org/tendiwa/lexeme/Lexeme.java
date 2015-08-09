@@ -18,13 +18,11 @@ public interface Lexeme {
     String baseForm();
 
     /**
-     * The word form that corresponds to some grammatical meaning.
-     * <p>If there are grammemes in {@code meaning} that are not present in any
-     * of the word forms in this lexeme, those grammemes are ignored.
-     * @param meaning Grammatical meaning.
-     * @return The word form that corresponds to some grammatical meaning.
+     * @param placeholder Placeholder
+     * @return The word form of this lexeme that fits best to the
+     * {@code placeholder}
      */
-    String form(final ImmutableSet<Grammeme> meaning);
+    String formForPlaceholder(Placeholder placeholder);
 
     /**
      * Grammemes inherent to this lexeme.
