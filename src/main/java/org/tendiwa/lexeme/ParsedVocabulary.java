@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
-import org.tenidwa.collections.utils.Collectors;
+import org.tendiwa.lexeme.antlr.WordBundleParser;
 
 /**
  * WordBundle that parses an InputStream to get words.
@@ -18,6 +18,7 @@ public final class ParsedVocabulary
 
     private final List<InputStream> input;
     private final Grammar grammar;
+    // TODO: To be refactored in #47
     private final ImmutableMap<String, Lexeme> lexemes;
 
     public ParsedVocabulary(Grammar grammar, List<InputStream> input) {
@@ -26,40 +27,23 @@ public final class ParsedVocabulary
         this.lexemes = this.constructLexemes();
     }
 
-
     private ImmutableMap<String, Lexeme> constructLexemes() {
         return ImmutableMap.copyOf(
             this.input
                 .stream()
                 .map(BasicWordBundleParser::new)
                 .flatMap(parser -> parser.word_bundle().word().stream())
-                .map(ParsedLexemeMarkup::new)
                 .collect(
                     java.util.stream.Collectors.toMap(
-                        ParsedLexemeMarkup::conceptionId,
-                        this::createLexeme
+                        this::conceptionId,
+                        ctx -> new ParsedLexeme(this.grammar, ctx)
                     )
                 )
         );
     }
 
-    private BasicLexeme createLexeme(ParsedLexemeMarkup lexemeMarkup) {
-        return new BasicLexeme(
-            lexemeMarkup.persistentGrammemes()
-                .stream()
-                .map(this.grammar::grammemeByName)
-                .collect(Collectors.toImmutableSet())
-            ,
-            lexemeMarkup.wordForms().stream()
-                .map(
-                    wordFormCtx ->
-                        new WordFormFromMarkup(
-                            wordFormCtx,
-                            this.grammar
-                        )
-                )
-                .collect(Collectors.toImmutableList())
-        );
+    private String conceptionId(WordBundleParser.WordContext ctx) {
+        return ctx.conception().CONCEPTION_ID().getText();
     }
 
     @Override
