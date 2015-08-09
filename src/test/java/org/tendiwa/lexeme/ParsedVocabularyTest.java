@@ -33,19 +33,19 @@ public final class ParsedVocabularyTest {
                 )
             );
         MatcherAssert.assertThat(
-            bundle.lexemes().size(),
+            bundle.size(),
             CoreMatchers.equalTo(2)
         );
         MatcherAssert.assertThat(
-            bundle.lexemes().containsKey("dragon"),
+            bundle.containsKey("dragon"),
             CoreMatchers.equalTo(true)
         );
         MatcherAssert.assertThat(
-            bundle.lexemes().get("dragon").baseForm(),
+            bundle.get("dragon").baseForm(),
             CoreMatchers.equalTo("dragon")
         );
         MatcherAssert.assertThat(
-            bundle.lexemes().get("dragon").form(
+            bundle.get("dragon").form(
                 new BasicGrammaticalMeaning(
                     English.Grammemes.Plur
                 )

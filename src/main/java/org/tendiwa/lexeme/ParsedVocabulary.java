@@ -1,8 +1,10 @@
 package org.tendiwa.lexeme;
 
+import com.google.common.collect.ForwardingMap;
 import com.google.common.collect.ImmutableMap;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 import org.tenidwa.collections.utils.Collectors;
 
 /**
@@ -11,7 +13,8 @@ import org.tenidwa.collections.utils.Collectors;
  * @version $Id$
  * @since 0.1
  */
-public final class ParsedVocabulary {
+public final class ParsedVocabulary
+    extends ForwardingMap<String, Lexeme> implements Map<String, Lexeme> {
 
     private final List<InputStream> input;
     private final Grammar grammar;
@@ -23,9 +26,6 @@ public final class ParsedVocabulary {
         this.lexemes = this.constructLexemes();
     }
 
-    public ImmutableMap<String, Lexeme> lexemes() {
-        return this.lexemes;
-    }
 
     private ImmutableMap<String, Lexeme> constructLexemes() {
         return ImmutableMap.copyOf(
@@ -61,5 +61,10 @@ public final class ParsedVocabulary {
                 )
                 .collect(Collectors.toImmutableList())
         );
+    }
+
+    @Override
+    protected Map<String, Lexeme> delegate() {
+        return this.lexemes;
     }
 }
