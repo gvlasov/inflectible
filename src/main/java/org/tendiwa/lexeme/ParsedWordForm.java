@@ -35,10 +35,14 @@ public final class ParsedWordForm implements WordForm {
     }
 
     private ImmutableSet<Grammeme> grammemes() {
-        return this.ctx.grammemes().GRAMMEME()
-            .stream()
-            .map(TerminalNode::getText)
-            .map(this.grammar::grammemeByName)
-            .collect(Collectors.toImmutableSet());
+        if (this.ctx.grammemes() == null) {
+            return ImmutableSet.of();
+        } else {
+            return this.ctx.grammemes().GRAMMEME()
+                .stream()
+                .map(TerminalNode::getText)
+                .map(this.grammar::grammemeByName)
+                .collect(Collectors.toImmutableSet());
+        }
     }
 }
