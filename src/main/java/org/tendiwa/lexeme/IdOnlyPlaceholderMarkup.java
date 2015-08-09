@@ -26,9 +26,9 @@ final class IdOnlyPlaceholderMarkup implements PlaceholderMarkup {
     @Override
     public String argumentName() {
         return
-            new CapitalizableArgumentUsage(
+            new BasicCapitalization(
                 this.ctx.CAPITALIZABLE_ID().getText()
-            ).declaredName();
+            ).uncapitalized();
     }
 
     @Override

@@ -33,9 +33,9 @@ public class TwoPartPlaceholderMarkup implements PlaceholderMarkup {
 
     @Override
     public String argumentName() {
-        return new CapitalizableArgumentUsage(
+        return new BasicCapitalization(
             this.placeholderCtx.CAPITALIZABLE_ID().getText()
-        ).declaredName();
+        ).uncapitalized();
     }
 
     @Override

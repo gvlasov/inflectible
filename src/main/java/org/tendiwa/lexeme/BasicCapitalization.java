@@ -6,24 +6,29 @@ package org.tendiwa.lexeme;
  * @version $Id$
  * @since 0.1
  */
-public class CapitalizableArgumentUsage implements ArgumentUsage {
+final class BasicCapitalization implements Capitalization {
     private final String capitalizableId;
 
     /**
      * @param capitalizableId Name of an argument, with first letter probably
-     * capitalized.
+     * capital.
      */
-    CapitalizableArgumentUsage(String capitalizableId) {
+    BasicCapitalization(String capitalizableId) {
         this.capitalizableId = capitalizableId;
     }
 
     @Override
-    public String declaredName() {
-        if (Character.isUpperCase(this.capitalizableId.charAt(0))) {
-            return firstLetterToLowerCase();
+    public String uncapitalized() {
+        if (this.isFirstLetterCapital()) {
+            return this.firstLetterToLowerCase();
         } else {
             return this.capitalizableId;
         }
+    }
+
+    @Override
+    public boolean isFirstLetterCapital() {
+        return Character.isUpperCase(this.capitalizableId.charAt(0));
     }
 
     private String firstLetterToLowerCase() {
