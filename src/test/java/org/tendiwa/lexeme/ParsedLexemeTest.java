@@ -5,6 +5,7 @@ import java.util.stream.IntStream;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.tendiwa.lexeme.implementations.English;
 
 /**
@@ -34,10 +35,13 @@ public final class ParsedLexemeTest {
 
     @Test
     public void canAssumeCorrectForm() throws Exception {
+        Placeholder placeholder = Mockito.mock(Placeholder.class);
+        Mockito.when(placeholder.grammaticalMeaning())
+            .thenReturn(ImmutableSet.of(English.Grammemes.Plur));
         MatcherAssert.assertThat(
             this
                 .firstWordOfBundle("characters.en_US.words")
-                .form(ImmutableSet.of(English.Grammemes.Plur)),
+                .formForPlaceholder(placeholder),
             CoreMatchers.equalTo("bears")
         );
     }
