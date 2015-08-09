@@ -11,4 +11,6 @@ public interface Placeholder {
     ImmutableSet<Grammeme> grammaticalMeaning();
 
     String fillUp(ActualArguments arguments);
+
+    boolean capitalizes();
 }
