@@ -1,6 +1,7 @@
 package org.tendiwa.lexeme;
 
 import com.google.common.base.Joiner;
+import com.google.common.collect.ImmutableSet;
 import java.util.Collections;
 import org.apache.commons.io.IOUtils;
 import org.hamcrest.CoreMatchers;
@@ -46,9 +47,7 @@ public final class ParsedVocabularyTest {
         );
         MatcherAssert.assertThat(
             bundle.get("dragon").form(
-                new BasicGrammaticalMeaning(
-                    English.Grammemes.Plur
-                )
+                ImmutableSet.of(English.Grammemes.Plur)
             ),
             CoreMatchers.equalTo("dragons")
         );

@@ -1,6 +1,7 @@
 package org.tendiwa.lexeme;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import java.util.List;
 
 /**
@@ -11,14 +12,14 @@ import java.util.List;
  */
 final class BasicLexeme implements Lexeme {
 
-    private final GrammaticalMeaning persistentGrammemes;
+    private final ImmutableSet<Grammeme> persistentGrammemes;
     private final List<WordForm> forms;
 
     /**
      * @param forms Word forms
      */
     public BasicLexeme(
-        GrammaticalMeaning persistentGrammemes,
+        ImmutableSet<Grammeme> persistentGrammemes,
         ImmutableList<WordForm> forms
     ) {
         this.persistentGrammemes = persistentGrammemes;
@@ -26,11 +27,11 @@ final class BasicLexeme implements Lexeme {
     }
 
     @Override
-    public String form(final GrammaticalMeaning meaning) {
+    public String form(final ImmutableSet<Grammeme> meaning) {
         int bestScore = 0;
         WordForm bestMatch = null;
         for (WordForm form : this.forms) {
-            int score = form.grammaticalMeaning().similarity(meaning);
+            int score = form.similarity(meaning);
             if (score > bestScore) {
                 bestScore = score;
                 bestMatch = form;
@@ -45,7 +46,7 @@ final class BasicLexeme implements Lexeme {
     }
 
     @Override
-    public GrammaticalMeaning persistentGrammemes() {
+    public ImmutableSet<Grammeme> persistentGrammemes() {
         return this.persistentGrammemes;
     }
 

@@ -1,5 +1,7 @@
 package org.tendiwa.lexeme;
 
+import com.google.common.collect.ImmutableSet;
+
 /**
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
@@ -8,5 +10,5 @@ package org.tendiwa.lexeme;
 interface WordForm {
     String spelling();
 
-    GrammaticalMeaning grammaticalMeaning();
+    int similarity(ImmutableSet<Grammeme> grammemes);
 }

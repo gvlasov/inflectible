@@ -1,6 +1,8 @@
 package org.tendiwa.lexeme;
 
 
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import org.tenidwa.collections.utils.Collectors;
 
 /**
@@ -23,13 +25,17 @@ public final class WordFormFromMarkup implements WordForm {
     }
 
     @Override
-    public GrammaticalMeaning grammaticalMeaning() {
-        return
-            new BasicGrammaticalMeaning(
-                this.markup.grammemes()
-                    .stream()
-                    .map(this.grammar::grammemeByName)
-                    .collect(Collectors.toImmutableSet())
-            );
+    public int similarity(ImmutableSet<Grammeme> grammemes) {
+        return Sets.intersection(
+            this.grammaticalMeaning(),
+            grammemes
+        ).size();
+    }
+
+    private ImmutableSet<Grammeme> grammaticalMeaning() {
+        return this.markup.grammemes()
+            .stream()
+            .map(this.grammar::grammemeByName)
+            .collect(Collectors.toImmutableSet());
     }
 }

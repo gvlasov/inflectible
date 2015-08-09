@@ -45,12 +45,11 @@ public final class ParsedVocabulary
 
     private BasicLexeme createLexeme(ParsedLexemeMarkup lexemeMarkup) {
         return new BasicLexeme(
-            new BasicGrammaticalMeaning(
-                lexemeMarkup.persistentGrammemes()
-                    .stream()
-                    .map(this.grammar::grammemeByName)
-                    .collect(Collectors.toImmutableSet())
-            ),
+            lexemeMarkup.persistentGrammemes()
+                .stream()
+                .map(this.grammar::grammemeByName)
+                .collect(Collectors.toImmutableSet())
+            ,
             lexemeMarkup.wordForms().stream()
                 .map(
                     wordFormCtx ->
