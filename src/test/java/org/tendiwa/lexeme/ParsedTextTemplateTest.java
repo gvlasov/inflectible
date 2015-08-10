@@ -11,6 +11,9 @@ import org.junit.Test;
 import org.tendiwa.lexeme.antlr.TextBundleParser;
 import org.tendiwa.lexeme.implementations.English;
 
+/**
+ * @since 0.1
+ */
 public final class ParsedTextTemplateTest {
     @Test
     public void fillsUpItself() throws Exception {
@@ -24,27 +27,37 @@ public final class ParsedTextTemplateTest {
             )
         );
         MatcherAssert.assertThat(
-            new ParsedTextTemplate(grammar, this.textContext()).fillUp(
+            new ParsedTextTemplate(
+                grammar,
+                this.textContext(
+                    Joiner.on('\n').join(
+                        "texts.text(a,b) {",
+                        "  Here come a [a] and two [b][Plur;a]. [A] is tall.",
+                        "}"
+                    )
+                )
+            ).fillUp(
                 ImmutableList.of(
                     vocabulary.get("human"),
                     vocabulary.get("bear")
                 )
             ),
-            CoreMatchers.equalTo("Here come a human and two bears")
+            CoreMatchers.equalTo(
+                "Here come a human and two bears. Human is tall."
+            )
         );
     }
 
-    private TextBundleParser.TextContext textContext() throws IOException {
+    /**
+     * Creates an ANTLR parse tree for a single text template.
+     * @param template
+     * @return
+     * @throws IOException
+     */
+    private TextBundleParser.TextContext textContext(String template)
+        throws IOException {
         return
-            new BasicTextBundleParser(
-                IOUtils.toInputStream(
-                    Joiner.on('\n').join(
-                        "texts.text(a,b) {",
-                        "  Here come a [a] and two [b][Plur]",
-                        "}"
-                    )
-                )
-            )
+            new BasicTextBundleParser(IOUtils.toInputStream(template))
                 .text_bundle()
                 .text(0);
     }
