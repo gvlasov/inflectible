@@ -1,11 +1,10 @@
 package org.tendiwa.lexeme;
 
-import java.util.Collections;
+import com.google.common.collect.ImmutableList;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.tendiwa.rocollections.WrappingReadOnlyList;
 
 /**
  * @since 0.1
@@ -19,9 +18,7 @@ public final class ActualArgumentsTest {
         MatcherAssert.assertThat(
             new ActualArguments(
                 declared,
-                new WrappingReadOnlyList<>(
-                    Collections.singletonList(guest)
-                )
+                ImmutableList.of(guest)
             ).argumentValue("guest"),
             CoreMatchers.equalTo(guest)
         );
@@ -35,9 +32,7 @@ public final class ActualArgumentsTest {
         Mockito.when(declared.index("host")).thenReturn(1);
         new ActualArguments(
             declared,
-            new WrappingReadOnlyList<>(
-                Collections.singletonList(guest)
-            )
+            ImmutableList.of(guest)
         ).argumentValue("host");
     }
 }

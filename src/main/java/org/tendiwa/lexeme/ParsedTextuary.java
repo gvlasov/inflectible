@@ -38,7 +38,7 @@ public class ParsedTextuary {
         return this.inputs.stream()
             .map(this::createParser)
             .flatMap(parser -> parser.text_bundle().text().stream())
-            .map(BasicTextTemplate::new)
+            .map(textCtx -> new ParsedTextTemplate(this.grammar, textCtx))
             .collect(Collectors.toImmutableList());
     }
 

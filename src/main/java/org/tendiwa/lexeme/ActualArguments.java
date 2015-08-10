@@ -1,6 +1,6 @@
 package org.tendiwa.lexeme;
 
-import org.tendiwa.rocollections.ReadOnlyList;
+import com.google.common.collect.ImmutableList;
 
 /**
  * Actual values of arguments passed in a text to fill up placeholders.
@@ -11,12 +11,12 @@ import org.tendiwa.rocollections.ReadOnlyList;
  * @since 0.1
  */
 public final class ActualArguments {
-    private final ReadOnlyList<Lexeme> values;
+    private final ImmutableList<Lexeme> values;
     private final DeclaredArguments declaredArguments;
 
     ActualArguments(
         DeclaredArguments declaredArguments,
-        ReadOnlyList<Lexeme> values
+        ImmutableList<Lexeme> values
     ) {
         this.declaredArguments = declaredArguments;
         this.values = values;

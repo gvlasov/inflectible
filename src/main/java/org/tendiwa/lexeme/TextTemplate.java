@@ -1,5 +1,7 @@
 package org.tendiwa.lexeme;
 
+import com.google.common.collect.ImmutableList;
+
 /**
  * Text with unfilled placeholders.
  * A single marked up text. It consists of three parts:
@@ -19,18 +21,8 @@ package org.tendiwa.lexeme;
 public interface TextTemplate {
 
     /**
-     * Id of this text. Corresponds to entry_id rule in TextBundleParser.g4.
-     * @return Id of this text.
+     * @param lexemes Lexemes to be inserted in place of placeholders
+     * @return Text with placeholders filled up.
      */
-    String id();
-
-    /**
-     * @return Names of arguments from the header of this text.
-     */
-    DeclaredArguments declaredArguments();
-
-    /**
-     * @return Body of this text.
-     */
-    MarkedUpTextBody body();
+    String fillUp(ImmutableList<Lexeme> lexemes);
 }
