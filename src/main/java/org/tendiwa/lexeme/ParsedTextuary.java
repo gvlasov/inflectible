@@ -19,10 +19,10 @@ public class ParsedTextuary {
 
     private final List<InputStream> inputs;
     private final Grammar grammar;
-    private final List<MarkedUpText> texts;
+    private final List<TextTemplate> texts;
 
     /**
-     * @param inputs Sources to parse into {@link MarkedUpText}s.
+     * @param inputs Sources to parse into {@link TextTemplate}s.
      */
     ParsedTextuary(Grammar grammar, List<InputStream> inputs) {
         this.inputs = inputs;
@@ -30,15 +30,15 @@ public class ParsedTextuary {
         this.texts = this.computeTexts();
     }
 
-    public List<MarkedUpText> texts() {
+    public List<TextTemplate> texts() {
         return this.texts;
     }
 
-    private List<MarkedUpText> computeTexts() {
+    private List<TextTemplate> computeTexts() {
         return this.inputs.stream()
             .map(this::createParser)
             .flatMap(parser -> parser.text_bundle().text().stream())
-            .map(BasicMarkedUpText::new)
+            .map(BasicTextTemplate::new)
             .collect(Collectors.toImmutableList());
     }
 

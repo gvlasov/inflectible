@@ -17,7 +17,7 @@ package org.tendiwa.lexeme;
  *     <li><pre> were born.</pre> — plain text;</li>
  * </ol>
  * <p/>
- * A BodyWalker walking over the body of such {@link MarkedUpText} would
+ * A BodyWalker walking over the body of such {@link TextTemplate} would
  * encounter these parts in this very order, and call corresponding methods
  * for each encounter.
  * @author Georgy Vlasov (suseika@tendiwa.org)

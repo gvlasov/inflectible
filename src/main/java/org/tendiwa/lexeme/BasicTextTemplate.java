@@ -8,13 +8,13 @@ import org.tendiwa.lexeme.antlr.TextBundleParser;
  * @version $Id$
  * @since 0.1
  */
-class BasicMarkedUpText implements MarkedUpText {
+class BasicTextTemplate implements TextTemplate {
     private final TextBundleParser.TextContext ctx;
 
     /**
      * @param ctx Parse subtree containing markup.
      */
-    BasicMarkedUpText(
+    BasicTextTemplate(
         TextBundleParser.TextContext ctx
     ) {
         this.ctx = ctx;

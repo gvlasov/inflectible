@@ -8,5 +8,5 @@ package org.tendiwa.lexeme;
  * @since 0.1
  */
 public interface Textuary {
-    MarkedUpText getText(String name);
+    TextTemplate getText(String name);
 }

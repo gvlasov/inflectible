@@ -1,7 +1,7 @@
 package org.tendiwa.lexeme;
 
 /**
- * Body of a {@link MarkedUpText}. Body consists of plain text with
+ * Body of a {@link TextTemplate}. Body consists of plain text with
  * placeholders.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$

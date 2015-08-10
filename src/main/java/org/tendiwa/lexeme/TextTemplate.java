@@ -16,7 +16,7 @@ package org.tendiwa.lexeme;
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  */
-public interface MarkedUpText {
+public interface TextTemplate {
 
     /**
      * Id of this text. Corresponds to entry_id rule in TextBundleParser.g4.

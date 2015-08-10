@@ -11,5 +11,5 @@ public interface TextBundle {
     /**
      * @return Texts in this corpus.
      */
-    List<MarkedUpText> texts();
+    List<TextTemplate> texts();
 }

@@ -8,7 +8,7 @@ import org.junit.Test;
 /**
  * @since 0.1
  */
-public final class BasicMarkedUpTextTest {
+public final class BasicTextTemplateTest {
 
     /**
      * BasicMarkedUpText knows its argumentName.
@@ -17,7 +17,7 @@ public final class BasicMarkedUpTextTest {
     public void knowsItsId() {
         Assert.assertEquals(
             "action.act",
-            new BasicMarkedUpText(
+            new BasicTextTemplate(
                 new TextBundleParserFactory()
                     .create(
                         "action.act(actor, seer) {",
@@ -33,7 +33,7 @@ public final class BasicMarkedUpTextTest {
     @Test
     public void hasWalkableBody() {
         MatcherAssert.assertThat(
-            new BasicMarkedUpText(
+            new BasicTextTemplate(
                 new TextBundleParserFactory()
                     .create(
                         "story.short(dude, dudette) {",
