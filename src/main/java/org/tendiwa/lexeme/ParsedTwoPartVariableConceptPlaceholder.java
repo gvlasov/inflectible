@@ -1,6 +1,7 @@
 package org.tendiwa.lexeme;
 
 import com.google.common.collect.ImmutableSet;
+import java.util.Optional;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.tendiwa.lexeme.antlr.TextBundleParser;
 import org.tenidwa.collections.utils.Collectors;
@@ -36,16 +37,26 @@ final class ParsedTwoPartVariableConceptPlaceholder
 
     @Override
     public String fillUp(ActualArguments arguments) {
-        return arguments.argumentValue(this.argumentName())
-            .formForPlaceholder(
-                new AgreeingPlaceholder(
-                    arguments.argumentValue(this.agreementArgumentName())
+        final Placeholder placeholder;
+        if (this.agreementArgumentName().isPresent()) {
+            placeholder = new AgreeingPlaceholder(
+                arguments.argumentValue(
+                    this.agreementArgumentName().get()
                 )
             );
+        } else {
+            placeholder = this;
+        }
+        return arguments.argumentValue(this.argumentName())
+            .formForPlaceholder(placeholder);
     }
 
-    private String agreementArgumentName() {
-        return this.ctx.agreement().AGREEMENT_ID().getText();
+    private Optional<String> agreementArgumentName() {
+        if (this.ctx.agreement() == null) {
+            return Optional.empty();
+        } else {
+            return Optional.of(this.ctx.agreement().AGREEMENT_ID().getText());
+        }
     }
 
     @Override
