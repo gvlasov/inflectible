@@ -22,6 +22,7 @@ public interface Lexeme {
      * @return The word form of this lexeme that fits best to the
      * {@code placeholder}
      */
+    // TODO: This should probably be changed to form(ImmutableSet<Grammeme>)
     String formForPlaceholder(Placeholder placeholder);
 
     /**
