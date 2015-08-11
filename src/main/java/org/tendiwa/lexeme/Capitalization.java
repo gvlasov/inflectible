@@ -13,6 +13,14 @@ interface Capitalization {
     String uncapitalized();
 
     /**
+     * @param capitalized Whether the first letter should be capitalized
+     * @return Content with first letter in upper case if {@code capitalized}
+     * is true. Content with first letter in lower case if {@code
+     * capitalized} is false.
+     */
+    String changeCase(boolean capitalized);
+
+    /**
      * @return True iff it starts from a capital letter.
      */
     boolean isFirstLetterCapital();

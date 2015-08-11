@@ -1,7 +1,7 @@
 package org.tendiwa.lexeme;
 
 /**
- * Argument used in a placeholder with first letter probably capitalized.
+ * A word that knows if its first letter is uppercase or lowercase.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
@@ -24,6 +24,28 @@ final class BasicCapitalization implements Capitalization {
         } else {
             return this.capitalizableId;
         }
+    }
+
+    private String capitalized() {
+        if (this.isFirstLetterCapital()) {
+            return this.capitalizableId;
+        } else {
+            return this.firstLetterToUpperCase();
+        }
+    }
+
+    private String firstLetterToUpperCase() {
+        return String.valueOf(
+            Character.toUpperCase(
+                this.capitalizableId.charAt(0)
+            )
+        )
+            + this.capitalizableId.substring(1);
+    }
+
+    @Override
+    public String changeCase(boolean capitalized) {
+        return capitalized ? this.capitalized() : this.uncapitalized();
     }
 
     @Override
