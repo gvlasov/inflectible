@@ -34,9 +34,33 @@ public final class BasicPlaceholder implements FillablePlaceholder {
 
     @Override
     public String fillUp(ActualArguments arguments) {
+        Placeholder placeholder;
+        if (this.agreementName.isPresent()) {
+            placeholder = new AgreeingPlaceholder(
+                arguments.argumentValue(this.agreementName.get())
+            );
+        } else {
+            placeholder = this;
+        }
         return new BasicCapitalization(
             arguments.argumentValue(this.name)
-                .formForPlaceholder(this)
+            .formForPlaceholder(placeholder)
         ).changeCase(this.capitalizes());
+    }
+
+    private final class AgreeingPlaceholder implements Placeholder {
+        private final Lexeme lexeme;
+
+        public AgreeingPlaceholder(Lexeme lexeme) {
+            this.lexeme = lexeme;
+        }
+
+        @Override
+        public ImmutableSet<Grammeme> grammaticalMeaning() {
+            return ImmutableSet.<Grammeme>builder()
+                .addAll(BasicPlaceholder.this.grammaticalMeaning())
+                .addAll(this.lexeme.persistentGrammemes())
+                .build();
+        }
     }
 }
