@@ -9,6 +9,4 @@ import com.google.common.collect.ImmutableSet;
  */
 public interface Placeholder {
     ImmutableSet<Grammeme> grammaticalMeaning();
-
-    boolean capitalizes();
 }
