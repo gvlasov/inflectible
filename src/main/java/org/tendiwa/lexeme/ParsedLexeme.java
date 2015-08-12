@@ -15,6 +15,7 @@ import org.tenidwa.collections.utils.Collectors;
 final class ParsedLexeme implements Lexeme {
 
     private final Grammar grammar;
+
     private final WordBundleParser.WordContext ctx;
 
     /**
@@ -27,35 +28,27 @@ final class ParsedLexeme implements Lexeme {
 
     @Override
     public String wordForm(ImmutableSet<Grammeme> grammaticalMeaning) {
-        int bestScore = 0;
-        WordForm bestMatch = null;
-        for (WordForm form : this.wordForms()) {
-            int score = form.similarity(grammaticalMeaning);
-            if (score > bestScore) {
-                bestScore = score;
-                bestMatch = form;
-            }
-        }
-        if (bestMatch == null) {
-            throw new IllegalArgumentException(
-                String.format(
-                    "Word form for grammatical meaning %s not found",
-                    grammaticalMeaning
-                )
-            );
-        }
-        return bestMatch.spelling();
+        return this.delegate().wordForm(grammaticalMeaning);
     }
-
-
-    @Override
-    public String defaultSpelling() {
-        return this.wordForms().get(0).spelling();
-    }
-
 
     @Override
     public ImmutableSet<Grammeme> persistentGrammemes() {
+        return this.delegate().persistentGrammemes();
+    }
+
+    @Override
+    public String defaultSpelling() {
+        return this.delegate().defaultSpelling();
+    }
+
+    private Lexeme delegate() {
+        return new BasicLexeme(
+            this.grammemes(),
+            this.wordForms()
+        );
+    }
+
+    private ImmutableSet<Grammeme> grammemes() {
         final WordBundleParser.Persistent_grammemesContext persistent =
             this.ctx.persistent_grammemes();
         if (persistent == null) {

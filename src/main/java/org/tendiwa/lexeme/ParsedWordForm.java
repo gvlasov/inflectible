@@ -2,7 +2,6 @@ package org.tendiwa.lexeme;
 
 
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.tendiwa.lexeme.antlr.WordBundleParser;
 import org.tenidwa.collections.utils.Collectors;
@@ -23,15 +22,12 @@ public final class ParsedWordForm implements WordForm {
 
     @Override
     public String spelling() {
-        return this.ctx.WORD_FORM().getText();
+        return this.delegate().spelling();
     }
 
     @Override
     public int similarity(ImmutableSet<Grammeme> grammemes) {
-        return Sets.intersection(
-            grammemes,
-            this.grammemes()
-        ).size();
+        return this.delegate().similarity(grammemes);
     }
 
     private ImmutableSet<Grammeme> grammemes() {
@@ -44,5 +40,14 @@ public final class ParsedWordForm implements WordForm {
                 .map(this.grammar::grammemeByName)
                 .collect(Collectors.toImmutableSet());
         }
+    }
+
+    private String wordSpelling() {
+        return this.ctx.WORD_FORM().getText();
+    }
+
+    // TODO: To be refactored in #47
+    private WordForm delegate() {
+        return new BasicWordForm(this.wordSpelling(), this.grammemes());
     }
 }

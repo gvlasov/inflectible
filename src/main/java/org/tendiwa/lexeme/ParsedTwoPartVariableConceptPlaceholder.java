@@ -27,6 +27,11 @@ final class ParsedTwoPartVariableConceptPlaceholder
         this.ctx = ctx;
     }
 
+    @Override
+    public String fillUp(ActualArguments arguments) {
+        return this.delegate().fillUp(arguments);
+    }
+
     private Placeholder delegate() {
         return new BasicPlaceholder(
             this.name(),
@@ -53,10 +58,5 @@ final class ParsedTwoPartVariableConceptPlaceholder
 
     private String name() {
         return this.ctx.CAPITALIZABLE_ID().getText();
-    }
-
-    @Override
-    public String fillUp(ActualArguments arguments) {
-        return this.delegate().fillUp(arguments);
     }
 }

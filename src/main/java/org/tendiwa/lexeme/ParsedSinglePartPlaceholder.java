@@ -19,6 +19,11 @@ public final class ParsedSinglePartPlaceholder implements Placeholder {
         this.ctx = ctx;
     }
 
+    @Override
+    public String fillUp(ActualArguments arguments) {
+        return this.delegate().fillUp(arguments);
+    }
+
     private Placeholder delegate() {
         return new BasicPlaceholder(
             this.identifier(),
@@ -30,10 +35,5 @@ public final class ParsedSinglePartPlaceholder implements Placeholder {
 
     private String identifier() {
         return this.ctx.CAPITALIZABLE_ID().getText();
-    }
-
-    @Override
-    public String fillUp(ActualArguments arguments) {
-        return this.delegate().fillUp(arguments);
     }
 }
