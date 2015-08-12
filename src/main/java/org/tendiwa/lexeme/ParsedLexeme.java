@@ -49,7 +49,7 @@ final class ParsedLexeme implements Lexeme {
 
 
     @Override
-    public String baseForm() {
+    public String defaultSpelling() {
         return this.wordForms().get(0).spelling();
     }
 

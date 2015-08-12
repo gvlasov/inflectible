@@ -15,7 +15,7 @@ public interface Lexeme {
      * nominative case for a noun in Russian.
      * @return The default form of a word.
      */
-    String baseForm();
+    String defaultSpelling();
 
     /**
      * @param placeholder Placeholder

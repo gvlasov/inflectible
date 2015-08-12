@@ -21,14 +21,14 @@ public final class BasicLexeme implements Lexeme {
     }
 
     @Override
-    public String baseForm() {
-        return this.wordForms.get(0).spelling();
+    public String defaultSpelling() {
+        return this.baseForm().spelling();
     }
 
     @Override
     public String formForPlaceholder(Placeholder placeholder) {
         int bestScore = 0;
-        WordForm bestMatch = null;
+        WordForm bestMatch = this.baseForm();
         for (WordForm form : this.wordForms) {
             int score = form.similarity(placeholder.grammaticalMeaning());
             if (score > bestScore) {
@@ -50,5 +50,9 @@ public final class BasicLexeme implements Lexeme {
     @Override
     public ImmutableSet<Grammeme> persistentGrammemes() {
         return this.persistentGrammemes;
+    }
+
+    private WordForm baseForm() {
+        return this.wordForms.get(0);
     }
 }

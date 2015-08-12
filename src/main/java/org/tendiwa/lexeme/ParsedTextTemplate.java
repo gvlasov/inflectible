@@ -69,7 +69,7 @@ class ParsedTextTemplate implements TextTemplate {
             TextBundleParser.Base_form_placeholderContext ctx
         ) {
             this.builder.append(
-                new ParsedOnePartPlaceholder(ctx).fillUp(this.arguments)
+                new ParsedSinglePartPlaceholder(ctx).fillUp(this.arguments)
             );
         }
 

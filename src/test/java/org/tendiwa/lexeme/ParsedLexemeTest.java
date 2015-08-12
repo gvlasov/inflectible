@@ -1,12 +1,13 @@
 package org.tendiwa.lexeme;
 
 import com.google.common.collect.ImmutableSet;
-import java.util.stream.IntStream;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.tendiwa.lexeme.implementations.English;
+
+import java.util.stream.IntStream;
 
 /**
  * @since 0.1
@@ -17,7 +18,7 @@ public final class ParsedLexemeTest {
         MatcherAssert.assertThat(
             this
                 .firstWordOfBundle("characters.en_US.words")
-                .baseForm(),
+                .defaultSpelling(),
             CoreMatchers.equalTo("bear")
         );
     }
@@ -53,7 +54,7 @@ public final class ParsedLexemeTest {
         IntStream.range(0, 1).forEach(
             i->
                 MatcherAssert.assertThat(
-                    lexeme.baseForm(),
+                    lexeme.defaultSpelling(),
                     CoreMatchers.equalTo("bear")
                 )
         );

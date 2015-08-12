@@ -2,13 +2,14 @@ package org.tendiwa.lexeme;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableSet;
-import java.util.Collections;
 import org.apache.commons.io.IOUtils;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.tendiwa.lexeme.implementations.English;
+
+import java.util.Collections;
 
 /**
  * @since 0.1
@@ -31,7 +32,7 @@ public final class ParsedVocabularyTest {
     public void findsWordForms() throws Exception {
         final ParsedVocabulary bundle = this.englishVocabulary();
         MatcherAssert.assertThat(
-            bundle.get("dragon").baseForm(),
+            bundle.get("dragon").defaultSpelling(),
             CoreMatchers.equalTo("dragon")
         );
         Placeholder placeholder = Mockito.mock(FillablePlaceholder.class);
