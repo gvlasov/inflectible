@@ -3,28 +3,25 @@ package org.tendiwa.lexeme;
 import com.google.common.collect.ImmutableList;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.tendiwa.lexeme.antlr.TextBundleLexer;
+import org.tendiwa.lexeme.implementations.English;
 
-/**
- * @since 0.1
- */
-public final class ParsedSinglePartPlaceholderTest {
+public final class ParsedTwoPartVariableConceptPlaceholderTest {
     @Test
+    @Ignore
     public void capitalizesWordWhenNecessary() throws Exception {
         MatcherAssert.assertThat(
-            this.wordFormInsertionResult("[Dude]", "programmer"),
-            CoreMatchers.equalTo("Programmer")
+            this.wordFormInsertionResult("[dude][Plur]", "director"),
+            CoreMatchers.equalTo("director")
         );
     }
 
     @Test
-    public void doesntCapitalizeWhenUnnecessary() throws Exception {
-        MatcherAssert.assertThat(
-            this.wordFormInsertionResult("[dude]", "director"),
-            CoreMatchers.equalTo("director")
-        );
+    public void doesntCapitalizeWordWhenUnnecessary() throws Exception {
+
     }
 
     private String wordFormInsertionResult(
@@ -33,12 +30,13 @@ public final class ParsedSinglePartPlaceholderTest {
     ) {
         DeclaredArguments declared = Mockito.mock(DeclaredArguments.class);
         Mockito.when(declared.index(Mockito.anyString())).thenReturn(0);
-        return new ParsedSinglePartPlaceholder(
+        return new ParsedTwoPartVariableConceptPlaceholder(
+            new English().grammar(),
             new TextBundleParserFactory().createInMode(
                 TextBundleLexer.LINE_CONTENT,
                 placeholderMarkup
             )
-                .base_form_placeholder()
+                .placeholder()
         ).fillUp(
             new ActualArguments(
                 declared,
