@@ -6,7 +6,6 @@ import org.apache.commons.io.IOUtils;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.tendiwa.lexeme.implementations.English;
 
 import java.util.Collections;
@@ -35,11 +34,10 @@ public final class ParsedVocabularyTest {
             bundle.get("dragon").defaultSpelling(),
             CoreMatchers.equalTo("dragon")
         );
-        Placeholder placeholder = Mockito.mock(FillablePlaceholder.class);
-        Mockito.when(placeholder.grammaticalMeaning())
-            .thenReturn(ImmutableSet.of(English.Grammemes.Plur));
         MatcherAssert.assertThat(
-            bundle.get("dragon").formForPlaceholder(placeholder),
+            bundle.get("dragon").wordForm(
+                ImmutableSet.of(English.Grammemes.Plur)
+            ),
             CoreMatchers.equalTo("dragons")
         );
     }

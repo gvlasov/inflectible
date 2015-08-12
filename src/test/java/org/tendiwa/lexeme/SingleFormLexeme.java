@@ -21,8 +21,8 @@ public final class SingleFormLexeme implements Lexeme {
     }
 
     @Override
-    public String formForPlaceholder(Placeholder placeholder) {
-        return this.delegate().formForPlaceholder(placeholder);
+    public String wordForm(ImmutableSet<Grammeme> grammaticalMeaning) {
+        return this.delegate().wordForm(grammaticalMeaning);
     }
 
     @Override

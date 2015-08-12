@@ -10,7 +10,7 @@ import java.util.Optional;
  * @version $Id$
  * @since 0.1
  */
-public final class ParsedSinglePartPlaceholder implements FillablePlaceholder {
+public final class ParsedSinglePartPlaceholder implements Placeholder {
     private final TextBundleParser.Base_form_placeholderContext ctx;
 
     ParsedSinglePartPlaceholder(
@@ -19,7 +19,7 @@ public final class ParsedSinglePartPlaceholder implements FillablePlaceholder {
         this.ctx = ctx;
     }
 
-    private FillablePlaceholder delegate() {
+    private Placeholder delegate() {
         return new BasicPlaceholder(
             this.identifier(),
             ImmutableSet.of(),
@@ -35,10 +35,5 @@ public final class ParsedSinglePartPlaceholder implements FillablePlaceholder {
     @Override
     public String fillUp(ActualArguments arguments) {
         return this.delegate().fillUp(arguments);
-    }
-
-    @Override
-    public ImmutableSet<Grammeme> grammaticalMeaning() {
-        return this.delegate().grammaticalMeaning();
     }
 }

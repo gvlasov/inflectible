@@ -26,11 +26,11 @@ public final class BasicLexeme implements Lexeme {
     }
 
     @Override
-    public String formForPlaceholder(Placeholder placeholder) {
+    public String wordForm(ImmutableSet<Grammeme> grammaticalMeaning) {
         int bestScore = 0;
         WordForm bestMatch = this.baseForm();
         for (WordForm form : this.wordForms) {
-            int score = form.similarity(placeholder.grammaticalMeaning());
+            int score = form.similarity(grammaticalMeaning);
             if (score > bestScore) {
                 bestScore = score;
                 bestMatch = form;
@@ -40,7 +40,7 @@ public final class BasicLexeme implements Lexeme {
             throw new IllegalArgumentException(
                 String.format(
                     "Word form for grammatical meaning %s not found",
-                    placeholder.grammaticalMeaning()
+                    grammaticalMeaning
                 )
             );
         }

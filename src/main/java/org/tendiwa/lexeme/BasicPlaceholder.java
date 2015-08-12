@@ -1,6 +1,7 @@
 package org.tendiwa.lexeme;
 
 import com.google.common.collect.ImmutableSet;
+
 import java.util.Optional;
 
 /**
@@ -8,24 +9,19 @@ import java.util.Optional;
  * @version $Id$
  * @since 0.1
  */
-public final class BasicPlaceholder implements FillablePlaceholder {
+public final class BasicPlaceholder implements Placeholder {
     private final String name;
-    private final ImmutableSet<Grammeme> grammaticalMeaning;
+    private final ImmutableSet<Grammeme> explicitMeaning;
     private final Optional<String> agreementName;
 
     BasicPlaceholder(
         String name,
-        ImmutableSet<Grammeme> grammaticalMeaning,
+        ImmutableSet<Grammeme> explicitMeaning,
         Optional<String> agreementName
     ) {
         this.name = name;
-        this.grammaticalMeaning = grammaticalMeaning;
+        this.explicitMeaning = explicitMeaning;
         this.agreementName = agreementName;
-    }
-
-    @Override
-    public ImmutableSet<Grammeme> grammaticalMeaning() {
-        return this.grammaticalMeaning;
     }
 
     private boolean capitalizes() {
@@ -34,33 +30,24 @@ public final class BasicPlaceholder implements FillablePlaceholder {
 
     @Override
     public String fillUp(ActualArguments arguments) {
-        Placeholder placeholder;
+        ImmutableSet<Grammeme> grammaticalMeaning;
         if (this.agreementName.isPresent()) {
-            placeholder = new AgreeingPlaceholder(
+            grammaticalMeaning = this.agreementGrammaticalMeaning(
                 arguments.argumentValue(this.agreementName.get())
             );
         } else {
-            placeholder = this;
+            grammaticalMeaning = this.explicitMeaning;
         }
         return new BasicCapitalization(
             arguments.argumentValue(this.name)
-            .formForPlaceholder(placeholder)
+            .wordForm(grammaticalMeaning)
         ).changeCase(this.capitalizes());
     }
 
-    private final class AgreeingPlaceholder implements Placeholder {
-        private final Lexeme lexeme;
-
-        public AgreeingPlaceholder(Lexeme lexeme) {
-            this.lexeme = lexeme;
-        }
-
-        @Override
-        public ImmutableSet<Grammeme> grammaticalMeaning() {
-            return ImmutableSet.<Grammeme>builder()
-                .addAll(BasicPlaceholder.this.grammaticalMeaning())
-                .addAll(this.lexeme.persistentGrammemes())
-                .build();
-        }
+    private ImmutableSet<Grammeme> agreementGrammaticalMeaning(Lexeme lexeme) {
+        return ImmutableSet.<Grammeme>builder()
+            .addAll(BasicPlaceholder.this.explicitMeaning)
+            .addAll(lexeme.persistentGrammemes())
+            .build();
     }
 }

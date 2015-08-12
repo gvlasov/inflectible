@@ -13,7 +13,7 @@ import java.util.Optional;
  * @since 0.1
  */
 final class ParsedTwoPartVariableConceptPlaceholder
-        implements FillablePlaceholder {
+        implements Placeholder {
     private final Grammar grammar;
 
     private final TextBundleParser.PlaceholderContext ctx;
@@ -27,7 +27,7 @@ final class ParsedTwoPartVariableConceptPlaceholder
         this.ctx = ctx;
     }
 
-    private FillablePlaceholder delegate() {
+    private Placeholder delegate() {
         return new BasicPlaceholder(
             this.name(),
             this.grammemes(),
@@ -58,10 +58,5 @@ final class ParsedTwoPartVariableConceptPlaceholder
     @Override
     public String fillUp(ActualArguments arguments) {
         return this.delegate().fillUp(arguments);
-    }
-
-    @Override
-    public ImmutableSet<Grammeme> grammaticalMeaning() {
-        return this.delegate().grammaticalMeaning();
     }
 }

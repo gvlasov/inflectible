@@ -18,12 +18,11 @@ public interface Lexeme {
     String defaultSpelling();
 
     /**
-     * @param placeholder Placeholder
-     * @return The word form of this lexeme that fits best to the
-     * {@code placeholder}
+     * @param grammaticalMeaning Grammatical meaning
+     * @return The word form of this lexeme with its grammatical meaning
+     * closest to {@code grammaticalMeaning}
      */
-    // TODO: This should probably be changed to form(ImmutableSet<Grammeme>)
-    String formForPlaceholder(Placeholder placeholder);
+    String wordForm(ImmutableSet<Grammeme> grammaticalMeaning);
 
     /**
      * Grammemes inherent to this lexeme.
