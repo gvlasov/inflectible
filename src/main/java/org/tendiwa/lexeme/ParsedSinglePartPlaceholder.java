@@ -32,7 +32,6 @@ public final class ParsedSinglePartPlaceholder implements Placeholder {
         );
     }
 
-
     private String identifier() {
         return this.ctx.CAPITALIZABLE_ID().getText();
     }

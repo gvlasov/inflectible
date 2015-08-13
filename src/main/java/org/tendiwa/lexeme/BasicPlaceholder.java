@@ -46,7 +46,7 @@ public final class BasicPlaceholder implements Placeholder {
 
     private ImmutableSet<Grammeme> agreementGrammaticalMeaning(Lexeme lexeme) {
         return ImmutableSet.<Grammeme>builder()
-            .addAll(BasicPlaceholder.this.explicitMeaning)
+            .addAll(this.explicitMeaning)
             .addAll(lexeme.persistentGrammemes())
             .build();
     }
