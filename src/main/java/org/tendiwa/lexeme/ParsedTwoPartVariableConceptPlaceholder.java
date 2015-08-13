@@ -5,6 +5,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.tendiwa.lexeme.antlr.TextBundleParser;
 import org.tenidwa.collections.utils.Collectors;
 
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -28,8 +29,8 @@ final class ParsedTwoPartVariableConceptPlaceholder
     }
 
     @Override
-    public String fillUp(ActualArguments arguments) {
-        return this.delegate().fillUp(arguments);
+    public String fillUp(Map<String, Lexeme> actualArguments) {
+        return this.delegate().fillUp(actualArguments);
     }
 
     private Placeholder delegate() {

@@ -2,6 +2,7 @@ package org.tendiwa.lexeme;
 
 import com.google.common.collect.ImmutableSet;
 
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -33,19 +34,28 @@ public final class BasicPlaceholder implements Placeholder {
     }
 
     @Override
-    public String fillUp(ActualArguments arguments) {
+    public String fillUp(Map<String, Lexeme> arguments) {
+        return
+            new BasicCapitalization(
+                arguments
+                    .get(this.name)
+                    .wordForm(this.grammaticalMeaning(arguments))
+            )
+                .changeCase(this.capitalizes());
+    }
+
+    private ImmutableSet<Grammeme> grammaticalMeaning(
+        Map<String, Lexeme> arguments
+    ) {
         ImmutableSet<Grammeme> grammaticalMeaning;
         if (this.agreementName.isPresent()) {
             grammaticalMeaning = this.agreementGrammaticalMeaning(
-                arguments.argumentValue(this.agreementName.get())
+                arguments.get(this.agreementName.get())
             );
         } else {
             grammaticalMeaning = this.explicitMeaning;
         }
-        return new BasicCapitalization(
-            arguments.argumentValue(this.name)
-            .wordForm(grammaticalMeaning)
-        ).changeCase(this.capitalizes());
+        return grammaticalMeaning;
     }
 
     private ImmutableSet<Grammeme> agreementGrammaticalMeaning(Lexeme lexeme) {

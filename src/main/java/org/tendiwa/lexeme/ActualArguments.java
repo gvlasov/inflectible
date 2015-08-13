@@ -2,6 +2,8 @@ package org.tendiwa.lexeme;
 
 import com.google.common.collect.ImmutableList;
 
+import java.util.List;
+
 /**
  * Actual values of arguments passed in a text to fill up placeholders.
  * @see {@link DeclaredArguments} For a list of argument names without actual
@@ -11,14 +13,14 @@ import com.google.common.collect.ImmutableList;
  * @since 0.1
  */
 public final class ActualArguments {
-    private final ImmutableList<Lexeme> values;
-    private final DeclaredArguments declaredArguments;
+    private final List<Lexeme> values;
+    private final List<String> argumentNames;
 
     ActualArguments(
-        DeclaredArguments declaredArguments,
+        ImmutableList<String> argumentNames,
         ImmutableList<Lexeme> values
     ) {
-        this.declaredArguments = declaredArguments;
+        this.argumentNames = argumentNames;
         this.values = values;
     }
 
@@ -27,7 +29,7 @@ public final class ActualArguments {
      * @return Value of the argument with particular name.
      */
     public final Lexeme argumentValue(String argumentName) {
-        final int index = this.declaredArguments.index(argumentName);
+        final int index = this.argumentNames.indexOf(argumentName);
         if (this.values.size() <= index) {
             throw new IndexOutOfBoundsException(
                 "Declared argument " + argumentName + " is at index " + index +

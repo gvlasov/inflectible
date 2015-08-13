@@ -1,10 +1,9 @@
 package org.tendiwa.lexeme;
 
-import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.tendiwa.lexeme.antlr.TextBundleLexer;
 
 /**
@@ -14,7 +13,7 @@ public final class ParsedSinglePartPlaceholderTest {
     @Test
     public void capitalizesWordWhenNecessary() throws Exception {
         MatcherAssert.assertThat(
-            this.wordFormInsertionResult("[Dude]", "programmer"),
+            this.wordFormInsertionResult("[Dude]", "dude", "programmer"),
             CoreMatchers.equalTo("Programmer")
         );
     }
@@ -22,28 +21,30 @@ public final class ParsedSinglePartPlaceholderTest {
     @Test
     public void doesntCapitalizeWhenUnnecessary() throws Exception {
         MatcherAssert.assertThat(
-            this.wordFormInsertionResult("[dude]", "director"),
+            this.wordFormInsertionResult("[dude]", "dude", "director"),
             CoreMatchers.equalTo("director")
         );
     }
 
     private String wordFormInsertionResult(
         String placeholderMarkup,
+        String argumentName,
         String wordForm
     ) {
-        DeclaredArguments declared = Mockito.mock(DeclaredArguments.class);
-        Mockito.when(declared.index(Mockito.anyString())).thenReturn(0);
-        return new ParsedSinglePartPlaceholder(
-            new TextBundleParserFactory().createInMode(
-                TextBundleLexer.LINE_CONTENT,
-                placeholderMarkup
+        return
+            new ParsedSinglePartPlaceholder(
+                new TextBundleParserFactory()
+                    .createInMode(
+                        TextBundleLexer.LINE_CONTENT,
+                        placeholderMarkup
+                    )
+                    .base_form_placeholder()
             )
-                .base_form_placeholder()
-        ).fillUp(
-            new ActualArguments(
-                declared,
-                ImmutableList.of(new SingleFormLexeme(wordForm))
-            )
-        );
+                .fillUp(
+                    ImmutableMap.of(
+                        argumentName,
+                        new SingleFormLexeme(wordForm)
+                    )
+                );
     }
 }

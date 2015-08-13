@@ -3,6 +3,7 @@ package org.tendiwa.lexeme;
 import com.google.common.collect.ImmutableSet;
 import org.tendiwa.lexeme.antlr.TextBundleParser;
 
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -20,7 +21,7 @@ public final class ParsedSinglePartPlaceholder implements Placeholder {
     }
 
     @Override
-    public String fillUp(ActualArguments arguments) {
+    public String fillUp(Map<String, Lexeme> arguments) {
         return this.delegate().fillUp(arguments);
     }
 

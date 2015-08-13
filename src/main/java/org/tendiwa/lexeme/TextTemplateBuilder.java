@@ -1,9 +1,11 @@
 package org.tendiwa.lexeme;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -67,13 +69,29 @@ public final class TextTemplateBuilder {
 
         @Override
         public String fillUp(ImmutableList<Lexeme> lexemes) {
-            ActualArguments arguments = new ActualArguments(
-                BasicTextTemplate.this.argumentNames::indexOf,
-                lexemes
-            );
+            final Map<String, Lexeme> actualArguments =
+                this.actualArguments(lexemes);
             return this.parts.stream()
-                .map(part->part.fillUp(arguments))
+                .map(part -> part.fillUp(actualArguments))
                 .collect(Collectors.joining());
+        }
+
+        private Map<String, Lexeme> actualArguments(List<Lexeme> lexemes) {
+            if (lexemes.size() != this.argumentNames.size()) {
+                throw new IllegalArgumentException(
+                    String.format(
+                        "Wrong number of arguments. Expected: %s, actual: %s",
+                        this.argumentNames.size(),
+                        lexemes.size()
+                    )
+                );
+            }
+            final ImmutableMap.Builder<String, Lexeme> builder =
+                ImmutableMap.builder();
+            for (int i=0; i<lexemes.size(); i++) {
+                builder.put(this.argumentNames.get(i), lexemes.get(i));
+            }
+            return builder.build();
         }
     }
 }

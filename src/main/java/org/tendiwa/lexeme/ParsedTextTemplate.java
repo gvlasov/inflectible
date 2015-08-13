@@ -2,8 +2,10 @@ package org.tendiwa.lexeme;
 
 import com.google.common.collect.ImmutableList;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.antlr.v4.runtime.tree.TerminalNode;
 import org.tendiwa.lexeme.antlr.TextBundleParser;
 import org.tendiwa.lexeme.antlr.TextBundleParserBaseListener;
+import org.tenidwa.collections.utils.Collectors;
 
 /**
  * {@link TextTemplate} parsed from an ANTLR parse tree.
@@ -26,64 +28,68 @@ class ParsedTextTemplate implements TextTemplate {
 
     @Override
     public String fillUp(ImmutableList<Lexeme> lexemes) {
+        return this.delegate().fillUp(lexemes);
+    }
+
+    private ImmutableList<String> argumentNames() {
+        return this.ctx.arguments().ID().stream()
+            .map(TerminalNode::getText)
+            .collect(Collectors.toImmutableList());
+    }
+
+    // TODO: To be refactored in #47
+    private TextTemplate delegate() {
         return new ParseTreeListener(
-            new ActualArguments(
-                // TODO: To be refactored in #47
-                new ParsedDeclaredArguments(this.ctx.arguments()),
-                lexemes
-            )
+            this.argumentNames()
         ).filledUpText();
     }
 
     /**
-     * Walks over ANTLR parse tree, creates proper objects from its plaintext
+     * Walks over an ANTLR parse tree, creates proper objects from its plaintext
      * findings and passes what it created to {@link BodyWalker}
      */
-    final class ParseTreeListener extends TextBundleParserBaseListener {
+    private final class ParseTreeListener
+        extends TextBundleParserBaseListener {
 
-        private StringBuilder builder;
-        private final ActualArguments arguments;
+        private TextTemplateBuilder builder;
+        private ImmutableList<String> argumentNames;
 
-        ParseTreeListener(ActualArguments arguments) {
-            this.arguments = arguments;
+        ParseTreeListener(ImmutableList<String> argumentNames) {
+            this.argumentNames = argumentNames;
         }
 
         @Override
         public final void enterPlaceholder(
             TextBundleParser.PlaceholderContext ctx
         ) {
-            this.builder.append(
+            this.builder.addPlaceholder(
                 new ParsedTwoPartVariableConceptPlaceholder(
                     ParsedTextTemplate.this.grammar,
                     ctx
-                ).fillUp(this.arguments)
+                )
             );
         }
 
         @Override
         public final void enterRaw_text(TextBundleParser.Raw_textContext ctx) {
-            this.builder.append(ctx.getText());
+            this.builder.addText(ctx.getText());
         }
 
         @Override
         public final void enterBase_form_placeholder(
             TextBundleParser.Base_form_placeholderContext ctx
         ) {
-            this.builder.append(
-                new ParsedSinglePartPlaceholder(ctx).fillUp(this.arguments)
-            );
+            this.builder.addPlaceholder(new ParsedSinglePartPlaceholder(ctx));
         }
 
         /**
-         * @return Text collected by this listener after walking the parse tree.
+         * @return Walk the ANTLR parse tree and construct a
+         * {@link TextTemplate} for it.
          */
-        private String filledUpText() {
-            this.builder = new StringBuilder();
-            ParseTreeWalker.DEFAULT.walk(
-                this,
-                ParsedTextTemplate.this.ctx
-            );
-            return this.builder.toString();
+        private TextTemplate filledUpText() {
+            this.builder = new TextTemplateBuilder(this.argumentNames);
+            ParseTreeWalker.DEFAULT.walk(this, ParsedTextTemplate.this.ctx);
+            return this.builder.build();
         }
     }
 }
