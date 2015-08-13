@@ -24,6 +24,10 @@ public final class BasicPlaceholder implements Placeholder {
         this.agreementName = agreementName;
     }
 
+    BasicPlaceholder(String name) {
+        this(name, ImmutableSet.of(), Optional.empty());
+    }
+
     private boolean capitalizes() {
         return new BasicCapitalization(this.name).isFirstLetterCapital();
     }
