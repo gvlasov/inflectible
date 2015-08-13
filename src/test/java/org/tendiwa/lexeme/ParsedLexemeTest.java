@@ -47,7 +47,7 @@ public final class ParsedLexemeTest {
     public void canBeUsedMultipleTimes() throws Exception {
         final ParsedLexeme lexeme =
             this.firstWordOfBundle("characters.en_US.words");
-        IntStream.range(0, 1).forEach(
+        IntStream.range(0, 2).forEach(
             i->
                 MatcherAssert.assertThat(
                     lexeme.defaultSpelling(),
