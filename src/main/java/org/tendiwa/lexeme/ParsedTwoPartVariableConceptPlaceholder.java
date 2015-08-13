@@ -35,7 +35,8 @@ final class ParsedTwoPartVariableConceptPlaceholder
 
     private Placeholder delegate() {
         return new BasicPlaceholder(
-            this.name(),
+            this.name().toLowerCase(),
+            Character.isUpperCase(this.name().charAt(0)),
             this.grammemes(),
             this.agreementArgumentName()
         );

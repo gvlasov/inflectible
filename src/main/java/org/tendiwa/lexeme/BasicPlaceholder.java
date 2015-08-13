@@ -12,25 +12,29 @@ import java.util.Optional;
  */
 public final class BasicPlaceholder implements Placeholder {
     private final String name;
+    private boolean capitalizes;
     private final ImmutableSet<Grammeme> explicitMeaning;
     private final Optional<String> agreementName;
 
     BasicPlaceholder(
         String name,
+        boolean capitalizes,
         ImmutableSet<Grammeme> explicitMeaning,
         Optional<String> agreementName
     ) {
         this.name = name;
+        this.capitalizes = capitalizes;
         this.explicitMeaning = explicitMeaning;
         this.agreementName = agreementName;
     }
 
+
     BasicPlaceholder(String name) {
-        this(name, ImmutableSet.of(), Optional.empty());
+        this(name, false, ImmutableSet.of(), Optional.empty());
     }
 
     private boolean capitalizes() {
-        return new BasicCapitalization(this.name).isFirstLetterCapital();
+        return this.capitalizes;
     }
 
     @Override
@@ -38,10 +42,22 @@ public final class BasicPlaceholder implements Placeholder {
         return
             new BasicCapitalization(
                 arguments
-                    .get(this.name)
+                    .get(this.validatedName())
                     .wordForm(this.grammaticalMeaning(arguments))
             )
                 .changeCase(this.capitalizes());
+    }
+
+    private String validatedName() {
+        if (!this.name.toLowerCase().equals(this.name)) {
+            throw new IllegalArgumentException(
+                String.format(
+                    "Argument name should be lowercase; now it is %s",
+                    this.name
+                )
+            );
+        }
+        return this.name;
     }
 
     private ImmutableSet<Grammeme> grammaticalMeaning(

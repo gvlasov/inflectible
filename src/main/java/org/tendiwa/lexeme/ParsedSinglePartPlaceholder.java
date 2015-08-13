@@ -27,13 +27,14 @@ public final class ParsedSinglePartPlaceholder implements Placeholder {
 
     private Placeholder delegate() {
         return new BasicPlaceholder(
-            this.identifier(),
+            this.name().toLowerCase(),
+            Character.isUpperCase(this.name().charAt(0)),
             ImmutableSet.of(),
             Optional.empty()
         );
     }
 
-    private String identifier() {
+    private String name() {
         return this.ctx.CAPITALIZABLE_ID().getText();
     }
 }
