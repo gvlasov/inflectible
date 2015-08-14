@@ -15,13 +15,13 @@ import org.tenidwa.collections.utils.Collectors;
  */
 class ParsedTextTemplate implements TextTemplate {
     private final Grammar grammar;
-    private final TextBundleParser.TextContext ctx;
+    private final TextBundleParser.TextTemplateContext ctx;
 
     /**
      * @param grammar Grammar of the language of this text
      * @param ctx ANTLR parse tree of a text template
      */
-    ParsedTextTemplate(Grammar grammar, TextBundleParser.TextContext ctx) {
+    ParsedTextTemplate(Grammar grammar, TextBundleParser.TextTemplateContext ctx) {
         this.grammar = grammar;
         this.ctx = ctx;
     }
@@ -32,7 +32,7 @@ class ParsedTextTemplate implements TextTemplate {
     }
 
     private ImmutableList<String> argumentNames() {
-        return this.ctx.arguments().ID().stream()
+        return this.ctx.declaredArguments().ID().stream()
             .map(TerminalNode::getText)
             .collect(Collectors.toImmutableList());
     }
@@ -59,8 +59,8 @@ class ParsedTextTemplate implements TextTemplate {
         }
 
         @Override
-        public final void enterPlaceholder(
-            TextBundleParser.PlaceholderContext ctx
+        public final void enterTwoPartPlaceholder(
+            TextBundleParser.TwoPartPlaceholderContext ctx
         ) {
             this.builder.addPlaceholder(
                 new ParsedTwoPartVariableConceptPlaceholder(
@@ -71,13 +71,13 @@ class ParsedTextTemplate implements TextTemplate {
         }
 
         @Override
-        public final void enterRaw_text(TextBundleParser.Raw_textContext ctx) {
+        public final void enterRawText(TextBundleParser.RawTextContext ctx) {
             this.builder.addText(ctx.getText());
         }
 
         @Override
-        public final void enterBase_form_placeholder(
-            TextBundleParser.Base_form_placeholderContext ctx
+        public final void enterSinglePartPlaceholder(
+            TextBundleParser.SinglePartPlaceholderContext ctx
         ) {
             this.builder.addPlaceholder(new ParsedSinglePartPlaceholder(ctx));
         }

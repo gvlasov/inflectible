@@ -2,13 +2,9 @@ package org.tendiwa.lexeme;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ForwardingList;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import junit.framework.Assert;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.apache.commons.io.IOUtils;
@@ -16,6 +12,10 @@ import org.junit.Test;
 import org.tendiwa.lexeme.antlr.TextBundleLexer;
 import org.tendiwa.lexeme.antlr.TextBundleParser;
 import org.tendiwa.lexeme.antlr.TextBundleParserBaseListener;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author GeorgyVlasov (suseika@tendiwa.org)
@@ -71,7 +71,7 @@ public class TextBundleParserTest {
                         )
                     )
                 )
-            ).text_bundle().text().size()
+            ).textTemplates().textTemplate().size()
         );
     }
 
@@ -83,14 +83,16 @@ public class TextBundleParserTest {
                 .walk(
                     new TextBundleParserBaseListener() {
                         @Override
-                        public void enterArguments(@NotNull TextBundleParser.ArgumentsContext ctx) {
-                            super.enterArguments(ctx);
+                        public void enterDeclaredArguments(
+                            TextBundleParser.DeclaredArgumentsContext ctx
+                        ) {
+                            super.enterDeclaredArguments(ctx);
                             for (ParseTree child : ctx.ID()) {
                                 arguments.add(child.getText());
                             }
                         }
                     },
-                    parser.text_bundle()
+                    parser.textTemplates()
                 );
         }
 

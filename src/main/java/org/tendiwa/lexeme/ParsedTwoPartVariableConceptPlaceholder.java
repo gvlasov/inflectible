@@ -17,11 +17,11 @@ final class ParsedTwoPartVariableConceptPlaceholder
         implements Placeholder {
     private final Grammar grammar;
 
-    private final TextBundleParser.PlaceholderContext ctx;
+    private final TextBundleParser.TwoPartPlaceholderContext ctx;
 
     ParsedTwoPartVariableConceptPlaceholder(
         Grammar grammar,
-        TextBundleParser.PlaceholderContext ctx
+        TextBundleParser.TwoPartPlaceholderContext ctx
     ) {
         super();
         this.grammar = grammar;

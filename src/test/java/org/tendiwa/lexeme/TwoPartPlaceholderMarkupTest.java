@@ -18,7 +18,7 @@ public final class TwoPartPlaceholderMarkupTest {
                 new TextBundleParserFactory().createInMode(
                     TextBundleLexer.LINE_CONTENT,
                     "[Man][These Dont Matter]"
-                ).placeholder()
+                ).twoPartPlaceholder()
             ).argumentName()
         );
     }
@@ -31,7 +31,7 @@ public final class TwoPartPlaceholderMarkupTest {
                 new TextBundleParserFactory().createInMode(
                     TextBundleLexer.LINE_CONTENT,
                     "[Man][Sing Masculine]"
-                ).placeholder()
+                ).twoPartPlaceholder()
             ).explicitGrammemes()
         );
     }
@@ -44,7 +44,7 @@ public final class TwoPartPlaceholderMarkupTest {
                 new TextBundleParserFactory().createInMode(
                     TextBundleLexer.LINE_CONTENT,
                     "[action][Plur;woman]"
-                ).placeholder()
+                ).twoPartPlaceholder()
             ).agreementId().get()
         );
     }
@@ -55,7 +55,7 @@ public final class TwoPartPlaceholderMarkupTest {
             new TextBundleParserFactory().createInMode(
                 TextBundleLexer.LINE_CONTENT,
                 "[action][Plur]"
-            ).placeholder()
+            ).twoPartPlaceholder()
         );
         IntStream.range(0, 2).forEach(
             i ->

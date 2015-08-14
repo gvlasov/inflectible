@@ -12,10 +12,10 @@ import java.util.Optional;
  * @since 0.1
  */
 public final class ParsedSinglePartPlaceholder implements Placeholder {
-    private final TextBundleParser.Base_form_placeholderContext ctx;
+    private final TextBundleParser.SinglePartPlaceholderContext ctx;
 
     ParsedSinglePartPlaceholder(
-        TextBundleParser.Base_form_placeholderContext ctx
+        TextBundleParser.SinglePartPlaceholderContext ctx
     ) {
         this.ctx = ctx;
     }

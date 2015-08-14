@@ -33,10 +33,6 @@ public final class BasicPlaceholder implements Placeholder {
         this(name, false, ImmutableSet.of(), Optional.empty());
     }
 
-    private boolean capitalizes() {
-        return this.capitalizes;
-    }
-
     @Override
     public String fillUp(Map<String, Lexeme> arguments) {
         return
@@ -45,7 +41,7 @@ public final class BasicPlaceholder implements Placeholder {
                     .get(this.validatedName())
                     .wordForm(this.grammaticalMeaning(arguments))
             )
-                .changeCase(this.capitalizes());
+                .changeCase(this.capitalizes);
     }
 
     private String validatedName() {

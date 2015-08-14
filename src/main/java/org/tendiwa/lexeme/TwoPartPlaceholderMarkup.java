@@ -1,10 +1,11 @@
 package org.tendiwa.lexeme;
 
 import com.google.common.collect.ImmutableList;
-import java.util.List;
-import java.util.Optional;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.tendiwa.lexeme.antlr.TextBundleParser;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Placeholder with two parts in brackets: first one with argument name,
@@ -17,7 +18,7 @@ import org.tendiwa.lexeme.antlr.TextBundleParser;
  * @since 0.1
  */
 public class TwoPartPlaceholderMarkup implements PlaceholderMarkup {
-    private final TextBundleParser.PlaceholderContext placeholderCtx;
+    private final TextBundleParser.TwoPartPlaceholderContext placeholderCtx;
 
     /**
      * Creates a two part placeholder from a parse tree.
@@ -25,7 +26,7 @@ public class TwoPartPlaceholderMarkup implements PlaceholderMarkup {
      * two-part-placeholder's tokens.
      */
     public TwoPartPlaceholderMarkup(
-        TextBundleParser.PlaceholderContext placeholderCtx
+        TextBundleParser.TwoPartPlaceholderContext placeholderCtx
     ) {
         this.placeholderCtx = placeholderCtx;
     }

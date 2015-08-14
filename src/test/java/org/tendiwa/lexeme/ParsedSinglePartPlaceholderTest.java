@@ -38,7 +38,7 @@ public final class ParsedSinglePartPlaceholderTest {
                         TextBundleLexer.LINE_CONTENT,
                         placeholderMarkup
                     )
-                    .base_form_placeholder()
+                    .singlePartPlaceholder()
             )
                 .fillUp(
                     ImmutableMap.of(

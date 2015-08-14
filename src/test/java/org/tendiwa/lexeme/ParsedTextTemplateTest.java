@@ -2,8 +2,6 @@ package org.tendiwa.lexeme;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
-import java.io.IOException;
-import java.util.Map;
 import org.apache.commons.io.IOUtils;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
@@ -11,6 +9,9 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.tendiwa.lexeme.antlr.TextBundleParser;
 import org.tendiwa.lexeme.implementations.English;
+
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * @since 0.1
@@ -56,11 +57,11 @@ public final class ParsedTextTemplateTest {
      * @return
      * @throws IOException
      */
-    private TextBundleParser.TextContext textContext(String template)
+    private TextBundleParser.TextTemplateContext textContext(String template)
         throws IOException {
         return
             new BasicTextBundleParser(IOUtils.toInputStream(template))
-                .text_bundle()
-                .text(0);
+                .textTemplates()
+                .textTemplate(0);
     }
 }

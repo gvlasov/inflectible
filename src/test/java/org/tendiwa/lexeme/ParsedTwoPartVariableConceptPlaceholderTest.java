@@ -35,7 +35,7 @@ public final class ParsedTwoPartVariableConceptPlaceholderTest {
                     TextBundleLexer.LINE_CONTENT,
                     placeholderMarkup
                 )
-                    .placeholder()
+                    .twoPartPlaceholder()
             ).fillUp(
                 ImmutableMap.of(argumentName, new SingleFormLexeme(wordForm))
             );

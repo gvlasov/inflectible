@@ -1,13 +1,14 @@
 package org.tendiwa.lexeme;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.tendiwa.lexeme.antlr.TextBundleLexer;
 import org.tendiwa.lexeme.antlr.TextBundleParser;
 import org.tenidwa.collections.utils.Collectors;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 
 /**
  * TextBundle of texts loaded from a textual input stream.
@@ -37,7 +38,7 @@ public class ParsedTextuary {
     private List<TextTemplate> computeTexts() {
         return this.inputs.stream()
             .map(this::createParser)
-            .flatMap(parser -> parser.text_bundle().text().stream())
+            .flatMap(parser -> parser.textTemplates().textTemplate().stream())
             .map(textCtx -> new ParsedTextTemplate(this.grammar, textCtx))
             .collect(Collectors.toImmutableList());
     }
