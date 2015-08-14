@@ -12,4 +12,6 @@ public interface NativeSpeaker {
      * @return Word for a conception.
      */
     Lexeme wordFor(Localizable conception);
+
+    String text(String textId, Localizable... arguments);
 }
