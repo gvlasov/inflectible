@@ -20,10 +20,6 @@ public final class BasicNativeSpeaker implements NativeSpeaker {
         this.vocabulary = vocabulary;
         this.textuary = textuary;
     }
-    @Override
-    public Lexeme wordFor(Localizable conception) {
-        return this.vocabulary.get(conception.getLocalizationId());
-    }
 
     @Override
     public String text(String textTemplateId, Localizable... arguments) {

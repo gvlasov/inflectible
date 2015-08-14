@@ -7,11 +7,5 @@ package org.tendiwa.lexeme;
  * @since 0.1
  */
 public interface NativeSpeaker {
-    /**
-     * @param conception A thing that can be named with a lexeme.
-     * @return Word for a conception.
-     */
-    Lexeme wordFor(Localizable conception);
-
     String text(String textId, Localizable... arguments);
 }
