@@ -4,26 +4,26 @@ options {
     tokenVocab=TextBundleLexer;
 }
 
-text_bundle: text+;
+textTemplates: textTemplate+;
 
-text: text_id LPAREN arguments RPAREN TEMPLATE_START template TEMPLATE_END;
+textTemplate: textId LPAREN declaredArguments RPAREN TEMPLATE_START templateBody TEMPLATE_END;
 
-text_id: ID (DOT ID)*;
+textId: ID (DOT ID)*;
 
-arguments: (ID (COMMA ID)*)?;
+declaredArguments: (ID (COMMA ID)*)?;
 
-template: line*;
+templateBody: line*;
 
 line: ((COMMENT) | (piece+));
 
-piece: base_form_placeholder
-    | placeholder
-    | raw_text;
+piece: singlePartPlaceholder
+    | twoPartPlaceholder
+    | rawText;
 
-raw_text: (~(PLACEHOLDER_START | TEMPLATE_INDENT | TEMPLATE_END))+;
+rawText: (~(PLACEHOLDER_START | TEMPLATE_INDENT | TEMPLATE_END))+;
 
-base_form_placeholder: PLACEHOLDER_START CAPITALIZABLE_ID NO_GRAMMEME_PLACEHOLDER_END;
+singlePartPlaceholder: PLACEHOLDER_START CAPITALIZABLE_ID NO_GRAMMEME_PLACEHOLDER_END;
 
-placeholder: PLACEHOLDER_START CAPITALIZABLE_ID GRAMMEMES_TRANSITION GRAMMEME* agreement? PLACEHOLDER_END;
+twoPartPlaceholder: PLACEHOLDER_START CAPITALIZABLE_ID GRAMMEMES_TRANSITION GRAMMEME* agreement? PLACEHOLDER_END;
 
 agreement: AGREEMENT_DELIMITER AGREEMENT_ID;
