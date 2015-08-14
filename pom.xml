@@ -50,12 +50,6 @@
     </build>
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>15.0</version>
@@ -66,15 +60,20 @@
             <version>4.5</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>1.3.2</version>
+            <groupId>org.tendiwa</groupId>
+            <artifactId>collections-utils</artifactId>
+            <version>0.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.3.2</version>
+            <artifactId>commons-io</artifactId>
+            <version>1.3.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -82,21 +81,6 @@
             <artifactId>mockito-core</artifactId>
             <version>1.10.8</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.tendiwa</groupId>
-            <artifactId>rocollections</artifactId>
-            <version>0.3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.tendiwa</groupId>
-            <artifactId>collections-utils</artifactId>
-            <version>0.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>net.sf.trove4j</groupId>
-            <artifactId>trove4j</artifactId>
-            <version>3.0.3</version>
         </dependency>
     </dependencies>
 
