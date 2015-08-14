@@ -1,14 +1,14 @@
-parser grammar TextBundleParser;
+parser grammar TemplateBundleParser;
 
 options {
-    tokenVocab=TextBundleLexer;
+    tokenVocab=TemplateBundleLexer;
 }
 
 textTemplates: textTemplate+;
 
-textTemplate: textId LPAREN declaredArguments RPAREN TEMPLATE_START templateBody TEMPLATE_END;
+textTemplate: id LPAREN declaredArguments RPAREN TEMPLATE_START templateBody TEMPLATE_END;
 
-textId: ID (DOT ID)*;
+id: ID (DOT ID)*;
 
 declaredArguments: (ID (COMMA ID)*)?;
 

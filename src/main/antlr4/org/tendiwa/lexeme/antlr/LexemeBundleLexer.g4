@@ -1,12 +1,11 @@
-lexer grammar WordBundleLexer;
+lexer grammar LexemeBundleLexer;
 
 WS: [ \n\r\t] -> skip;
-OPENING_QUOTE: QUOTE -> pushMode(CONCEPTION);
-LEXEMES_START: '{' -> pushMode(LEXEMES);
+LEXEME_ID: [A-Z] [A-Z.]* [A-Z];
+WORD_FORMS_START: '{' -> pushMode(WORD_FORMS);
 LBRACKET: '[';
 RBRACKET: ']';
 GRAMMEME: Identifier;
-fragment QUOTE: '"';
 
 // Copied from Java.g4 grammar
 fragment Identifier: JavaLetter JavaLetterOrDigit*;
@@ -31,17 +30,13 @@ fragment JavaLetterOrDigit
         {Character.isJavaIdentifierPart(Character.toCodePoint((char)_input.LA(-2), (char)_input.LA(-1)))}?
     ;
 
-mode CONCEPTION;
-CONCEPTION_ID: [a-z] [a-z ]* [a-z];
-CLOSING_QUOTE: QUOTE -> popMode;
-
-mode LEXEMES;
-LEXEMES_END: '}' -> popMode;
-LEXEMES_WS: WS -> type(WS), skip;
-LEXEMES_LBRACKET: LBRACKET -> type(LBRACKET), pushMode(LEXEMES_GRAMMEMES);
+mode WORD_FORMS;
+WORD_FORMS_END: '}' -> popMode;
+WORD_FORMS_WS: WS -> type(WS), skip;
+WORD_FORM_LBRACKET: LBRACKET -> type(LBRACKET), pushMode(WORD_FORM_GRAMMEMES);
 WORD_FORM: ~[ \n\r\t\[\]]+;
 
-mode LEXEMES_GRAMMEMES;
-LEXEMES_GRAMMEMES_RBRACKET: RBRACKET -> type(RBRACKET), popMode;
-LEXEMES_GRAMMEME: GRAMMEME -> type(GRAMMEME);
-LEXEMES_GRAMMEMES_WS: WS -> type(WS), skip;
+mode WORD_FORM_GRAMMEMES;
+WORD_FORM_GRAMMEMES_RBRACKET: RBRACKET -> type(RBRACKET), popMode;
+WORD_FORM_GRAMMEME: GRAMMEME -> type(GRAMMEME);
+WORD_FORM_GRAMMEMES_WS: WS -> type(WS), skip;

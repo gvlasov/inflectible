@@ -1,4 +1,4 @@
-lexer grammar TextBundleLexer;
+lexer grammar TemplateBundleLexer;
 
 NL: '\r'? '\n' -> skip;
 ID: SMALL_LETTER ALPHANUM*;
