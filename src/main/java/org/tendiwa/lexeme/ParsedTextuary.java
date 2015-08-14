@@ -2,8 +2,8 @@ package org.tendiwa.lexeme;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.tendiwa.lexeme.antlr.TextBundleLexer;
-import org.tendiwa.lexeme.antlr.TextBundleParser;
+import org.tendiwa.lexeme.antlr.TemplateBundleLexer;
+import org.tendiwa.lexeme.antlr.TemplateBundleParser;
 import org.tenidwa.collections.utils.Collectors;
 
 import java.io.IOException;
@@ -43,12 +43,12 @@ public class ParsedTextuary {
             .collect(Collectors.toImmutableList());
     }
 
-    private TextBundleParser createParser(InputStream stream) {
+    private TemplateBundleParser createParser(InputStream stream) {
         try {
             return
-                new TextBundleParser(
+                new TemplateBundleParser(
                     new CommonTokenStream(
-                        new TextBundleLexer(
+                        new TemplateBundleLexer(
                             new ANTLRInputStream(stream)
                         )
                     )

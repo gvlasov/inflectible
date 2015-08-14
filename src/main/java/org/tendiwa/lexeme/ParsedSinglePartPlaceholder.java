@@ -2,7 +2,7 @@ package org.tendiwa.lexeme;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
-import org.tendiwa.lexeme.antlr.TextBundleParser;
+import org.tendiwa.lexeme.antlr.TemplateBundleParser;
 
 /**
  * @author Georgy Vlasov (suseika@tendiwa.org)
@@ -10,10 +10,10 @@ import org.tendiwa.lexeme.antlr.TextBundleParser;
  * @since 0.1
  */
 public final class ParsedSinglePartPlaceholder implements Placeholder {
-    private final TextBundleParser.SinglePartPlaceholderContext ctx;
+    private final TemplateBundleParser.SinglePartPlaceholderContext ctx;
 
     ParsedSinglePartPlaceholder(
-        TextBundleParser.SinglePartPlaceholderContext ctx
+        TemplateBundleParser.SinglePartPlaceholderContext ctx
     ) {
         this.ctx = ctx;
     }

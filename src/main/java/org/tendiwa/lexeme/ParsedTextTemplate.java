@@ -4,8 +4,8 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
-import org.tendiwa.lexeme.antlr.TextBundleParser;
-import org.tendiwa.lexeme.antlr.TextBundleParserBaseListener;
+import org.tendiwa.lexeme.antlr.TemplateBundleParser;
+import org.tendiwa.lexeme.antlr.TemplateBundleParserBaseListener;
 import org.tenidwa.collections.utils.Collectors;
 
 /**
@@ -16,13 +16,13 @@ import org.tenidwa.collections.utils.Collectors;
  */
 class ParsedTextTemplate implements TextTemplate {
     private final Grammar grammar;
-    private final TextBundleParser.TextTemplateContext ctx;
+    private final TemplateBundleParser.TextTemplateContext ctx;
 
     /**
      * @param grammar Grammar of the language of this text
      * @param ctx ANTLR parse tree of a text template
      */
-    ParsedTextTemplate(Grammar grammar, TextBundleParser.TextTemplateContext ctx) {
+    ParsedTextTemplate(Grammar grammar, TemplateBundleParser.TextTemplateContext ctx) {
         this.grammar = grammar;
         this.ctx = ctx;
     }
@@ -51,7 +51,7 @@ class ParsedTextTemplate implements TextTemplate {
      * findings and passes what it created to {@link BodyWalker}
      */
     private final class ParseTreeListener
-        extends TextBundleParserBaseListener {
+        extends TemplateBundleParserBaseListener {
 
         private TextTemplateBuilder builder;
         private ImmutableList<String> argumentNames;
@@ -62,7 +62,7 @@ class ParsedTextTemplate implements TextTemplate {
 
         @Override
         public final void enterTwoPartPlaceholder(
-            TextBundleParser.TwoPartPlaceholderContext ctx
+            TemplateBundleParser.TwoPartPlaceholderContext ctx
         ) {
             this.builder.addPlaceholder(
                 new ParsedTwoPartVariableConceptPlaceholder(
@@ -73,13 +73,13 @@ class ParsedTextTemplate implements TextTemplate {
         }
 
         @Override
-        public final void enterRawText(TextBundleParser.RawTextContext ctx) {
+        public final void enterRawText(TemplateBundleParser.RawTextContext ctx) {
             this.builder.addText(ctx.getText());
         }
 
         @Override
         public final void enterSinglePartPlaceholder(
-            TextBundleParser.SinglePartPlaceholderContext ctx
+            TemplateBundleParser.SinglePartPlaceholderContext ctx
         ) {
             this.builder.addPlaceholder(new ParsedSinglePartPlaceholder(ctx));
         }

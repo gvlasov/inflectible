@@ -19,7 +19,7 @@ import com.google.common.collect.ImmutableList;
  * <pre>
  * cats [Plur]
  * </pre>
- * @see "WordBundleParser.g4, rule `entry` for how WordFormMarkup is parsed."
+ * @see "LexemeBundleParser.g4, rule `entry` for how WordFormMarkup is parsed."
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1

@@ -3,7 +3,7 @@ package org.tendiwa.lexeme;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import org.antlr.v4.runtime.tree.TerminalNode;
-import org.tendiwa.lexeme.antlr.WordBundleParser;
+import org.tendiwa.lexeme.antlr.LexemeBundleParser;
 import org.tenidwa.collections.utils.Collectors;
 
 /**
@@ -16,12 +16,12 @@ final class ParsedLexeme implements Lexeme {
 
     private final Grammar grammar;
 
-    private final WordBundleParser.WordContext ctx;
+    private final LexemeBundleParser.LexemeContext ctx;
 
     /**
      * @param ctx ANTLR parse tree of a lexeme
      */
-    public ParsedLexeme(Grammar grammar, WordBundleParser.WordContext ctx) {
+    public ParsedLexeme(Grammar grammar, LexemeBundleParser.LexemeContext ctx) {
         this.grammar = grammar;
         this.ctx = ctx;
     }
@@ -49,8 +49,8 @@ final class ParsedLexeme implements Lexeme {
     }
 
     private ImmutableSet<Grammeme> grammemes() {
-        final WordBundleParser.Persistent_grammemesContext persistent =
-            this.ctx.persistent_grammemes();
+        final LexemeBundleParser.PersistentGrammemesContext persistent =
+            this.ctx.persistentGrammemes();
         if (persistent == null) {
             return ImmutableSet.of();
         } else {
@@ -66,8 +66,8 @@ final class ParsedLexeme implements Lexeme {
 
     private ImmutableList<WordForm> wordForms() {
         return this.ctx
-            .word_forms()
-            .entry()
+            .wordForms()
+            .wordForm()
             .stream()
             .map(ctx->new ParsedWordForm(this.grammar, ctx))
             .collect(Collectors.toImmutableList());

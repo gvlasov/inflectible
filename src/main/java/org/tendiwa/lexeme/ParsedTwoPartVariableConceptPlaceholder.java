@@ -3,7 +3,7 @@ package org.tendiwa.lexeme;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.tendiwa.lexeme.antlr.TextBundleParser;
+import org.tendiwa.lexeme.antlr.TemplateBundleParser;
 import org.tenidwa.collections.utils.Collectors;
 
 import java.util.Optional;
@@ -17,11 +17,11 @@ final class ParsedTwoPartVariableConceptPlaceholder
         implements Placeholder {
     private final Grammar grammar;
 
-    private final TextBundleParser.TwoPartPlaceholderContext ctx;
+    private final TemplateBundleParser.TwoPartPlaceholderContext ctx;
 
     ParsedTwoPartVariableConceptPlaceholder(
         Grammar grammar,
-        TextBundleParser.TwoPartPlaceholderContext ctx
+        TemplateBundleParser.TwoPartPlaceholderContext ctx
     ) {
         super();
         this.grammar = grammar;

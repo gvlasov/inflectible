@@ -2,10 +2,11 @@ package org.tendiwa.lexeme;
 
 import com.google.common.collect.ForwardingMap;
 import com.google.common.collect.ImmutableMap;
+import org.tendiwa.lexeme.antlr.LexemeBundleParser;
+
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
-import org.tendiwa.lexeme.antlr.WordBundleParser;
 
 /**
  * WordBundle that parses an InputStream to get words.
@@ -31,8 +32,8 @@ public final class ParsedVocabulary
         return ImmutableMap.copyOf(
             this.input
                 .stream()
-                .map(BasicWordBundleParser::new)
-                .flatMap(parser -> parser.word_bundle().word().stream())
+                .map(BasicLexemeBundleParser::new)
+                .flatMap(parser -> parser.lexemes().lexeme().stream())
                 .collect(
                     java.util.stream.Collectors.toMap(
                         this::conceptionId,
@@ -42,8 +43,8 @@ public final class ParsedVocabulary
         );
     }
 
-    private String conceptionId(WordBundleParser.WordContext ctx) {
-        return ctx.conception().CONCEPTION_ID().getText();
+    private String conceptionId(LexemeBundleParser.LexemeContext ctx) {
+        return ctx.LEXEME_ID().getText();
     }
 
     @Override

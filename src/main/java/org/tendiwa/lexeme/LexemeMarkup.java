@@ -22,7 +22,7 @@ import com.google.common.collect.ImmutableList;
  * Unlike {@link Lexeme}, MarkedUpLexeme is just a bunch of Strings that were
  * only syntactically validated by ANTLR, but have not yet been grammatically
  * validated by this library.
- * @see "WordBundleParser.g4, rule `word` for how MarkedUpLexeme is parsed."
+ * @see "LexemeBundleParser.g4, rule `word` for how MarkedUpLexeme is parsed."
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1

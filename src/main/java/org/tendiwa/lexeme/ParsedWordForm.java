@@ -3,7 +3,7 @@ package org.tendiwa.lexeme;
 
 import com.google.common.collect.ImmutableSet;
 import org.antlr.v4.runtime.tree.TerminalNode;
-import org.tendiwa.lexeme.antlr.WordBundleParser;
+import org.tendiwa.lexeme.antlr.LexemeBundleParser;
 import org.tenidwa.collections.utils.Collectors;
 
 /**
@@ -13,9 +13,9 @@ import org.tenidwa.collections.utils.Collectors;
  */
 public final class ParsedWordForm implements WordForm {
     private final Grammar grammar;
-    private final WordBundleParser.EntryContext ctx;
+    private final LexemeBundleParser.WordFormContext ctx;
 
-    ParsedWordForm(Grammar grammar, WordBundleParser.EntryContext ctx) {
+    ParsedWordForm(Grammar grammar, LexemeBundleParser.WordFormContext ctx) {
         this.grammar = grammar;
         this.ctx = ctx;
     }
