@@ -1,11 +1,11 @@
 package org.tendiwa.lexeme;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.tendiwa.lexeme.antlr.TextBundleParser;
 import org.tenidwa.collections.utils.Collectors;
 
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -29,16 +29,39 @@ final class ParsedTwoPartVariableConceptPlaceholder
     }
 
     @Override
-    public String fillUp(Map<String, Lexeme> actualArguments) {
-        return this.delegate().fillUp(actualArguments);
+    public String fillUp(
+        ImmutableMap<String, Lexeme> arguments,
+        ImmutableMap<String, Lexeme> vocabulary
+    ) {
+        return this.delegate().fillUp(arguments, vocabulary);
     }
 
     private Placeholder delegate() {
         return new BasicPlaceholder(
-            this.name().toLowerCase(),
-            Character.isUpperCase(this.name().charAt(0)),
+            this.lexemeSource(),
+            this.capitalization(),
             this.grammemes(),
-            this.agreementArgumentName()
+            this.agreement()
+        );
+    }
+
+    private Agreement agreement() {
+        final Optional<String> agreementName = this.agreementArgumentName();
+        if (agreementName.isPresent()) {
+            return new ArgumentAgreement(agreementName.get());
+        } else {
+            return Agreement.NONE;
+        }
+    }
+
+    private Capitalization capitalization() {
+        return Character.isUpperCase(this.name().charAt(0)) ?
+            Capitalization.CAPITALZES : Capitalization.IDENTITY;
+    }
+
+    private LexemeSource lexemeSource() {
+        return new ArgumentsLexemeSource(
+            this.name().toLowerCase()
         );
     }
 

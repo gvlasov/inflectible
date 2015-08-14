@@ -1,10 +1,8 @@
 package org.tendiwa.lexeme;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import org.tendiwa.lexeme.antlr.TextBundleParser;
-
-import java.util.Map;
-import java.util.Optional;
 
 /**
  * @author Georgy Vlasov (suseika@tendiwa.org)
@@ -20,21 +18,35 @@ public final class ParsedSinglePartPlaceholder implements Placeholder {
         this.ctx = ctx;
     }
 
-    @Override
-    public String fillUp(Map<String, Lexeme> arguments) {
-        return this.delegate().fillUp(arguments);
-    }
-
     private Placeholder delegate() {
         return new BasicPlaceholder(
-            this.name().toLowerCase(),
-            Character.isUpperCase(this.name().charAt(0)),
+            this.lexemeSource(),
+            this.capitalization(),
             ImmutableSet.of(),
-            Optional.empty()
+            Agreement.NONE
+        );
+    }
+
+    private Capitalization capitalization() {
+        return Character.isUpperCase(this.name().charAt(0)) ?
+            Capitalization.CAPITALZES : Capitalization.IDENTITY;
+    }
+
+    private LexemeSource lexemeSource() {
+        return new ArgumentsLexemeSource(
+            this.name().toLowerCase()
         );
     }
 
     private String name() {
         return this.ctx.CAPITALIZABLE_ID().getText();
+    }
+
+    @Override
+    public String fillUp(
+        ImmutableMap<String, Lexeme> arguments,
+        ImmutableMap<String, Lexeme> vocabulary
+    ) {
+        return this.delegate().fillUp(arguments, vocabulary);
     }
 }
