@@ -3,14 +3,12 @@ package org.tendiwa.lexeme;
 import com.google.common.collect.ImmutableMap;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.tendiwa.lexeme.antlr.TextBundleLexer;
 import org.tendiwa.lexeme.implementations.English;
 
 public final class ParsedTwoPartVariableConceptPlaceholderTest {
     @Test
-    @Ignore
     public void capitalizesWordWhenNecessary() throws Exception {
         MatcherAssert.assertThat(
             this.wordFormInsertionResult("[dude][Plur]", "dude", "director"),

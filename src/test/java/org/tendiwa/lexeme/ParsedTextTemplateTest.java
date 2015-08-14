@@ -6,7 +6,6 @@ import com.google.common.collect.ImmutableMap;
 import org.apache.commons.io.IOUtils;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.tendiwa.lexeme.antlr.TextBundleParser;
 import org.tendiwa.lexeme.implementations.English;
@@ -19,7 +18,6 @@ import java.util.Map;
  */
 public final class ParsedTextTemplateTest {
     @Test
-    @Ignore
     public void fillsUpItself() throws Exception {
         final Grammar grammar = new English().grammar();
         final Map<String, Lexeme> vocabulary = new ParsedVocabulary(
