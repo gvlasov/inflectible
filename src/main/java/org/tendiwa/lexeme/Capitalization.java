@@ -1,27 +1,24 @@
 package org.tendiwa.lexeme;
 
+import java.util.function.Function;
+
 /**
- * Some string that may start from a capital letter or not.
+ * Changes capitalization stype of a string.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-interface Capitalization {
-    /**
-     * @return String with its first letter in lower case.
-     */
-    String uncapitalized();
+interface Capitalization extends Function<String, String> {
+    Capitalization CAPITALZES =
+        word ->
+            String.format(
+                "%c%s",
+                Character.toUpperCase(word.charAt(0)),
+                word.substring(1)
+            );
 
-    /**
-     * @param capitalized Whether the first letter should be capitalized
-     * @return Content with first letter in upper case if {@code capitalized}
-     * is true. Content with first letter in lower case if {@code
-     * capitalized} is false.
-     */
-    String changeCase(boolean capitalized);
+    Capitalization IDENTITY = word -> word;
 
-    /**
-     * @return True iff it starts from a capital letter.
-     */
-    boolean isFirstLetterCapital();
+    @Override
+    String apply(String word);
 }
