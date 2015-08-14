@@ -1,6 +1,6 @@
 package org.tendiwa.lexeme;
 
-import java.util.Map;
+import com.google.common.collect.ImmutableMap;
 
 /**
  * @author Georgy Vlasov (suseika@tendiwa.org)
@@ -8,5 +8,8 @@ import java.util.Map;
  * @since 0.1
  */
 public interface Placeholder {
-    String fillUp(Map<String, Lexeme> arguments);
+    String fillUp(
+        ImmutableMap<String, Lexeme> arguments,
+        ImmutableMap<String, Lexeme> vocabulary
+    );
 }
