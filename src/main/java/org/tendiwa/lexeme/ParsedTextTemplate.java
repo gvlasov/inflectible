@@ -1,6 +1,7 @@
 package org.tendiwa.lexeme;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.tendiwa.lexeme.antlr.TextBundleParser;
@@ -27,8 +28,11 @@ class ParsedTextTemplate implements TextTemplate {
     }
 
     @Override
-    public String fillUp(ImmutableList<Lexeme> lexemes) {
-        return this.delegate().fillUp(lexemes);
+    public String fillUp(
+        ImmutableList<Lexeme> lexemes,
+        ImmutableMap<String, Lexeme> vocabulary
+    ) {
+        return this.delegate().fillUp(lexemes, vocabulary);
     }
 
     private ImmutableList<String> argumentNames() {
@@ -39,9 +43,7 @@ class ParsedTextTemplate implements TextTemplate {
 
     // TODO: To be refactored in #47
     private TextTemplate delegate() {
-        return new ParseTreeListener(
-            this.argumentNames()
-        ).filledUpText();
+        return new ParseTreeListener(this.argumentNames()).filledUpText();
     }
 
     /**

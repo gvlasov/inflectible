@@ -5,7 +5,6 @@ import com.google.common.collect.ImmutableMap;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -35,7 +34,7 @@ public final class TextTemplateBuilder {
     }
 
     public TextTemplateBuilder addText(String text) {
-        this.addPlaceholder(arguments -> text);
+        this.addPlaceholder((arguments, vocabulary) -> text);
         return this;
     }
 
@@ -68,15 +67,20 @@ public final class TextTemplateBuilder {
         }
 
         @Override
-        public String fillUp(ImmutableList<Lexeme> lexemes) {
-            final Map<String, Lexeme> actualArguments =
+        public String fillUp(
+            ImmutableList<Lexeme> lexemes,
+            ImmutableMap<String, Lexeme> vocabulary
+        ) {
+            final ImmutableMap<String, Lexeme> actualArguments =
                 this.actualArguments(lexemes);
             return this.parts.stream()
-                .map(part -> part.fillUp(actualArguments))
+                .map(part -> part.fillUp(actualArguments, vocabulary))
                 .collect(Collectors.joining());
         }
 
-        private Map<String, Lexeme> actualArguments(List<Lexeme> lexemes) {
+        private ImmutableMap<String, Lexeme> actualArguments(
+            List<Lexeme> lexemes
+        ) {
             if (lexemes.size() != this.argumentNames.size()) {
                 throw new IllegalArgumentException(
                     String.format(

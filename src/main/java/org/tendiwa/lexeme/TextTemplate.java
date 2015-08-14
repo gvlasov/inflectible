@@ -1,6 +1,7 @@
 package org.tendiwa.lexeme;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 
 /**
  * Text with unfilled placeholders.
@@ -24,5 +25,8 @@ public interface TextTemplate {
      * @param lexemes Lexemes to be inserted in place of placeholders
      * @return Text with placeholders filled up.
      */
-    String fillUp(ImmutableList<Lexeme> lexemes);
+    String fillUp(
+        ImmutableList<Lexeme> lexemes,
+        ImmutableMap<String, Lexeme> vocabulary
+    );
 }
