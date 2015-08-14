@@ -2,6 +2,7 @@ package org.tendiwa.lexeme;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import org.apache.commons.io.IOUtils;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
@@ -43,7 +44,8 @@ public final class ParsedTextTemplateTest {
                 ImmutableList.of(
                     vocabulary.get("human"),
                     vocabulary.get("bear")
-                )
+                ),
+                ImmutableMap.of()
             ),
             CoreMatchers.equalTo(
                 "Here come a human and two bears. Human is tall."

@@ -37,7 +37,8 @@ public final class ParsedTwoPartVariableConceptPlaceholderTest {
                 )
                     .twoPartPlaceholder()
             ).fillUp(
-                ImmutableMap.of(argumentName, new SingleFormLexeme(wordForm))
+                ImmutableMap.of(argumentName, new SingleFormLexeme(wordForm)),
+                ImmutableMap.of()
             );
     }
 }

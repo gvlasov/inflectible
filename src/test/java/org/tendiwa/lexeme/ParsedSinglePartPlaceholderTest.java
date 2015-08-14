@@ -44,7 +44,8 @@ public final class ParsedSinglePartPlaceholderTest {
                     ImmutableMap.of(
                         argumentName,
                         new SingleFormLexeme(wordForm)
-                    )
+                    ),
+                    ImmutableMap.of()
                 );
     }
 }

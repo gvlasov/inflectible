@@ -1,6 +1,7 @@
 package org.tendiwa.lexeme;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
@@ -12,15 +13,24 @@ public final class TextTemplateBuilderTest {
     public void createsTemplate() throws Exception {
         MatcherAssert.assertThat(
             new TextTemplateBuilder(ImmutableList.of("subject", "object"))
-                .addPlaceholder(new BasicPlaceholder("subject"))
+                .addPlaceholder(
+                    new BasicPlaceholder(
+                        new ArgumentsLexemeSource("subject")
+                    )
+                )
                 .addText(" immediately picks up an ")
-                .addPlaceholder(new BasicPlaceholder("object"))
+                .addPlaceholder(
+                    new BasicPlaceholder(
+                        new ArgumentsLexemeSource("object")
+                    )
+                )
                 .build()
             .fillUp(
                 ImmutableList.<Lexeme>of(
                     new SingleFormLexeme("man"),
                     new SingleFormLexeme("apple")
-                )
+                ),
+                ImmutableMap.of()
             ),
             CoreMatchers.equalTo("man immediately picks up an apple")
         );
@@ -30,7 +40,11 @@ public final class TextTemplateBuilderTest {
     public void cantBeUsedTwice() throws Exception {
         final TextTemplateBuilder builder =
             new TextTemplateBuilder(ImmutableList.of("subject"))
-                .addPlaceholder(new BasicPlaceholder("subject"));
+                .addPlaceholder(
+                    new BasicPlaceholder(
+                        new ArgumentsLexemeSource("subject")
+                    )
+                );
         IntStream.range(0, 2).forEach(i -> builder.build());
     }
 
@@ -41,7 +55,7 @@ public final class TextTemplateBuilderTest {
                 .addText("Hey, ")
                 .addText("dude!")
                 .build()
-                .fillUp(ImmutableList.of()),
+                .fillUp(ImmutableList.of(), ImmutableMap.of()),
             CoreMatchers.equalTo("Hey, dude!")
         );
     }
