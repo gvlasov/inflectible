@@ -1,8 +1,8 @@
-"bear" {
+BEAR {
     bear
     bears [Plur]
 }
-"human" {
+HUMAN {
     human
     humans [Plur]
 }

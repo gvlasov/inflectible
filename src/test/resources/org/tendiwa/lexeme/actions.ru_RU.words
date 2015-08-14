@@ -1,22 +1,22 @@
-"to claw" {
+CLAW {
 	царапать
 	царапает [III Ед]
 }
-"to bite" {
+BITE {
     кусать
     кусает [III Ед]
 }
-"to hit" {
+HIT {
     бить
     бьёт [III Ед]
     бьют [III Мн]
 }
-"to roar" {
+ROAR {
     рычать
     рычит [III Ед]
     рычат [III Мн]
 }
-"to shout" {
+SHOUT {
     кричать
     кричит [III Ед]
     кричат [III Мн]

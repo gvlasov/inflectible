@@ -1,21 +1,22 @@
 package org.tendiwa.lexeme;
 
 import com.google.common.base.Joiner;
-import java.io.IOException;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.apache.commons.io.IOUtils;
-import org.tendiwa.lexeme.antlr.TextBundleLexer;
-import org.tendiwa.lexeme.antlr.TextBundleParser;
+import org.tendiwa.lexeme.antlr.TemplateBundleLexer;
+import org.tendiwa.lexeme.antlr.TemplateBundleParser;
+
+import java.io.IOException;
 
 /**
- * Creates TextBundleParsers.
+ * Creates TemplateBundleParsers.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-public class TextBundleParserFactory {
-    public TextBundleParserFactory() {
+public class TemplateBundleParserFactory {
+    public TemplateBundleParserFactory() {
 
     }
 
@@ -25,8 +26,8 @@ public class TextBundleParserFactory {
      * produce the actual text.
      * @return Parsed corpus.
      */
-    public final TextBundleParser create(String... corpusText) {
-        return this.createInMode(TextBundleLexer.DEFAULT_MODE, corpusText);
+    public final TemplateBundleParser create(String... corpusText) {
+        return this.createInMode(TemplateBundleLexer.DEFAULT_MODE, corpusText);
     }
 
     /**
@@ -36,9 +37,9 @@ public class TextBundleParserFactory {
      * produce the actual text.
      * @return Parsed corpus.
      */
-    public final TextBundleParser createInMode(int mode, String... corpusText) {
+    public final TemplateBundleParser createInMode(int mode, String... corpusText) {
         try {
-            final TextBundleLexer lexer = new TextBundleLexer(
+            final TemplateBundleLexer lexer = new TemplateBundleLexer(
                 new ANTLRInputStream(
                     IOUtils.toInputStream(
                         Joiner.on('\n').join(
@@ -48,7 +49,7 @@ public class TextBundleParserFactory {
                 )
             );
             lexer.mode(mode);
-            return new TextBundleParser(
+            return new TemplateBundleParser(
                 new CommonTokenStream(
                     lexer
                 )

@@ -30,17 +30,15 @@ public final class ParsedWordFormTest {
     private ParsedWordForm wordFormBears() {
         return new ParsedWordForm(
             new English().grammar(),
-            new BasicWordBundleParser(
+            new BasicLexemeBundleParser(
                 ParsedWordFormTest.class.getResourceAsStream(
                     "characters.en_US.words"
                 )
             )
-                .word_bundle()
-                .word()
-                .get(0)
-                .word_forms()
-                .entry()
-                .get(1)
+                .lexemes()
+                .lexeme(0)
+                .wordForms()
+                .wordForm(1)
         );
     }
 }

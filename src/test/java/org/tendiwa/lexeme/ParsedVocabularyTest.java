@@ -22,7 +22,7 @@ public final class ParsedVocabularyTest {
             CoreMatchers.equalTo(2)
         );
         MatcherAssert.assertThat(
-            bundle.containsKey("dragon"),
+            bundle.containsKey("DRAGON"),
             CoreMatchers.equalTo(true)
         );
     }
@@ -31,11 +31,11 @@ public final class ParsedVocabularyTest {
     public void findsWordForms() throws Exception {
         final ParsedVocabulary bundle = this.englishVocabulary();
         MatcherAssert.assertThat(
-            bundle.get("dragon").defaultSpelling(),
+            bundle.get("DRAGON").defaultSpelling(),
             CoreMatchers.equalTo("dragon")
         );
         MatcherAssert.assertThat(
-            bundle.get("dragon").wordForm(
+            bundle.get("DRAGON").wordForm(
                 ImmutableSet.of(English.Grammemes.Plur)
             ),
             CoreMatchers.equalTo("dragons")
@@ -48,11 +48,11 @@ public final class ParsedVocabularyTest {
             Collections.singletonList(
                 IOUtils.toInputStream(
                     Joiner.on('\n').join(
-                        "\"dragon\" {",
+                        "DRAGON {",
                         "   dragon  [Sing]",
                         "   dragons [Plur]",
                         "}",
-                        "\"bee\" {",
+                        "BEE {",
                         "   bee  [Sing]",
                         "   bees [Plur]",
                         "}"

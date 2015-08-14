@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
-import org.tendiwa.lexeme.antlr.TextBundleLexer;
+import org.tendiwa.lexeme.antlr.TemplateBundleLexer;
 
 /**
  * @since 0.1
@@ -33,9 +33,9 @@ public final class ParsedSinglePartPlaceholderTest {
     ) {
         return
             new ParsedSinglePartPlaceholder(
-                new TextBundleParserFactory()
+                new TemplateBundleParserFactory()
                     .createInMode(
-                        TextBundleLexer.LINE_CONTENT,
+                        TemplateBundleLexer.LINE_CONTENT,
                         placeholderMarkup
                     )
                     .singlePartPlaceholder()

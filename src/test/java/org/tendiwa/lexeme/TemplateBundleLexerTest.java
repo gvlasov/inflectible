@@ -6,9 +6,9 @@ import org.apache.commons.io.IOUtils;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
-import org.tendiwa.lexeme.antlr.TextBundleLexer;
+import org.tendiwa.lexeme.antlr.TemplateBundleLexer;
 
-public class TextBundleLexerTest {
+public class TemplateBundleLexerTest {
     @Test
     public void splitsIntoTokens() throws Exception {
         final String text = Joiner.on('\n').join(
@@ -18,7 +18,7 @@ public class TextBundleLexerTest {
             "}"
         );
         MatcherAssert.assertThat(
-            new TextBundleLexer(
+            new TemplateBundleLexer(
                 new ANTLRInputStream(
                     IOUtils.toInputStream(text)
                 )

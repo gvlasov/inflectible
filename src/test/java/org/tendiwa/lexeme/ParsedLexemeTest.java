@@ -61,14 +61,13 @@ public final class ParsedLexemeTest {
     ) {
         return new ParsedLexeme(
             new English().grammar(),
-            new BasicWordBundleParser(
+            new BasicLexemeBundleParser(
                 ParsedLexemeTest.class.getResourceAsStream(
                     resourceName
                 )
             )
-                .word_bundle()
-                .word()
-                .get(0)
+                .lexemes()
+                .lexeme(0)
         );
     }
 }

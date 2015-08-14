@@ -1,20 +1,21 @@
 package org.tendiwa.lexeme;
 
 import com.google.common.base.Joiner;
-import java.io.IOException;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.apache.commons.io.IOUtils;
-import org.tendiwa.lexeme.antlr.WordBundleLexer;
-import org.tendiwa.lexeme.antlr.WordBundleParser;
+import org.tendiwa.lexeme.antlr.LexemeBundleLexer;
+import org.tendiwa.lexeme.antlr.LexemeBundleParser;
+
+import java.io.IOException;
 
 /**
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-public final class WordBundleParserFactory {
-    public WordBundleParserFactory() {
+public final class LexemeBundleParserFactory {
+    public LexemeBundleParserFactory() {
 
     }
 
@@ -24,8 +25,8 @@ public final class WordBundleParserFactory {
      * produce the actual text.
      * @return Parsed corpus.
      */
-    public final WordBundleParser create(String... wordsText) {
-        return this.createInMode(WordBundleLexer.DEFAULT_MODE, wordsText);
+    public final LexemeBundleParser create(String... wordsText) {
+        return this.createInMode(LexemeBundleLexer.DEFAULT_MODE, wordsText);
     }
 
     /**
@@ -35,9 +36,9 @@ public final class WordBundleParserFactory {
      * produce the actual text.
      * @return Parsed corpus.
      */
-    public final WordBundleParser createInMode(int mode, String... corpusText) {
+    public final LexemeBundleParser createInMode(int mode, String... corpusText) {
         try {
-            final WordBundleLexer lexer = new WordBundleLexer(
+            final LexemeBundleLexer lexer = new LexemeBundleLexer(
                 new ANTLRInputStream(
                     IOUtils.toInputStream(
                         Joiner.on('\n').join(
@@ -47,7 +48,7 @@ public final class WordBundleParserFactory {
                 )
             );
             lexer.mode(mode);
-            return new WordBundleParser(
+            return new LexemeBundleParser(
                 new CommonTokenStream(
                     lexer
                 )

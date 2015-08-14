@@ -7,7 +7,7 @@ import org.apache.commons.io.IOUtils;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
-import org.tendiwa.lexeme.antlr.TextBundleParser;
+import org.tendiwa.lexeme.antlr.TemplateBundleParser;
 import org.tendiwa.lexeme.implementations.English;
 
 import java.io.IOException;
@@ -40,8 +40,8 @@ public final class ParsedTextTemplateTest {
                 )
             ).fillUp(
                 ImmutableList.of(
-                    vocabulary.get("human"),
-                    vocabulary.get("bear")
+                    vocabulary.get("HUMAN"),
+                    vocabulary.get("BEAR")
                 ),
                 ImmutableMap.of()
             ),
@@ -57,10 +57,10 @@ public final class ParsedTextTemplateTest {
      * @return
      * @throws IOException
      */
-    private TextBundleParser.TextTemplateContext textContext(String template)
+    private TemplateBundleParser.TextTemplateContext textContext(String template)
         throws IOException {
         return
-            new BasicTextBundleParser(IOUtils.toInputStream(template))
+            new BasicTemplateBundleParser(IOUtils.toInputStream(template))
                 .textTemplates()
                 .textTemplate(0);
     }

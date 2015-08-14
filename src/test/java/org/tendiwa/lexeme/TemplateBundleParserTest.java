@@ -9,9 +9,9 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
-import org.tendiwa.lexeme.antlr.TextBundleLexer;
-import org.tendiwa.lexeme.antlr.TextBundleParser;
-import org.tendiwa.lexeme.antlr.TextBundleParserBaseListener;
+import org.tendiwa.lexeme.antlr.TemplateBundleLexer;
+import org.tendiwa.lexeme.antlr.TemplateBundleParser;
+import org.tendiwa.lexeme.antlr.TemplateBundleParserBaseListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +21,7 @@ import java.util.List;
  * @author GeorgyVlasov (suseika@tendiwa.org)
  * @version $Id$
  */
-public class TextBundleParserTest {
+public class TemplateBundleParserTest {
     /**
      * Parser can locate entry arguments in the markup.
      */
@@ -30,11 +30,11 @@ public class TextBundleParserTest {
         Assert.assertEquals(
             Arrays.asList("attacker", "action", "aim"),
             new Arguments(
-                new TextBundleParser(
+                new TemplateBundleParser(
                     new CommonTokenStream(
-                        new TextBundleLexer(
+                        new TemplateBundleLexer(
                             new ANTLRInputStream(
-                                TextBundleLexerTest.class.getResourceAsStream(
+                                TemplateBundleLexerTest.class.getResourceAsStream(
                                     "messages.ru_RU.texts"
                                 )
                             )
@@ -49,12 +49,12 @@ public class TextBundleParserTest {
      * Parser can handle more than one entry per document.
      */
     @Test
-    public void parsesMultipleEntriesInOneTextBundle() throws Exception {
+    public void parsesMultipleEntriesInOneTemplateBundle() throws Exception {
         Assert.assertEquals(
             2,
-            new TextBundleParser(
+            new TemplateBundleParser(
                 new CommonTokenStream(
-                    new TextBundleLexer(
+                    new TemplateBundleLexer(
                         new ANTLRInputStream(
                             IOUtils.toInputStream(
                                 Joiner.on('\n').join(
@@ -78,13 +78,13 @@ public class TextBundleParserTest {
     private class Arguments extends ForwardingList<String> {
         private final List<String> arguments = new ArrayList<>();
 
-        Arguments(TextBundleParser parser) {
+        Arguments(TemplateBundleParser parser) {
             new ParseTreeWalker()
                 .walk(
-                    new TextBundleParserBaseListener() {
+                    new TemplateBundleParserBaseListener() {
                         @Override
                         public void enterDeclaredArguments(
-                            TextBundleParser.DeclaredArgumentsContext ctx
+                            TemplateBundleParser.DeclaredArgumentsContext ctx
                         ) {
                             super.enterDeclaredArguments(ctx);
                             for (ParseTree child : ctx.ID()) {

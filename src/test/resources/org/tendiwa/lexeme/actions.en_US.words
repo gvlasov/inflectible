@@ -1,8 +1,8 @@
-"to claw" {
+CLAW {
     claw
     claws [III]
 }
-"to bite" {
+BITE {
     bite
     bites [III]
 }

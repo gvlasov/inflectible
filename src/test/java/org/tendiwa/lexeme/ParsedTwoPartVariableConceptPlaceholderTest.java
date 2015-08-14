@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
-import org.tendiwa.lexeme.antlr.TextBundleLexer;
+import org.tendiwa.lexeme.antlr.TemplateBundleLexer;
 import org.tendiwa.lexeme.implementations.English;
 
 public final class ParsedTwoPartVariableConceptPlaceholderTest {
@@ -29,8 +29,8 @@ public final class ParsedTwoPartVariableConceptPlaceholderTest {
         return
             new ParsedTwoPartVariableConceptPlaceholder(
                 new English().grammar(),
-                new TextBundleParserFactory().createInMode(
-                    TextBundleLexer.LINE_CONTENT,
+                new TemplateBundleParserFactory().createInMode(
+                    TemplateBundleLexer.LINE_CONTENT,
                     placeholderMarkup
                 )
                     .twoPartPlaceholder()
