@@ -2,8 +2,8 @@ package org.tendiwa.inflectible;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
-import junit.framework.Assert;
 import org.apache.commons.io.IOUtils;
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -41,7 +41,7 @@ public final class ParsedTextuaryTest {
     @Test(expected = UncheckedIOException.class)
     public void failsWithBadInput() throws Exception {
         InputStream badInput = Mockito.mock(InputStream.class);
-        Mockito.when(badInput.read()).thenThrow(IOException.class);
+        Mockito.when(badInput.read()).thenThrow(new IOException());
         new ParsedTextuary(
             Mockito.mock(Grammar.class),
             ImmutableList.of(badInput)
