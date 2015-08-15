@@ -34,10 +34,6 @@ public final class ParsedTextuary extends ForwardingMap<String, TextTemplate> {
         this.texts = this.computeTexts();
     }
 
-    public Map<String, TextTemplate> texts() {
-        return this.texts;
-    }
-
     private Map<String, TextTemplate> computeTexts() {
         return this.inputs.stream()
             .map(this::createParser)

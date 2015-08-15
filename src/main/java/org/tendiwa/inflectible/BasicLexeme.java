@@ -36,14 +36,6 @@ public final class BasicLexeme implements Lexeme {
                 bestMatch = form;
             }
         }
-        if (bestMatch == null) {
-            throw new IllegalArgumentException(
-                String.format(
-                    "Word form for grammatical meaning %s not found",
-                    grammaticalMeaning
-                )
-            );
-        }
         return bestMatch.spelling();
     }
 

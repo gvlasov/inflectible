@@ -31,7 +31,7 @@ public final class ParsedTextTemplateTest {
         MatcherAssert.assertThat(
             new ParsedTextTemplate(
                 grammar,
-                this.textContext(
+                this.templateContext(
                     Joiner.on('\n').join(
                         "texts.text(a,b) {",
                         "  Here come a [a] and two [b][Plur;a]. [A] is tall.",
@@ -57,11 +57,12 @@ public final class ParsedTextTemplateTest {
      * @return
      * @throws IOException
      */
-    private TemplateBundleParser.TextTemplateContext textContext(String template)
-        throws IOException {
+    private TemplateBundleParser.TemplateContext templateContext(
+        String template
+    ) throws IOException {
         return
             new BasicTemplateBundleParser(IOUtils.toInputStream(template))
-                .textTemplates()
-                .textTemplate(0);
+                .templates()
+                .template(0);
     }
 }

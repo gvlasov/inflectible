@@ -1,7 +1,7 @@
 package org.tendiwa.inflectible.implementations;
 
+import org.tendiwa.inflectible.AbstractLanguage;
 import org.tendiwa.inflectible.Grammeme;
-import org.tendiwa.inflectible.LanguageWithFallback;
 
 /**
  * Russian language.
@@ -9,15 +9,10 @@ import org.tendiwa.inflectible.LanguageWithFallback;
  * @version $Id$
  * @since 0.1
  */
-public class Russian extends LanguageWithFallback {
+public class Russian extends AbstractLanguage {
 
 	public Russian() {
-		super("Русский", "ru_RU", Russian.Grammemes.class, new English());
-	}
-
-	@Override
-	public String missingWord() {
-		return "[параметр пропущен]";
+		super(Russian.Grammemes.class);
 	}
 
 

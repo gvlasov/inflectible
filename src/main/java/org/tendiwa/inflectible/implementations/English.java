@@ -11,12 +11,7 @@ import org.tendiwa.inflectible.Grammeme;
  */
 public class English extends AbstractLanguage {
 	public English() {
-		super("English", "en_US", English.Grammemes.class);
-	}
-
-	@Override
-	public String missingWord() {
-		return "[parameter_missing]";
+		super(English.Grammemes.class);
 	}
 
 	public enum Grammemes implements Grammeme {

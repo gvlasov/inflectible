@@ -3,13 +3,13 @@ package org.tendiwa.inflectible;
 import java.util.function.Function;
 
 /**
- * Changes capitalization stype of a string.
+ * Changes capitalization type of a string.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
 interface Capitalization extends Function<String, String> {
-    Capitalization CAPITALZES =
+    Capitalization CAPITALIZE =
         word ->
             String.format(
                 "%c%s",

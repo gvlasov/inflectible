@@ -6,12 +6,12 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <cobertura.branchRate>0</cobertura.branchRate>
-        <cobertura.lineRate>0</cobertura.lineRate>
-        <cobertura.packageBranchRate>0</cobertura.packageBranchRate>
-        <cobertura.packageLineRate>0</cobertura.packageLineRate>
-        <cobertura.totalBranchRate>0</cobertura.totalBranchRate>
-        <cobertura.totalLineRate>0</cobertura.totalLineRate>
+        <cobertura.branchRate>100</cobertura.branchRate>
+        <cobertura.lineRate>100</cobertura.lineRate>
+        <cobertura.packageBranchRate>100</cobertura.packageBranchRate>
+        <cobertura.packageLineRate>100</cobertura.packageLineRate>
+        <cobertura.totalBranchRate>100</cobertura.totalBranchRate>
+        <cobertura.totalLineRate>100</cobertura.totalLineRate>
     </properties>
     <groupId>org.tendiwa.inflectible</groupId>
     <artifactId>inflectible</artifactId>
@@ -103,8 +103,7 @@
                         <configuration>
                             <instrumentation>
                                 <excludes>
-                                    <exclude>com/xockets/shims/InputShim$2.class</exclude>
-                                    <exclude>com/xockets/layer/appliance/Encode$1.class</exclude>
+                                    <exclude>org/tendiwa/inflectible/antlr/**</exclude>
                                 </excludes>
                             </instrumentation>
                             <check>

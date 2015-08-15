@@ -56,7 +56,7 @@ final class ParsedTwoPartVariableConceptPlaceholder
 
     private Capitalization capitalization() {
         return Character.isUpperCase(this.name().charAt(0)) ?
-            Capitalization.CAPITALZES : Capitalization.IDENTITY;
+            Capitalization.CAPITALIZE : Capitalization.IDENTITY;
     }
 
     private LexemeSource lexemeSource() {

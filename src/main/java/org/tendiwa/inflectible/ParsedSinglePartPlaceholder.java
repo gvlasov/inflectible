@@ -29,7 +29,7 @@ public final class ParsedSinglePartPlaceholder implements Placeholder {
 
     private Capitalization capitalization() {
         return Character.isUpperCase(this.name().charAt(0)) ?
-            Capitalization.CAPITALZES : Capitalization.IDENTITY;
+            Capitalization.CAPITALIZE : Capitalization.IDENTITY;
     }
 
     private LexemeSource lexemeSource() {

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  */
 public final class TextTemplateBuilder {
 
-    private ImmutableList<String> argumentNames;
+    private final ImmutableList<String> argumentNames;
 
     private final List<Placeholder> parts;
 

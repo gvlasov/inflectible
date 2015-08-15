@@ -2,7 +2,12 @@ BEAR {
     bear
     bears [Plur]
 }
+
 HUMAN {
     human
     humans [Plur]
+}
+
+SCISSORS [Plur] {
+    scissors
 }

@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableSet;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.tendiwa.inflectible.implementations.English;
 
 public final class BasicPlaceholderTest {
@@ -25,7 +26,7 @@ public final class BasicPlaceholderTest {
     public void overridesDefaults() throws Exception {
         final BasicPlaceholder thirdPersonPlaceholder =
             new BasicPlaceholder(new ArgumentsLexemeSource("action"))
-                .withCapitalization(Capitalization.CAPITALZES)
+                .withCapitalization(Capitalization.CAPITALIZE)
                 .withExplicitGrammemes(
                     ImmutableSet.of(English.Grammemes.III)
                 )
@@ -56,6 +57,29 @@ public final class BasicPlaceholderTest {
                 ImmutableMap.of()
             ),
             CoreMatchers.equalTo("Eats")
+        );
+    }
+
+    @Test
+    public void sticksToExistingObjectWhenParametersSetToSame()
+        throws Exception {
+        final Agreement agreement = Mockito.mock(Agreement.class);
+        final ImmutableSet<Grammeme> explicitGrammemes = ImmutableSet.of();
+        final Capitalization capitalization =
+            Mockito.mock(Capitalization.class);
+        final BasicPlaceholder originalPlaceholder =
+            new BasicPlaceholder(Mockito.mock(LexemeSource.class))
+                .withAgreement(agreement)
+                .withCapitalization(capitalization)
+                .withExplicitGrammemes(explicitGrammemes);
+        final BasicPlaceholder reconfiguredPlaceholder =
+            originalPlaceholder
+                .withCapitalization(capitalization)
+                .withAgreement(agreement)
+                .withExplicitGrammemes(explicitGrammemes);
+        MatcherAssert.assertThat(
+            originalPlaceholder,
+            CoreMatchers.is(reconfiguredPlaceholder)
         );
     }
 }

@@ -14,8 +14,7 @@ import java.util.Map;
  * @version $Id$
  * @since 0.1
  */
-public final class ParsedVocabulary
-    extends ForwardingMap<String, Lexeme> implements Map<String, Lexeme> {
+public final class ParsedVocabulary extends ForwardingMap<String, Lexeme> {
 
     private final List<InputStream> input;
     private final Grammar grammar;

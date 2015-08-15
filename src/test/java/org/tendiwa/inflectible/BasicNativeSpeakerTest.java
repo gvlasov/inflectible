@@ -19,7 +19,7 @@ public final class BasicNativeSpeakerTest {
                             new BasicPlaceholder(
                                 new ArgumentsLexemeSource("attacker")
                             )
-                                .withCapitalization(Capitalization.CAPITALZES)
+                                .withCapitalization(Capitalization.CAPITALIZE)
                         )
                         .addText(" furiously bites YOU!")
                         .build()

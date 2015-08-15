@@ -7,8 +7,11 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public final class ParsedTextuaryTest {
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UncheckedIOException;
 
+public final class ParsedTextuaryTest {
     @Test
     public void loadsTexts() throws Exception {
         Assert.assertEquals(
@@ -31,9 +34,17 @@ public final class ParsedTextuaryTest {
                     )
                 )
             )
-                .texts()
                 .size()
         );
     }
 
+    @Test(expected = UncheckedIOException.class)
+    public void failsWithBadInput() throws Exception {
+        InputStream badInput = Mockito.mock(InputStream.class);
+        Mockito.when(badInput.read()).thenThrow(IOException.class);
+        new ParsedTextuary(
+            Mockito.mock(Grammar.class),
+            ImmutableList.of(badInput)
+        );
+    }
 }

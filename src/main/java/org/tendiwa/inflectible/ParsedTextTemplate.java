@@ -46,10 +46,6 @@ class ParsedTextTemplate implements TextTemplate {
         return new ParseTreeListener(this.argumentNames()).filledUpText();
     }
 
-    /**
-     * Walks over an ANTLR parse tree, creates proper objects from its plaintext
-     * findings and passes what it created to {@link BodyWalker}
-     */
     private final class ParseTreeListener
         extends TemplateBundleParserBaseListener {
 

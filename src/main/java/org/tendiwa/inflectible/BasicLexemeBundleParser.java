@@ -7,6 +7,7 @@ import org.tendiwa.inflectible.antlr.LexemeBundleParser;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UncheckedIOException;
 
 /**
  * @author Georgy Vlasov (suseika@tendiwa.org)
@@ -28,7 +29,7 @@ public final class BasicLexemeBundleParser extends LexemeBundleParser {
         try {
             return new ANTLRInputStream(input);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedIOException(e);
         }
     }
 }

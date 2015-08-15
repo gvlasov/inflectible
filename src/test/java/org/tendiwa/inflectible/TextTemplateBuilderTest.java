@@ -59,4 +59,18 @@ public final class TextTemplateBuilderTest {
             CoreMatchers.equalTo("Hey, dude!")
         );
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void createdTextsReportWrongNumberOfArguments() throws Exception {
+        new TextTemplateBuilder(ImmutableList.of("subject", "object"))
+            .build()
+            .fillUp(
+                ImmutableList.of(
+                    new SingleFormLexeme("Mary"),
+                    new SingleFormLexeme("cock"),
+                    new SingleFormLexeme("backstage")
+                ),
+                ImmutableMap.of()
+            );
+    }
 }

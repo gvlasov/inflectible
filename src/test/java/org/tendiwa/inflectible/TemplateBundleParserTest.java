@@ -71,7 +71,7 @@ public class TemplateBundleParserTest {
                         )
                     )
                 )
-            ).textTemplates().textTemplate().size()
+            ).templates().template().size()
         );
     }
 
@@ -92,7 +92,7 @@ public class TemplateBundleParserTest {
                             }
                         }
                     },
-                    parser.textTemplates()
+                    parser.templates()
                 );
         }
 
@@ -101,5 +101,4 @@ public class TemplateBundleParserTest {
             return arguments;
         }
     }
-
 }
