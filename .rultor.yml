@@ -7,6 +7,10 @@ decrypt:
   secring.gpg: "repo/secring.gpg.asc"
 docker:
   image: "maven:3.2.5-jdk-8"
+merge:
+  script: |
+    mvn clean install -Pcobertura
+    mvn clean
 release:
   script: |
     mvn versions:set "-DnewVersion=${tag}"
