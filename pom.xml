@@ -6,12 +6,12 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <cobertura.branchRate>100</cobertura.branchRate>
-        <cobertura.lineRate>100</cobertura.lineRate>
-        <cobertura.packageBranchRate>100</cobertura.packageBranchRate>
-        <cobertura.packageLineRate>100</cobertura.packageLineRate>
-        <cobertura.totalBranchRate>100</cobertura.totalBranchRate>
-        <cobertura.totalLineRate>100</cobertura.totalLineRate>
+        <cobertura.branchRate>80</cobertura.branchRate>
+        <cobertura.lineRate>80</cobertura.lineRate>
+        <cobertura.packageBranchRate>90</cobertura.packageBranchRate>
+        <cobertura.packageLineRate>90</cobertura.packageLineRate>
+        <cobertura.totalBranchRate>90</cobertura.totalBranchRate>
+        <cobertura.totalLineRate>90</cobertura.totalLineRate>
     </properties>
     <groupId>org.tendiwa.inflectible</groupId>
     <artifactId>inflectible</artifactId>
