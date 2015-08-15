@@ -7,6 +7,12 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <cobertura.branchRate>0</cobertura.branchRate>
+        <cobertura.lineRate>0</cobertura.lineRate>
+        <cobertura.packageBranchRate>0</cobertura.packageBranchRate>
+        <cobertura.packageLineRate>0</cobertura.packageLineRate>
+        <cobertura.totalBranchRate>0</cobertura.totalBranchRate>
+        <cobertura.totalLineRate>0</cobertura.totalLineRate>
     </properties>
     <groupId>org.tendiwa.lexeme</groupId>
     <artifactId>lexeme</artifactId>
@@ -36,7 +42,6 @@
                     </execution>
                 </executions>
                 <configuration>
-
                     <visitor>true</visitor>
                     <arguments>
                         <argument>-package</argument>
@@ -48,6 +53,86 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>cobertura</id>
+            <!--<dependencyManagement>-->
+                <!--<dependencies>-->
+                    <!--<dependency>-->
+                        <!--<groupId>xerces</groupId>-->
+                        <!--<artifactId>xercesImpl</artifactId>-->
+                        <!--<version>2.11.0</version>-->
+                    <!--</dependency>-->
+                <!--</dependencies>-->
+            <!--</dependencyManagement>-->
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>cobertura-maven-plugin</artifactId>
+                        <configuration>
+                            <check>
+                                <haltOnFailure>true</haltOnFailure>
+                                <branchRate>${cobertura.branchRate}</branchRate>
+                                <lineRate>${cobertura.lineRate}</lineRate>
+                                <packageBranchRate>${cobertura.packageBranchRate}</packageBranchRate>
+                                <packageLineRate>${cobertura.packageLineRate}</packageLineRate>
+                                <totalBranchRate>${cobertura.totalBranchRate}</totalBranchRate>
+                                <totalLineRate>${cobertura.totalLineRate}</totalLineRate>
+                            </check>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>clean</goal>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>cobertura-forcereport</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>cobertura-maven-plugin</artifactId>
+                        <version>2.7</version>
+                        <configuration>
+                            <instrumentation>
+                                <excludes>
+                                    <exclude>com/xockets/shims/InputShim$2.class</exclude>
+                                    <exclude>com/xockets/layer/appliance/Encode$1.class</exclude>
+                                </excludes>
+                            </instrumentation>
+                            <check>
+                                <haltOnFailure>false</haltOnFailure>
+                                <branchRate>${cobertura.branchRate}</branchRate>
+                                <lineRate>${cobertura.lineRate}</lineRate>
+                                <packageBranchRate>${cobertura.packageBranchRate}</packageBranchRate>
+                                <packageLineRate>${cobertura.packageLineRate}</packageLineRate>
+                                <totalBranchRate>${cobertura.totalBranchRate}</totalBranchRate>
+                                <totalLineRate>${cobertura.totalLineRate}</totalLineRate>
+                            </check>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>cobertura-report</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>clean</goal>
+                                    <goal>cobertura</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
     <dependencies>
         <dependency>
             <groupId>com.google.guava</groupId>
