@@ -4,9 +4,9 @@ options {
     tokenVocab=TemplateBundleLexer;
 }
 
-textTemplates: textTemplate+;
+templates: template+;
 
-textTemplate: id LPAREN declaredArguments RPAREN TEMPLATE_START templateBody TEMPLATE_END;
+template: id LPAREN declaredArguments RPAREN TEMPLATE_START templateBody TEMPLATE_END;
 
 id: ID (DOT ID)*;
 

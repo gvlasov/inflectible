@@ -16,13 +16,13 @@ import org.tenidwa.collections.utils.Collectors;
  */
 class ParsedTextTemplate implements TextTemplate {
     private final Grammar grammar;
-    private final TemplateBundleParser.TextTemplateContext ctx;
+    private final TemplateBundleParser.TemplateContext ctx;
 
     /**
      * @param grammar Grammar of the language of this text
      * @param ctx ANTLR parse tree of a text template
      */
-    ParsedTextTemplate(Grammar grammar, TemplateBundleParser.TextTemplateContext ctx) {
+    ParsedTextTemplate(Grammar grammar, TemplateBundleParser.TemplateContext ctx) {
         this.grammar = grammar;
         this.ctx = ctx;
     }

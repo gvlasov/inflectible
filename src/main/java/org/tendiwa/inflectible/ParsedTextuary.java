@@ -1,14 +1,17 @@
 package org.tendiwa.inflectible;
 
+import com.google.common.collect.ForwardingMap;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.tendiwa.inflectible.antlr.TemplateBundleLexer;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
-import org.tenidwa.collections.utils.Collectors;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * TextBundle of texts loaded from a textual input stream.
@@ -16,11 +19,11 @@ import java.util.List;
  * @version $Id$
  * @since 0.1
  */
-public class ParsedTextuary {
+public final class ParsedTextuary extends ForwardingMap<String, TextTemplate> {
 
     private final List<InputStream> inputs;
     private final Grammar grammar;
-    private final List<TextTemplate> texts;
+    private final Map<String, TextTemplate> texts;
 
     /**
      * @param inputs Sources to parse into {@link TextTemplate}s.
@@ -31,16 +34,25 @@ public class ParsedTextuary {
         this.texts = this.computeTexts();
     }
 
-    public List<TextTemplate> texts() {
+    public Map<String, TextTemplate> texts() {
         return this.texts;
     }
 
-    private List<TextTemplate> computeTexts() {
+    private Map<String, TextTemplate> computeTexts() {
         return this.inputs.stream()
             .map(this::createParser)
-            .flatMap(parser -> parser.textTemplates().textTemplate().stream())
-            .map(textCtx -> new ParsedTextTemplate(this.grammar, textCtx))
-            .collect(Collectors.toImmutableList());
+            .flatMap(parser -> parser.templates().template().stream())
+            .collect(
+                Collectors.toMap(
+                    this::templateId,
+                    templateCtx ->
+                        new ParsedTextTemplate(this.grammar, templateCtx)
+                )
+            );
+    }
+
+    private String templateId(TemplateBundleParser.TemplateContext textCtx) {
+        return textCtx.id().getText();
     }
 
     private TemplateBundleParser createParser(InputStream stream) {
@@ -54,7 +66,12 @@ public class ParsedTextuary {
                     )
                 );
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedIOException(e);
         }
+    }
+
+    @Override
+    protected Map<String, TextTemplate> delegate() {
+        return this.texts;
     }
 }
