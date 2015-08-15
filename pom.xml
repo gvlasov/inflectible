@@ -3,7 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -14,8 +13,8 @@
         <cobertura.totalBranchRate>0</cobertura.totalBranchRate>
         <cobertura.totalLineRate>0</cobertura.totalLineRate>
     </properties>
-    <groupId>org.tendiwa.lexeme</groupId>
-    <artifactId>lexeme</artifactId>
+    <groupId>org.tendiwa.inflectible</groupId>
+    <artifactId>inflectible</artifactId>
     <version>1.0-SNAPSHOT</version>
     <build>
         <plugins>
@@ -45,9 +44,9 @@
                     <visitor>true</visitor>
                     <arguments>
                         <argument>-package</argument>
-                        <argument>org.tendiwa.lexeme.antlr</argument>
+                        <argument>org.tendiwa.inflectible.antlr</argument>
                         <argument>-lib</argument>
-                        <argument>src/main/antlr4/org/tendiwa/lexeme/antlr</argument>
+                        <argument>src/main/antlr4/org/tendiwa/inflectible/antlr</argument>
                     </arguments>
                 </configuration>
             </plugin>
