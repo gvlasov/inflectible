@@ -9,7 +9,17 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.tendiwa.inflectible.implementations.English;
 
+/**
+ * Unit tests for {@link BasicPlaceholder}.
+ * @author Georgy Vlasov (suseika@tendiwa.org)
+ * @version $Id$
+ * @since 0.1
+ */
 public final class BasicPlaceholderTest {
+    /**
+     * BasicPlaceholder can be created with default aspects.
+     * @throws Exception If fails
+     */
     @Test
     public void fillsItselfUpWithDefaults() throws Exception {
         MatcherAssert.assertThat(
@@ -22,6 +32,11 @@ public final class BasicPlaceholderTest {
         );
     }
 
+    /**
+     * BasicPlaceholder can create derivative BasicPlaceholders with
+     * different placeholder aspects.
+     * @throws Exception If fails
+     */
     @Test
     public void overridesDefaults() throws Exception {
         final BasicPlaceholder thirdPersonPlaceholder =
@@ -60,6 +75,11 @@ public final class BasicPlaceholderTest {
         );
     }
 
+    /**
+     * BasicPlaceholder can return itself if the aspect set is the one that
+     * this placeholder already has.
+     * @throws Exception If fails
+     */
     @Test
     public void sticksToExistingObjectWhenParametersSetToSame()
         throws Exception {

@@ -15,10 +15,18 @@ import org.tenidwa.collections.utils.Collectors;
  * @since 0.1
  */
 class ParsedTextTemplate implements TextTemplate {
+     /**
+     * Grammar of the language of this template.
+     */
     private final Grammar grammar;
+
+    /**
+     * ANTLR parse tree of a template.
+     */
     private final TemplateBundleParser.TemplateContext ctx;
 
     /**
+     * Ctor.
      * @param grammar Grammar of the language of this text
      * @param ctx ANTLR parse tree of a text template
      */
@@ -35,25 +43,48 @@ class ParsedTextTemplate implements TextTemplate {
         return this.delegate().fillUp(lexemes, vocabulary);
     }
 
+    /**
+     * Obtains the names of the arguments of this text template.
+     * @return Names of arguments.
+     */
     private ImmutableList<String> argumentNames() {
         return this.ctx.declaredArguments().ID().stream()
             .map(TerminalNode::getText)
             .collect(Collectors.toImmutableList());
     }
 
-    // TODO: To be refactored in #47
+
+    /**
+     * Creates a template from the {@link ParsedLexeme#ctx}
+     * @return Template from markup
+     */
     private TextTemplate delegate() {
+        // TODO: To be refactored in #47
         return new ParseTreeListener(this.argumentNames()).filledUpText();
     }
 
+    /**
+     * Walks an ANTLR parse tree and constructs a template.
+     */
     private final class ParseTreeListener
         extends TemplateBundleParserBaseListener {
 
+        /**
+         * Template builder.
+         */
         private TextTemplateBuilder builder;
-        private ImmutableList<String> argumentNames;
 
-        ParseTreeListener(ImmutableList<String> argumentNames) {
-            this.argumentNames = argumentNames;
+        /**
+         * Argument names in the order as they appear in markup.
+         */
+        private ImmutableList<String> arguments;
+
+        /**
+         * Ctor.
+         * @param names Argument names in the order as they appear in markup
+         */
+        ParseTreeListener(ImmutableList<String> names) {
+            this.arguments = names;
         }
 
         @Override
@@ -81,11 +112,12 @@ class ParsedTextTemplate implements TextTemplate {
         }
 
         /**
-         * @return Walk the ANTLR parse tree and construct a
-         * {@link TextTemplate} for it.
+         * Walk the ANTLR parse tree and construct a {@link TextTemplate} for
+         * it.
+         * @return Template.
          */
         private TextTemplate filledUpText() {
-            this.builder = new TextTemplateBuilder(this.argumentNames);
+            this.builder = new TextTemplateBuilder(this.arguments);
             ParseTreeWalker.DEFAULT.walk(this, ParsedTextTemplate.this.ctx);
             return this.builder.build();
         }

@@ -11,7 +11,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
 
+/**
+ * Unit tests for {@link ParsedTextuary}.
+ * @author Georgy Vlasov (suseika@tendiwa.org)
+ * @version $Id$
+ * @since 0.1
+ */
 public final class ParsedTextuaryTest {
+    /**
+     * ParsedTextuary can load templates from an input stream.
+     * @throws Exception
+     */
     @Test
     public void loadsTexts() throws Exception {
         Assert.assertEquals(
@@ -38,6 +48,10 @@ public final class ParsedTextuaryTest {
         );
     }
 
+    /**
+     * ParsedTextuary can fail if it can't read from its input stream.
+     * @throws Exception If fails
+     */
     @Test(expected = UncheckedIOException.class)
     public void failsWithBadInput() throws Exception {
         InputStream badInput = Mockito.mock(InputStream.class);

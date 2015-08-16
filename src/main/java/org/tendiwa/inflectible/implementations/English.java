@@ -10,10 +10,16 @@ import org.tendiwa.inflectible.Grammeme;
  * @since 0.1
  */
 public class English extends AbstractLanguage {
+    /**
+     * Ctor.
+     */
 	public English() {
 		super(English.Grammemes.class);
 	}
 
+    /**
+     * Grammemes of English grammar.
+     */
 	public enum Grammemes implements Grammeme {
         /**
          * Gerund.

@@ -3,7 +3,10 @@ package org.tendiwa.inflectible;
 import com.google.common.collect.ImmutableSet;
 
 /**
- * Collection of word forms belonging to the same conception.
+ * Collection of word forms belonging to the same conception, and their
+ * persistent grammatical meaning.
+ * @see <a href="https://en.wikipedia.org/wiki/Lexeme">Lexeme article on
+ *  Wikipedia</a>
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
@@ -13,7 +16,7 @@ public interface Lexeme {
      * The word form that could go to a dictionary.
      * <p>E.g. infinitive for a verb in English, or singular form in
      * nominative case for a noun in Russian.
-     * @return The default form of a word.
+     * @return The default spelling of this lexeme.
      */
     String defaultSpelling();
 

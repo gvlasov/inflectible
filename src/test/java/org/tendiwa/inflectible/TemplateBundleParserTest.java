@@ -1,57 +1,54 @@
 package org.tendiwa.inflectible;
 
 import com.google.common.base.Joiner;
-import com.google.common.collect.ForwardingList;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.apache.commons.io.IOUtils;
-import org.junit.Assert;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.tendiwa.inflectible.antlr.TemplateBundleLexer;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
-import org.tendiwa.inflectible.antlr.TemplateBundleParserBaseListener;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
+ * Unit tests for {@link TemplateBundleParser}.
  * @author GeorgyVlasov (suseika@tendiwa.org)
  * @version $Id$
+ * @since 0.1
  */
 public class TemplateBundleParserTest {
     /**
-     * Parser can locate entry arguments in the markup.
+     * TemplateBundleParser can locate entry arguments in the markup.
      */
     @Test
     public void findsArguments() throws Exception {
-        Assert.assertEquals(
-            Arrays.asList("attacker", "action", "aim"),
-            new Arguments(
-                new TemplateBundleParser(
-                    new CommonTokenStream(
-                        new TemplateBundleLexer(
-                            new ANTLRInputStream(
-                                TemplateBundleLexerTest.class.getResourceAsStream(
-                                    "messages.ru_RU.texts"
-                                )
+        MatcherAssert.assertThat(
+            new TemplateBundleParser(
+                new CommonTokenStream(
+                    new TemplateBundleLexer(
+                        new ANTLRInputStream(
+                            TemplateBundleLexerTest.class.getResourceAsStream(
+                                "messages.ru_RU.texts"
                             )
                         )
                     )
                 )
             )
+                .templates()
+                .template(0)
+                .declaredArguments()
+                .ID(2)
+                .getText(),
+            CoreMatchers.equalTo("aim")
         );
     }
 
     /**
-     * Parser can handle more than one entry per document.
+     * TemplateBundleParser can handle more than one template per bundle.
      */
     @Test
     public void parsesMultipleEntriesInOneTemplateBundle() throws Exception {
-        Assert.assertEquals(
-            2,
+        MatcherAssert.assertThat(
             new TemplateBundleParser(
                 new CommonTokenStream(
                     new TemplateBundleLexer(
@@ -71,34 +68,11 @@ public class TemplateBundleParserTest {
                         )
                     )
                 )
-            ).templates().template().size()
+            )
+                .templates()
+                .template()
+                .size(),
+            CoreMatchers.equalTo(2)
         );
-    }
-
-    private class Arguments extends ForwardingList<String> {
-        private final List<String> arguments = new ArrayList<>();
-
-        Arguments(TemplateBundleParser parser) {
-            new ParseTreeWalker()
-                .walk(
-                    new TemplateBundleParserBaseListener() {
-                        @Override
-                        public void enterDeclaredArguments(
-                            TemplateBundleParser.DeclaredArgumentsContext ctx
-                        ) {
-                            super.enterDeclaredArguments(ctx);
-                            for (ParseTree child : ctx.ID()) {
-                                arguments.add(child.getText());
-                            }
-                        }
-                    },
-                    parser.templates()
-                );
-        }
-
-        @Override
-        protected List<String> delegate() {
-            return arguments;
-        }
     }
 }

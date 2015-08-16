@@ -23,36 +23,29 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
+import org.junit.Test;
+import org.mockito.Mockito;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UncheckedIOException;
 
 /**
+ * Unit tests for {@link BasicTemplateBundleParser}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-public final class BasicWordForm implements WordForm {
-    private final String spelling;
-    private final ImmutableSet<Grammeme> grammaticalMeaning;
-
-    public BasicWordForm(
-        String spelling,
-        ImmutableSet<Grammeme> grammaticalMeaning
-    ) {
-        this.spelling = spelling;
-        this.grammaticalMeaning = grammaticalMeaning;
-    }
-
-    @Override
-    public String spelling() {
-        return this.spelling;
-    }
-
-    @Override
-    public int similarity(ImmutableSet<Grammeme> grammemes) {
-        return Sets.intersection(
-            grammemes,
-            this.grammaticalMeaning
-        ).size();
+public final class BasicTemplateBundleParserTest {
+    /**
+     * {@link BasicTemplateBundleParser} can fail if an input stream passed to
+     * it throws {@link IOException}.
+     * @throws Exception If fails
+     */
+    @Test(expected = UncheckedIOException.class)
+    public void failsWithBadInputStream() throws Exception {
+        InputStream failing = Mockito.mock(InputStream.class);
+        Mockito.when(failing.read()).thenThrow(new IOException());
+        new BasicTemplateBundleParser(failing);
     }
 }

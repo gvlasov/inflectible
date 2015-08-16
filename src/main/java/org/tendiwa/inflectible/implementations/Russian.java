@@ -11,11 +11,17 @@ import org.tendiwa.inflectible.Grammeme;
  */
 public class Russian extends AbstractLanguage {
 
+    /**
+     * Ctor.
+     */
 	public Russian() {
 		super(Russian.Grammemes.class);
 	}
 
 
+    /**
+     * Grammemes of Russian grammar.
+     */
 	public enum Grammemes implements Grammeme {
 		/**
 		 * Мужской род.

@@ -14,16 +14,26 @@ import org.tenidwa.collections.utils.Collectors;
  */
 final class ParsedLexeme implements Lexeme {
 
+    /**
+     * Grammar of the language of this lexeme.
+     */
     private final Grammar grammar;
 
+    /**
+     * ANTLR parse tree of a lexeme.
+     */
     private final LexemeBundleParser.LexemeContext ctx;
 
     /**
-     * @param ctx ANTLR parse tree of a lexeme
+     * Ctor.
+     * @param parseTree ANTLR parse tree of a lexeme
      */
-    public ParsedLexeme(Grammar grammar, LexemeBundleParser.LexemeContext ctx) {
+    public ParsedLexeme(
+        Grammar grammar,
+        LexemeBundleParser.LexemeContext parseTree
+    ) {
         this.grammar = grammar;
-        this.ctx = ctx;
+        this.ctx = parseTree;
     }
 
     @Override
@@ -41,6 +51,11 @@ final class ParsedLexeme implements Lexeme {
         return this.delegate().defaultSpelling();
     }
 
+    /**
+     * Creates a lexeme with word forms and persistent grammatical meaning
+     * obtained from the {@link ParsedLexeme#ctx}.
+     * @return Lexeme from markup.
+     */
     private Lexeme delegate() {
         return new BasicLexeme(
             this.grammemes(),
@@ -48,6 +63,10 @@ final class ParsedLexeme implements Lexeme {
         );
     }
 
+    /**
+     * Obtains grammemes from markup.
+     * @return Grammemes.
+     */
     private ImmutableSet<Grammeme> grammemes() {
         final LexemeBundleParser.PersistentGrammemesContext persistent =
             this.ctx.persistentGrammemes();
@@ -64,6 +83,10 @@ final class ParsedLexeme implements Lexeme {
         }
     }
 
+    /**
+     * Obtains word forms from markup.
+     * @return Word forms.
+     */
     private ImmutableList<WordForm> wordForms() {
         return this.ctx
             .wordForms()

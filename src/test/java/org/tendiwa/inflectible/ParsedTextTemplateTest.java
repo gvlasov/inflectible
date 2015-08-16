@@ -14,9 +14,16 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
+ * Unit tests for {@link ParsedTextTemplate}.
+ * @author Georgy Vlasov (suseika@tendiwa.org)
+ * @version $Id$
  * @since 0.1
  */
 public final class ParsedTextTemplateTest {
+    /**
+     * ParsedTextTemplate can fill itself up with arguments.
+     * @throws Exception If fails
+     */
     @Test
     public void fillsUpItself() throws Exception {
         final Grammar grammar = new English().grammar();
@@ -53,9 +60,9 @@ public final class ParsedTextTemplateTest {
 
     /**
      * Creates an ANTLR parse tree for a single text template.
-     * @param template
-     * @return
-     * @throws IOException
+     * @param template Template markup
+     * @return ANTLR parse tree created from the markup
+     * @throws IOException If fails
      */
     private TemplateBundleParser.TemplateContext templateContext(
         String template

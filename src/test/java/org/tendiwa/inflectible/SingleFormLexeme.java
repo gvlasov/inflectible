@@ -4,15 +4,24 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
 /**
+ * Lexeme with only its dictionary form (with default grammatical meaning)
+ * and no persistent grammemes.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
 public final class SingleFormLexeme implements Lexeme {
+    /**
+     * Spelling of the dictionary word form.
+     */
     private String spelling;
 
-    SingleFormLexeme(String spelling) {
-        this.spelling = spelling;
+    /**
+     * Ctor.
+     * @param wordForm Spelling of the dictionary word form.
+     */
+    SingleFormLexeme(String wordForm) {
+        this.spelling = wordForm;
     }
 
     @Override
@@ -30,6 +39,12 @@ public final class SingleFormLexeme implements Lexeme {
         return this.delegate().persistentGrammemes();
     }
 
+    /**
+     * Creates a lexeme to delegate all the interface methods of
+     * {@link SingleFormLexeme}.
+     * @return Lexeme with a single word form (with default grammatical
+     *  meaning) and no persistent grammemes.
+     */
     private Lexeme delegate() {
         return new BasicLexeme(
             ImmutableSet.of(),

@@ -8,7 +8,17 @@ import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.tendiwa.inflectible.antlr.TemplateBundleLexer;
 
+/**
+ * Unit tests for {@link TemplateBundleLexer}.
+ * @author Georgy Vlasov (suseika@tendiwa.org)
+ * @version $Id$
+ * @since 0.1
+ */
 public class TemplateBundleLexerTest {
+    /**
+     * TemplateBundleLexer can split a correct piece of markup into tokens.
+     * @throws Exception If fails
+     */
     @Test
     public void splitsIntoTokens() throws Exception {
         final String text = Joiner.on('\n').join(

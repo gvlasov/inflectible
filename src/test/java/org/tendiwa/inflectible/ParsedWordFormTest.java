@@ -7,9 +7,16 @@ import org.junit.Test;
 import org.tendiwa.inflectible.implementations.English;
 
 /**
+ * Unit tests for {@link ParsedWordForm}.
+ * @author Georgy Vlasov (suseika@tendiwa.org)
+ * @version $Id$
  * @since 0.1
  */
 public final class ParsedWordFormTest {
+    /**
+     * ParsedWordForm can obtain its spelling from an ANTLR parse tree.
+     * @throws Exception If fails
+     */
     @Test
     public void hasSpelling() throws Exception {
         MatcherAssert.assertThat(
@@ -18,6 +25,11 @@ public final class ParsedWordFormTest {
         );
     }
 
+    /**
+     * ParsedWordForm can tell how similar its grammatical meaning is to some
+     * other grammatical meaning.
+     * @throws Exception If fails
+     */
     @Test
     public void computesSimilarity() throws Exception {
         MatcherAssert.assertThat(
@@ -27,13 +39,18 @@ public final class ParsedWordFormTest {
         );
     }
 
+    /**
+     * Creates a plural word form <i>bears</i>.
+     * @return Plural word form <i>bears</i>
+     */
     private ParsedWordForm wordFormBears() {
         return new ParsedWordForm(
             new English().grammar(),
             new BasicLexemeBundleParser(
-                ParsedWordFormTest.class.getResourceAsStream(
-                    "characters.en_US.words"
-                )
+                "BEAR {",
+                "  bear",
+                "  bears [Plur]",
+                "}"
             )
                 .lexemes()
                 .lexeme(0)

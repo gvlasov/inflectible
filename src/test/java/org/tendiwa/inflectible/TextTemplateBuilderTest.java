@@ -8,7 +8,17 @@ import org.junit.Test;
 
 import java.util.stream.IntStream;
 
+/**
+ * Unit tests for {@link TextTemplateBuilder}.
+ * @author Georgy Vlasov (suseika@tendiwa.org)
+ * @version $Id$
+ * @since 0.1
+ */
 public final class TextTemplateBuilderTest {
+    /**
+     * Creates
+     * @throws Exception
+     */
     @Test
     public void createsTemplate() throws Exception {
         MatcherAssert.assertThat(

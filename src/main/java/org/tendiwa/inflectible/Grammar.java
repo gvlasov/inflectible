@@ -8,6 +8,7 @@ package org.tendiwa.inflectible;
  */
 public interface Grammar {
     /**
+     * Get a grammeme by its name.
      * @param name Name of a grammeme
      * @return Grammeme by its name.
      * @throws IllegalArgumentException If there is no Grammeme with such name.

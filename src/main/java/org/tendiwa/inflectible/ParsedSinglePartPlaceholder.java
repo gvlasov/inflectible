@@ -5,19 +5,32 @@ import com.google.common.collect.ImmutableSet;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 
 /**
+ * {@link Placeholder} constructed from an ANTLR parse tree.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
 public final class ParsedSinglePartPlaceholder implements Placeholder {
+    /**
+     * ANTLR parse tree of a placeholder.
+     */
     private final TemplateBundleParser.SinglePartPlaceholderContext ctx;
 
+    /**
+     * Ctor.
+     * @param parseTree ANTLR parse tree of a two-part placeholder.
+     */
     ParsedSinglePartPlaceholder(
-        TemplateBundleParser.SinglePartPlaceholderContext ctx
+        TemplateBundleParser.SinglePartPlaceholderContext parseTree
     ) {
-        this.ctx = ctx;
+        this.ctx = parseTree;
     }
 
+    /**
+     * Creates a placeholder with aspects obtained from the
+     * {@link ParsedLexeme#ctx}.
+     * @return Lexeme from markup.
+     */
     private Placeholder delegate() {
         return new BasicPlaceholder(
             this.lexemeSource(),
@@ -27,18 +40,30 @@ public final class ParsedSinglePartPlaceholder implements Placeholder {
         );
     }
 
+    /**
+     * Determines capitalization of this placeholder.
+     * @return Capitalization to be applied to this placeholder.
+     */
     private Capitalization capitalization() {
-        return Character.isUpperCase(this.name().charAt(0)) ?
+        return Character.isUpperCase(this.argumentName().charAt(0)) ?
             Capitalization.CAPITALIZE : Capitalization.IDENTITY;
     }
 
+    /**
+     * Creates a {@link LexemeSource} for this placeholder.
+     * @return A lexeme source.
+     */
     private LexemeSource lexemeSource() {
         return new ArgumentsLexemeSource(
-            this.name().toLowerCase()
+            this.argumentName().toLowerCase()
         );
     }
 
-    private String name() {
+    /**
+     * Obtains the argument name used to fill out this placeholder.
+     * @return Argument name obtained from an ANTLR parse tree.
+     */
+    private String argumentName() {
         return this.ctx.CAPITALIZABLE_ID().getText();
     }
 
