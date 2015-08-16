@@ -27,32 +27,45 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 
 /**
+ * A {@link WordForm} defined by its spelling and grammatical meaning.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
 public final class BasicWordForm implements WordForm {
-    private final String spelling;
-    private final ImmutableSet<Grammeme> grammaticalMeaning;
+    /**
+     * Spelling of this word.
+     */
+    private final transient String form;
 
+    /**
+     * Grammatical meaning of this word.
+     */
+    private final transient ImmutableSet<Grammeme> grammemes;
+
+    /**
+     * Ctor.
+     * @param word Spelling of this word
+     * @param meaning Grammatical meaning of this word
+     */
     public BasicWordForm(
-        String spelling,
-        ImmutableSet<Grammeme> grammaticalMeaning
+        final String word,
+        final ImmutableSet<Grammeme> meaning
     ) {
-        this.spelling = spelling;
-        this.grammaticalMeaning = grammaticalMeaning;
+        this.form = word;
+        this.grammemes = meaning;
     }
 
     @Override
     public String spelling() {
-        return this.spelling;
+        return this.form;
     }
 
     @Override
-    public int similarity(ImmutableSet<Grammeme> grammemes) {
+    public int similarity(final ImmutableSet<Grammeme> meaning) {
         return Sets.intersection(
-            grammemes,
-            this.grammaticalMeaning
+            meaning,
+            this.grammemes
         ).size();
     }
 }

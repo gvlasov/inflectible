@@ -1,17 +1,39 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Georgy Vlasov
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ForwardingMap;
-import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.tendiwa.inflectible.antlr.TemplateBundleLexer;
-import org.tendiwa.inflectible.antlr.TemplateBundleParser;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.tendiwa.inflectible.antlr.TemplateBundleLexer;
+import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 
 /**
  * A bundle of texts loaded from a textual input stream.
@@ -23,25 +45,34 @@ public final class ParsedTextuary extends ForwardingMap<String, TextTemplate> {
     /**
      * Input stream with templates' markup.
      */
-    private final List<InputStream> inputs;
+    private final transient List<InputStream> inputs;
 
     /**
      * Grammar of the language of templates.
      */
-    private final Grammar grammar;
+    private final transient Grammar grammar;
 
     /**
      * Resulting texts.
      */
-    private final Map<String, TextTemplate> texts;
+    private final transient Map<String, TextTemplate> texts;
 
     /**
-     * @param inputs Sources to parse into {@link TextTemplate}s.
+     * Ctor.
+     * @param grammemes Grammaf of the language of input templates
+     * @param input InputStreams with markup of templates
      */
-    ParsedTextuary(Grammar grammar, List<InputStream> inputs) {
-        this.inputs = inputs;
-        this.grammar = grammar;
+    ParsedTextuary(final Grammar grammemes, final List<InputStream> input) {
+        super();
+        this.inputs = input;
+        this.grammar = grammemes;
         this.texts = this.parseTemplates();
+    }
+
+    // @checkstyle ProtectedMethodInFinalClassCheck (3 lines)
+    @Override
+    protected Map<String, TextTemplate> delegate() {
+        return this.texts;
     }
 
     /**
@@ -50,24 +81,24 @@ public final class ParsedTextuary extends ForwardingMap<String, TextTemplate> {
      */
     private Map<String, TextTemplate> parseTemplates() {
         return this.inputs.stream()
-            .map(this::createParser)
+            .map(stream -> this.createParser(stream))
             .flatMap(parser -> parser.templates().template().stream())
             .collect(
                 Collectors.toMap(
-                    this::templateId,
-                    templateCtx ->
-                        new ParsedTextTemplate(this.grammar, templateCtx)
+                    (ctx) -> this.templateId(ctx),
+                    templateCtx
+                        -> new ParsedTextTemplate(this.grammar, templateCtx)
                 )
             );
     }
 
     /**
      * Obtains an identifier of a template.
-     * @param parseTree ANTLR parse tree of a template.
+     * @param ctx ANTLR parse tree of a template.
      * @return Identifier of a template.
      */
-    private String templateId(TemplateBundleParser.TemplateContext parseTree) {
-        return parseTree.id().getText();
+    private String templateId(final TemplateBundleParser.TemplateContext ctx) {
+        return ctx.id().getText();
     }
 
     /**
@@ -75,23 +106,19 @@ public final class ParsedTextuary extends ForwardingMap<String, TextTemplate> {
      * @param stream Input stream with templates' markup
      * @return ANTLR parser for {@code stream}
      */
-    private TemplateBundleParser createParser(InputStream stream) {
+    private TemplateBundleParser createParser(final InputStream stream) {
+        final TemplateBundleParser parser;
         try {
-            return
-                new TemplateBundleParser(
-                    new CommonTokenStream(
-                        new TemplateBundleLexer(
-                            new ANTLRInputStream(stream)
-                        )
+            parser = new TemplateBundleParser(
+                new CommonTokenStream(
+                    new TemplateBundleLexer(
+                        new ANTLRInputStream(stream)
                     )
-                );
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
+                )
+            );
+        } catch (final IOException ex) {
+            throw new UncheckedIOException(ex);
         }
-    }
-
-    @Override
-    protected Map<String, TextTemplate> delegate() {
-        return this.texts;
+        return parser;
     }
 }

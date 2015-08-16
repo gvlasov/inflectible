@@ -1,12 +1,35 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Georgy Vlasov
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import java.util.Locale;
+import java.util.Optional;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 import org.tenidwa.collections.utils.Collectors;
-
-import java.util.Optional;
 
 /**
  * {@link Placeholder} parsed from an ANTLR parse tree.
@@ -14,37 +37,36 @@ import java.util.Optional;
  * @version $Id$
  * @since 0.1
  */
-final class ParsedTwoPartVariableConceptPlaceholder
-        implements Placeholder {
+final class ParsedTwoPartVariableConceptPlaceholder implements Placeholder {
     /**
      * Grammar of the language of this placeholder.
      */
-    private final Grammar grammar;
+    private final transient Grammar grammar;
 
     /**
      * ANTLR parse tree of a placeholder.
      */
-    private final TemplateBundleParser.TwoPartPlaceholderContext ctx;
+    private final transient TemplateBundleParser.TwoPartPlaceholderContext ctx;
 
     /**
      * Ctor.
      * @param rules Grammar of a language of a template this placeholder
      *  comes from.
-     * @param parseTree ANTLR parse tree of a placeholder.
+     * @param context ANTLR parse tree of a placeholder.
      */
     ParsedTwoPartVariableConceptPlaceholder(
-        Grammar rules,
-        TemplateBundleParser.TwoPartPlaceholderContext parseTree
+        final Grammar rules,
+        final TemplateBundleParser.TwoPartPlaceholderContext context
     ) {
         super();
         this.grammar = rules;
-        this.ctx = parseTree;
+        this.ctx = context;
     }
 
     @Override
     public String fillUp(
-        ImmutableMap<String, Lexeme> arguments,
-        ImmutableMap<String, Lexeme> vocabulary
+        final ImmutableMap<String, Lexeme> arguments,
+        final ImmutableMap<String, Lexeme> vocabulary
     ) {
         return this.delegate().fillUp(arguments, vocabulary);
     }
@@ -65,16 +87,18 @@ final class ParsedTwoPartVariableConceptPlaceholder
 
     /**
      * Finds out the kind of agreement used in this placeholder.
-     * @return {@link Agreement#NONE} if there is no agreement, or
-     * {@link ArgumentAgreement} if there is agreement.
+     * @return If there is no agreement, then {@link Agreement#NONE}, else
+     *  {@link ArgumentAgreement} if there is agreement.
      */
     private Agreement agreement() {
         final Optional<String> agreementName = this.agreementArgumentName();
+        final Agreement answer;
         if (agreementName.isPresent()) {
-            return new ArgumentAgreement(agreementName.get());
+            answer = new ArgumentAgreement(agreementName.get());
         } else {
-            return Agreement.NONE;
+            answer = Agreement.NONE;
         }
+        return answer;
     }
 
     /**
@@ -82,8 +106,13 @@ final class ParsedTwoPartVariableConceptPlaceholder
      * @return Capitalization to be applied to this placeholder.
      */
     private Capitalization capitalization() {
-        return Character.isUpperCase(this.argumentName().charAt(0)) ?
-            Capitalization.CAPITALIZE : Capitalization.IDENTITY;
+        final Capitalization capitalize;
+        if (Character.isUpperCase(this.argumentName().charAt(0))) {
+            capitalize = Capitalization.CAPITALIZE;
+        } else {
+            capitalize = Capitalization.IDENTITY;
+        }
+        return capitalize;
     }
 
     /**
@@ -92,7 +121,7 @@ final class ParsedTwoPartVariableConceptPlaceholder
      */
     private LexemeSource lexemeSource() {
         return new ArgumentsLexemeSource(
-            this.argumentName().toLowerCase()
+            this.argumentName().toLowerCase(Locale.getDefault())
         );
     }
 
@@ -114,11 +143,13 @@ final class ParsedTwoPartVariableConceptPlaceholder
      *  specified.
      */
     private Optional<String> agreementArgumentName() {
+        final Optional<String> answer;
         if (this.ctx.agreement() == null) {
-            return Optional.empty();
+            answer = Optional.empty();
         } else {
-            return Optional.of(this.ctx.agreement().AGREEMENT_ID().getText());
+            answer = Optional.of(this.ctx.agreement().AGREEMENT_ID().getText());
         }
+        return answer;
     }
 
     /**

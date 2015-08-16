@@ -37,15 +37,14 @@ interface Capitalization extends Function<String, String> {
      * Capitalizes spelling.
      */
     Capitalization CAPITALIZE =
-        word ->
-            String.format(
-                "%c%s",
-                Character.toUpperCase(word.charAt(0)),
-                word.substring(1)
-            );
+        word -> String.format(
+            "%c%s",
+            Character.toUpperCase(word.charAt(0)),
+            word.substring(1)
+        );
 
     /**
-     * Leaves a word form as it is
+     * Leaves a word form as it is.
      */
     Capitalization IDENTITY = word -> word;
 

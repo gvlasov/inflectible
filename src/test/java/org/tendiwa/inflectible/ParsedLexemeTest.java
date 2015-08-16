@@ -1,12 +1,34 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Georgy Vlasov
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableSet;
+import java.util.stream.IntStream;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.tendiwa.inflectible.implementations.English;
-
-import java.util.stream.IntStream;
 
 /**
  * Unit tests for {@link ParsedLexeme}.
@@ -16,6 +38,11 @@ import java.util.stream.IntStream;
  */
 public final class ParsedLexemeTest {
     /**
+     * Name of a resource with lexemes.
+     */
+    public static final String LEXEMES_RESOURCE = "characters.en_US.words";
+
+    /**
      * ParsedLexeme can return its base form.
      * @throws Exception If fails
      */
@@ -23,7 +50,7 @@ public final class ParsedLexemeTest {
     public void hasBaseForm() throws Exception {
         MatcherAssert.assertThat(
             this
-                .wordOfBundle("characters.en_US.words", 0)
+                .wordOfBundle(ParsedLexemeTest.LEXEMES_RESOURCE, 0)
                 .defaultSpelling(),
             CoreMatchers.equalTo("bear")
         );
@@ -38,7 +65,7 @@ public final class ParsedLexemeTest {
     public void worksWithZeroPersistentGrammemes() throws Exception {
         MatcherAssert.assertThat(
             this
-                .wordOfBundle("characters.en_US.words", 0)
+                .wordOfBundle(ParsedLexemeTest.LEXEMES_RESOURCE, 0)
                 .persistentGrammemes(),
             CoreMatchers.equalTo(ImmutableSet.of())
         );
@@ -53,7 +80,7 @@ public final class ParsedLexemeTest {
     public void canAssumeCorrectForm() throws Exception {
         MatcherAssert.assertThat(
             this
-                .wordOfBundle("characters.en_US.words", 0)
+                .wordOfBundle(ParsedLexemeTest.LEXEMES_RESOURCE, 0)
                 .wordForm(ImmutableSet.of(English.Grammemes.Plur)),
             CoreMatchers.equalTo("bears")
         );
@@ -65,14 +92,15 @@ public final class ParsedLexemeTest {
      */
     @Test
     public void canBeUsedMultipleTimes() throws Exception {
-        final ParsedLexeme lexeme =
-            this.wordOfBundle("characters.en_US.words", 0);
+        final ParsedLexeme lexeme = this.wordOfBundle(
+            ParsedLexemeTest.LEXEMES_RESOURCE,
+            1
+        );
         IntStream.range(0, 2).forEach(
-            i ->
-                MatcherAssert.assertThat(
-                    lexeme.defaultSpelling(),
-                    CoreMatchers.equalTo("bear")
-                )
+            i -> MatcherAssert.assertThat(
+                lexeme.defaultSpelling(),
+                CoreMatchers.equalTo("human")
+            )
         );
     }
 
@@ -83,7 +111,7 @@ public final class ParsedLexemeTest {
     @Test
     public void canHavePersistentGrammemes() throws Exception {
         MatcherAssert.assertThat(
-            this.wordOfBundle("characters.en_US.words", 2)
+            this.wordOfBundle(ParsedLexemeTest.LEXEMES_RESOURCE, 2)
                 .persistentGrammemes().size(),
             CoreMatchers.equalTo(1)
         );
@@ -92,17 +120,18 @@ public final class ParsedLexemeTest {
     /**
      * Picks {@code index}'th form of a lexeme from a resource with lexemes'
      * markup.
-     * @param resourceName Name of a resource with lexemes' markup
+     * @param resource Name of a resource with lexemes' markup
      * @param index Index of a lexeme in the markup
-     * @return {@code index}'th lexeme from a resourse with lexemes' markup
+     * @return Lexeme on {@code index}'th place in the markup
      */
-    private ParsedLexeme wordOfBundle(String resourceName, int index) {
+    private ParsedLexeme wordOfBundle(
+        final String resource,
+        final int index
+    ) {
         return new ParsedLexeme(
             new English().grammar(),
             new BasicLexemeBundleParser(
-                ParsedLexemeTest.class.getResourceAsStream(
-                    resourceName
-                )
+                ParsedLexemeTest.class.getResourceAsStream(resource)
             )
                 .lexemes()
                 .lexeme(index)

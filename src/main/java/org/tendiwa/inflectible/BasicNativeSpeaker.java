@@ -38,12 +38,12 @@ public final class BasicNativeSpeaker implements NativeSpeaker {
     /**
      * Vocabulary of lexemes.
      */
-    private final ImmutableMap<String, Lexeme> vocabulary;
+    private final transient ImmutableMap<String, Lexeme> vocabulary;
 
     /**
      * Textuary of templates.
      */
-    private final ImmutableMap<String, TextTemplate> textuary;
+    private final transient ImmutableMap<String, TextTemplate> textuary;
 
     /**
      * Ctor.
@@ -51,19 +51,28 @@ public final class BasicNativeSpeaker implements NativeSpeaker {
      * @param templates Textuary of templates
      */
     BasicNativeSpeaker(
-        ImmutableMap<String, Lexeme> lexemes,
-        ImmutableMap<String, TextTemplate> templates
+        final ImmutableMap<String, Lexeme> lexemes,
+        final ImmutableMap<String, TextTemplate> templates
     ) {
         this.vocabulary = lexemes;
         this.textuary = templates;
     }
 
     @Override
-    public String text(String textTemplateId, Localizable... arguments) {
-        return this.textuary.get(textTemplateId).fillUp(
+    public String text(
+        final String identifier,
+        final Localizable... arguments
+    ) {
+        return this.textuary.get(identifier).fillUp(
             ImmutableList.copyOf(arguments)
                 .stream()
-                .map(argument -> this.vocabulary.get(argument.getLocalizationId()))
+                .map(
+                    argument -> BasicNativeSpeaker.this
+                        .vocabulary
+                        .get(
+                            argument.getLocalizationId()
+                    )
+                )
                 .collect(Collectors.toImmutableList()),
             this.vocabulary
         );

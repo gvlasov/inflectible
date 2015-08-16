@@ -1,9 +1,30 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Georgy Vlasov
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ForwardingMap;
 import com.google.common.collect.ImmutableMap;
-import org.tendiwa.inflectible.antlr.LexemeBundleParser;
-
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
@@ -19,28 +40,38 @@ public final class ParsedVocabulary extends ForwardingMap<String, Lexeme> {
     /**
      * Input streams with lexemes' markup.
      */
-    private final List<InputStream> input;
+    private final transient List<InputStream> input;
 
     /**
      * Grammar of the language of the lexemes.
      */
-    private final Grammar grammar;
+    private final transient Grammar grammar;
 
+    // To be refactored in #47
     /**
      * Found lexemes.
      */
-    // TODO: To be refactored in #47
-    private final ImmutableMap<String, Lexeme> lexemes;
+    private final transient ImmutableMap<String, Lexeme> lexemes;
 
     /**
      * Ctor.
-     * @param grammar Grammar of the language of the lexemes
-     * @param input Input streams with lexemes' markup
+     * @param grammemes Grammar of the language of the lexemes
+     * @param sources Input streams with lexemes' markup
      */
-    public ParsedVocabulary(Grammar grammar, List<InputStream> input) {
-        this.input = input;
-        this.grammar = grammar;
+    public ParsedVocabulary(
+        final Grammar grammemes,
+        final List<InputStream> sources
+    ) {
+        super();
+        this.input = sources;
+        this.grammar = grammemes;
         this.lexemes = this.constructLexemes();
+    }
+
+    // @checkstyle ProtectedMethodInFinalClassCheck (3 lines)
+    @Override
+    protected Map<String, Lexeme> delegate() {
+        return this.lexemes;
     }
 
     /**
@@ -55,24 +86,11 @@ public final class ParsedVocabulary extends ForwardingMap<String, Lexeme> {
                 .flatMap(parser -> parser.lexemes().lexeme().stream())
                 .collect(
                     java.util.stream.Collectors.toMap(
-                        this::conceptionId,
+                        ctx -> ctx.LEXEME_ID().getText(),
                         ctx -> new ParsedLexeme(this.grammar, ctx)
                     )
                 )
         );
     }
 
-    /**
-     * Uppercase identifier of a lexeme, e.g. RUN or TREE.
-     * @param parseTree ANTLR parse tree of a lexeme.
-     * @return Identifier of a lexeme.
-     */
-    private String conceptionId(LexemeBundleParser.LexemeContext parseTree) {
-        return parseTree.LEXEME_ID().getText();
-    }
-
-    @Override
-    protected Map<String, Lexeme> delegate() {
-        return this.lexemes;
-    }
 }

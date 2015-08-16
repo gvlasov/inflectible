@@ -1,3 +1,26 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Georgy Vlasov
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package org.tendiwa.inflectible;
 
 import java.util.Map;
@@ -12,21 +35,21 @@ public final class VocabularyLexemeSource implements LexemeSource {
     /**
      * Identifier of a lexeme.
      */
-    private final String lexeme;
+    private final transient String identifier;
 
     /**
      * Ctor.
-     * @param lexeme Identifier of a lexeme
+     * @param name Identifier of a lexeme
      */
-    VocabularyLexemeSource(String lexeme) {
-        this.lexeme = lexeme;
+    VocabularyLexemeSource(final String name) {
+        this.identifier = name;
     }
 
     @Override
     public Lexeme lexeme(
-        Map<String, Lexeme> arguments,
-        Map<String, Lexeme> vocabulary
+        final Map<String, Lexeme> arguments,
+        final Map<String, Lexeme> vocabulary
     ) {
-        return vocabulary.get(this.lexeme);
+        return vocabulary.get(this.identifier);
     }
 }

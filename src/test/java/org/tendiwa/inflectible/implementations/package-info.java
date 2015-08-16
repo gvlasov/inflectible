@@ -21,25 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tendiwa.inflectible;
-
-import com.google.common.collect.ImmutableMap;
 
 /**
- * A piece of {@link TextTemplate} that holds place for a word form.
+ * Tests for {@link Language} implementations.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-public interface Placeholder {
-    /**
-     * Fills out this placeholder with a word form.
-     * @param arguments Actual arguments of a TextTemplate
-     * @param vocabulary Vocabulary with lexemes
-     * @return Spelling of a word form
-     */
-    String fillUp(
-        ImmutableMap<String, Lexeme> arguments,
-        ImmutableMap<String, Lexeme> vocabulary
-    );
-}
+package org.tendiwa.inflectible.implementations;

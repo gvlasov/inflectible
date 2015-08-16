@@ -23,14 +23,13 @@
  */
 package org.tendiwa.inflectible;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UncheckedIOException;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.tendiwa.inflectible.antlr.TemplateBundleLexer;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UncheckedIOException;
 
 /**
  * A convenience descendant of {@link TemplateBundleParser} created from an
@@ -44,7 +43,7 @@ public final class BasicTemplateBundleParser extends TemplateBundleParser {
      * Ctor.
      * @param input Input stream with templates' markup.
      */
-    public BasicTemplateBundleParser(InputStream input) {
+    public BasicTemplateBundleParser(final InputStream input) {
         super(
             new CommonTokenStream(
                 new TemplateBundleLexer(
@@ -59,11 +58,13 @@ public final class BasicTemplateBundleParser extends TemplateBundleParser {
      * @param input Input stream with templates' markup
      * @return An ANTLR input stream with templates' characters
      */
-    private static ANTLRInputStream createAntlrInputStream(InputStream input) {
+    private static ANTLRInputStream createAntlrInputStream(
+        final InputStream input
+    ) {
         try {
             return new ANTLRInputStream(input);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
+        } catch (final IOException ex) {
+            throw new UncheckedIOException(ex);
         }
     }
 

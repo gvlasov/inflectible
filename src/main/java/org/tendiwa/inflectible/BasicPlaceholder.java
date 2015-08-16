@@ -27,90 +27,139 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 
 /**
- * {@link Placeholder} defined by its aspects.
+ * A {@link Placeholder} defined by its aspects.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
 public final class BasicPlaceholder implements Placeholder {
-    private final LexemeSource lexemeSource;
-    private final Capitalization capitalization;
-    private final ImmutableSet<Grammeme> explicitGrammemes;
-    private final Agreement agreement;
+    /**
+     * Lexeme source aspect.
+     */
+    private final transient LexemeSource source;
 
+    /**
+     * Capitalization aspect.
+     */
+    private final transient Capitalization capitalization;
+    /**
+     * Explicit grammemes aspect.
+     */
+    private final transient ImmutableSet<Grammeme> explicit;
+
+    /**
+     * Agreement aspect.
+     */
+    private final transient Agreement agreement;
+
+    /**
+     * Ctor.
+     * @param lexeme Lexeme source aspect
+     * @param capital Capitalization aspect
+     * @param grammemes Explicit grammemes aspect
+     * @param agree Agreement aspect
+     * @checkstyle ParameterNumberCheck (3 lines)
+     */
     BasicPlaceholder(
-        LexemeSource lexemeSource,
-        Capitalization capitalization,
-        ImmutableSet<Grammeme> explicitGrammemes,
-        Agreement agreement
+        final LexemeSource lexeme,
+        final Capitalization capital,
+        final ImmutableSet<Grammeme> grammemes,
+        final Agreement agree
     ) {
-        this.lexemeSource = lexemeSource;
-        this.capitalization = capitalization;
-        this.explicitGrammemes = explicitGrammemes;
-        this.agreement = agreement;
+        this.source = lexeme;
+        this.capitalization = capital;
+        this.explicit = grammemes;
+        this.agreement = agree;
     }
 
-    public BasicPlaceholder(LexemeSource lexemeSource) {
+    /**
+     * Ctor.
+     * @param lexemes Lexeme source aspect
+     */
+    public BasicPlaceholder(final LexemeSource lexemes) {
         this(
-            lexemeSource,
+            lexemes,
             Capitalization.IDENTITY,
             ImmutableSet.of(),
             Agreement.NONE
         );
     }
 
-    public BasicPlaceholder withCapitalization(Capitalization capitalization) {
-        if (this.capitalization.equals(capitalization)) {
-            return this;
+    /**
+     * Creates a placeholder that is the same, but with different
+     * capitalization.
+     * @param capital Capitalization aspect
+     * @return Placeholder with different capitalization
+     */
+    public BasicPlaceholder withCapitalization(final Capitalization capital) {
+        final BasicPlaceholder placeholder;
+        if (this.capitalization.equals(capital)) {
+            placeholder = this;
         } else {
-            return new BasicPlaceholder(
-                this.lexemeSource,
-                capitalization,
-                this.explicitGrammemes,
+            placeholder = new BasicPlaceholder(
+                this.source,
+                capital,
+                this.explicit,
                 this.agreement
             );
         }
+        return placeholder;
     }
 
-    public BasicPlaceholder withAgreement(Agreement agreement) {
-        if (this.agreement.equals(agreement)) {
-            return this;
+    /**
+     * Creates a placeholder that is the same, but with different agreement.
+     * @param agree Agreemen aspect
+     * @return Placeholder with different agreement
+     */
+    public BasicPlaceholder withAgreement(final Agreement agree) {
+        final BasicPlaceholder placeholder;
+        if (this.agreement.equals(agree)) {
+            placeholder = this;
         } else {
-            return new BasicPlaceholder(
-                this.lexemeSource,
+            placeholder = new BasicPlaceholder(
+                this.source,
                 this.capitalization,
-                this.explicitGrammemes,
-                agreement
+                this.explicit,
+                agree
             );
         }
+        return placeholder;
     }
 
+    /**
+     * Creates a placeholder that is the same, but with different explicit
+     * grammemes.
+     * @param grammemes Expilcit grammemes aspect
+     * @return Placeholder with different explicit grammemes
+     */
     public BasicPlaceholder withExplicitGrammemes(
-        ImmutableSet<Grammeme> grammemes
+        final ImmutableSet<Grammeme> grammemes
     ) {
-        if (this.explicitGrammemes.equals(grammemes)) {
-            return this;
+        final BasicPlaceholder placeholder;
+        if (this.explicit.equals(grammemes)) {
+            placeholder = this;
         } else {
-            return new BasicPlaceholder(
-                this.lexemeSource,
+            placeholder = new BasicPlaceholder(
+                this.source,
                 this.capitalization,
                 grammemes,
                 this.agreement
             );
         }
+        return placeholder;
     }
 
     @Override
     public String fillUp(
-        ImmutableMap<String, Lexeme> arguments,
-        ImmutableMap<String, Lexeme> vocabulary
+        final ImmutableMap<String, Lexeme> arguments,
+        final ImmutableMap<String, Lexeme> vocabulary
     ) {
         return this.capitalization.apply(
-            this.lexemeSource.lexeme(arguments, vocabulary)
+            this.source.lexeme(arguments, vocabulary)
             .wordForm(
                 ImmutableSet.<Grammeme>builder()
                     .addAll(this.agreement.grammemes(arguments))
-                    .addAll(this.explicitGrammemes)
+                    .addAll(this.explicit)
                     .build()
             )
         );

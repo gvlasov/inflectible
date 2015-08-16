@@ -39,13 +39,13 @@ public final class EnumBasedGrammar implements Grammar {
     /**
      * Enum with grammemes.
      */
-    private final Class<? extends Grammeme> cls;
+    private final transient Class<? extends Grammeme> cls;
 
     /**
      * Ctor.
      * @param grammemes Enum with grammemes.
      */
-    public EnumBasedGrammar(Class<? extends Grammeme> grammemes) {
+    public EnumBasedGrammar(final Class<? extends Grammeme> grammemes) {
         if (!grammemes.isEnum()) {
             throw new IllegalArgumentException(
                 String.format(
@@ -58,17 +58,20 @@ public final class EnumBasedGrammar implements Grammar {
     }
 
     @Override
-    public Grammeme grammemeByName(String name) {
+    public Grammeme grammemeByName(final String name) {
         try {
             return (Grammeme) this.cls
                 .getMethod("valueOf", String.class)
                 .invoke(null, name);
         } catch (
-            NoSuchMethodException
+            final NoSuchMethodException
                 | InvocationTargetException
-                | IllegalAccessException e
-            ) {
-            throw new AssertionError("Reflective static method call failed");
+                | IllegalAccessException ex
+        ) {
+            throw new AssertionError(
+                "Reflective static method call failed. Report this bug please",
+                ex
+            );
         }
     }
 }

@@ -1,8 +1,30 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Georgy Vlasov
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,24 +39,24 @@ public final class TextTemplateBuilder {
     /**
      * Names of the arguments of a template.
      */
-    private final ImmutableList<String> arguments;
+    private final transient ImmutableList<String> arguments;
 
     /**
      * Parts of a template. Those can be either placeholders or plain text
      * parts (which may be seen as constant-value placeholders, hence the type).
      */
-    private final List<Placeholder> parts;
+    private final transient List<Placeholder> parts;
 
     /**
      * If this builder has already been used to produce a template.
      */
-    private boolean used;
+    private transient boolean used;
 
     /**
      * Ctor.
      * @param names Names of the arguments of a template
      */
-    TextTemplateBuilder(ImmutableList<String> names) {
+    TextTemplateBuilder(final ImmutableList<String> names) {
         this.arguments = names;
         this.parts = new ArrayList<>(
             TextTemplateBuilder.expectedPartsNumber(names)
@@ -47,7 +69,7 @@ public final class TextTemplateBuilder {
      * @param placeholder A placeholder
      * @return This builder
      */
-    public TextTemplateBuilder addPlaceholder(Placeholder placeholder) {
+    public TextTemplateBuilder addPlaceholder(final Placeholder placeholder) {
         this.parts.add(placeholder);
         return this;
     }
@@ -57,8 +79,8 @@ public final class TextTemplateBuilder {
      * @param text Plain text
      * @return This builder
      */
-    public TextTemplateBuilder addText(String text) {
-        this.addPlaceholder((arguments, vocabulary) -> text);
+    public TextTemplateBuilder addText(final String text) {
+        this.addPlaceholder((actuals, vocabulary) -> text);
         return this;
     }
 
@@ -79,48 +101,48 @@ public final class TextTemplateBuilder {
     /**
      * A good approximated size for an array list that will hold the parts of
      * this text.
-     * @param arguments arguments to this text.
+     * @param arguments Arguments to this text.
      * @return Good size for an array list.
      */
     private static int expectedPartsNumber(
-        ImmutableList<String> arguments
+        final ImmutableList<String> arguments
     ) {
-        return arguments.size()*2+1;
+        return arguments.size() * 2 + 1;
     }
 
     /**
      * {@link TextTemplate} defined by its arguments' names and a
      * heterogeneous list of its parts (placeholders and plain text chunks).
      */
-    private class BasicTextTemplate implements TextTemplate {
+    private static class BasicTextTemplate implements TextTemplate {
         /**
          * Argument names.
          */
-        private final ImmutableList<String> argumentNames;
+        private final transient ImmutableList<String> arguments;
         /**
          * Heterogeneous list of template's parts (placeholders and plain text
-         * chunks)
+         * chunks).
          */
-        private final List<Placeholder> parts;
+        private final transient List<Placeholder> parts;
 
         /**
          * Ctor.
          * @param names Argument names
-         * @param parts Heterogeneous list of template's parts (placeholders
+         * @param pieces Heterogeneous list of template's parts (placeholders
          *  and plain text chunks)
          */
         BasicTextTemplate(
-            ImmutableList<String> names,
-            List<Placeholder> parts
+            final ImmutableList<String> names,
+            final List<Placeholder> pieces
         ) {
-            this.argumentNames = names;
-            this.parts = parts;
+            this.arguments = names;
+            this.parts = pieces;
         }
 
         @Override
         public String fillUp(
-            ImmutableList<Lexeme> lexemes,
-            ImmutableMap<String, Lexeme> vocabulary
+            final ImmutableList<Lexeme> lexemes,
+            final ImmutableMap<String, Lexeme> vocabulary
         ) {
             final ImmutableMap<String, Lexeme> actualArguments =
                 this.actualArguments(lexemes);
@@ -136,21 +158,21 @@ public final class TextTemplateBuilder {
          *  arguments.
          */
         private ImmutableMap<String, Lexeme> actualArguments(
-            List<Lexeme> lexemes
+            final List<Lexeme> lexemes
         ) {
-            if (lexemes.size() != this.argumentNames.size()) {
+            if (lexemes.size() != this.arguments.size()) {
                 throw new IllegalArgumentException(
                     String.format(
                         "Wrong number of arguments. Expected: %s, actual: %s",
-                        this.argumentNames.size(),
+                        this.arguments.size(),
                         lexemes.size()
                     )
                 );
             }
             final ImmutableMap.Builder<String, Lexeme> builder =
                 ImmutableMap.builder();
-            for (int i=0; i<lexemes.size(); i++) {
-                builder.put(this.argumentNames.get(i), lexemes.get(i));
+            for (int idx = 0; idx < lexemes.size(); idx += 1) {
+                builder.put(this.arguments.get(idx), lexemes.get(idx));
             }
             return builder.build();
         }

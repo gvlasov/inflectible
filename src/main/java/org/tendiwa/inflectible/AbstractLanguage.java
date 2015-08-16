@@ -36,7 +36,7 @@ public abstract class AbstractLanguage implements Language {
      * Enum that contains grammemes for this language's
      * {@link Language#grammar()}.
      */
-    private final Class<? extends Grammeme> grammemes;
+    private final transient Class<? extends Grammeme> grammemes;
 
     /**
      * Ctor.

@@ -23,12 +23,11 @@
  */
 package org.tendiwa.inflectible;
 
-import org.junit.Test;
-import org.mockito.Mockito;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
+import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * Unit tests for {@link BasicTemplateBundleParser}.
@@ -44,7 +43,7 @@ public final class BasicTemplateBundleParserTest {
      */
     @Test(expected = UncheckedIOException.class)
     public void failsWithBadInputStream() throws Exception {
-        InputStream failing = Mockito.mock(InputStream.class);
+        final InputStream failing = Mockito.mock(InputStream.class);
         Mockito.when(failing.read()).thenThrow(new IOException());
         new BasicTemplateBundleParser(failing);
     }

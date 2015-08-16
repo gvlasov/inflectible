@@ -1,12 +1,34 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Georgy Vlasov
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import java.util.stream.IntStream;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
-
-import java.util.stream.IntStream;
 
 /**
  * Unit tests for {@link TextTemplateBuilder}.
@@ -16,22 +38,24 @@ import java.util.stream.IntStream;
  */
 public final class TextTemplateBuilderTest {
     /**
-     * Creates
-     * @throws Exception
+     * TextTemplateBuilder can create a template.
+     * @throws Exception If fails
      */
     @Test
     public void createsTemplate() throws Exception {
+        final String subject = "subject";
+        final String object = "object";
         MatcherAssert.assertThat(
-            new TextTemplateBuilder(ImmutableList.of("subject", "object"))
+            new TextTemplateBuilder(ImmutableList.of(subject, object))
                 .addPlaceholder(
                     new BasicPlaceholder(
-                        new ArgumentsLexemeSource("subject")
+                        new ArgumentsLexemeSource(subject)
                     )
                 )
                 .addText(" immediately picks up an ")
                 .addPlaceholder(
                     new BasicPlaceholder(
-                        new ArgumentsLexemeSource("object")
+                        new ArgumentsLexemeSource(object)
                     )
                 )
                 .build()
@@ -46,18 +70,27 @@ public final class TextTemplateBuilderTest {
         );
     }
 
+    /**
+     * TextTemplateBuilder can not be used twice to produce a template.
+     * @throws Exception If fails
+     */
     @Test(expected = IllegalStateException.class)
     public void cantBeUsedTwice() throws Exception {
+        final String name = "actor";
         final TextTemplateBuilder builder =
-            new TextTemplateBuilder(ImmutableList.of("subject"))
+            new TextTemplateBuilder(ImmutableList.of(name))
                 .addPlaceholder(
                     new BasicPlaceholder(
-                        new ArgumentsLexemeSource("subject")
+                        new ArgumentsLexemeSource(name)
                     )
                 );
         IntStream.range(0, 2).forEach(i -> builder.build());
     }
 
+    /**
+     * TextTemplateBuilder can consist of just text, with no placeholders.
+     * @throws Exception If fails
+     */
     @Test
     public void canConsistOfJustText() throws Exception {
         MatcherAssert.assertThat(
@@ -70,9 +103,14 @@ public final class TextTemplateBuilderTest {
         );
     }
 
+    /**
+     * TextTemplateBuilder can create texts that report wrong number of
+     * arguments.
+     * @throws Exception If fails
+     */
     @Test(expected = IllegalArgumentException.class)
     public void createdTextsReportWrongNumberOfArguments() throws Exception {
-        new TextTemplateBuilder(ImmutableList.of("subject", "object"))
+        new TextTemplateBuilder(ImmutableList.of("someone", "item"))
             .build()
             .fillUp(
                 ImmutableList.of(

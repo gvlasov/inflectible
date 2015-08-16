@@ -1,3 +1,26 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Georgy Vlasov
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableList;
@@ -22,13 +45,15 @@ public final class BasicPlaceholderTest {
      */
     @Test
     public void fillsItselfUpWithDefaults() throws Exception {
+        final String lexeme = "BEAR";
+        final String form = "bear";
         MatcherAssert.assertThat(
-            new BasicPlaceholder(new VocabularyLexemeSource("bear"))
+            new BasicPlaceholder(new VocabularyLexemeSource(lexeme))
                 .fillUp(
                     ImmutableMap.of(),
-                    ImmutableMap.of("bear", new SingleFormLexeme("bear"))
+                    ImmutableMap.of(lexeme, new SingleFormLexeme(form))
                 ),
-            CoreMatchers.equalTo("bear")
+            CoreMatchers.equalTo(form)
         );
     }
 
@@ -39,17 +64,19 @@ public final class BasicPlaceholderTest {
      */
     @Test
     public void overridesDefaults() throws Exception {
-        final BasicPlaceholder thirdPersonPlaceholder =
-            new BasicPlaceholder(new ArgumentsLexemeSource("action"))
+        final String actor = "actor";
+        final String action = "action";
+        final BasicPlaceholder third =
+            new BasicPlaceholder(new ArgumentsLexemeSource(action))
                 .withCapitalization(Capitalization.CAPITALIZE)
                 .withExplicitGrammemes(
                     ImmutableSet.of(English.Grammemes.III)
                 )
-                .withAgreement(new ArgumentAgreement("actor"));
-        final ImmutableMap<String, Lexeme> argumentsBearAndEat =
+                .withAgreement(new ArgumentAgreement(actor));
+        final ImmutableMap<String, Lexeme> arguments =
             ImmutableMap.<String, Lexeme>builder()
                 .put(
-                    "action",
+                    action,
                     new BasicLexeme(
                         ImmutableSet.of(),
                         ImmutableList.of(
@@ -64,11 +91,11 @@ public final class BasicPlaceholderTest {
                         )
                     )
                 )
-                .put("actor", new SingleFormLexeme("bear"))
+                .put(actor, new SingleFormLexeme("wolf"))
                 .build();
         MatcherAssert.assertThat(
-            thirdPersonPlaceholder.fillUp(
-                argumentsBearAndEat,
+            third.fillUp(
+                arguments,
                 ImmutableMap.of()
             ),
             CoreMatchers.equalTo("Eats")
@@ -87,19 +114,19 @@ public final class BasicPlaceholderTest {
         final ImmutableSet<Grammeme> explicitGrammemes = ImmutableSet.of();
         final Capitalization capitalization =
             Mockito.mock(Capitalization.class);
-        final BasicPlaceholder originalPlaceholder =
+        final BasicPlaceholder original =
             new BasicPlaceholder(Mockito.mock(LexemeSource.class))
                 .withAgreement(agreement)
                 .withCapitalization(capitalization)
                 .withExplicitGrammemes(explicitGrammemes);
-        final BasicPlaceholder reconfiguredPlaceholder =
-            originalPlaceholder
+        final BasicPlaceholder reconfigured =
+            original
                 .withCapitalization(capitalization)
                 .withAgreement(agreement)
                 .withExplicitGrammemes(explicitGrammemes);
         MatcherAssert.assertThat(
-            originalPlaceholder,
-            CoreMatchers.is(reconfiguredPlaceholder)
+            original,
+            CoreMatchers.is(reconfigured)
         );
     }
 }

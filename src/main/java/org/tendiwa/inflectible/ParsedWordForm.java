@@ -1,8 +1,30 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Georgy Vlasov
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package org.tendiwa.inflectible;
 
-
 import com.google.common.collect.ImmutableSet;
-import org.antlr.v4.runtime.tree.TerminalNode;
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.tendiwa.inflectible.antlr.LexemeBundleParser;
 import org.tenidwa.collections.utils.Collectors;
 
@@ -16,24 +38,24 @@ public final class ParsedWordForm implements WordForm {
     /**
      * Grammar of the language of this word form.
      */
-    private final Grammar grammar;
+    private final transient Grammar grammar;
 
     /**
      * ANTLR parse tree of this word from.
      */
-    private final LexemeBundleParser.WordFormContext ctx;
+    private final transient LexemeBundleParser.WordFormContext ctx;
 
     /**
      * Ctor.
      * @param grammemes Grammar of the language of this word form
-     * @param parseTree ANTLR parse tree of this word form
+     * @param context ANTLR parse tree of this word form
      */
     ParsedWordForm(
-        Grammar grammemes,
-        LexemeBundleParser.WordFormContext parseTree
+        final Grammar grammemes,
+        final LexemeBundleParser.WordFormContext context
     ) {
         this.grammar = grammemes;
-        this.ctx = parseTree;
+        this.ctx = context;
     }
 
     @Override
@@ -42,7 +64,7 @@ public final class ParsedWordForm implements WordForm {
     }
 
     @Override
-    public int similarity(ImmutableSet<Grammeme> grammemes) {
+    public int similarity(final ImmutableSet<Grammeme> grammemes) {
         return this.delegate().similarity(grammemes);
     }
 
@@ -51,15 +73,17 @@ public final class ParsedWordForm implements WordForm {
      * @return Grammemes of this word form
      */
     private ImmutableSet<Grammeme> grammemes() {
+        final ImmutableSet<Grammeme> grammemes;
         if (this.ctx.grammemes() == null) {
-            return ImmutableSet.of();
+            grammemes = ImmutableSet.of();
         } else {
-            return this.ctx.grammemes().GRAMMEME()
+            grammemes = this.ctx.grammemes().GRAMMEME()
                 .stream()
-                .map(TerminalNode::getText)
-                .map(this.grammar::grammemeByName)
+                .map(ParseTree::getText)
+                .map(ParsedWordForm.this.grammar::grammemeByName)
                 .collect(Collectors.toImmutableSet());
         }
+        return grammemes;
     }
 
     /**
@@ -70,11 +94,11 @@ public final class ParsedWordForm implements WordForm {
         return this.ctx.WORD_FORM().getText();
     }
 
+    // To be refactored in #47
     /**
      * Creates a word form from the {@link ParsedWordForm#ctx}.
      * @return Word form
      */
-    // TODO: To be refactored in #47
     private WordForm delegate() {
         return new BasicWordForm(this.wordSpelling(), this.grammemes());
     }

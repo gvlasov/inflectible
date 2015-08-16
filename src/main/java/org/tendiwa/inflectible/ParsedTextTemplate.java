@@ -1,3 +1,26 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Georgy Vlasov
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableList;
@@ -14,31 +37,34 @@ import org.tenidwa.collections.utils.Collectors;
  * @version $Id$
  * @since 0.1
  */
-class ParsedTextTemplate implements TextTemplate {
+final class ParsedTextTemplate implements TextTemplate {
      /**
      * Grammar of the language of this template.
      */
-    private final Grammar grammar;
+    private final transient Grammar grammar;
 
     /**
      * ANTLR parse tree of a template.
      */
-    private final TemplateBundleParser.TemplateContext ctx;
+    private final transient TemplateBundleParser.TemplateContext ctx;
 
     /**
      * Ctor.
-     * @param grammar Grammar of the language of this text
-     * @param ctx ANTLR parse tree of a text template
+     * @param grammemes Grammar of the language of this text
+     * @param context ANTLR parse tree of a text template
      */
-    ParsedTextTemplate(Grammar grammar, TemplateBundleParser.TemplateContext ctx) {
-        this.grammar = grammar;
-        this.ctx = ctx;
+    ParsedTextTemplate(
+        final Grammar grammemes,
+        final TemplateBundleParser.TemplateContext context
+    ) {
+        this.grammar = grammemes;
+        this.ctx = context;
     }
 
     @Override
     public String fillUp(
-        ImmutableList<Lexeme> lexemes,
-        ImmutableMap<String, Lexeme> vocabulary
+        final ImmutableList<Lexeme> lexemes,
+        final ImmutableMap<String, Lexeme> vocabulary
     ) {
         return this.delegate().fillUp(lexemes, vocabulary);
     }
@@ -53,13 +79,12 @@ class ParsedTextTemplate implements TextTemplate {
             .collect(Collectors.toImmutableList());
     }
 
-
+    // To be refactored in #47
     /**
-     * Creates a template from the {@link ParsedLexeme#ctx}
+     * Creates a template from the {@link ParsedLexeme#ctx}.
      * @return Template from markup
      */
     private TextTemplate delegate() {
-        // TODO: To be refactored in #47
         return new ParseTreeListener(this.argumentNames()).filledUpText();
     }
 
@@ -72,43 +97,48 @@ class ParsedTextTemplate implements TextTemplate {
         /**
          * Template builder.
          */
-        private TextTemplateBuilder builder;
+        private transient TextTemplateBuilder builder;
 
         /**
          * Argument names in the order as they appear in markup.
          */
-        private ImmutableList<String> arguments;
+        private final transient ImmutableList<String> arguments;
 
         /**
          * Ctor.
          * @param names Argument names in the order as they appear in markup
          */
-        ParseTreeListener(ImmutableList<String> names) {
+        ParseTreeListener(final ImmutableList<String> names) {
+            super();
             this.arguments = names;
         }
 
         @Override
-        public final void enterTwoPartPlaceholder(
-            TemplateBundleParser.TwoPartPlaceholderContext ctx
+        public void enterTwoPartPlaceholder(
+            final TemplateBundleParser.TwoPartPlaceholderContext context
         ) {
             this.builder.addPlaceholder(
                 new ParsedTwoPartVariableConceptPlaceholder(
                     ParsedTextTemplate.this.grammar,
-                    ctx
+                    context
                 )
             );
         }
 
         @Override
-        public final void enterRawText(TemplateBundleParser.RawTextContext ctx) {
-            this.builder.addText(ctx.getText());
+        public void enterRawText(
+            final TemplateBundleParser.RawTextContext context
+        ) {
+            this.builder.addText(context.getText());
         }
 
         @Override
-        public final void enterSinglePartPlaceholder(
-            TemplateBundleParser.SinglePartPlaceholderContext ctx
+        public void enterSinglePartPlaceholder(
+            final TemplateBundleParser.SinglePartPlaceholderContext context
         ) {
-            this.builder.addPlaceholder(new ParsedSinglePartPlaceholder(ctx));
+            this.builder.addPlaceholder(
+                new ParsedSinglePartPlaceholder(context)
+            );
         }
 
         /**
