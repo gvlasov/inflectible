@@ -4,4 +4,4 @@ jdk:
 notifications:
   email: false
 script:
-  - mvn clean install -Pcobertura
+  - mvn clean install -Pcobertura -Pqulice
