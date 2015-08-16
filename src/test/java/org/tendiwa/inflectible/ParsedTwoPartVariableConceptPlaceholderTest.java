@@ -44,7 +44,6 @@ public final class ParsedTwoPartVariableConceptPlaceholderTest {
      */
     @Test
     public void constructsFromAntlrParseTree() {
-        final String wordForm = "man";
         MatcherAssert.assertThat(
             new ParsedTwoPartVariableConceptPlaceholder(
                 new English().grammar(),
@@ -52,7 +51,7 @@ public final class ParsedTwoPartVariableConceptPlaceholderTest {
                     IOUtils.toInputStream(
                         Joiner.on('\n').join(
                             "text(dude) {",
-                            "  [dude][Plur]",
+                            "  [Dude][Plur]",
                             "}"
                         )
                     )
@@ -65,10 +64,10 @@ public final class ParsedTwoPartVariableConceptPlaceholderTest {
                     .twoPartPlaceholder()
             )
                 .fillUp(
-                    ImmutableMap.of("dude", new SingleFormLexeme(wordForm)),
+                    ImmutableMap.of("dude", new SingleFormLexeme("man")),
                     ImmutableMap.of()
                 ),
-            CoreMatchers.equalTo(wordForm)
+            CoreMatchers.equalTo("Man")
         );
     }
 }
