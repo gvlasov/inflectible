@@ -26,7 +26,7 @@ package org.tendiwa.inflectible;
 import com.google.common.collect.ImmutableMap;
 
 /**
- * A piece of {@link TextTemplate} that holds place for a word form.
+ * A piece of {@link Template} that holds place for a word form.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1

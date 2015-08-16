@@ -27,7 +27,7 @@ import java.util.Map;
 
 /**
  * {@link LexemeSource} that chooses a lexeme by its identifier from actual
- *  arguments passed to {@link TextTemplate}.
+ *  arguments passed to {@link Template}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1

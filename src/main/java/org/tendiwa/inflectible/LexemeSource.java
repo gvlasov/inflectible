@@ -38,7 +38,7 @@ import java.util.Map;
 public interface LexemeSource {
     /**
      * Choose a lexeme.
-     * @param arguments Actual arguments passed to a {@link TextTemplate}
+     * @param arguments Actual arguments passed to a {@link Template}
      * @param vocabulary Lexeme vocabulary.
      * @return A lexeme.
      */

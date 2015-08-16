@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * A builder used to create {@link TextTemplate}s.
+ * A builder used to create {@link Template}s.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
@@ -86,16 +86,16 @@ public final class TextTemplateBuilder {
 
     /**
      * Builds a template.
-     * @return A new {@link TextTemplate}
+     * @return A new {@link Template}
      */
-    public TextTemplate build() {
+    public Template build() {
         if (this.used) {
             throw new IllegalStateException(
                 "This builder has already been used"
             );
         }
         this.used = true;
-        return new BasicTextTemplate(this.arguments, this.parts);
+        return new BasicTemplate(this.arguments, this.parts);
     }
 
     /**
@@ -111,10 +111,10 @@ public final class TextTemplateBuilder {
     }
 
     /**
-     * {@link TextTemplate} defined by its arguments' names and a
+     * {@link Template} defined by its arguments' names and a
      * heterogeneous list of its parts (placeholders and plain text chunks).
      */
-    private static class BasicTextTemplate implements TextTemplate {
+    private static class BasicTemplate implements Template {
         /**
          * Argument names.
          */
@@ -131,7 +131,7 @@ public final class TextTemplateBuilder {
          * @param pieces Heterogeneous list of template's parts (placeholders
          *  and plain text chunks)
          */
-        BasicTextTemplate(
+        BasicTemplate(
             final ImmutableList<String> names,
             final List<Placeholder> pieces
         ) {

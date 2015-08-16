@@ -67,7 +67,7 @@ public interface Agreement {
      * Finds out additional for resolution of a form of the dependent
      * word.
      * @param arguments Actual values of arguments passed to a
-     *  {@link TextTemplate}.
+     *  {@link Template}.
      * @return Persistent grammemes of the dominant word.
      */
     ImmutableSet<Grammeme> grammemes(Map<String, Lexeme> arguments);
