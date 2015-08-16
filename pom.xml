@@ -30,12 +30,13 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <compilerArgument>-proc:none</compilerArgument>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.antlr</groupId>
                 <artifactId>antlr4-maven-plugin</artifactId>
-                <version>4.5</version>
+                <version>4.5.1</version>
                 <executions>
                     <execution>
                         <id>default-antlr4</id>
@@ -134,6 +135,13 @@
                         <groupId>com.qulice</groupId>
                         <artifactId>qulice-maven-plugin</artifactId>
                         <version>0.12.2</version>
+                        <configuration>
+                            <excludes>
+                                <exclude>findbugs:.*</exclude>
+                                <exclude>duplicatefinder:.*</exclude>
+                                <exclude>dependencies:.*</exclude>
+                            </excludes>
+                        </configuration>
                         <executions>
                             <execution>
                                 <id>jcabi-check</id>
@@ -158,11 +166,6 @@
             <version>15.0</version>
         </dependency>
         <dependency>
-            <groupId>org.antlr</groupId>
-            <artifactId>antlr4</artifactId>
-            <version>4.5</version>
-        </dependency>
-        <dependency>
             <groupId>org.tendiwa</groupId>
             <artifactId>collections-utils</artifactId>
             <version>0.1.0</version>
@@ -185,5 +188,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
 </project>
