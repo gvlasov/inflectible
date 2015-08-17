@@ -26,7 +26,6 @@ package org.tendiwa.inflectible;
 import com.google.common.base.Joiner;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UncheckedIOException;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.apache.commons.io.IOUtils;
@@ -44,12 +43,13 @@ public final class BasicLexemeBundleParser extends LexemeBundleParser {
     /**
      * Ctor.
      * @param input Input stream with lexemes' markup
+     * @throws IOException If can't read in input stream
      */
-    public BasicLexemeBundleParser(final InputStream input) {
+    public BasicLexemeBundleParser(final InputStream input) throws IOException {
         super(
             new CommonTokenStream(
                 new LexemeBundleLexer(
-                    BasicLexemeBundleParser.createAntlrInputStream(input)
+                    new ANTLRInputStream(input)
                 )
             )
         );
@@ -58,27 +58,13 @@ public final class BasicLexemeBundleParser extends LexemeBundleParser {
     /**
      * Ctor.
      * @param markup Lexemes' markup
+     * @throws IOException If can't read the input stream
      */
-    public BasicLexemeBundleParser(final String... markup) {
+    public BasicLexemeBundleParser(final String... markup) throws IOException {
         this(
             IOUtils.toInputStream(
                 Joiner.on('\n').join(markup)
             )
         );
-    }
-
-    /**
-     * Creates an ANTLR input stream.
-     * @param input Input stream with lexemes' markup
-     * @return An ANTLR input stream with lexemes' characters
-     */
-    private static ANTLRInputStream createAntlrInputStream(
-        final InputStream input
-    ) {
-        try {
-            return new ANTLRInputStream(input);
-        } catch (final IOException ex) {
-            throw new UncheckedIOException(ex);
-        }
     }
 }
