@@ -36,7 +36,7 @@ import org.junit.Test;
  * @version $Id$
  * @since 0.1
  */
-public final class TextTemplateBuilderTest {
+public final class TemplateBuilderTest {
     /**
      * TextTemplateBuilder can create a template.
      * @throws Exception If fails

@@ -42,7 +42,7 @@ import com.google.common.collect.ImmutableMap;
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  */
-public interface TextTemplate {
+public interface Template {
 
     /**
      * Fills up the template with arguments.

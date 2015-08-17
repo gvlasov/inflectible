@@ -32,12 +32,12 @@ import org.tendiwa.inflectible.antlr.TemplateBundleParserBaseListener;
 import org.tenidwa.collections.utils.Collectors;
 
 /**
- * {@link TextTemplate} parsed from an ANTLR parse tree.
+ * {@link Template} parsed from an ANTLR parse tree.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-final class ParsedTextTemplate implements TextTemplate {
+final class ParsedTemplate implements Template {
      /**
      * Grammar of the language of this template.
      */
@@ -53,7 +53,7 @@ final class ParsedTextTemplate implements TextTemplate {
      * @param grammemes Grammar of the language of this text
      * @param context ANTLR parse tree of a text template
      */
-    ParsedTextTemplate(
+    ParsedTemplate(
         final Grammar grammemes,
         final TemplateBundleParser.TemplateContext context
     ) {
@@ -84,7 +84,7 @@ final class ParsedTextTemplate implements TextTemplate {
      * Creates a template from the {@link ParsedLexeme#ctx}.
      * @return Template from markup
      */
-    private TextTemplate delegate() {
+    private Template delegate() {
         return new ParseTreeListener(this.argumentNames()).filledUpText();
     }
 
@@ -119,7 +119,7 @@ final class ParsedTextTemplate implements TextTemplate {
         ) {
             this.builder.addPlaceholder(
                 new ParsedTwoPartVariableConceptPlaceholder(
-                    ParsedTextTemplate.this.grammar,
+                    ParsedTemplate.this.grammar,
                     context
                 )
             );
@@ -142,13 +142,13 @@ final class ParsedTextTemplate implements TextTemplate {
         }
 
         /**
-         * Walk the ANTLR parse tree and construct a {@link TextTemplate} for
+         * Walk the ANTLR parse tree and construct a {@link Template} for
          * it.
          * @return Template.
          */
-        private TextTemplate filledUpText() {
+        private Template filledUpText() {
             this.builder = new TextTemplateBuilder(this.arguments);
-            ParseTreeWalker.DEFAULT.walk(this, ParsedTextTemplate.this.ctx);
+            ParseTreeWalker.DEFAULT.walk(this, ParsedTemplate.this.ctx);
             return this.builder.build();
         }
     }

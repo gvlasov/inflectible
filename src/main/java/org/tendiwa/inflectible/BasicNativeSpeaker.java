@@ -29,7 +29,7 @@ import org.tenidwa.collections.utils.Collectors;
 
 /**
  * {@link NativeSpeaker} defined by a vocabulary of {@link Lexeme}s and a
- * textuary of {@link TextTemplate}s.
+ * textuary of {@link Template}s.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
@@ -43,7 +43,7 @@ public final class BasicNativeSpeaker implements NativeSpeaker {
     /**
      * Textuary of templates.
      */
-    private final transient ImmutableMap<String, TextTemplate> textuary;
+    private final transient ImmutableMap<String, Template> textuary;
 
     /**
      * Ctor.
@@ -52,7 +52,7 @@ public final class BasicNativeSpeaker implements NativeSpeaker {
      */
     BasicNativeSpeaker(
         final ImmutableMap<String, Lexeme> lexemes,
-        final ImmutableMap<String, TextTemplate> templates
+        final ImmutableMap<String, Template> templates
     ) {
         this.vocabulary = lexemes;
         this.textuary = templates;

@@ -36,12 +36,12 @@ import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 import org.tendiwa.inflectible.implementations.English;
 
 /**
- * Unit tests for {@link ParsedTextTemplate}.
+ * Unit tests for {@link ParsedTemplate}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-public final class ParsedTextTemplateTest {
+public final class ParsedTemplateTest {
     /**
      * ParsedTextTemplate can fill itself up with arguments.
      * @throws Exception If fails
@@ -53,13 +53,13 @@ public final class ParsedTextTemplateTest {
         final Map<String, Lexeme> vocabulary = new ParsedVocabulary(
             grammar,
             ImmutableList.of(
-                ParsedTextTemplateTest.class.getResourceAsStream(
+                ParsedTemplateTest.class.getResourceAsStream(
                     "characters.en_US.words"
                 )
             )
         );
         MatcherAssert.assertThat(
-            new ParsedTextTemplate(
+            new ParsedTemplate(
                 grammar,
                 this.templateContext(
                     Joiner.on('\n').join(

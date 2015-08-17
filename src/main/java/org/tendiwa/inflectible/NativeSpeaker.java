@@ -34,7 +34,7 @@ public interface NativeSpeaker {
      * Fills out a text.
      * @param identifier Id of a template to fill out
      * @param arguments Conceptions that have words in vocabulary for them.
-     *  Will be used to fill out {@link Placeholder}s in {@link TextTemplate}.
+     *  Will be used to fill out {@link Placeholder}s in {@link Template}.
      * @return Filled out text.
      */
     String text(String identifier, Localizable... arguments);

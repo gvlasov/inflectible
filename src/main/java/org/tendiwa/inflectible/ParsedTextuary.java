@@ -41,7 +41,7 @@ import org.tendiwa.inflectible.antlr.TemplateBundleParser;
  * @version $Id$
  * @since 0.1
  */
-public final class ParsedTextuary extends ForwardingMap<String, TextTemplate> {
+public final class ParsedTextuary extends ForwardingMap<String, Template> {
     /**
      * Input stream with templates' markup.
      */
@@ -55,7 +55,7 @@ public final class ParsedTextuary extends ForwardingMap<String, TextTemplate> {
     /**
      * Resulting texts.
      */
-    private final transient Map<String, TextTemplate> texts;
+    private final transient Map<String, Template> texts;
 
     /**
      * Ctor.
@@ -71,7 +71,7 @@ public final class ParsedTextuary extends ForwardingMap<String, TextTemplate> {
 
     // @checkstyle ProtectedMethodInFinalClassCheck (3 lines)
     @Override
-    protected Map<String, TextTemplate> delegate() {
+    protected Map<String, Template> delegate() {
         return this.texts;
     }
 
@@ -79,7 +79,7 @@ public final class ParsedTextuary extends ForwardingMap<String, TextTemplate> {
      * Parse templates.
      * @return Templates.
      */
-    private Map<String, TextTemplate> parseTemplates() {
+    private Map<String, Template> parseTemplates() {
         return this.inputs.stream()
             .map(stream -> this.createParser(stream))
             .flatMap(parser -> parser.templates().template().stream())
@@ -87,7 +87,7 @@ public final class ParsedTextuary extends ForwardingMap<String, TextTemplate> {
                 Collectors.toMap(
                     (ctx) -> this.templateId(ctx),
                     templateCtx
-                        -> new ParsedTextTemplate(this.grammar, templateCtx)
+                        -> new ParsedTemplate(this.grammar, templateCtx)
                 )
             );
     }
