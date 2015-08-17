@@ -9,10 +9,18 @@ docker:
   image: "maven:3.2.5-jdk-8"
 merge:
   script: |
+    export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8"
+    export LANG=C.UTF8
+    export LANGUAGE=C.UTF8
+    export LC_ALL=C.UTF8
     mvn clean install -Pcobertura -Pqulice
     mvn clean
 release:
   script: |
+    export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8"
+    export LANG=C.UTF8
+    export LANGUAGE=C.UTF8
+    export LC_ALL=C.UTF8
     mvn versions:set "-DnewVersion=${tag}"
     git commit -am "${tag}"
     mvn clean deploy --settings /home/r/settings.xml -Psonatype -Pjcabi-gpg -Prultor-decrypt -Pcobertura -Pqulice
@@ -20,6 +28,10 @@ release:
   - suseika
 deploy:
   script: |-
+    export JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF8"
+    export LANG=C.UTF8
+    export LANGUAGE=C.UTF8
+    export LC_ALL=C.UTF8
     mvn clean deploy --settings /home/r/settings.xml -Psonatype -Pjcabi-gpg -Pcobertura -Pqulice
   commanders:
   - suseika
