@@ -25,9 +25,11 @@ package org.tendiwa.inflectible;
 
 import com.google.common.collect.ForwardingMap;
 import com.google.common.collect.ImmutableMap;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
+import org.tenidwa.collections.utils.Rethrowing;
 
 /**
  * A vocabulary of lexemes that identifies each lexeme by a unique string.
@@ -57,11 +59,12 @@ public final class ParsedVocabulary extends ForwardingMap<String, Lexeme> {
      * Ctor.
      * @param grammemes Grammar of the language of the lexemes
      * @param sources Input streams with lexemes' markup
+     * @throws IOException If reading from any stream fails
      */
     public ParsedVocabulary(
         final Grammar grammemes,
         final List<InputStream> sources
-    ) {
+    ) throws IOException {
         super();
         this.input = sources;
         this.grammar = grammemes;
@@ -77,12 +80,13 @@ public final class ParsedVocabulary extends ForwardingMap<String, Lexeme> {
     /**
      * Constructs lexemes from markup.
      * @return Lexemes constructed from the markup in the input stream
+     * @throws IOException If reading from any stream fails
      */
-    private ImmutableMap<String, Lexeme> constructLexemes() {
+    private ImmutableMap<String, Lexeme> constructLexemes() throws IOException {
         return ImmutableMap.copyOf(
             this.input
                 .stream()
-                .map(BasicLexemeBundleParser::new)
+                .map(Rethrowing.rethrowFunction(BasicLexemeBundleParser::new))
                 .flatMap(parser -> parser.lexemes().lexeme().stream())
                 .collect(
                     java.util.stream.Collectors.toMap(
