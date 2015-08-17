@@ -23,21 +23,40 @@
  */
 package org.tendiwa.inflectible;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
+import org.junit.Test;
+
 /**
- * Knows how to speak a language.
+ * Unit tests for {@link InflectibleException}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-public interface NativeSpeaker {
+public final class InflectibleExceptionTest {
+
     /**
-     * Produces a text from a given template by filling out its placeholders
-     * with what we need.
-     * @param identifier Id of a template to fill out
-     * @param arguments Conceptions that have words in vocabulary for them.
-     * @return Text for humans to read.
-     * @throws InflectibleException If couldn't produce a text
+     * {@link InflectibleException} can have error message.
      */
-    String text(String identifier, Localizable... arguments)
-        throws InflectibleException;
+    @Test
+    public void hasMessage() {
+        final String message = "Hello";
+        MatcherAssert.assertThat(
+            new InflectibleException(message).getMessage(),
+            CoreMatchers.equalTo(message)
+        );
+    }
+
+    /**
+     * {@link InflectibleException} can have cause.
+     */
+    @Test
+    public void hasCause() {
+        final IllegalArgumentException cause =
+            new IllegalArgumentException("hey");
+        MatcherAssert.assertThat(
+            new InflectibleException("Hi", cause).getCause(),
+            CoreMatchers.is(cause)
+        );
+    }
 }

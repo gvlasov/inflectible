@@ -25,56 +25,50 @@ package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import org.tenidwa.collections.utils.Collectors;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
+import org.junit.Test;
 
 /**
- * {@link NativeSpeaker} defined by a vocabulary of {@link Lexeme}s and a
- * textuary of {@link Template}s.
+ * Unit tests for {@link BasicTemplatuary}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-public final class BasicNativeSpeaker implements NativeSpeaker {
+public final class BasicTemplatuaryTest {
     /**
-     * Vocabulary of lexemes.
+     * {@link BasicTemplatuary} can return a template by its identifier if
+     * it is present in the templatuary.
+     * @throws Exception If fails
      */
-    private final transient ImmutableMap<String, Lexeme> vocabulary;
-
-    /**
-     * Textuary of templates.
-     */
-    private final transient ImmutableMap<String, Template> textuary;
-
-    /**
-     * Ctor.
-     * @param lexemes Vocabulary of lexemes
-     * @param templates Textuary of templates
-     */
-    BasicNativeSpeaker(
-        final ImmutableMap<String, Lexeme> lexemes,
-        final ImmutableMap<String, Template> templates
-    ) {
-        this.vocabulary = lexemes;
-        this.textuary = templates;
+    @Test
+    public void returnsLexemeByIdentifier() throws Exception {
+        final String identifier = "MESSAGE";
+        MatcherAssert.assertThat(
+            new BasicTemplatuary(
+                ImmutableMap.of(
+                    identifier,
+                    new TextTemplateBuilder(ImmutableList.of()).build()
+                )
+            )
+                .template(identifier)
+                .isPresent(),
+            CoreMatchers.is(true)
+        );
     }
 
-    @Override
-    public String text(
-        final String identifier,
-        final Localizable... arguments
-    ) {
-        return this.textuary.get(identifier).fillUp(
-            ImmutableList.copyOf(arguments)
-                .stream()
-                .map(
-                    argument -> BasicNativeSpeaker.this
-                        .vocabulary
-                        .get(
-                            argument.getLocalizationId()
-                        )
-                )
-                .collect(Collectors.toImmutableList()),
-            this.vocabulary
+    /**
+     * {@link BasicTemplatuary} can return nothing if it doesn't have a template
+     * with the specified identifier.
+     * @throws Exception If fails
+     */
+    @Test
+    public void returnsEmptyIfNoSuchIdentifier() throws Exception {
+        MatcherAssert.assertThat(
+            new BasicTemplatuary(ImmutableMap.of())
+                .template("OCCURRENCE")
+                .isPresent(),
+            CoreMatchers.is(false)
         );
     }
 }

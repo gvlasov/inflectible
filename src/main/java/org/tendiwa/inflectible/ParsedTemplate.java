@@ -63,10 +63,10 @@ final class ParsedTemplate implements Template {
 
     @Override
     public String fillUp(
-        final ImmutableList<Lexeme> lexemes,
+        final ImmutableList<Lexeme> arguments,
         final ImmutableMap<String, Lexeme> vocabulary
     ) {
-        return this.delegate().fillUp(lexemes, vocabulary);
+        return this.delegate().fillUp(arguments, vocabulary);
     }
 
     /**

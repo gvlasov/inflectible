@@ -24,20 +24,17 @@
 package org.tendiwa.inflectible;
 
 /**
- * Knows how to speak a language.
+ * Actual values of arguments passed to a {@link Template}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-public interface NativeSpeaker {
+public interface ActualArguments {
     /**
-     * Produces a text from a given template by filling out its placeholders
-     * with what we need.
-     * @param identifier Id of a template to fill out
-     * @param arguments Conceptions that have words in vocabulary for them.
-     * @return Text for humans to read.
-     * @throws InflectibleException If couldn't produce a text
+     * Returns a value of an argument by that argument's name declared in a
+     * {@link Template}.
+     * @param name Declared name of an argument
+     * @return Value of an argument
      */
-    String text(String identifier, Localizable... arguments)
-        throws InflectibleException;
+    Lexeme byName(String name);
 }

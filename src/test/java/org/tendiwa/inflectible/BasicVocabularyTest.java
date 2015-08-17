@@ -23,21 +23,50 @@
  */
 package org.tendiwa.inflectible;
 
+import com.google.common.collect.ImmutableMap;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
+import org.junit.Test;
+
 /**
- * Knows how to speak a language.
+ * Unit tests for {@link BasicVocabulary}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-public interface NativeSpeaker {
+public final class BasicVocabularyTest {
     /**
-     * Produces a text from a given template by filling out its placeholders
-     * with what we need.
-     * @param identifier Id of a template to fill out
-     * @param arguments Conceptions that have words in vocabulary for them.
-     * @return Text for humans to read.
-     * @throws InflectibleException If couldn't produce a text
+     * {@link BasicVocabulary} can return a lexeme by its identifier if
+     * it is present in the vocabulary.
+     * @throws Exception If fails
      */
-    String text(String identifier, Localizable... arguments)
-        throws InflectibleException;
+    @Test
+    public void returnsLexemeByIdentifier() throws Exception {
+        final String identifier = "DUDE";
+        MatcherAssert.assertThat(
+            new BasicVocabulary(
+                ImmutableMap.of(identifier, new SingleFormLexeme("dude"))
+            )
+                .lexeme(identifier)
+                .isPresent(),
+            CoreMatchers.is(true)
+        );
+    }
+
+    /**
+     * {@link BasicVocabulary} can return nothing if it doesn't have a lexeme
+     * with the specified identifier.
+     * @throws Exception If fails
+     */
+    @Test
+    public void returnsEmptyIfNoSuchIdentifier() throws Exception {
+        MatcherAssert.assertThat(
+            new BasicVocabulary(
+                ImmutableMap.of("GUY", new SingleFormLexeme("guy"))
+            )
+                .lexeme("MAN")
+                .isPresent(),
+            CoreMatchers.is(false)
+        );
+    }
 }

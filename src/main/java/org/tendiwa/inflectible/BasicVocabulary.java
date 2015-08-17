@@ -23,21 +23,31 @@
  */
 package org.tendiwa.inflectible;
 
+import com.google.common.collect.ImmutableMap;
+import java.util.Optional;
+
 /**
- * Knows how to speak a language.
+ * {@link Vocabulary} defined by a map from lexeme identifiers to lexemes.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-public interface NativeSpeaker {
+public final class BasicVocabulary implements Vocabulary {
     /**
-     * Produces a text from a given template by filling out its placeholders
-     * with what we need.
-     * @param identifier Id of a template to fill out
-     * @param arguments Conceptions that have words in vocabulary for them.
-     * @return Text for humans to read.
-     * @throws InflectibleException If couldn't produce a text
+     * Lexemes in this vocabulary.
      */
-    String text(String identifier, Localizable... arguments)
-        throws InflectibleException;
+    private final transient ImmutableMap<String, Lexeme> lexemes;
+
+    /**
+     * Ctor.
+     * @param map Map from lexeme identifiers to lexemes
+     */
+    BasicVocabulary(final ImmutableMap<String, Lexeme> map) {
+        this.lexemes = map;
+    }
+
+    @Override
+    public Optional<Lexeme> lexeme(final String identifier) {
+        return Optional.ofNullable(this.lexemes.get(identifier));
+    }
 }

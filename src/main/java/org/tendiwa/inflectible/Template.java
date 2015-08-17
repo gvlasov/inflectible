@@ -27,15 +27,14 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
 /**
- * Text with unfilled placeholders.
  * A single marked up text. It consists of three parts:
  * <ol>
- *     <li>Localization argumentName;</li>
+ *     <li>Identifier;</li>
  *     <li>List of argument names;</li>
  *     <li>Template body.</li>
  * </ol>
  * <pre>
- * localization_id (param1, param2, param3) {
+ * identifier (param1, param2, param3) {
  *     Text about [param1] and [param2][Plur] mentioning [param3][Gerund].
  * }
  * </pre>
@@ -43,15 +42,14 @@ import com.google.common.collect.ImmutableMap;
  * @version $Id$
  */
 public interface Template {
-
     /**
      * Fills up the template with arguments.
-     * @param lexemes Lexemes passed as arguments to the template
+     * @param arguments Lexemes passed as arguments to the template
      * @param vocabulary Vocabulary of the language of the text in this template
      * @return Text with placeholders filled up
      */
     String fillUp(
-        ImmutableList<Lexeme> lexemes,
+        ImmutableList<Lexeme> arguments,
         ImmutableMap<String, Lexeme> vocabulary
     );
 }

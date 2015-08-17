@@ -23,21 +23,31 @@
  */
 package org.tendiwa.inflectible;
 
+import com.google.common.collect.ImmutableMap;
+import java.util.Optional;
+
 /**
- * Knows how to speak a language.
+ * {@link Templatuary} defined by a map from template identifiers to templates.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-public interface NativeSpeaker {
+public final class BasicTemplatuary implements Templatuary {
     /**
-     * Produces a text from a given template by filling out its placeholders
-     * with what we need.
-     * @param identifier Id of a template to fill out
-     * @param arguments Conceptions that have words in vocabulary for them.
-     * @return Text for humans to read.
-     * @throws InflectibleException If couldn't produce a text
+     * Map from template identifiers to templates.
      */
-    String text(String identifier, Localizable... arguments)
-        throws InflectibleException;
+    private final transient ImmutableMap<String, Template> templates;
+
+    /**
+     * Ctor.
+     * @param map Map from template identifiers to templates.
+     */
+    public BasicTemplatuary(final ImmutableMap<String, Template> map) {
+        this.templates = map;
+    }
+
+    @Override
+    public Optional<Template> template(final String identifier) {
+        return Optional.ofNullable(this.templates.get(identifier));
+    }
 }

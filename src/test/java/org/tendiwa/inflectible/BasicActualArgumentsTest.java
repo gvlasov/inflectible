@@ -23,21 +23,35 @@
  */
 package org.tendiwa.inflectible;
 
+import com.google.common.collect.ImmutableList;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
+import org.junit.Test;
+
 /**
- * Knows how to speak a language.
+ * Unit tests for {@link BasicActualArguments}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-public interface NativeSpeaker {
+public final class BasicActualArgumentsTest {
     /**
-     * Produces a text from a given template by filling out its placeholders
-     * with what we need.
-     * @param identifier Id of a template to fill out
-     * @param arguments Conceptions that have words in vocabulary for them.
-     * @return Text for humans to read.
-     * @throws InflectibleException If couldn't produce a text
+     * {@link BasicActualArgumentsTest} can return an argument value by its
+     * declared name.
      */
-    String text(String identifier, Localizable... arguments)
-        throws InflectibleException;
+    @Test
+    public void returnsArgumentByName() {
+        final String subject = "subject";
+        final String bear = "bear";
+        MatcherAssert.assertThat(
+            new BasicActualArguments(
+                ImmutableList.of(subject, "object"),
+                ImmutableList.of(
+                    new SingleFormLexeme(bear),
+                    new SingleFormLexeme("human")
+                )
+            ).byName(subject).defaultSpelling(),
+            CoreMatchers.equalTo(bear)
+        );
+    }
 }

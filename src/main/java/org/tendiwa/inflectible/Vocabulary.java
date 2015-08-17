@@ -23,21 +23,19 @@
  */
 package org.tendiwa.inflectible;
 
+import java.util.Optional;
+
 /**
- * Knows how to speak a language.
+ * All the words in some language.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-public interface NativeSpeaker {
+public interface Vocabulary {
     /**
-     * Produces a text from a given template by filling out its placeholders
-     * with what we need.
-     * @param identifier Id of a template to fill out
-     * @param arguments Conceptions that have words in vocabulary for them.
-     * @return Text for humans to read.
-     * @throws InflectibleException If couldn't produce a text
+     * Returns a lexeme with a given identifier.
+     * @param identifier Uppercase identifier of a lexeme, e.g. "RUN"
+     * @return Lexeme, or nothing if there is no lexeme with such identifier
      */
-    String text(String identifier, Localizable... arguments)
-        throws InflectibleException;
+    Optional<Lexeme> lexeme(String identifier);
 }

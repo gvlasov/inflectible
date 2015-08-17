@@ -23,21 +23,41 @@
  */
 package org.tendiwa.inflectible;
 
+import com.google.common.collect.ImmutableList;
+
 /**
- * Knows how to speak a language.
+ * {@link ActualArguments} defined by a list of declared arguments' names and
+ * actual values of those arguments.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-public interface NativeSpeaker {
+public final class BasicActualArguments implements ActualArguments {
     /**
-     * Produces a text from a given template by filling out its placeholders
-     * with what we need.
-     * @param identifier Id of a template to fill out
-     * @param arguments Conceptions that have words in vocabulary for them.
-     * @return Text for humans to read.
-     * @throws InflectibleException If couldn't produce a text
+     * Declared names of arguments.
      */
-    String text(String identifier, Localizable... arguments)
-        throws InflectibleException;
+    private final transient ImmutableList<String> declared;
+
+    /**
+     * Actual values of arguments.
+     */
+    private final transient ImmutableList<Lexeme> values;
+
+    /**
+     * Ctor.
+     * @param names Declared names of arguments
+     * @param arguments Actual values of arguments
+     */
+    BasicActualArguments(
+        final ImmutableList<String> names,
+        final ImmutableList<Lexeme> arguments
+    ) {
+        this.declared = names;
+        this.values = arguments;
+    }
+
+    @Override
+    public Lexeme byName(final String name) {
+        return this.values.get(this.declared.indexOf(name));
+    }
 }

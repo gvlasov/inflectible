@@ -24,20 +24,37 @@
 package org.tendiwa.inflectible;
 
 /**
- * Knows how to speak a language.
+ * Exception in the Inflectible template engine.
+ * @see <a href="https://en.wikipedia.org/wiki/Inflection">Inflection article
+ *  on Wikipedia</a>
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-public interface NativeSpeaker {
+final class InflectibleException extends Exception {
+
     /**
-     * Produces a text from a given template by filling out its placeholders
-     * with what we need.
-     * @param identifier Id of a template to fill out
-     * @param arguments Conceptions that have words in vocabulary for them.
-     * @return Text for humans to read.
-     * @throws InflectibleException If couldn't produce a text
+     * Generated SerialVersionUID.
      */
-    String text(String identifier, Localizable... arguments)
-        throws InflectibleException;
+    private static final long serialVersionUID = -2773697053092290233L;
+
+    /**
+     * Ctor.
+     * @param message Message
+     */
+    public InflectibleException(final String message) {
+        super(message);
+    }
+
+    /**
+     * Ctor.
+     * @param message Message
+     * @param throwable Cause
+     */
+    public InflectibleException(
+        final String message,
+        final Throwable throwable
+    ) {
+        super(message, throwable);
+    }
 }
