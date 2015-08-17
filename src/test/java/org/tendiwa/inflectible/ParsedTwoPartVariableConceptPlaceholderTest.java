@@ -41,9 +41,10 @@ public final class ParsedTwoPartVariableConceptPlaceholderTest {
     /**
      * ParsedTwoPartVariableConceptPlaceholder can be constructed from an
      * ANTLR parse tree.
+     * @throws Exception If fails
      */
     @Test
-    public void constructsFromAntlrParseTree() {
+    public void constructsFromAntlrParseTree() throws Exception {
         MatcherAssert.assertThat(
             new ParsedTwoPartVariableConceptPlaceholder(
                 new English().grammar(),

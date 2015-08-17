@@ -25,7 +25,6 @@ package org.tendiwa.inflectible;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UncheckedIOException;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -41,7 +40,7 @@ public final class BasicLexemeBundleParserTest {
      * it throws {@link IOException}.
      * @throws Exception If fails
      */
-    @Test(expected = UncheckedIOException.class)
+    @Test(expected = IOException.class)
     public void failsWithBadInputStream() throws Exception {
         final InputStream failing = Mockito.mock(InputStream.class);
         Mockito.when(failing.read()).thenThrow(new IOException());

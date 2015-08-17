@@ -24,6 +24,7 @@
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableSet;
+import java.io.IOException;
 import java.util.stream.IntStream;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
@@ -123,11 +124,12 @@ public final class ParsedLexemeTest {
      * @param resource Name of a resource with lexemes' markup
      * @param index Index of a lexeme in the markup
      * @return Lexeme on {@code index}'th place in the markup
+     * @throws IOException If can't read the resource
      */
     private ParsedLexeme wordOfBundle(
         final String resource,
         final int index
-    ) {
+    ) throws IOException {
         return new ParsedLexeme(
             new English().grammar(),
             new BasicLexemeBundleParser(

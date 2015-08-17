@@ -24,6 +24,7 @@
 package org.tendiwa.inflectible;
 
 import com.google.common.base.Joiner;
+import java.io.IOException;
 import java.util.Collections;
 import org.apache.commons.io.IOUtils;
 import org.hamcrest.CoreMatchers;
@@ -59,8 +60,9 @@ public final class ParsedVocabularyTest {
     /**
      * Creates a small vocabulary for {@link English} language.
      * @return Vocabulary for {@link English}
+     * @throws IOException If can't read the vocabulary input stream
      */
-    private ParsedVocabulary englishVocabulary() {
+    private ParsedVocabulary englishVocabulary() throws IOException {
         return new ParsedVocabulary(
             new English().grammar(),
             Collections.singletonList(

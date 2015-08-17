@@ -24,6 +24,7 @@
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableSet;
+import java.io.IOException;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
@@ -65,8 +66,9 @@ public final class ParsedWordFormTest {
     /**
      * Creates a plural word form <i>bears</i>.
      * @return Plural word form <i>bears</i>
+     * @throws IOException If can't read the vocabulary input stream
      */
-    private ParsedWordForm wordFormBears() {
+    private ParsedWordForm wordFormBears() throws IOException {
         return new ParsedWordForm(
             new English().grammar(),
             new BasicLexemeBundleParser(
