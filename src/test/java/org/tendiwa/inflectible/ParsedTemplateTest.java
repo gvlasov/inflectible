@@ -26,7 +26,6 @@ package org.tendiwa.inflectible;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 import java.io.IOException;
-import java.util.Map;
 import org.apache.commons.io.IOUtils;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
@@ -49,7 +48,7 @@ public final class ParsedTemplateTest {
     @SuppressWarnings("PMD.UseConcurrentHashMap")
     public void fillsUpItself() throws Exception {
         final Grammar grammar = new English().grammar();
-        final Map<String, Lexeme> vocabulary = new ParsedVocabulary(
+        final Vocabulary vocabulary = new ParsedVocabulary(
             grammar,
             ImmutableList.of(
                 ParsedTemplateTest.class.getResourceAsStream(
@@ -69,8 +68,8 @@ public final class ParsedTemplateTest {
                 )
             ).fillUp(
                 ImmutableList.of(
-                    vocabulary.get("HUMAN"),
-                    vocabulary.get("BEAR")
+                    vocabulary.lexeme("HUMAN"),
+                    vocabulary.lexeme("BEAR")
                 ),
                 new BasicVocabulary()
             ),

@@ -23,12 +23,10 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ForwardingMap;
 import com.google.common.collect.ImmutableMap;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
 import org.tenidwa.collections.utils.Rethrowing;
 
 /**
@@ -38,7 +36,7 @@ import org.tenidwa.collections.utils.Rethrowing;
  * @version $Id$
  * @since 0.1
  */
-public final class ParsedVocabulary extends ForwardingMap<String, Lexeme> {
+public final class ParsedVocabulary implements Vocabulary {
     /**
      * Input streams with lexemes' markup.
      */
@@ -53,7 +51,7 @@ public final class ParsedVocabulary extends ForwardingMap<String, Lexeme> {
     /**
      * Found lexemes.
      */
-    private final transient ImmutableMap<String, Lexeme> lexemes;
+    private final transient Vocabulary vocabulary;
 
     /**
      * Ctor.
@@ -68,13 +66,17 @@ public final class ParsedVocabulary extends ForwardingMap<String, Lexeme> {
         super();
         this.input = sources;
         this.grammar = grammemes;
-        this.lexemes = this.constructLexemes();
+        this.vocabulary = this.delegate();
     }
 
-    // @checkstyle ProtectedMethodInFinalClassCheck (3 lines)
     @Override
-    protected Map<String, Lexeme> delegate() {
-        return this.lexemes;
+    public Lexeme lexeme(final String identifier) throws Exception {
+        return this.vocabulary.lexeme(identifier);
+    }
+
+    @Override
+    public boolean hasLexeme(final String name) {
+        return this.vocabulary.hasLexeme(name);
     }
 
     /**
@@ -82,19 +84,25 @@ public final class ParsedVocabulary extends ForwardingMap<String, Lexeme> {
      * @return Lexemes constructed from the markup in the input stream
      * @throws IOException If reading from any stream fails
      */
-    private ImmutableMap<String, Lexeme> constructLexemes() throws IOException {
-        return ImmutableMap.copyOf(
-            this.input
-                .stream()
-                .map(Rethrowing.rethrowFunction(BasicLexemeBundleParser::new))
-                .flatMap(parser -> parser.lexemes().lexeme().stream())
-                .collect(
-                    java.util.stream.Collectors.toMap(
-                        ctx -> ctx.LEXEME_ID().getText(),
-                        ctx -> new ParsedLexeme(this.grammar, ctx)
-                    )
+    private Vocabulary delegate() throws IOException {
+        return
+            new BasicVocabulary(
+                ImmutableMap.copyOf(
+                    this.input
+                        .stream()
+                        .map(
+                            Rethrowing.rethrowFunction(
+                                BasicLexemeBundleParser::new
+                            )
+                        )
+                        .flatMap(parser -> parser.lexemes().lexeme().stream())
+                        .collect(
+                            java.util.stream.Collectors.toMap(
+                                ctx -> ctx.LEXEME_ID().getText(),
+                                ctx -> new ParsedLexeme(this.grammar, ctx)
+                            )
+                        )
                 )
-        );
+            );
     }
-
 }

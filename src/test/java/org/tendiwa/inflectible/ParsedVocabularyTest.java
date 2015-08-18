@@ -48,11 +48,7 @@ public final class ParsedVocabularyTest {
     public void findsWords() throws Exception {
         final ParsedVocabulary bundle = this.englishVocabulary();
         MatcherAssert.assertThat(
-            bundle.size(),
-            CoreMatchers.equalTo(2)
-        );
-        MatcherAssert.assertThat(
-            bundle.containsKey("DRAGON"),
+            bundle.hasLexeme("DRAGON"),
             CoreMatchers.equalTo(true)
         );
     }
