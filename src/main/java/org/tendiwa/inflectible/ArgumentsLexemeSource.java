@@ -23,8 +23,6 @@
  */
 package org.tendiwa.inflectible;
 
-import java.util.Map;
-
 /**
  * {@link LexemeSource} that chooses a lexeme by its identifier from actual
  *  arguments passed to {@link Template}.
@@ -48,9 +46,9 @@ public final class ArgumentsLexemeSource implements LexemeSource {
 
     @Override
     public Lexeme lexeme(
-        final Map<String, Lexeme> arguments,
-        final Map<String, Lexeme> vocabulary
-    ) {
-        return arguments.get(this.name);
+        final ActualArguments arguments,
+        final Vocabulary vocabulary
+    ) throws Exception {
+        return arguments.byName(this.name);
     }
 }

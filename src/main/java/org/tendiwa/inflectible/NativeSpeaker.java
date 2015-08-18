@@ -36,8 +36,7 @@ public interface NativeSpeaker {
      * @param identifier Id of a template to fill out
      * @param arguments Conceptions that have words in vocabulary for them.
      * @return Text for humans to read.
-     * @throws InflectibleException If couldn't produce a text
+     * @throws Exception If couldn't produce a text
      */
-    String text(String identifier, Localizable... arguments)
-        throws InflectibleException;
+    String text(String identifier, Localizable... arguments) throws Exception;
 }

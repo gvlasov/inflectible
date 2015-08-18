@@ -37,6 +37,7 @@ import org.tendiwa.inflectible.implementations.English;
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
+ * @checkstyle ClassDataAbstractionCouplingCheck (3 lines)
  */
 public final class BasicPlaceholderTest {
     /**
@@ -50,8 +51,10 @@ public final class BasicPlaceholderTest {
         MatcherAssert.assertThat(
             new BasicPlaceholder(new VocabularyLexemeSource(lexeme))
                 .fillUp(
-                    ImmutableMap.of(),
-                    ImmutableMap.of(lexeme, new SingleFormLexeme(form))
+                    new BasicActualArguments(),
+                    new BasicVocabulary(
+                        ImmutableMap.of(lexeme, new SingleFormLexeme(form))
+                    )
                 ),
             CoreMatchers.equalTo(form)
         );
@@ -73,10 +76,10 @@ public final class BasicPlaceholderTest {
                     ImmutableSet.of(English.Grammemes.III)
                 )
                 .withAgreement(new ArgumentAgreement(actor));
-        final ImmutableMap<String, Lexeme> arguments =
-            ImmutableMap.<String, Lexeme>builder()
-                .put(
-                    action,
+        final ActualArguments arguments =
+            new BasicActualArguments(
+                ImmutableList.of(action, actor),
+                ImmutableList.of(
                     new BasicLexeme(
                         ImmutableSet.of(),
                         ImmutableList.of(
@@ -89,15 +92,12 @@ public final class BasicPlaceholderTest {
                                 )
                             )
                         )
-                    )
+                    ),
+                    new SingleFormLexeme("wolf")
                 )
-                .put(actor, new SingleFormLexeme("wolf"))
-                .build();
+            );
         MatcherAssert.assertThat(
-            third.fillUp(
-                arguments,
-                ImmutableMap.of()
-            ),
+            third.fillUp(arguments, new BasicVocabulary()),
             CoreMatchers.equalTo("Eats")
         );
     }

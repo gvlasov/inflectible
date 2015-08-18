@@ -23,33 +23,28 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableList;
-
 /**
- * A single marked up text. It consists of three parts:
- * <ol>
- *     <li>Identifier;</li>
- *     <li>List of argument names;</li>
- *     <li>Template body.</li>
- * </ol>
- * <pre>
- * identifier (param1, param2, param3) {
- *     Text about [param1] and [param2][Plur] mentioning [param3][Gerund].
- * }
- * </pre>
+ * Indicated that a lexeme for a particular conception is missing.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
+ * @since 0.1
  */
-public interface Template {
+public final class MissingLexemeException extends Exception {
     /**
-     * Fills up the template with arguments.
-     * @param arguments Lexemes passed as arguments to the template
-     * @param vocabulary Vocabulary of the language of the text in this template
-     * @return Text with placeholders filled up
-     * @throws Exception If couldn't fill up the template
+     * SerialVersionUID.
      */
-    String fillUp(
-        ImmutableList<Lexeme> arguments,
-        Vocabulary vocabulary
-    ) throws Exception;
+    private static final long serialVersionUID = -5899008564868842739L;
+
+    /**
+     * Ctor.
+     * @param conception Conception for which a lexeme is missing
+     */
+    public MissingLexemeException(final Localizable conception) {
+        super(
+            String.format(
+                "No lexeme with id %s",
+                conception.getLocalizationId()
+            )
+        );
+    }
 }

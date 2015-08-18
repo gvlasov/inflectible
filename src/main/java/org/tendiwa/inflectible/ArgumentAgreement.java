@@ -24,7 +24,6 @@
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableSet;
-import java.util.Map;
 
 /**
  * The agreement relation present in actual natural languages.
@@ -50,10 +49,8 @@ public final class ArgumentAgreement implements Agreement {
 
     @Override
     public ImmutableSet<Grammeme> grammemes(
-        final Map<String, Lexeme> arguments
-    ) {
-        return arguments
-            .get(this.name)
-            .persistentGrammemes();
+        final ActualArguments arguments
+    ) throws Exception {
+        return arguments.byName(this.name).persistentGrammemes();
     }
 }

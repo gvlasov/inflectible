@@ -23,7 +23,6 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import java.util.Locale;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
@@ -53,9 +52,9 @@ public final class ParsedSinglePartPlaceholder implements Placeholder {
 
     @Override
     public String fillUp(
-        final ImmutableMap<String, Lexeme> arguments,
-        final ImmutableMap<String, Lexeme> vocabulary
-    ) {
+        final ActualArguments arguments,
+        final Vocabulary vocabulary
+    ) throws Exception {
         return this.delegate().fillUp(arguments, vocabulary);
     }
 

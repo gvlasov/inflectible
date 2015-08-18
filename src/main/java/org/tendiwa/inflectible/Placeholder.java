@@ -23,8 +23,6 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableMap;
-
 /**
  * A piece of {@link Template} that holds place for a word form.
  * @author Georgy Vlasov (suseika@tendiwa.org)
@@ -37,9 +35,10 @@ public interface Placeholder {
      * @param arguments Actual arguments of a TextTemplate
      * @param vocabulary Vocabulary with lexemes
      * @return Spelling of a word form
+     * @throws Exception If couldn't fill up the placeholder
      */
     String fillUp(
-        ImmutableMap<String, Lexeme> arguments,
-        ImmutableMap<String, Lexeme> vocabulary
-    );
+        ActualArguments arguments,
+        Vocabulary vocabulary
+    ) throws Exception;
 }

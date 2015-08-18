@@ -24,7 +24,6 @@
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
@@ -64,8 +63,8 @@ final class ParsedTemplate implements Template {
     @Override
     public String fillUp(
         final ImmutableList<Lexeme> arguments,
-        final ImmutableMap<String, Lexeme> vocabulary
-    ) {
+        final Vocabulary vocabulary
+    ) throws Exception {
         return this.delegate().fillUp(arguments, vocabulary);
     }
 

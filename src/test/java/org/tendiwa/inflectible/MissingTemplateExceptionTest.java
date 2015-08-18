@@ -23,33 +23,27 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableList;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
+import org.junit.Test;
 
 /**
- * A single marked up text. It consists of three parts:
- * <ol>
- *     <li>Identifier;</li>
- *     <li>List of argument names;</li>
- *     <li>Template body.</li>
- * </ol>
- * <pre>
- * identifier (param1, param2, param3) {
- *     Text about [param1] and [param2][Plur] mentioning [param3][Gerund].
- * }
- * </pre>
+ * Unit tests for {@link MissingTemplateException}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
+ * @since 0.1
  */
-public interface Template {
+public final class MissingTemplateExceptionTest {
     /**
-     * Fills up the template with arguments.
-     * @param arguments Lexemes passed as arguments to the template
-     * @param vocabulary Vocabulary of the language of the text in this template
-     * @return Text with placeholders filled up
-     * @throws Exception If couldn't fill up the template
+     * {@link MissingTemplateException} can show message about what template
+     * is missing.
+     * @throws Exception If fails
      */
-    String fillUp(
-        ImmutableList<Lexeme> arguments,
-        Vocabulary vocabulary
-    ) throws Exception;
+    @Test
+    public void showsSpecificMessage() throws Exception {
+        MatcherAssert.assertThat(
+            new MissingTemplateException("actions.attack").getMessage(),
+            CoreMatchers.is("No template with id actions.attack")
+        );
+    }
 }

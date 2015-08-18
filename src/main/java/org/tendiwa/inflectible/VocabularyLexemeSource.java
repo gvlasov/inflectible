@@ -23,8 +23,6 @@
  */
 package org.tendiwa.inflectible;
 
-import java.util.Map;
-
 /**
  * Constant {@link LexemeSource}. Picks a lexeme from vocabulary.
  * @author Georgy Vlasov (suseika@tendiwa.org)
@@ -47,9 +45,9 @@ public final class VocabularyLexemeSource implements LexemeSource {
 
     @Override
     public Lexeme lexeme(
-        final Map<String, Lexeme> arguments,
-        final Map<String, Lexeme> vocabulary
+        final ActualArguments arguments,
+        final Vocabulary vocabulary
     ) {
-        return vocabulary.get(this.identifier);
+        return vocabulary.lexeme(this.identifier).get();
     }
 }

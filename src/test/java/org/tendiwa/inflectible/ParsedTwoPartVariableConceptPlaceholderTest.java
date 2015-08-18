@@ -24,7 +24,7 @@
 package org.tendiwa.inflectible;
 
 import com.google.common.base.Joiner;
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableList;
 import org.apache.commons.io.IOUtils;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
@@ -65,8 +65,11 @@ public final class ParsedTwoPartVariableConceptPlaceholderTest {
                     .twoPartPlaceholder()
             )
                 .fillUp(
-                    ImmutableMap.of("dude", new SingleFormLexeme("man")),
-                    ImmutableMap.of()
+                    new BasicActualArguments(
+                        ImmutableList.of("dude"),
+                        ImmutableList.of(new SingleFormLexeme("man"))
+                    ),
+                    new BasicVocabulary()
                 ),
             CoreMatchers.equalTo("Man")
         );

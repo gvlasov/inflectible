@@ -24,10 +24,10 @@
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.tenidwa.collections.utils.Rethrowing;
 
 /**
  * A builder used to create {@link Template}s.
@@ -142,39 +142,17 @@ public final class TextTemplateBuilder {
         @Override
         public String fillUp(
             final ImmutableList<Lexeme> lexemes,
-            final ImmutableMap<String, Lexeme> vocabulary
-        ) {
-            final ImmutableMap<String, Lexeme> actualArguments =
-                this.actualArguments(lexemes);
+            final Vocabulary vocabulary
+        ) throws Exception {
+            final ActualArguments actualArguments =
+                new BasicActualArguments(this.arguments, lexemes);
             return this.parts.stream()
-                .map(part -> part.fillUp(actualArguments, vocabulary))
-                .collect(Collectors.joining());
-        }
-
-        /**
-         * Creates a map of actual arguments.
-         * @param lexemes Lexemes passed to this template to fill it out.
-         * @return Map from argument names to lexemes passed for those
-         *  arguments.
-         */
-        private ImmutableMap<String, Lexeme> actualArguments(
-            final List<Lexeme> lexemes
-        ) {
-            if (lexemes.size() != this.arguments.size()) {
-                throw new IllegalArgumentException(
-                    String.format(
-                        "Wrong number of arguments. Expected: %s, actual: %s",
-                        this.arguments.size(),
-                        lexemes.size()
+                .map(
+                    Rethrowing.rethrowFunction(
+                        part -> part.fillUp(actualArguments, vocabulary)
                     )
-                );
-            }
-            final ImmutableMap.Builder<String, Lexeme> builder =
-                ImmutableMap.builder();
-            for (int idx = 0; idx < lexemes.size(); idx += 1) {
-                builder.put(this.arguments.get(idx), lexemes.get(idx));
-            }
-            return builder.build();
+                )
+                .collect(Collectors.joining());
         }
     }
 }

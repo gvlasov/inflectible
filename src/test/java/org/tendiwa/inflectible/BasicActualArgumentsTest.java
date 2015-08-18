@@ -38,9 +38,10 @@ public final class BasicActualArgumentsTest {
     /**
      * {@link BasicActualArgumentsTest} can return an argument value by its
      * declared name.
+     * @throws Exception If fails
      */
     @Test
-    public void returnsArgumentByName() {
+    public void returnsArgumentByName() throws Exception {
         final String subject = "subject";
         final String bear = "bear";
         MatcherAssert.assertThat(

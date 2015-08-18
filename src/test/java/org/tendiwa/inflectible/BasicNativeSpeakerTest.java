@@ -47,18 +47,24 @@ public final class BasicNativeSpeakerTest {
         final String lexeme = "BEAR";
         MatcherAssert.assertThat(
             new BasicNativeSpeaker(
-                ImmutableMap.of(lexeme, new SingleFormLexeme("bear")),
-                ImmutableMap.of(
-                    template,
-                    new TextTemplateBuilder(ImmutableList.of(argument))
-                        .addPlaceholder(
-                            new BasicPlaceholder(
-                                new ArgumentsLexemeSource(argument)
+                new BasicVocabulary(
+                    ImmutableMap.of(lexeme, new SingleFormLexeme("bear"))
+                ),
+                new BasicTemplatuary(
+                    ImmutableMap.of(
+                        template,
+                        new TextTemplateBuilder(ImmutableList.of(argument))
+                            .addPlaceholder(
+                                new BasicPlaceholder(
+                                    new ArgumentsLexemeSource(argument)
+                                )
+                                    .withCapitalization(
+                                        Capitalization.CAPITALIZE
+                                    )
                             )
-                                .withCapitalization(Capitalization.CAPITALIZE)
-                        )
-                        .addText(" furiously bites YOU!")
-                        .build()
+                            .addText(" furiously bites YOU!")
+                            .build()
+                    )
                 )
             ).text(template, () -> lexeme),
             CoreMatchers.equalTo("Bear furiously bites YOU!")

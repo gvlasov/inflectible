@@ -24,7 +24,6 @@
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableSet;
-import java.util.Map;
 
 /**
  * Agreement is a relation between two members of a sentence. One member is
@@ -69,6 +68,8 @@ public interface Agreement {
      * @param arguments Actual values of arguments passed to a
      *  {@link Template}.
      * @return Persistent grammemes of the dominant word.
+     * @throws Exception If couldn't obtain the grammatical meaning
      */
-    ImmutableSet<Grammeme> grammemes(Map<String, Lexeme> arguments);
+    ImmutableSet<Grammeme> grammemes(ActualArguments arguments)
+        throws Exception;
 }

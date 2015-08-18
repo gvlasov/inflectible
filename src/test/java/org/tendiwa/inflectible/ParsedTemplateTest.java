@@ -25,7 +25,6 @@ package org.tendiwa.inflectible;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import java.io.IOException;
 import java.util.Map;
 import org.apache.commons.io.IOUtils;
@@ -73,7 +72,7 @@ public final class ParsedTemplateTest {
                     vocabulary.get("HUMAN"),
                     vocabulary.get("BEAR")
                 ),
-                ImmutableMap.of()
+                new BasicVocabulary()
             ),
             CoreMatchers.equalTo(
                 "Here come a human and two bears. Human is tall."

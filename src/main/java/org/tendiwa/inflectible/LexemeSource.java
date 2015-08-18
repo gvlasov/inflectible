@@ -23,8 +23,6 @@
  */
 package org.tendiwa.inflectible;
 
-import java.util.Map;
-
 /**
  * Lexeme source: whether to pick a lexeme from vocabulary or from arguments. In
  * markup it is expressed as either, e.g.,
@@ -41,9 +39,8 @@ public interface LexemeSource {
      * @param arguments Actual arguments passed to a {@link Template}
      * @param vocabulary Lexeme vocabulary.
      * @return A lexeme.
+     * @throws Exception If couldn't find a lexeme
      */
-    Lexeme lexeme(
-        Map<String, Lexeme> arguments,
-        Map<String, Lexeme> vocabulary
-    );
+    Lexeme lexeme(ActualArguments arguments, Vocabulary vocabulary)
+        throws Exception;
 }

@@ -23,40 +23,29 @@
  */
 package org.tendiwa.inflectible;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
-import org.junit.Test;
-
 /**
- * Unit tests for {@link InflectibleException}.
+ * Exception indicating that a {@link Template} with specific id is missing in a
+ * {@link Templatuary}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-public final class InflectibleExceptionTest {
+public final class MissingTemplateException extends Exception {
+    /**
+     * SerialVersionUID.
+     */
+    private static final long serialVersionUID = 4786433297503486970L;
 
     /**
-     * {@link InflectibleException} can have error message.
+     * Ctor.
+     * @param identifier Identifier of a template.
      */
-    @Test
-    public void hasMessage() {
-        final String message = "Hello";
-        MatcherAssert.assertThat(
-            new InflectibleException(message).getMessage(),
-            CoreMatchers.equalTo(message)
-        );
-    }
-
-    /**
-     * {@link InflectibleException} can have cause.
-     */
-    @Test
-    public void hasCause() {
-        final IllegalArgumentException cause =
-            new IllegalArgumentException("hey");
-        MatcherAssert.assertThat(
-            new InflectibleException("Hi", cause).getCause(),
-            CoreMatchers.is(cause)
+    public MissingTemplateException(final String identifier) {
+        super(
+            String.format(
+                "No template with id %s",
+                identifier
+            )
         );
     }
 }

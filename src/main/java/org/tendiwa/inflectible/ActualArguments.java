@@ -35,6 +35,7 @@ public interface ActualArguments {
      * {@link Template}.
      * @param name Declared name of an argument
      * @return Value of an argument
+     * @throws Exception If couldn't
      */
-    Lexeme byName(String name);
+    Lexeme byName(String name) throws Exception;
 }

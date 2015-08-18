@@ -46,6 +46,13 @@ public final class BasicVocabulary implements Vocabulary {
         this.lexemes = map;
     }
 
+    /**
+     * Ctor for empty vocabulary.
+     */
+    BasicVocabulary() {
+        this(ImmutableMap.of());
+    }
+
     @Override
     public Optional<Lexeme> lexeme(final String identifier) {
         return Optional.ofNullable(this.lexemes.get(identifier));

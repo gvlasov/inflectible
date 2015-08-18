@@ -24,37 +24,16 @@
 package org.tendiwa.inflectible;
 
 /**
- * Exception in the Inflectible template engine.
- * @see <a href="https://en.wikipedia.org/wiki/Inflection">Inflection article
- *  on Wikipedia</a>
+ * A meaningful text for a human to read.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-final class InflectibleException extends Exception {
-
+public interface Text {
     /**
-     * Generated SerialVersionUID.
+     * Returns a string representation of the text.
+     * @return String representation of the text.
+     * @throws Exception If couldn't create string representation of the text.
      */
-    private static final long serialVersionUID = -2773697053092290233L;
-
-    /**
-     * Ctor.
-     * @param message Message
-     */
-    public InflectibleException(final String message) {
-        super(message);
-    }
-
-    /**
-     * Ctor.
-     * @param message Message
-     * @param throwable Cause
-     */
-    public InflectibleException(
-        final String message,
-        final Throwable throwable
-    ) {
-        super(message, throwable);
-    }
+    String string() throws Exception;
 }

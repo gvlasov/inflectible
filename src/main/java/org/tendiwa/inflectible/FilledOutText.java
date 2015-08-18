@@ -23,52 +23,65 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableList;
+import java.util.List;
+import org.tenidwa.collections.utils.Collectors;
+import org.tenidwa.collections.utils.Rethrowing;
 
 /**
- * {@link NativeSpeaker} defined by a vocabulary of {@link Lexeme}s and a
- * templatuary of {@link Template}s.
+ * Text created by filling out a {@link Template}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-public final class BasicNativeSpeaker implements NativeSpeaker {
+public final class FilledOutText implements Text {
     /**
-     * Vocabulary of lexemes.
+     * Template to fill out.
+     */
+    private final transient Template template;
+
+    /**
+     * Vocabulary to search for lexemes in.
      */
     private final transient Vocabulary vocabulary;
 
     /**
-     * Templatuary of templates.
+     * Arguments to fill out the template with.
      */
-    private final transient Templatuary templatuary;
+    private final transient List<Localizable> arguments;
 
     /**
      * Ctor.
-     * @param lexemes Vocabulary of lexemes
-     * @param templates Templatuary of templates
+     * @param text Template to fill out
+     * @param lexemes Vocabulary to search for lexemes in
+     * @param conceptions Arguments to fill out the template with
      */
-    BasicNativeSpeaker(
+    public FilledOutText(
+        final Template text,
         final Vocabulary lexemes,
-        final Templatuary templates
+        final List<Localizable> conceptions
     ) {
+        this.template = text;
         this.vocabulary = lexemes;
-        this.templatuary = templates;
+        this.arguments = conceptions;
     }
 
     @Override
-    public String text(
-        final String identifier,
-        final Localizable... arguments
-    ) throws Exception {
-        return new FilledOutText(
-            this.templatuary
-                .template(identifier)
-                .<Exception>orElseThrow(
-                    () -> new MissingTemplateException(identifier)
-                ),
-            this.vocabulary,
-            ImmutableList.copyOf(arguments)
-        ).string();
+    public String string() throws Exception {
+        return this.template.fillUp(
+            this.arguments
+                .stream()
+                .map(
+                    Rethrowing.rethrowFunction(
+                        conception
+                            -> this.vocabulary
+                            .lexeme(conception.getLocalizationId())
+                            .<Exception>orElseThrow(
+                                () -> new MissingLexemeException(conception)
+                            )
+                    )
+                )
+                .collect(Collectors.toImmutableList()),
+            this.vocabulary
+        );
     }
 }

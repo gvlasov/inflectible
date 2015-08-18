@@ -23,7 +23,6 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 
 /**
@@ -151,9 +150,9 @@ public final class BasicPlaceholder implements Placeholder {
 
     @Override
     public String fillUp(
-        final ImmutableMap<String, Lexeme> arguments,
-        final ImmutableMap<String, Lexeme> vocabulary
-    ) {
+        final ActualArguments arguments,
+        final Vocabulary vocabulary
+    ) throws Exception {
         return this.capitalization.apply(
             this.source.lexeme(arguments, vocabulary)
             .wordForm(
