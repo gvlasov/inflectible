@@ -42,8 +42,8 @@ public final class BasicTemplatuaryTest {
      * @throws Exception If fails
      */
     @Test
-    public void returnsLexemeByIdentifier() throws Exception {
-        final String identifier = "MESSAGE";
+    public void returnsTemplateByIdentifier() throws Exception {
+        final TemplateName identifier = new TemplateName("message");
         MatcherAssert.assertThat(
             new BasicTemplatuary(
                 ImmutableMap.of(
@@ -64,6 +64,7 @@ public final class BasicTemplatuaryTest {
      */
     @Test(expected = Exception.class)
     public void returnsEmptyIfNoSuchIdentifier() throws Exception {
-        new BasicTemplatuary(ImmutableMap.of()).template("OCCURRENCE");
+        new BasicTemplatuary(ImmutableMap.of())
+            .template(new TemplateName("occurrence"));
     }
 }

@@ -38,13 +38,13 @@ public final class MissingTemplateException extends Exception {
 
     /**
      * Ctor.
-     * @param identifier Identifier of a template.
+     * @param name Name of a template.
      */
-    public MissingTemplateException(final String identifier) {
+    public MissingTemplateException(final TemplateName name) {
         super(
             String.format(
                 "No template with name \"%s\"",
-                identifier
+                name
             )
         );
     }

@@ -24,14 +24,9 @@
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableMap;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.tendiwa.inflectible.antlr.TemplateBundleLexer;
-import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 import org.tenidwa.collections.utils.Rethrowing;
 
 /**
@@ -72,12 +67,12 @@ public final class ParsedTemplatuary implements Templatuary {
     }
 
     @Override
-    public Template template(final String name) throws Exception {
+    public Template template(final TemplateName name) throws Exception {
         return this.templatuary.template(name);
     }
 
     @Override
-    public boolean hasTemplate(final String identifier) {
+    public boolean hasTemplate(final TemplateName identifier) {
         return this.templatuary.hasTemplate(identifier);
     }
 
@@ -92,44 +87,17 @@ public final class ParsedTemplatuary implements Templatuary {
                 this.inputs.stream()
                     .map(
                         Rethrowing.rethrowFunction(
-                            stream -> this.createParser(stream)
+                            stream -> new BasicTemplateBundleParser(stream)
                         )
                     )
                     .flatMap(parser -> parser.templates().template().stream())
                     .collect(
                         Collectors.toMap(
-                            templateCtx -> this.templateId(templateCtx),
+                            TemplateName::new,
                             templateCtx
                                 -> new ParsedTemplate(this.grammar, templateCtx)
                         )
                     )
-            )
-        );
-    }
-
-    /**
-     * Obtains an identifier of a template.
-     * @param ctx ANTLR parse tree of a template.
-     * @return Identifier of a template.
-     */
-    private String templateId(final TemplateBundleParser.TemplateContext ctx) {
-        return ctx.id().getText();
-    }
-
-    /**
-     * Creates an ANTLR parser for a stream.
-     * @param stream Input stream with templates' markup
-     * @return ANTLR parser for {@code stream}
-     * @throws IOException If couldn't read from the stream
-     */
-    private TemplateBundleParser createParser(
-        final InputStream stream
-    ) throws IOException {
-        return new TemplateBundleParser(
-            new CommonTokenStream(
-                new TemplateBundleLexer(
-                    new ANTLRInputStream(stream)
-                )
             )
         );
     }

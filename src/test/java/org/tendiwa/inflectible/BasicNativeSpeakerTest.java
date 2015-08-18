@@ -43,8 +43,8 @@ public final class BasicNativeSpeakerTest {
      */
     @Test
     public void fillsOutText() throws Exception {
-        final String argument = "attacker";
-        final String template = "ATTACK.BITE";
+        final ArgumentName argument = new ArgumentName("attacker");
+        final String template = "attack.bite";
         final String lexeme = "BEAR";
         MatcherAssert.assertThat(
             new BasicNativeSpeaker(
@@ -53,14 +53,14 @@ public final class BasicNativeSpeakerTest {
                 ),
                 new BasicTemplatuary(
                     ImmutableMap.of(
-                        template,
+                        new TemplateName(template),
                         new TextTemplateBuilder(
-                            ImmutableList.of(new ArgumentName(argument))
+                            ImmutableList.of(argument)
                         )
                             .addPlaceholder(
                                 new BasicPlaceholder(
                                     new ArgumentsLexemeSource(
-                                        new ArgumentName(argument)
+                                        argument
                                     )
                                 )
                                     .withCapitalization(
@@ -71,7 +71,8 @@ public final class BasicNativeSpeakerTest {
                             .build()
                     )
                 )
-            ).text(template, () -> lexeme),
+            )
+                .text(template, () -> lexeme),
             CoreMatchers.equalTo("Bear furiously bites YOU!")
         );
     }

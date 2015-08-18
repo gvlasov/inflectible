@@ -35,18 +35,18 @@ public final class BasicTemplatuary implements Templatuary {
     /**
      * Map from template identifiers to templates.
      */
-    private final transient ImmutableMap<String, Template> templates;
+    private final transient ImmutableMap<TemplateName, Template> templates;
 
     /**
      * Ctor.
      * @param map Map from template identifiers to templates.
      */
-    public BasicTemplatuary(final ImmutableMap<String, Template> map) {
+    public BasicTemplatuary(final ImmutableMap<TemplateName, Template> map) {
         this.templates = map;
     }
 
     @Override
-    public Template template(final String name) throws Exception {
+    public Template template(final TemplateName name) throws Exception {
         final Template template = this.templates.get(name);
         if (template == null) {
             throw new MissingTemplateException(name);
@@ -55,7 +55,7 @@ public final class BasicTemplatuary implements Templatuary {
     }
 
     @Override
-    public boolean hasTemplate(final String identifier) {
+    public boolean hasTemplate(final TemplateName identifier) {
         return this.templates.containsKey(identifier);
     }
 }

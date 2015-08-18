@@ -36,12 +36,12 @@ public interface Templatuary {
      * @return Template, or nothing if there is no template with such name.
      * @throws Exception If there is no template with such name.
      */
-    Template template(String name) throws Exception;
+    Template template(TemplateName name) throws Exception;
 
     /**
      * Checks if there is a template with a specific name.
      * @param identifier Name of a template
      * @return True iff there is a template with a specific name
      */
-    boolean hasTemplate(String identifier);
+    boolean hasTemplate(TemplateName identifier);
 }

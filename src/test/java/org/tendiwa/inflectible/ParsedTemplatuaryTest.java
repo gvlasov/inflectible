@@ -61,7 +61,7 @@ public final class ParsedTemplatuaryTest {
                         )
                     )
                 )
-            ).hasTemplate("id2"),
+            ).hasTemplate(new TemplateName("id2")),
             CoreMatchers.is(true)
         );
     }
