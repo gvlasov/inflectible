@@ -24,7 +24,6 @@
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableMap;
-import java.util.Optional;
 
 /**
  * {@link Vocabulary} defined by a map from lexeme identifiers to lexemes.
@@ -54,7 +53,16 @@ public final class BasicVocabulary implements Vocabulary {
     }
 
     @Override
-    public Optional<Lexeme> lexeme(final String identifier) {
-        return Optional.ofNullable(this.lexemes.get(identifier));
+    public Lexeme lexeme(final String identifier) throws Exception {
+        final Lexeme lexeme = this.lexemes.get(identifier);
+        if (lexeme == null) {
+            throw new MissingLexemeException(identifier);
+        }
+        return lexeme;
+    }
+
+    @Override
+    public boolean hasLexeme(final String name) {
+        return this.lexemes.containsKey(name);
     }
 }

@@ -75,9 +75,6 @@ public final class FilledOutText implements Text {
                         conception
                             -> this.vocabulary
                             .lexeme(conception.getLocalizationId())
-                            .<Exception>orElseThrow(
-                                () -> new MissingLexemeException(conception)
-                            )
                     )
                 )
                 .collect(Collectors.toImmutableList()),

@@ -37,8 +37,8 @@ import org.junit.Test;
  */
 public final class BasicTemplatuaryTest {
     /**
-     * {@link BasicTemplatuary} can return a template by its identifier if
-     * it is present in the templatuary.
+     * {@link BasicTemplatuary} can return a template by its name if it is
+     * present in the templatuary.
      * @throws Exception If fails
      */
     @Test
@@ -51,24 +51,19 @@ public final class BasicTemplatuaryTest {
                     new TextTemplateBuilder(ImmutableList.of()).build()
                 )
             )
-                .template(identifier)
-                .isPresent(),
+                .hasTemplate(identifier),
             CoreMatchers.is(true)
         );
     }
 
     /**
-     * {@link BasicTemplatuary} can return nothing if it doesn't have a template
-     * with the specified identifier.
-     * @throws Exception If fails
+     * {@link BasicTemplatuary} can fail if it doesn't have a template with the
+     * specified name.
+     * @throws Exception If Templatuary doesn't have a template with the
+     *  specified name
      */
-    @Test
+    @Test(expected = Exception.class)
     public void returnsEmptyIfNoSuchIdentifier() throws Exception {
-        MatcherAssert.assertThat(
-            new BasicTemplatuary(ImmutableMap.of())
-                .template("OCCURRENCE")
-                .isPresent(),
-            CoreMatchers.is(false)
-        );
+        new BasicTemplatuary(ImmutableMap.of()).template("OCCURRENCE");
     }
 }

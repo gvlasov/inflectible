@@ -23,8 +23,6 @@
  */
 package org.tendiwa.inflectible;
 
-import java.util.Optional;
-
 /**
  * All the words in some language.
  * @author Georgy Vlasov (suseika@tendiwa.org)
@@ -36,6 +34,14 @@ public interface Vocabulary {
      * Returns a lexeme with a given identifier.
      * @param identifier Uppercase identifier of a lexeme, e.g. "RUN"
      * @return Lexeme, or nothing if there is no lexeme with such identifier
+     * @throws Exception If could not find a lexeme with such name
      */
-    Optional<Lexeme> lexeme(String identifier);
+    Lexeme lexeme(String identifier) throws Exception;
+
+    /**
+     * Checks if there is a lexeme with specific name.
+     * @param name Name of a lexeme
+     * @return True iff there is a lexeme with such name
+     */
+    boolean hasLexeme(String name);
 }

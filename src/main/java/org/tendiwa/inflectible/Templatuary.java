@@ -23,8 +23,6 @@
  */
 package org.tendiwa.inflectible;
 
-import java.util.Optional;
-
 /**
  * All the texts in some language. Like a {@link Vocabulary}, but for templates.
  * @author Georgy Vlasov (suseika@tendiwa.org)
@@ -33,10 +31,17 @@ import java.util.Optional;
  */
 public interface Templatuary {
     /**
-     * Returns a template by its identifier.
-     * @param identifier Identifier of a template
-     * @return Template, or nothing if there is no template with such
-     *  identifier.
+     * Returns a template by its name.
+     * @param name Name of a template
+     * @return Template, or nothing if there is no template with such name.
+     * @throws Exception If there is no template with such name.
      */
-    Optional<Template> template(String identifier);
+    Template template(String name) throws Exception;
+
+    /**
+     * Checks if there is a template with a specific name.
+     * @param identifier Name of a template
+     * @return True iff there is a template with a specific name
+     */
+    boolean hasTemplate(String identifier);
 }

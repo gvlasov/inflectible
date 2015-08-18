@@ -24,7 +24,6 @@
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableMap;
-import java.util.Optional;
 
 /**
  * {@link Templatuary} defined by a map from template identifiers to templates.
@@ -47,7 +46,16 @@ public final class BasicTemplatuary implements Templatuary {
     }
 
     @Override
-    public Optional<Template> template(final String identifier) {
-        return Optional.ofNullable(this.templates.get(identifier));
+    public Template template(final String name) throws Exception {
+        final Template template = this.templates.get(name);
+        if (template == null) {
+            throw new MissingTemplateException(name);
+        }
+        return template;
+    }
+
+    @Override
+    public boolean hasTemplate(final String identifier) {
+        return this.templates.containsKey(identifier);
     }
 }

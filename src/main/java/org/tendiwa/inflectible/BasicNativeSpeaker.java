@@ -62,11 +62,7 @@ public final class BasicNativeSpeaker implements NativeSpeaker {
         final Localizable... arguments
     ) throws Exception {
         return new FilledOutText(
-            this.templatuary
-                .template(identifier)
-                .<Exception>orElseThrow(
-                    () -> new MissingTemplateException(identifier)
-                ),
+            this.templatuary.template(identifier),
             this.vocabulary,
             ImmutableList.copyOf(arguments)
         ).string();

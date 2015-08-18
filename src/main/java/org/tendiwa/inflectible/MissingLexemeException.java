@@ -40,10 +40,18 @@ public final class MissingLexemeException extends Exception {
      * @param conception Conception for which a lexeme is missing
      */
     public MissingLexemeException(final Localizable conception) {
+        this(conception.getLocalizationId());
+    }
+
+    /**
+     * Ctor.
+     * @param name Name for which lexeme is missing.
+     */
+    public MissingLexemeException(final String name) {
         super(
             String.format(
-                "No lexeme with id %s",
-                conception.getLocalizationId()
+                "No lexeme with name \"%s\"",
+                name
             )
         );
     }

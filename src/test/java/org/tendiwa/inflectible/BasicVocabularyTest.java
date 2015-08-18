@@ -47,26 +47,38 @@ public final class BasicVocabularyTest {
             new BasicVocabulary(
                 ImmutableMap.of(identifier, new SingleFormLexeme("dude"))
             )
-                .lexeme(identifier)
-                .isPresent(),
+                .hasLexeme(identifier),
             CoreMatchers.is(true)
         );
     }
 
     /**
-     * {@link BasicVocabulary} can return nothing if it doesn't have a lexeme
-     * with the specified identifier.
+     * {@link BasicVocabulary} can tell if there isn't a lexeme with particular
+     * name.
      * @throws Exception If fails
      */
     @Test
-    public void returnsEmptyIfNoSuchIdentifier() throws Exception {
+    public void seesAbsenceOfLexeme() throws Exception {
         MatcherAssert.assertThat(
             new BasicVocabulary(
                 ImmutableMap.of("GUY", new SingleFormLexeme("guy"))
             )
-                .lexeme("MAN")
-                .isPresent(),
+                .hasLexeme("MAN"),
             CoreMatchers.is(false)
         );
     }
+
+    /**
+     * {@link BasicVocabulary} can fail it it tries to return a lexeme that
+     * isn't there.
+     * @throws Exception If doesn't have a lexeme with particular name
+     */
+    @Test(expected = Exception.class)
+    public void failsIfTriesToReturnMissingLexeme() throws Exception {
+        new BasicVocabulary(
+            ImmutableMap.of("TABLE", new SingleFormLexeme("table"))
+        )
+            .lexeme("CHAIR");
+    }
+
 }

@@ -47,7 +47,7 @@ public final class VocabularyLexemeSource implements LexemeSource {
     public Lexeme lexeme(
         final ActualArguments arguments,
         final Vocabulary vocabulary
-    ) {
-        return vocabulary.lexeme(this.identifier).get();
+    ) throws Exception {
+        return vocabulary.lexeme(this.identifier);
     }
 }
