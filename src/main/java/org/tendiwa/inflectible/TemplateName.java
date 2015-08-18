@@ -23,6 +23,9 @@
  */
 package org.tendiwa.inflectible;
 
+import lombok.EqualsAndHashCode;
+import org.tendiwa.inflectible.antlr.TemplateBundleParser;
+
 /**
  * Name for a {@link Template}. May consist of only dots or lowrcase letters,
  * e.g. "actions.attack".
@@ -30,6 +33,7 @@ package org.tendiwa.inflectible;
  * @version $Id$
  * @since 0.1
  */
+@EqualsAndHashCode(of = { "value" })
 public final class TemplateName implements ValidatedIdentifier {
     /**
      * String value of the template name.
@@ -44,9 +48,22 @@ public final class TemplateName implements ValidatedIdentifier {
         this.value = name;
     }
 
+    /**
+     * Ctor.
+     * @param ctx ANTLR parse tree of a template
+     */
+    public TemplateName(final TemplateBundleParser.TemplateContext ctx) {
+        this(ctx.id().getText());
+    }
+
     @Override
     public String string() throws Exception {
         this.validate();
+        return this.value;
+    }
+
+    @Override
+    public String toString() {
         return this.value;
     }
 
