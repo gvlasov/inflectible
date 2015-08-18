@@ -23,12 +23,15 @@
  */
 package org.tendiwa.inflectible;
 
+import lombok.EqualsAndHashCode;
+
 /**
  * Name of an argument declared in a {@link Template}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
+@EqualsAndHashCode(of = { "value" })
 public final class ArgumentName implements ValidatedIdentifier {
     /**
      * String value of the argument name.
@@ -47,19 +50,6 @@ public final class ArgumentName implements ValidatedIdentifier {
     public String string() throws Exception {
         this.validate();
         return this.value;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        final ArgumentName that = (ArgumentName) o;
-        return !(value != null ? !value.equals(that.value) : that.value != null);
-    }
-
-    @Override
-    public int hashCode() {
-        return value != null ? value.hashCode() : 0;
     }
 
     /**

@@ -23,6 +23,8 @@
  */
 package org.tendiwa.inflectible;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
@@ -54,5 +56,17 @@ public final class ArgumentNameTest {
     @Test(expected = Exception.class)
     public void disallowsNonLowercase() throws Exception {
         new ArgumentName("DUDE").string();
+    }
+
+    /**
+     * {@link ArgumentName} can be checked for euqality with instances of its
+     * class.
+     * @throws Exception If fails
+     */
+    @Test
+    public void obeysEqualsContract() throws Exception {
+        EqualsVerifier.forClass(ArgumentName.class)
+            .suppress(Warning.TRANSIENT_FIELDS)
+            .verify();
     }
 }
