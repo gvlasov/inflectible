@@ -23,6 +23,8 @@
  */
 package org.tendiwa.inflectible;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
@@ -56,5 +58,17 @@ public final class TemplateNameTest {
     @Test(expected = Exception.class)
     public void disallowsNonLowercaseOrDots() throws Exception {
         new TemplateName("ACTION.attack").string();
+    }
+
+    /**
+     * {@link TemplateName} can be checked for equality against instances of its
+     * class.
+     * @throws Exception If fails
+     */
+    @Test
+    public void obeysEqualsContract() throws Exception {
+        EqualsVerifier.forClass(TemplateName.class)
+            .suppress(Warning.TRANSIENT_FIELDS)
+            .verify();
     }
 }

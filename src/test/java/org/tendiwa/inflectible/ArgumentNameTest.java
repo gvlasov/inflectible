@@ -59,7 +59,7 @@ public final class ArgumentNameTest {
     }
 
     /**
-     * {@link ArgumentName} can be checked for euqality with instances of its
+     * {@link ArgumentName} can be checked for equality against instances of its
      * class.
      * @throws Exception If fails
      */
