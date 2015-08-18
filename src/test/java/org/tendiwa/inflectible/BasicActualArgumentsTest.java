@@ -51,7 +51,9 @@ public final class BasicActualArgumentsTest {
                     new SingleFormLexeme(bear),
                     new SingleFormLexeme("human")
                 )
-            ).byName(subject).defaultSpelling(),
+            )
+                .byName(new ArgumentName(subject))
+                .defaultSpelling(),
             CoreMatchers.equalTo(bear)
         );
     }

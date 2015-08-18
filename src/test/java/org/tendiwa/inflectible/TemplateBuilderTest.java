@@ -49,13 +49,17 @@ public final class TemplateBuilderTest {
             new TextTemplateBuilder(ImmutableList.of(subject, object))
                 .addPlaceholder(
                     new BasicPlaceholder(
-                        new ArgumentsLexemeSource(subject)
+                        new ArgumentsLexemeSource(
+                            new ArgumentName(subject)
+                        )
                     )
                 )
                 .addText(" immediately picks up an ")
                 .addPlaceholder(
                     new BasicPlaceholder(
-                        new ArgumentsLexemeSource(object)
+                        new ArgumentsLexemeSource(
+                            new ArgumentName(object)
+                        )
                     )
                 )
                 .build()
@@ -81,7 +85,9 @@ public final class TemplateBuilderTest {
             new TextTemplateBuilder(ImmutableList.of(name))
                 .addPlaceholder(
                     new BasicPlaceholder(
-                        new ArgumentsLexemeSource(name)
+                        new ArgumentsLexemeSource(
+                            new ArgumentName(name)
+                        )
                     )
                 );
         IntStream.range(0, 2).forEach(i -> builder.build());

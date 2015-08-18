@@ -93,7 +93,11 @@ final class ParsedTwoPartVariableConceptPlaceholder implements Placeholder {
         final Optional<String> agreementName = this.agreementArgumentName();
         final Agreement answer;
         if (agreementName.isPresent()) {
-            answer = new ArgumentAgreement(agreementName.get());
+            answer = new ArgumentAgreement(
+                new ArgumentName(
+                    agreementName.get()
+                )
+            );
         } else {
             answer = Agreement.NONE;
         }
@@ -120,7 +124,9 @@ final class ParsedTwoPartVariableConceptPlaceholder implements Placeholder {
      */
     private LexemeSource lexemeSource() {
         return new ArgumentsLexemeSource(
-            this.argumentName().toLowerCase(Locale.getDefault())
+            new ArgumentName(
+                this.argumentName().toLowerCase(Locale.getDefault())
+            )
         );
     }
 

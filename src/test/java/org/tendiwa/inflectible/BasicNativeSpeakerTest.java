@@ -34,6 +34,7 @@ import org.junit.Test;
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
+ * @checkstyle ClassDataAbstractionCouplingCheck (3 lines)
  */
 public final class BasicNativeSpeakerTest {
     /**
@@ -56,7 +57,9 @@ public final class BasicNativeSpeakerTest {
                         new TextTemplateBuilder(ImmutableList.of(argument))
                             .addPlaceholder(
                                 new BasicPlaceholder(
-                                    new ArgumentsLexemeSource(argument)
+                                    new ArgumentsLexemeSource(
+                                        new ArgumentName(argument)
+                                    )
                                 )
                                     .withCapitalization(
                                         Capitalization.CAPITALIZE

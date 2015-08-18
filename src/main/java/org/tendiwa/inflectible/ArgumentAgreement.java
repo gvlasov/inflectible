@@ -37,13 +37,13 @@ public final class ArgumentAgreement implements Agreement {
     /**
      * Name of the argument to agree to.
      */
-    private final transient String name;
+    private final transient ArgumentName name;
 
     /**
      * Ctor.
      * @param argument Name of the argument to agree to.
      */
-    ArgumentAgreement(final String argument) {
+    ArgumentAgreement(final ArgumentName argument) {
         this.name = argument;
     }
 

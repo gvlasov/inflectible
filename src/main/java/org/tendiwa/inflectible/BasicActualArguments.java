@@ -64,7 +64,7 @@ public final class BasicActualArguments implements ActualArguments {
     }
 
     @Override
-    public Lexeme byName(final String name) throws Exception {
-        return this.values.get(this.declared.indexOf(name));
+    public Lexeme byName(final ArgumentName name) throws Exception {
+        return this.values.get(this.declared.indexOf(name.string()));
     }
 }

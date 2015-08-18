@@ -37,5 +37,5 @@ public interface ActualArguments {
      * @return Value of an argument
      * @throws Exception If couldn't
      */
-    Lexeme byName(String name) throws Exception;
+    Lexeme byName(ArgumentName name) throws Exception;
 }

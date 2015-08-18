@@ -92,7 +92,9 @@ public final class ParsedSinglePartPlaceholder implements Placeholder {
      */
     private LexemeSource lexemeSource() {
         return new ArgumentsLexemeSource(
-            this.argumentName().toLowerCase(Locale.getDefault())
+            new ArgumentName(
+                this.argumentName().toLowerCase(Locale.getDefault())
+            )
         );
     }
 

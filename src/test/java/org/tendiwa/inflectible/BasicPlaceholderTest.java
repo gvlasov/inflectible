@@ -70,12 +70,20 @@ public final class BasicPlaceholderTest {
         final String actor = "actor";
         final String action = "action";
         final BasicPlaceholder third =
-            new BasicPlaceholder(new ArgumentsLexemeSource(action))
+            new BasicPlaceholder(
+                new ArgumentsLexemeSource(
+                    new ArgumentName(action)
+                )
+            )
                 .withCapitalization(Capitalization.CAPITALIZE)
                 .withExplicitGrammemes(
                     ImmutableSet.of(English.Grammemes.III)
                 )
-                .withAgreement(new ArgumentAgreement(actor));
+                .withAgreement(
+                    new ArgumentAgreement(
+                        new ArgumentName(actor)
+                    )
+                );
         final ActualArguments arguments =
             new BasicActualArguments(
                 ImmutableList.of(action, actor),

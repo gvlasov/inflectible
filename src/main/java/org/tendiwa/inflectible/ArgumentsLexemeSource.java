@@ -34,13 +34,13 @@ public final class ArgumentsLexemeSource implements LexemeSource {
     /**
      * Name of an argument.
      */
-    private final transient String name;
+    private final transient ArgumentName name;
 
     /**
      * Ctor.
      * @param argument Name of an argument.
      */
-    ArgumentsLexemeSource(final String argument) {
+    ArgumentsLexemeSource(final ArgumentName argument) {
         this.name = argument;
     }
 
