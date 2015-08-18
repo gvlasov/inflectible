@@ -43,7 +43,7 @@ public final class MissingTemplateExceptionTest {
     public void showsSpecificMessage() throws Exception {
         MatcherAssert.assertThat(
             new MissingTemplateException("actions.attack").getMessage(),
-            CoreMatchers.is("No template with id actions.attack")
+            CoreMatchers.is("No template with name \"actions.attack\"")
         );
     }
 }

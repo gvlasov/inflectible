@@ -43,7 +43,7 @@ public final class MissingTemplateException extends Exception {
     public MissingTemplateException(final String identifier) {
         super(
             String.format(
-                "No template with id %s",
+                "No template with name \"%s\"",
                 identifier
             )
         );
