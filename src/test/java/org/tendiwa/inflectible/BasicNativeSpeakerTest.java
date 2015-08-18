@@ -49,7 +49,10 @@ public final class BasicNativeSpeakerTest {
         MatcherAssert.assertThat(
             new BasicNativeSpeaker(
                 new BasicVocabulary(
-                    ImmutableMap.of(lexeme, new SingleFormLexeme("bear"))
+                    ImmutableMap.of(
+                        new LexemeName(lexeme),
+                        new SingleFormLexeme("bear")
+                    )
                 ),
                 new BasicTemplatuary(
                     ImmutableMap.of(

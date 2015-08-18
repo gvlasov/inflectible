@@ -23,12 +23,16 @@
  */
 package org.tendiwa.inflectible;
 
+import lombok.EqualsAndHashCode;
+import org.tendiwa.inflectible.antlr.LexemeBundleParser;
+
 /**
  * Name for a {@link Lexeme}. Must consist only of uppercase letters.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
+@EqualsAndHashCode(of = { "value" })
 public final class LexemeName implements ValidatedIdentifier {
     /**
      * String value of the lexeme name.
@@ -41,6 +45,14 @@ public final class LexemeName implements ValidatedIdentifier {
      */
     public LexemeName(final String name) {
         this.value = name;
+    }
+
+    /**
+     * Ctor.
+     * @param ctx ANTLR parse tree for a lexeme.
+     */
+    public LexemeName(final LexemeBundleParser.LexemeContext ctx) {
+        this(ctx.LEXEME_ID().getText());
     }
 
     @Override

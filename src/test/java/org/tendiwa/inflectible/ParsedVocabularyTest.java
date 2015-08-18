@@ -40,15 +40,14 @@ import org.tendiwa.inflectible.implementations.English;
  */
 public final class ParsedVocabularyTest {
     /**
-     * ParsedVocabulary can parse multiple input streams to a
-     * Map<String, Lexeme>.
+     * ParsedVocabulary can parse input streams and create lexemes from markup.
      * @throws Exception If fails
      */
     @Test
     public void findsWords() throws Exception {
         final ParsedVocabulary bundle = this.englishVocabulary();
         MatcherAssert.assertThat(
-            bundle.hasLexeme("DRAGON"),
+            bundle.hasLexeme(new LexemeName("DRAGON")),
             CoreMatchers.equalTo(true)
         );
     }

@@ -68,8 +68,8 @@ public final class ParsedTemplateTest {
                 )
             ).fillUp(
                 ImmutableList.of(
-                    vocabulary.lexeme("HUMAN"),
-                    vocabulary.lexeme("BEAR")
+                    vocabulary.lexeme(new LexemeName("HUMAN")),
+                    vocabulary.lexeme(new LexemeName("BEAR"))
                 ),
                 new BasicVocabulary()
             ),

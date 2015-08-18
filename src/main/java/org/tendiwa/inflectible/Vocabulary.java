@@ -36,12 +36,12 @@ public interface Vocabulary {
      * @return Lexeme, or nothing if there is no lexeme with such identifier
      * @throws Exception If could not find a lexeme with such name
      */
-    Lexeme lexeme(String identifier) throws Exception;
+    Lexeme lexeme(LexemeName identifier) throws Exception;
 
     /**
      * Checks if there is a lexeme with specific name.
      * @param name Name of a lexeme
      * @return True iff there is a lexeme with such name
      */
-    boolean hasLexeme(String name);
+    boolean hasLexeme(LexemeName name);
 }

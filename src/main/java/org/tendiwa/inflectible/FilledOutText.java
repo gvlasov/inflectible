@@ -74,7 +74,11 @@ public final class FilledOutText implements Text {
                     Rethrowing.rethrowFunction(
                         conception
                             -> this.vocabulary
-                            .lexeme(conception.getLocalizationId())
+                            .lexeme(
+                                new LexemeName(
+                                    conception.getLocalizationId()
+                                )
+                            )
                     )
                 )
                 .collect(Collectors.toImmutableList()),

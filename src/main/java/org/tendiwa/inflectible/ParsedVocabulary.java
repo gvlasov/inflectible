@@ -70,12 +70,12 @@ public final class ParsedVocabulary implements Vocabulary {
     }
 
     @Override
-    public Lexeme lexeme(final String identifier) throws Exception {
+    public Lexeme lexeme(final LexemeName identifier) throws Exception {
         return this.vocabulary.lexeme(identifier);
     }
 
     @Override
-    public boolean hasLexeme(final String name) {
+    public boolean hasLexeme(final LexemeName name) {
         return this.vocabulary.hasLexeme(name);
     }
 
@@ -98,7 +98,7 @@ public final class ParsedVocabulary implements Vocabulary {
                         .flatMap(parser -> parser.lexemes().lexeme().stream())
                         .collect(
                             java.util.stream.Collectors.toMap(
-                                ctx -> ctx.LEXEME_ID().getText(),
+                                LexemeName::new,
                                 ctx -> new ParsedLexeme(this.grammar, ctx)
                             )
                         )

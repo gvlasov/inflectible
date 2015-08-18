@@ -35,13 +35,13 @@ public final class BasicVocabulary implements Vocabulary {
     /**
      * Lexemes in this vocabulary.
      */
-    private final transient ImmutableMap<String, Lexeme> lexemes;
+    private final transient ImmutableMap<LexemeName, Lexeme> lexemes;
 
     /**
      * Ctor.
      * @param map Map from lexeme identifiers to lexemes
      */
-    BasicVocabulary(final ImmutableMap<String, Lexeme> map) {
+    BasicVocabulary(final ImmutableMap<LexemeName, Lexeme> map) {
         this.lexemes = map;
     }
 
@@ -53,16 +53,16 @@ public final class BasicVocabulary implements Vocabulary {
     }
 
     @Override
-    public Lexeme lexeme(final String identifier) throws Exception {
-        final Lexeme lexeme = this.lexemes.get(identifier);
+    public Lexeme lexeme(final LexemeName name) throws Exception {
+        final Lexeme lexeme = this.lexemes.get(name);
         if (lexeme == null) {
-            throw new MissingLexemeException(identifier);
+            throw new MissingLexemeException(name.string());
         }
         return lexeme;
     }
 
     @Override
-    public boolean hasLexeme(final String name) {
+    public boolean hasLexeme(final LexemeName name) {
         return this.lexemes.containsKey(name);
     }
 }

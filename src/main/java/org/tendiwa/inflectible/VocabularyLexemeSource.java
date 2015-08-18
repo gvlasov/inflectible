@@ -31,15 +31,15 @@ package org.tendiwa.inflectible;
  */
 public final class VocabularyLexemeSource implements LexemeSource {
     /**
-     * Identifier of a lexeme.
+     * Name of a lexeme.
      */
-    private final transient String identifier;
+    private final transient LexemeName identifier;
 
     /**
      * Ctor.
-     * @param name Identifier of a lexeme
+     * @param name Name of a lexeme
      */
-    VocabularyLexemeSource(final String name) {
+    VocabularyLexemeSource(final LexemeName name) {
         this.identifier = name;
     }
 

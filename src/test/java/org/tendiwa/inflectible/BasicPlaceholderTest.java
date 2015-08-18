@@ -46,14 +46,18 @@ public final class BasicPlaceholderTest {
      */
     @Test
     public void fillsItselfUpWithDefaults() throws Exception {
-        final String lexeme = "BEAR";
+        final LexemeName name = new LexemeName("BEAR");
         final String form = "bear";
         MatcherAssert.assertThat(
-            new BasicPlaceholder(new VocabularyLexemeSource(lexeme))
+            new BasicPlaceholder(
+                new VocabularyLexemeSource(
+                    name
+                )
+            )
                 .fillUp(
                     new BasicActualArguments(),
                     new BasicVocabulary(
-                        ImmutableMap.of(lexeme, new SingleFormLexeme(form))
+                        ImmutableMap.of(name, new SingleFormLexeme(form))
                     )
                 ),
             CoreMatchers.equalTo(form)

@@ -42,12 +42,15 @@ public final class BasicVocabularyTest {
      */
     @Test
     public void returnsLexemeByIdentifier() throws Exception {
-        final String identifier = "DUDE";
+        final LexemeName name = new LexemeName("DUDE");
         MatcherAssert.assertThat(
             new BasicVocabulary(
-                ImmutableMap.of(identifier, new SingleFormLexeme("dude"))
+                ImmutableMap.of(
+                    name,
+                    new SingleFormLexeme("dude")
+                )
             )
-                .hasLexeme(identifier),
+                .hasLexeme(name),
             CoreMatchers.is(true)
         );
     }
@@ -61,9 +64,12 @@ public final class BasicVocabularyTest {
     public void seesAbsenceOfLexeme() throws Exception {
         MatcherAssert.assertThat(
             new BasicVocabulary(
-                ImmutableMap.of("GUY", new SingleFormLexeme("guy"))
+                ImmutableMap.of(
+                    new LexemeName("GUY"),
+                    new SingleFormLexeme("guy")
+                )
             )
-                .hasLexeme("MAN"),
+                .hasLexeme(new LexemeName("MAN")),
             CoreMatchers.is(false)
         );
     }
@@ -76,9 +82,12 @@ public final class BasicVocabularyTest {
     @Test(expected = Exception.class)
     public void failsIfTriesToReturnMissingLexeme() throws Exception {
         new BasicVocabulary(
-            ImmutableMap.of("TABLE", new SingleFormLexeme("table"))
+            ImmutableMap.of(
+                new LexemeName("TABLE"),
+                new SingleFormLexeme("table")
+            )
         )
-            .lexeme("CHAIR");
+            .lexeme(new LexemeName("CHAIR"));
     }
 
 }
