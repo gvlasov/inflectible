@@ -23,17 +23,16 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ForwardingMap;
+import com.google.common.collect.ImmutableMap;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UncheckedIOException;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.tendiwa.inflectible.antlr.TemplateBundleLexer;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
+import org.tenidwa.collections.utils.Rethrowing;
 
 /**
  * A bundle of texts loaded from a textual input stream.
@@ -41,7 +40,7 @@ import org.tendiwa.inflectible.antlr.TemplateBundleParser;
  * @version $Id$
  * @since 0.1
  */
-public final class ParsedTextuary extends ForwardingMap<String, Template> {
+public final class ParsedTemplatuary implements Templatuary {
     /**
      * Input stream with templates' markup.
      */
@@ -55,41 +54,57 @@ public final class ParsedTextuary extends ForwardingMap<String, Template> {
     /**
      * Resulting texts.
      */
-    private final transient Map<String, Template> texts;
+    private final transient Templatuary templatuary;
 
     /**
      * Ctor.
-     * @param grammemes Grammaf of the language of input templates
+     * @param grammemes Grammar of the language of input templates
      * @param input InputStreams with markup of templates
+     * @throws Exception If couldn't parse templates
      */
-    ParsedTextuary(final Grammar grammemes, final List<InputStream> input) {
-        super();
+    ParsedTemplatuary(
+        final Grammar grammemes,
+        final List<InputStream> input
+    ) throws Exception {
         this.inputs = input;
         this.grammar = grammemes;
-        this.texts = this.parseTemplates();
+        this.templatuary = this.parseTemplates();
     }
 
-    // @checkstyle ProtectedMethodInFinalClassCheck (3 lines)
     @Override
-    protected Map<String, Template> delegate() {
-        return this.texts;
+    public Template template(final String name) throws Exception {
+        return this.templatuary.template(name);
+    }
+
+    @Override
+    public boolean hasTemplate(final String identifier) {
+        return this.templatuary.hasTemplate(identifier);
     }
 
     /**
      * Parse templates.
-     * @return Templates.
+     * @return Templatuary with templates.
+     * @throws Exception If couldn't parse
      */
-    private Map<String, Template> parseTemplates() {
-        return this.inputs.stream()
-            .map(stream -> this.createParser(stream))
-            .flatMap(parser -> parser.templates().template().stream())
-            .collect(
-                Collectors.toMap(
-                    (ctx) -> this.templateId(ctx),
-                    templateCtx
-                        -> new ParsedTemplate(this.grammar, templateCtx)
-                )
-            );
+    private Templatuary parseTemplates() throws Exception {
+        return new BasicTemplatuary(
+            ImmutableMap.copyOf(
+                this.inputs.stream()
+                    .map(
+                        Rethrowing.rethrowFunction(
+                            stream -> this.createParser(stream)
+                        )
+                    )
+                    .flatMap(parser -> parser.templates().template().stream())
+                    .collect(
+                        Collectors.toMap(
+                            templateCtx -> this.templateId(templateCtx),
+                            templateCtx
+                                -> new ParsedTemplate(this.grammar, templateCtx)
+                        )
+                    )
+            )
+        );
     }
 
     /**
@@ -105,20 +120,17 @@ public final class ParsedTextuary extends ForwardingMap<String, Template> {
      * Creates an ANTLR parser for a stream.
      * @param stream Input stream with templates' markup
      * @return ANTLR parser for {@code stream}
+     * @throws IOException If couldn't read from the stream
      */
-    private TemplateBundleParser createParser(final InputStream stream) {
-        final TemplateBundleParser parser;
-        try {
-            parser = new TemplateBundleParser(
-                new CommonTokenStream(
-                    new TemplateBundleLexer(
-                        new ANTLRInputStream(stream)
-                    )
+    private TemplateBundleParser createParser(
+        final InputStream stream
+    ) throws IOException {
+        return new TemplateBundleParser(
+            new CommonTokenStream(
+                new TemplateBundleLexer(
+                    new ANTLRInputStream(stream)
                 )
-            );
-        } catch (final IOException ex) {
-            throw new UncheckedIOException(ex);
-        }
-        return parser;
+            )
+        );
     }
 }
