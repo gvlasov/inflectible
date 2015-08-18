@@ -39,7 +39,7 @@ public final class TextTemplateBuilder {
     /**
      * Names of the arguments of a template.
      */
-    private final transient ImmutableList<String> arguments;
+    private final transient ImmutableList<ArgumentName> arguments;
 
     /**
      * Parts of a template. Those can be either placeholders or plain text
@@ -56,7 +56,7 @@ public final class TextTemplateBuilder {
      * Ctor.
      * @param names Names of the arguments of a template
      */
-    TextTemplateBuilder(final ImmutableList<String> names) {
+    TextTemplateBuilder(final ImmutableList<ArgumentName> names) {
         this.arguments = names;
         this.parts = new ArrayList<>(
             TextTemplateBuilder.expectedPartsNumber(names)
@@ -105,7 +105,7 @@ public final class TextTemplateBuilder {
      * @return Good size for an array list.
      */
     private static int expectedPartsNumber(
-        final ImmutableList<String> arguments
+        final ImmutableList<ArgumentName> arguments
     ) {
         return arguments.size() * 2 + 1;
     }
@@ -118,7 +118,7 @@ public final class TextTemplateBuilder {
         /**
          * Argument names.
          */
-        private final transient ImmutableList<String> arguments;
+        private final transient ImmutableList<ArgumentName> arguments;
         /**
          * Heterogeneous list of template's parts (placeholders and plain text
          * chunks).
@@ -132,7 +132,7 @@ public final class TextTemplateBuilder {
          *  and plain text chunks)
          */
         BasicTemplate(
-            final ImmutableList<String> names,
+            final ImmutableList<ArgumentName> names,
             final List<Placeholder> pieces
         ) {
             this.arguments = names;

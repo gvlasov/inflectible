@@ -36,7 +36,7 @@ public final class BasicActualArguments implements ActualArguments {
     /**
      * Declared names of arguments.
      */
-    private final transient ImmutableList<String> declared;
+    private final transient ImmutableList<ArgumentName> declared;
 
     /**
      * Actual values of arguments.
@@ -49,7 +49,7 @@ public final class BasicActualArguments implements ActualArguments {
      * @param arguments Actual values of arguments
      */
     BasicActualArguments(
-        final ImmutableList<String> names,
+        final ImmutableList<ArgumentName> names,
         final ImmutableList<Lexeme> arguments
     ) {
         this.declared = names;
@@ -65,6 +65,6 @@ public final class BasicActualArguments implements ActualArguments {
 
     @Override
     public Lexeme byName(final ArgumentName name) throws Exception {
-        return this.values.get(this.declared.indexOf(name.string()));
+        return this.values.get(this.declared.indexOf(name));
     }
 }

@@ -72,9 +72,10 @@ final class ParsedTemplate implements Template {
      * Obtains the names of the arguments of this text template.
      * @return Names of arguments.
      */
-    private ImmutableList<String> argumentNames() {
+    private ImmutableList<ArgumentName> argumentNames() {
         return this.ctx.declaredArguments().ID().stream()
             .map(TerminalNode::getText)
+            .map(ArgumentName::new)
             .collect(Collectors.toImmutableList());
     }
 
@@ -101,13 +102,13 @@ final class ParsedTemplate implements Template {
         /**
          * Argument names in the order as they appear in markup.
          */
-        private final transient ImmutableList<String> arguments;
+        private final transient ImmutableList<ArgumentName> arguments;
 
         /**
          * Ctor.
          * @param names Argument names in the order as they appear in markup
          */
-        ParseTreeListener(final ImmutableList<String> names) {
+        ParseTreeListener(final ImmutableList<ArgumentName> names) {
             super();
             this.arguments = names;
         }

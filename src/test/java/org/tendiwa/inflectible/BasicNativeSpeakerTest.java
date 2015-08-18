@@ -54,7 +54,9 @@ public final class BasicNativeSpeakerTest {
                 new BasicTemplatuary(
                     ImmutableMap.of(
                         template,
-                        new TextTemplateBuilder(ImmutableList.of(argument))
+                        new TextTemplateBuilder(
+                            ImmutableList.of(new ArgumentName(argument))
+                        )
                             .addPlaceholder(
                                 new BasicPlaceholder(
                                     new ArgumentsLexemeSource(

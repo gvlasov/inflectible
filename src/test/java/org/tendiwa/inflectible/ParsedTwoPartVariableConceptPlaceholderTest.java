@@ -66,7 +66,7 @@ public final class ParsedTwoPartVariableConceptPlaceholderTest {
             )
                 .fillUp(
                     new BasicActualArguments(
-                        ImmutableList.of("dude"),
+                        ImmutableList.of(new ArgumentName("dude")),
                         ImmutableList.of(new SingleFormLexeme("man"))
                     ),
                     new BasicVocabulary()

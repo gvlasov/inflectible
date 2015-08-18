@@ -86,7 +86,10 @@ public final class BasicPlaceholderTest {
                 );
         final ActualArguments arguments =
             new BasicActualArguments(
-                ImmutableList.of(action, actor),
+                ImmutableList.of(
+                    new ArgumentName(action),
+                    new ArgumentName(actor)
+                ),
                 ImmutableList.of(
                     new BasicLexeme(
                         ImmutableSet.of(),

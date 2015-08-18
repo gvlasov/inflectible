@@ -46,7 +46,12 @@ public final class TemplateBuilderTest {
         final String subject = "subject";
         final String object = "object";
         MatcherAssert.assertThat(
-            new TextTemplateBuilder(ImmutableList.of(subject, object))
+            new TextTemplateBuilder(
+                ImmutableList.of(
+                    new ArgumentName(subject),
+                    new ArgumentName(object)
+                )
+            )
                 .addPlaceholder(
                     new BasicPlaceholder(
                         new ArgumentsLexemeSource(
@@ -82,7 +87,7 @@ public final class TemplateBuilderTest {
     public void cantBeUsedTwice() throws Exception {
         final String name = "actor";
         final TextTemplateBuilder builder =
-            new TextTemplateBuilder(ImmutableList.of(name))
+            new TextTemplateBuilder(ImmutableList.of(new ArgumentName(name)))
                 .addPlaceholder(
                     new BasicPlaceholder(
                         new ArgumentsLexemeSource(
@@ -100,7 +105,7 @@ public final class TemplateBuilderTest {
     @Test
     public void canConsistOfJustText() throws Exception {
         MatcherAssert.assertThat(
-            new TextTemplateBuilder(ImmutableList.<String>of())
+            new TextTemplateBuilder(ImmutableList.of())
                 .addText("Hey, ")
                 .addText("dude!")
                 .build()
@@ -117,7 +122,12 @@ public final class TemplateBuilderTest {
     @Test(expected = Exception.class)
     @Ignore
     public void createdTextsReportWrongNumberOfArguments() throws Exception {
-        new TextTemplateBuilder(ImmutableList.of("someone", "item"))
+        new TextTemplateBuilder(
+            ImmutableList.of(
+                new ArgumentName("someone"),
+                new ArgumentName("item")
+            )
+        )
             .build()
             .fillUp(
                 ImmutableList.of(

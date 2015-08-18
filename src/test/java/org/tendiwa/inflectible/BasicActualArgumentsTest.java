@@ -46,7 +46,10 @@ public final class BasicActualArgumentsTest {
         final String bear = "bear";
         MatcherAssert.assertThat(
             new BasicActualArguments(
-                ImmutableList.of(subject, "object"),
+                ImmutableList.of(
+                    new ArgumentName(subject),
+                    new ArgumentName("object")
+                ),
                 ImmutableList.of(
                     new SingleFormLexeme(bear),
                     new SingleFormLexeme("human")
