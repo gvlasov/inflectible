@@ -61,7 +61,7 @@ final class ParsedLexeme implements Lexeme {
     }
 
     @Override
-    public String wordForm(final ImmutableSet<Grammeme> grammemes) {
+    public Spelling wordForm(final ImmutableSet<Grammeme> grammemes) {
         return this.delegate().wordForm(grammemes);
     }
 
@@ -71,7 +71,7 @@ final class ParsedLexeme implements Lexeme {
     }
 
     @Override
-    public String defaultSpelling() {
+    public Spelling defaultSpelling() {
         return this.delegate().defaultSpelling();
     }
 

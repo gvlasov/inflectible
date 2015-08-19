@@ -23,49 +23,38 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
+import org.tendiwa.inflectible.antlr.LexemeBundleParser;
 
 /**
- * A {@link WordForm} defined by its spelling and grammatical meaning.
+ * {@link Spelling} defined by its string value.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-public final class BasicWordForm implements WordForm {
+public final class BasicSpelling implements Spelling {
     /**
-     * Spelling of this word.
+     * String value of the spelling.
      */
-    private final transient Spelling form;
-
-    /**
-     * Grammatical meaning of this word.
-     */
-    private final transient ImmutableSet<Grammeme> grammemes;
+    private final transient String value;
 
     /**
      * Ctor.
-     * @param word Spelling of this word
-     * @param meaning Grammatical meaning of this word
+     * @param spelling String value of the spelling.
      */
-    public BasicWordForm(
-        final Spelling word,
-        final ImmutableSet<Grammeme> meaning
-    ) {
-        this.form = word;
-        this.grammemes = meaning;
+    public BasicSpelling(final String spelling) {
+        this.value = spelling;
+    }
+
+    /**
+     * Ctor.
+     * @param ctx ANTLR parse tree of a word form.
+     */
+    public BasicSpelling(final LexemeBundleParser.WordFormContext ctx) {
+        this(ctx.WORD_FORM().getText());
     }
 
     @Override
-    public Spelling spelling() {
-        return this.form;
-    }
-
-    @Override
-    public int similarity(final ImmutableSet<Grammeme> meaning) {
-        return Sets.intersection(
-            meaning,
-            this.grammemes
-        ).size();
+    public String string() {
+        return this.value;
     }
 }

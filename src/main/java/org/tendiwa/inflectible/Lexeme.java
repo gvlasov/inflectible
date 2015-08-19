@@ -41,7 +41,7 @@ public interface Lexeme {
      * nominative case for a noun in Russian.
      * @return The default spelling of this lexeme.
      */
-    String defaultSpelling();
+    Spelling defaultSpelling();
 
     /**
      * Finds a word form of this lexeme with grammatical meaning closest to
@@ -50,7 +50,7 @@ public interface Lexeme {
      * @return The word form of this lexeme with its grammatical meaning
      *  closest to {@code grammemes}
      */
-    String wordForm(ImmutableSet<Grammeme> grammemes);
+    Spelling wordForm(ImmutableSet<Grammeme> grammemes);
 
     /**
      * Grammemes inherent to this lexeme.

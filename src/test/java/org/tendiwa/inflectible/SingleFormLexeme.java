@@ -48,12 +48,12 @@ public final class SingleFormLexeme implements Lexeme {
     }
 
     @Override
-    public String defaultSpelling() {
+    public Spelling defaultSpelling() {
         return this.delegate().defaultSpelling();
     }
 
     @Override
-    public String wordForm(final ImmutableSet<Grammeme> grammemes) {
+    public Spelling wordForm(final ImmutableSet<Grammeme> grammemes) {
         return this.delegate().wordForm(grammemes);
     }
 
@@ -72,7 +72,10 @@ public final class SingleFormLexeme implements Lexeme {
         return new BasicLexeme(
             ImmutableSet.of(),
             ImmutableList.<WordForm>of(
-                new BasicWordForm(this.spelling, ImmutableSet.of())
+                new BasicWordForm(
+                    new BasicSpelling(this.spelling),
+                    ImmutableSet.of()
+                )
             )
         );
     }

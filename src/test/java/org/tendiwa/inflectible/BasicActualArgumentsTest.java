@@ -56,7 +56,8 @@ public final class BasicActualArgumentsTest {
                 )
             )
                 .byName(new ArgumentName(subject))
-                .defaultSpelling(),
+                .defaultSpelling()
+                .string(),
             CoreMatchers.equalTo(bear)
         );
     }

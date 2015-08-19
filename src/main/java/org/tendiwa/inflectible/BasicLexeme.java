@@ -58,12 +58,12 @@ public final class BasicLexeme implements Lexeme {
     }
 
     @Override
-    public String defaultSpelling() {
+    public Spelling defaultSpelling() {
         return this.baseForm().spelling();
     }
 
     @Override
-    public String wordForm(final ImmutableSet<Grammeme> grammemes) {
+    public Spelling wordForm(final ImmutableSet<Grammeme> grammemes) {
         int bestScore = 0;
         WordForm bestMatch = this.baseForm();
         for (final WordForm form : this.forms) {

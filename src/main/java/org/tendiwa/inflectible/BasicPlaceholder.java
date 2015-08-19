@@ -155,12 +155,13 @@ public final class BasicPlaceholder implements Placeholder {
     ) throws Exception {
         return this.capitalization.apply(
             this.source.lexeme(arguments, vocabulary)
-            .wordForm(
-                ImmutableSet.<Grammeme>builder()
-                    .addAll(this.agreement.grammemes(arguments))
-                    .addAll(this.explicit)
-                    .build()
-            )
+                .wordForm(
+                    ImmutableSet.<Grammeme>builder()
+                        .addAll(this.agreement.grammemes(arguments))
+                        .addAll(this.explicit)
+                        .build()
+                )
+                .string()
         );
     }
 }

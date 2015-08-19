@@ -52,7 +52,8 @@ public final class ParsedLexemeTest {
         MatcherAssert.assertThat(
             this
                 .wordOfBundle(ParsedLexemeTest.LEXEMES_RESOURCE, 0)
-                .defaultSpelling(),
+                .defaultSpelling()
+                .string(),
             CoreMatchers.equalTo("bear")
         );
     }
@@ -82,7 +83,8 @@ public final class ParsedLexemeTest {
         MatcherAssert.assertThat(
             this
                 .wordOfBundle(ParsedLexemeTest.LEXEMES_RESOURCE, 0)
-                .wordForm(ImmutableSet.of(English.Grammemes.Plur)),
+                .wordForm(ImmutableSet.of(English.Grammemes.Plur))
+                .string(),
             CoreMatchers.equalTo("bears")
         );
     }
@@ -99,7 +101,7 @@ public final class ParsedLexemeTest {
         );
         IntStream.range(0, 2).forEach(
             i -> MatcherAssert.assertThat(
-                lexeme.defaultSpelling(),
+                lexeme.defaultSpelling().string(),
                 CoreMatchers.equalTo("human")
             )
         );

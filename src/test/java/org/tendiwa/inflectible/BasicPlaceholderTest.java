@@ -98,9 +98,12 @@ public final class BasicPlaceholderTest {
                     new BasicLexeme(
                         ImmutableSet.of(),
                         ImmutableList.of(
-                            new BasicWordForm("eat", ImmutableSet.of()),
                             new BasicWordForm(
-                                "eats",
+                                new BasicSpelling("eat"),
+                                ImmutableSet.of()
+                            ),
+                            new BasicWordForm(
+                                new BasicSpelling("eats"),
                                 ImmutableSet.of(
                                     English.Grammemes.III,
                                     English.Grammemes.Sing

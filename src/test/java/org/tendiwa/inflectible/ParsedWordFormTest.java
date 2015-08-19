@@ -44,7 +44,7 @@ public final class ParsedWordFormTest {
     @Test
     public void hasSpelling() throws Exception {
         MatcherAssert.assertThat(
-            this.wordFormBears().spelling(),
+            this.wordFormBears().spelling().string(),
             CoreMatchers.equalTo("bears")
         );
     }

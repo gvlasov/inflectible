@@ -48,7 +48,7 @@ interface WordForm {
      * How a word form is spelled.
      * @return Spelling.
      */
-    String spelling();
+    Spelling spelling();
 
     /**
      * How similar is this word form's grammatical meaning to another

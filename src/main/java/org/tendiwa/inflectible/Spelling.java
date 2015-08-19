@@ -23,49 +23,16 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
-
 /**
- * A {@link WordForm} defined by its spelling and grammatical meaning.
+ * Spelling of a word form.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-public final class BasicWordForm implements WordForm {
+public interface Spelling {
     /**
-     * Spelling of this word.
+     * Returns string value of the spelling.
+     * @return String value of the spelling
      */
-    private final transient Spelling form;
-
-    /**
-     * Grammatical meaning of this word.
-     */
-    private final transient ImmutableSet<Grammeme> grammemes;
-
-    /**
-     * Ctor.
-     * @param word Spelling of this word
-     * @param meaning Grammatical meaning of this word
-     */
-    public BasicWordForm(
-        final Spelling word,
-        final ImmutableSet<Grammeme> meaning
-    ) {
-        this.form = word;
-        this.grammemes = meaning;
-    }
-
-    @Override
-    public Spelling spelling() {
-        return this.form;
-    }
-
-    @Override
-    public int similarity(final ImmutableSet<Grammeme> meaning) {
-        return Sets.intersection(
-            meaning,
-            this.grammemes
-        ).size();
-    }
+    String string();
 }

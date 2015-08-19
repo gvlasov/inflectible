@@ -59,7 +59,7 @@ public final class ParsedWordForm implements WordForm {
     }
 
     @Override
-    public String spelling() {
+    public Spelling spelling() {
         return this.delegate().spelling();
     }
 
@@ -86,20 +86,15 @@ public final class ParsedWordForm implements WordForm {
         return grammemes;
     }
 
-    /**
-     * Obtains spelling of this word form from the ANTLR parse tree.
-     * @return Spelling of this word form
-     */
-    private String wordSpelling() {
-        return this.ctx.WORD_FORM().getText();
-    }
-
     // To be refactored in #47
     /**
      * Creates a word form from the {@link ParsedWordForm#ctx}.
      * @return Word form
      */
     private WordForm delegate() {
-        return new BasicWordForm(this.wordSpelling(), this.grammemes());
+        return new BasicWordForm(
+            new BasicSpelling(this.ctx),
+            this.grammemes()
+        );
     }
 }
