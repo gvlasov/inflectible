@@ -24,18 +24,20 @@
 package org.tendiwa.inflectible;
 
 /**
- * A piece of {@link Template} that holds place for a word form.
+ * An atomic part of a {@link Template}'s body. At the time of filling the
+ * {@link Template}, it will produce some text.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
 public interface TextPart {
     /**
-     * Fills out this placeholder with a word form.
-     * @param arguments Actual arguments of a TextTemplate
-     * @param vocabulary Vocabulary with lexemes
+     * Retrieves the string value of this text part given the arguments and
+     * vocabulary used to fill out the whole {@link Template}.
+     * @param arguments Argument values passed to the Template.
+     * @param vocabulary Vocabulary
      * @return Spelling of a word form
-     * @throws Exception If couldn't fill up the placeholder
+     * @throws Exception If couldn't produce any text
      */
     String fillUp(
         ActualArguments arguments,
