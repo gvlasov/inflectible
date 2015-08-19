@@ -26,17 +26,16 @@ package org.tendiwa.inflectible;
 import com.google.common.collect.ImmutableSet;
 
 /**
- * Placeholder with some additional static (not dependent on arguments or
- * vocabulary) grammatical meaning.
+ * Placeholder that adds grammatical meaning to agree to a specific argument.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-public final class PhWithGrammemes implements Placeholder {
+public final class PhWithAgreement implements Placeholder {
     /**
-     * Grammatical meaning to add during word from resolution.
+     * Name of the argument to agree to.
      */
-    private final transient ImmutableSet<Grammeme> additional;
+    private final transient ArgumentName name;
 
     /**
      * Placeholder to decorate.
@@ -45,14 +44,15 @@ public final class PhWithGrammemes implements Placeholder {
 
     /**
      * Ctor.
-     * @param additional Grammatical meaning to add during word form resolution
+     * @param argument Name of the argument to agree to
      * @param wrapped Placeholder to decorate
      */
-    PhWithGrammemes(
-        final ImmutableSet<Grammeme> additional,
+    PhWithAgreement(
+        final ArgumentName argument,
         final Placeholder wrapped
     ) {
-        this.additional = additional;
+
+        this.name = argument;
         this.decorated = wrapped;
     }
     @Override
@@ -69,7 +69,7 @@ public final class PhWithGrammemes implements Placeholder {
     ) throws Exception {
         return ImmutableSet.<Grammeme>builder()
             .addAll(this.decorated.grammaticalMeaning(arguments))
-            .addAll(this.additional)
+            .addAll(arguments.byName(this.name).persistentGrammemes())
             .build();
     }
 

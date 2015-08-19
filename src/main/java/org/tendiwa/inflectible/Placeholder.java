@@ -50,7 +50,7 @@ public interface Placeholder {
      * @return Grammatical meaning of the word form to be used in place of
      *  this placeholder.
      */
-    ImmutableSet<Grammeme> grammaticalMeaning(ActualArguments arguments);
+    ImmutableSet<Grammeme> grammaticalMeaning(ActualArguments arguments) throws Exception;
 
     /**
      * Capitalized or leaves untouched the spelling of the word form to be used
