@@ -24,7 +24,6 @@
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableSet;
-import java.util.Locale;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 
 /**
@@ -33,7 +32,7 @@ import org.tendiwa.inflectible.antlr.TemplateBundleParser;
  * @version $Id$
  * @since 0.1
  */
-public final class ParsedSinglePartPlaceholder implements TemplateBodyPiece {
+public final class ParsedSinglePartPlaceholder implements Placeholder {
     /**
      * ANTLR parse tree of a placeholder.
      */
@@ -50,59 +49,64 @@ public final class ParsedSinglePartPlaceholder implements TemplateBodyPiece {
         this.ctx = context;
     }
 
-    @Override
-    public String fillUp(
-        final ActualArguments arguments,
-        final Vocabulary vocabulary
-    ) throws Exception {
-        return this.delegate().fillUp(arguments, vocabulary);
-    }
-
     /**
      * Creates a placeholder with aspects obtained from the
      * {@link ParsedLexeme#ctx}.
      * @return Lexeme from markup.
      */
-    private TemplateBodyPiece delegate() {
-        return new BasicPlaceholder(
-            this.lexemeSource(),
-            this.capitalization(),
-            ImmutableSet.of(),
-            Agreement.NONE
-        );
-    }
-
-    /**
-     * Determines capitalization of this placeholder.
-     * @return Capitalization to be applied to this placeholder.
-     */
-    private Capitalization capitalization() {
-        final Capitalization capitalize;
-        if (Character.isUpperCase(this.argumentName().charAt(0))) {
-            capitalize = Capitalization.CAPITALIZE;
-        } else {
-            capitalize = Capitalization.IDENTITY;
-        }
-        return capitalize;
-    }
-
-    /**
-     * Creates a {@link LexemeSource} for this placeholder.
-     * @return A lexeme source.
-     */
-    private LexemeSource lexemeSource() {
-        return new ArgumentsLexemeSource(
-            new ArgumentName(
-                this.argumentName().toLowerCase(Locale.getDefault())
+    private Placeholder delegate() {
+        return this.withCapitalizaton(
+            new PhFromArgument(
+                new ArgumentName(
+                    this.argumentIdentifier().toLowerCase()
+                )
             )
         );
     }
 
+
+    // To be refactored in #47
     /**
-     * Obtains the argument name used to fill out this placeholder.
+     * Adds capitalization if it was declared in markup.
+     * @param placeholder Placeholder to decorate
+     * @return Probably capitalized placeholder
+     */
+    private Placeholder withCapitalizaton(final Placeholder placeholder) {
+        final Placeholder modified;
+        if (Character.isUpperCase(this.argumentIdentifier().charAt(0))) {
+            modified = new PhWithCapitalization(placeholder);
+        } else {
+            modified = placeholder;
+        }
+        return modified;
+    }
+
+    /**
+     * Obtains the argument name (probably capitalized) used to fill out this
+     * placeholder.
      * @return Argument name obtained from an ANTLR parse tree.
      */
-    private String argumentName() {
+    private String argumentIdentifier() {
         return this.ctx.CAPITALIZABLE_ID().getText();
+    }
+
+    @Override
+    public Lexeme pickLexeme(
+        final ActualArguments arguments,
+        final Vocabulary vocabulary
+    ) throws Exception {
+        return this.delegate().pickLexeme(arguments, vocabulary);
+    }
+
+    @Override
+    public ImmutableSet<Grammeme> grammaticalMeaning(
+        final ActualArguments arguments
+    ) throws Exception {
+        return this.delegate().grammaticalMeaning(arguments);
+    }
+
+    @Override
+    public Spelling capitalize(final Spelling spelling) {
+        return this.delegate().capitalize(spelling);
     }
 }
