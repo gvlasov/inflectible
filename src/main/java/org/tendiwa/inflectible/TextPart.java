@@ -29,7 +29,7 @@ package org.tendiwa.inflectible;
  * @version $Id$
  * @since 0.1
  */
-public interface Placeholder {
+public interface TextPart {
     /**
      * Fills out this placeholder with a word form.
      * @param arguments Actual arguments of a TextTemplate

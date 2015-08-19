@@ -45,7 +45,7 @@ public final class TextTemplateBuilder {
      * Parts of a template. Those can be either placeholders or plain text
      * parts (which may be seen as constant-value placeholders, hence the type).
      */
-    private final transient List<Placeholder> parts;
+    private final transient List<TextPart> parts;
 
     /**
      * If this builder has already been used to produce a template.
@@ -66,11 +66,11 @@ public final class TextTemplateBuilder {
 
     /**
      * Adds a placeholder to the body of the constructed template.
-     * @param placeholder A placeholder
+     * @param textPart A placeholder
      * @return This builder
      */
-    public TextTemplateBuilder addPlaceholder(final Placeholder placeholder) {
-        this.parts.add(placeholder);
+    public TextTemplateBuilder addPlaceholder(final TextPart textPart) {
+        this.parts.add(textPart);
         return this;
     }
 
@@ -123,7 +123,7 @@ public final class TextTemplateBuilder {
          * Heterogeneous list of template's parts (placeholders and plain text
          * chunks).
          */
-        private final transient List<Placeholder> parts;
+        private final transient List<TextPart> parts;
 
         /**
          * Ctor.
@@ -133,7 +133,7 @@ public final class TextTemplateBuilder {
          */
         BasicTemplate(
             final ImmutableList<ArgumentName> names,
-            final List<Placeholder> pieces
+            final List<TextPart> pieces
         ) {
             this.arguments = names;
             this.parts = pieces;
