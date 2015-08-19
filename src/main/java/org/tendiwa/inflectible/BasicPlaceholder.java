@@ -26,12 +26,12 @@ package org.tendiwa.inflectible;
 import com.google.common.collect.ImmutableSet;
 
 /**
- * A {@link TextPart} defined by its aspects.
+ * A {@link TemplateBodyPiece} defined by its aspects.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-public final class BasicPlaceholder implements TextPart {
+public final class BasicPlaceholder implements TemplateBodyPiece {
     /**
      * Lexeme source aspect.
      */

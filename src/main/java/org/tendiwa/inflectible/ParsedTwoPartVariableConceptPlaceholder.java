@@ -31,12 +31,12 @@ import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 import org.tenidwa.collections.utils.Collectors;
 
 /**
- * {@link TextPart} parsed from an ANTLR parse tree.
+ * {@link TemplateBodyPiece} parsed from an ANTLR parse tree.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-final class ParsedTwoPartVariableConceptPlaceholder implements TextPart {
+final class ParsedTwoPartVariableConceptPlaceholder implements TemplateBodyPiece {
     /**
      * Grammar of the language of this placeholder.
      */
@@ -75,7 +75,7 @@ final class ParsedTwoPartVariableConceptPlaceholder implements TextPart {
      * {@link ParsedTwoPartVariableConceptPlaceholder#ctx}.
      * @return Placeholder
      */
-    private TextPart delegate() {
+    private TemplateBodyPiece delegate() {
         return new BasicPlaceholder(
             this.lexemeSource(),
             this.capitalization(),

@@ -24,13 +24,15 @@
 package org.tendiwa.inflectible;
 
 /**
- * An atomic part of a {@link Template}'s body. At the time of filling the
- * {@link Template}, it will produce some text.
+ * An atomic part of a {@link Template}'s body. Corresponds to ANTLR  rule
+ * "piece".
+ * <p/>
+ * At the time of filling the {@link Template}, it will produce some text.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-public interface TextPart {
+interface TemplateBodyPiece {
     /**
      * Retrieves the string value of this text part given the arguments and
      * vocabulary used to fill out the whole {@link Template}.

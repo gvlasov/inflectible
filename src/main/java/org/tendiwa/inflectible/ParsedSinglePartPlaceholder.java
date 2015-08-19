@@ -28,12 +28,12 @@ import java.util.Locale;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 
 /**
- * {@link TextPart} constructed from an ANTLR parse tree.
+ * {@link TemplateBodyPiece} constructed from an ANTLR parse tree.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-public final class ParsedSinglePartPlaceholder implements TextPart {
+public final class ParsedSinglePartPlaceholder implements TemplateBodyPiece {
     /**
      * ANTLR parse tree of a placeholder.
      */
@@ -63,7 +63,7 @@ public final class ParsedSinglePartPlaceholder implements TextPart {
      * {@link ParsedLexeme#ctx}.
      * @return Lexeme from markup.
      */
-    private TextPart delegate() {
+    private TemplateBodyPiece delegate() {
         return new BasicPlaceholder(
             this.lexemeSource(),
             this.capitalization(),
