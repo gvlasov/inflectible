@@ -42,10 +42,10 @@ public final class PhFromArgument implements Placeholder {
 
     /**
      * Ctor.
-     * @param name Name of the argument to pick a lexeme from.
+     * @param argument Name of the argument to pick a lexeme from.
      */
-    PhFromArgument(final ArgumentName name) {
-        this.name = name;
+    PhFromArgument(final ArgumentName argument) {
+        this.name = argument;
     }
 
     @Override
@@ -53,7 +53,7 @@ public final class PhFromArgument implements Placeholder {
         final ActualArguments arguments,
         final Vocabulary vocabulary
     ) throws Exception {
-        return arguments.byName(name);
+        return arguments.byName(this.name);
     }
 
     @Override

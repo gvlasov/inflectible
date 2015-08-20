@@ -66,13 +66,13 @@ public final class TextTemplateBuilder {
 
     /**
      * Adds a placeholder to the body of the constructed template.
-     * @param templateBodyPiece A placeholder
+     * @param placeholder A placeholder
      * @return This builder
      */
     public TextTemplateBuilder addPlaceholder(
-        final Placeholder templateBodyPiece
+        final Placeholder placeholder
     ) {
-        this.parts.add(new PiPlaceholder(templateBodyPiece));
+        this.parts.add(new PiPlaceholder(placeholder));
         return this;
     }
 

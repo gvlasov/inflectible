@@ -49,14 +49,16 @@ public interface Placeholder {
      * @param arguments Arguments passed to {@link Template}
      * @return Grammatical meaning of the word form to be used in place of
      *  this placeholder.
+     * @throws Exception If couldn't obtain grammatical meaning
      */
-    ImmutableSet<Grammeme> grammaticalMeaning(ActualArguments arguments) throws Exception;
+    ImmutableSet<Grammeme> grammaticalMeaning(ActualArguments arguments)
+        throws Exception;
 
     /**
      * Capitalized or leaves untouched the spelling of the word form to be used
      * in place of this placeholder.
      * @param spelling Spelling of the word form to be used in place of this
-     * placeholder
+     *  placeholder
      * @return Spelling with possibly capitalized first letter.
      */
     Spelling capitalize(Spelling spelling);

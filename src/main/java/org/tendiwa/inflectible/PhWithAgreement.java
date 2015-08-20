@@ -51,7 +51,6 @@ public final class PhWithAgreement implements Placeholder {
         final ArgumentName argument,
         final Placeholder wrapped
     ) {
-
         this.name = argument;
         this.decorated = wrapped;
     }

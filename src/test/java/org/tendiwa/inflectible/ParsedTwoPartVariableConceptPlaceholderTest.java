@@ -57,7 +57,8 @@ public final class ParsedTwoPartVariableConceptPlaceholderTest {
                         .piece(0)
                         .twoPartPlaceholder()
                 )
-                    .capitalize(() -> "man"),
+                    .capitalize(() -> "man")
+                    .string(),
             CoreMatchers.equalTo("Man")
         );
     }

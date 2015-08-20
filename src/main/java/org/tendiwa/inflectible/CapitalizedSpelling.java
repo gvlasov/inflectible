@@ -33,7 +33,7 @@ public final class CapitalizedSpelling implements Spelling {
     /**
      * Decorated spelling.
      */
-    private final Spelling decorated;
+    private final transient Spelling decorated;
 
     /**
      * Ctor.

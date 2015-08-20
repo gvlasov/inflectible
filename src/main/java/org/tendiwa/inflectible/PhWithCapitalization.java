@@ -36,7 +36,7 @@ public final class PhWithCapitalization implements Placeholder {
     /**
      * Placeholder to decorate.
      */
-    private final Placeholder decorated;
+    private final transient Placeholder decorated;
 
     /**
      * Ctor.

@@ -45,14 +45,14 @@ public final class PhWithGrammemes implements Placeholder {
 
     /**
      * Ctor.
-     * @param additional Grammatical meaning to add during word form resolution
+     * @param grammemes Grammatical meaning to add during word form resolution
      * @param wrapped Placeholder to decorate
      */
     PhWithGrammemes(
-        final ImmutableSet<Grammeme> additional,
+        final ImmutableSet<Grammeme> grammemes,
         final Placeholder wrapped
     ) {
-        this.additional = additional;
+        this.additional = grammemes;
         this.decorated = wrapped;
     }
     @Override
