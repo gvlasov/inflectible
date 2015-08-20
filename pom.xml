@@ -19,7 +19,7 @@
     <parent>
         <groupId>com.jcabi</groupId>
         <artifactId>parent</artifactId>
-        <version>0.34</version>
+        <version>0.35</version>
     </parent>
     <build>
         <plugins>
@@ -137,9 +137,10 @@
                         <version>0.12.2</version>
                         <configuration>
                             <excludes>
-                                <exclude>findbugs:.*</exclude>
-                                <exclude>duplicatefinder:.*</exclude>
-                                <exclude>dependencies:.*</exclude>
+                                <exclude>findbugs:org.tendiwa.inflectible.antlr.LexemeBundleLexer</exclude>
+                                <exclude>findbugs:org.tendiwa.inflectible.antlr.TemplateBundleLexer</exclude>
+                                <exclude>findbugs:org.tendiwa.inflectible.antlr.LexemeBundleParser</exclude>
+                                <exclude>findbugs:org.tendiwa.inflectible.antlr.TemplateBundleParser</exclude>
                             </excludes>
                         </configuration>
                         <executions>
@@ -160,6 +161,16 @@
         </profile>
     </profiles>
     <dependencies>
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.abego.treelayout</groupId>
+                    <artifactId>org.abego.treelayout.core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>

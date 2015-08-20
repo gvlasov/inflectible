@@ -23,6 +23,7 @@
  */
 package org.tendiwa.inflectible;
 
+import java.util.Locale;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 
 /**
@@ -60,7 +61,7 @@ public final class ParsedSinglePartPlaceholder
         return this.withCapitalizaton(
             new PhFromArgument(
                 new ArgumentName(
-                    this.argumentIdentifier().toLowerCase()
+                    this.argumentIdentifier().toLowerCase(Locale.getDefault())
                 )
             )
         );
