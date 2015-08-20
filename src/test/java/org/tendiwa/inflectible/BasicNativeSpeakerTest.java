@@ -61,14 +61,9 @@ public final class BasicNativeSpeakerTest {
                             ImmutableList.of(argument)
                         )
                             .addPlaceholder(
-                                new BasicPlaceholder(
-                                    new ArgumentsLexemeSource(
-                                        argument
-                                    )
+                                new PhWithCapitalization(
+                                    new PhFromArgument(argument)
                                 )
-                                    .withCapitalization(
-                                        Capitalization.CAPITALIZE
-                                    )
                             )
                             .addText(" furiously bites YOU!")
                             .build()

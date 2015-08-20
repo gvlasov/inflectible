@@ -72,7 +72,7 @@ public final class TextTemplateBuilder {
     public TextTemplateBuilder addPlaceholder(
         final Placeholder templateBodyPiece
     ) {
-        this.parts.add(templateBodyPiece);
+        this.parts.add(new PiPlaceholder(templateBodyPiece));
         return this;
     }
 
@@ -82,7 +82,7 @@ public final class TextTemplateBuilder {
      * @return This builder
      */
     public TextTemplateBuilder addText(final String text) {
-        this.addPlaceholder((actuals, vocabulary) -> text);
+        this.parts.add(new PiPlainText(text));
         return this;
     }
 

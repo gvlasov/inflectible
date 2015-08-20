@@ -43,29 +43,21 @@ public final class TemplateBuilderTest {
      */
     @Test
     public void createsTemplate() throws Exception {
-        final String subject = "subject";
-        final String object = "object";
+        final ArgumentName subject = new ArgumentName("subject");
+        final ArgumentName object = new ArgumentName("object");
         MatcherAssert.assertThat(
             new TextTemplateBuilder(
                 ImmutableList.of(
-                    new ArgumentName(subject),
-                    new ArgumentName(object)
+                    subject,
+                    object
                 )
             )
                 .addPlaceholder(
-                    new BasicPlaceholder(
-                        new ArgumentsLexemeSource(
-                            new ArgumentName(subject)
-                        )
-                    )
+                    new PhFromArgument(subject)
                 )
                 .addText(" immediately picks up an ")
                 .addPlaceholder(
-                    new BasicPlaceholder(
-                        new ArgumentsLexemeSource(
-                            new ArgumentName(object)
-                        )
-                    )
+                    new PhFromArgument(object)
                 )
                 .build()
                 .fillUp(
@@ -85,15 +77,11 @@ public final class TemplateBuilderTest {
      */
     @Test(expected = IllegalStateException.class)
     public void cantBeUsedTwice() throws Exception {
-        final String name = "actor";
+        final ArgumentName name = new ArgumentName("actor");
         final TextTemplateBuilder builder =
-            new TextTemplateBuilder(ImmutableList.of(new ArgumentName(name)))
+            new TextTemplateBuilder(ImmutableList.of(name))
                 .addPlaceholder(
-                    new BasicPlaceholder(
-                        new ArgumentsLexemeSource(
-                            new ArgumentName(name)
-                        )
-                    )
+                    new PhFromArgument(name)
                 );
         IntStream.range(0, 2).forEach(i -> builder.build());
     }

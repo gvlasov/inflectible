@@ -23,10 +23,12 @@
  */
 package org.tendiwa.inflectible;
 
+import com.google.common.base.Joiner;
 import java.io.IOException;
 import java.io.InputStream;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.apache.commons.io.IOUtils;
 import org.tendiwa.inflectible.antlr.TemplateBundleLexer;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 
@@ -51,6 +53,21 @@ public final class BasicTemplateBundleParser extends TemplateBundleParser {
                 new TemplateBundleLexer(
                     new ANTLRInputStream(input)
                 )
+            )
+        );
+    }
+
+    /**
+     * Ctor.
+     * @param markup Templates' markup
+     * @throws IOException If can't read the input stream
+     */
+    public BasicTemplateBundleParser(
+        final String... markup
+    ) throws IOException {
+        this(
+            IOUtils.toInputStream(
+                Joiner.on('\n').join(markup)
             )
         );
     }

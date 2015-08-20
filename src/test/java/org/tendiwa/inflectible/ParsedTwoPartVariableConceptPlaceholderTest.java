@@ -23,9 +23,7 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
-import org.apache.commons.io.IOUtils;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
@@ -46,31 +44,28 @@ public final class ParsedTwoPartVariableConceptPlaceholderTest {
     @Test
     public void constructsFromAntlrParseTree() throws Exception {
         MatcherAssert.assertThat(
-            new ParsedTwoPartVariableConceptPlaceholder(
-                new English().grammar(),
-                new BasicTemplateBundleParser(
-                    IOUtils.toInputStream(
-                        Joiner.on('\n').join(
-                            "text(dude) {",
-                            "  [Dude][Plur]",
-                            "}"
-                        )
+            new PiPlaceholder(
+                new ParsedTwoPartVariableConceptPlaceholder(
+                    new English().grammar(),
+                    new BasicTemplateBundleParser(
+                        "text(dude) {",
+                        "  [Dude][Sing]",
+                        "}"
                     )
+                        .templates()
+                        .template(0)
+                        .templateBody()
+                        .line(0)
+                        .piece(0)
+                        .twoPartPlaceholder()
                 )
-                    .templates()
-                    .template(0)
-                    .templateBody()
-                    .line(0)
-                    .piece(0)
-                    .twoPartPlaceholder()
-            )
-                .fillUp(
-                    new BasicActualArguments(
-                        ImmutableList.of(new ArgumentName("dude")),
-                        ImmutableList.of(new SingleFormLexeme("man"))
-                    ),
-                    new BasicVocabulary()
+            ).fillUp(
+                new BasicActualArguments(
+                    ImmutableList.of(new ArgumentName("dude")),
+                    ImmutableList.of(new SingleFormLexeme("man"))
                 ),
+                new BasicVocabulary()
+            ),
             CoreMatchers.equalTo("Man")
         );
     }

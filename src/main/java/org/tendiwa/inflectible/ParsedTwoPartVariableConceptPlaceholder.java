@@ -122,7 +122,7 @@ final class ParsedTwoPartVariableConceptPlaceholder implements Placeholder {
      * @return True iff this placeholder has agreement with some argument
      */
     private boolean hasAgreement() {
-        return this.ctx.agreement() == null;
+        return this.ctx.agreement() != null;
     }
 
     /**
