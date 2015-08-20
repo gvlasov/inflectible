@@ -57,16 +57,17 @@ public final class BasicNativeSpeakerTest {
                 new BasicTemplatuary(
                     ImmutableMap.of(
                         new TemplateName(template),
-                        new TextTemplateBuilder(
-                            ImmutableList.of(argument)
-                        )
-                            .addPlaceholder(
-                                new PhWithCapitalization(
-                                    new PhFromArgument(argument)
-                                )
+                        new BasicTemplate(
+                            ImmutableList.of(argument),
+                            ImmutableList.of(
+                                new PiPlaceholder(
+                                    new PhWithCapitalization(
+                                        new PhFromArgument(argument)
+                                    )
+                                ),
+                                new PiPlainText(" furiously bites YOU!")
                             )
-                            .addText(" furiously bites YOU!")
-                            .build()
+                        )
                     )
                 )
             )

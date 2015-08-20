@@ -23,11 +23,11 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * Unit tests for {@link BasicTemplatuary}.
@@ -44,12 +44,10 @@ public final class BasicTemplatuaryTest {
     @Test
     public void returnsTemplateByIdentifier() throws Exception {
         final TemplateName identifier = new TemplateName("message");
+        final Template template = Mockito.mock(Template.class);
         MatcherAssert.assertThat(
             new BasicTemplatuary(
-                ImmutableMap.of(
-                    identifier,
-                    new TextTemplateBuilder(ImmutableList.of()).build()
-                )
+                ImmutableMap.of(identifier, template)
             )
                 .hasTemplate(identifier),
             CoreMatchers.is(true)

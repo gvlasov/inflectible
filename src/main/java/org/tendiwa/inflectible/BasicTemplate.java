@@ -1,4 +1,4 @@
-/*
+/**
  * The MIT License (MIT)
  *
  * Copyright (c) 2015 Georgy Vlasov
@@ -31,6 +31,9 @@ import org.tenidwa.collections.utils.Rethrowing;
 /**
  * {@link Template} defined by its arguments' names and a
  * heterogeneous list of its parts (placeholders and plain text chunks).
+ * @author Georgy Vlasov (suseika@tendiwa.org)
+ * @version $Id$
+ * @since 0.1
  */
 public final class BasicTemplate implements Template {
     /**
