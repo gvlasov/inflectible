@@ -56,13 +56,6 @@ public final class BasicActualArguments implements ActualArguments {
         this.values = arguments;
     }
 
-    /**
-     * Ctor for empty map of arguments.
-     */
-    BasicActualArguments() {
-        this(ImmutableList.of(), ImmutableList.of());
-    }
-
     @Override
     public Lexeme byName(final ArgumentName name) throws Exception {
         return this.values.get(this.declared.indexOf(name));
