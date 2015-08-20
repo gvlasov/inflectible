@@ -15,7 +15,7 @@
     </properties>
     <groupId>org.tendiwa.inflectible</groupId>
     <artifactId>inflectible</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <parent>
         <groupId>com.jcabi</groupId>
         <artifactId>parent</artifactId>
