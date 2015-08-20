@@ -1,13 +1,13 @@
 BEAR {
     bear
-    bears [Plur]
+    bears <Plur>
 }
 
 HUMAN {
     human
-    humans [Plur]
+    humans <Plur>
 }
 
-SCISSORS [Plur] {
+SCISSORS <Plur> {
     scissors
 }

@@ -1,8 +1,8 @@
 CLAW {
     claw
-    claws [III]
+    claws <III>
 }
 BITE {
     bite
-    bites [III]
+    bites <III>
 }

@@ -74,7 +74,7 @@ public final class ParsedWordFormTest {
             new BasicLexemeBundleParser(
                 "BEAR {",
                 "  bear",
-                "  bears [Plur]",
+                "  bears <Plur>",
                 "}"
             )
                 .lexemes()
