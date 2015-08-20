@@ -26,13 +26,13 @@ fragment SEA_CHAR: ~('\n' | '\r' | '[' | '}');
 
 mode PLACEHOLDER_ID;
 NO_GRAMMEME_PLACEHOLDER_END: ']' -> popMode;
-GRAMMEMES_TRANSITION: '][' -> pushMode(GRAMMEMES);
+GRAMMEMES_TRANSITION: ']<' -> pushMode(GRAMMEMES);
 CAPITALIZABLE_ID: [a-zA-Z] [a-zA-Z_0-9]*;
 
 mode GRAMMEMES;
 GRAMMEMES_WS: WS -> type(WS), skip;
 GRAMMEME: Identifier;
-PLACEHOLDER_END: ']' -> popMode, popMode; // Pops through PLACEHOLDER_ID
+PLACEHOLDER_END: '>' -> popMode, popMode; // Pops through PLACEHOLDER_ID
 AGREEMENT_DELIMITER: ';' -> pushMode(AGREEMENT);
 
 mode AGREEMENT;
