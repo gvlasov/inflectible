@@ -23,7 +23,6 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableList;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
@@ -44,7 +43,6 @@ public final class ParsedTwoPartVariableConceptPlaceholderTest {
     @Test
     public void constructsFromAntlrParseTree() throws Exception {
         MatcherAssert.assertThat(
-            new PiPlaceholder(
                 new ParsedTwoPartVariableConceptPlaceholder(
                     new English().grammar(),
                     new BasicTemplateBundleParser(
@@ -59,13 +57,7 @@ public final class ParsedTwoPartVariableConceptPlaceholderTest {
                         .piece(0)
                         .twoPartPlaceholder()
                 )
-            ).fillUp(
-                new BasicActualArguments(
-                    ImmutableList.of(new ArgumentName("dude")),
-                    ImmutableList.of(new SingleFormLexeme("man"))
-                ),
-                new BasicVocabulary()
-            ),
+                    .capitalize(() -> "man"),
             CoreMatchers.equalTo("Man")
         );
     }
