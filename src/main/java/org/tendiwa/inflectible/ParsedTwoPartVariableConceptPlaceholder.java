@@ -35,7 +35,8 @@ import org.tenidwa.collections.utils.Collectors;
  * @version $Id$
  * @since 0.1
  */
-final class ParsedTwoPartVariableConceptPlaceholder implements Placeholder {
+final class ParsedTwoPartVariableConceptPlaceholder
+    extends AbstractDelegatingPlaceholder {
     /**
      * Grammar of the language of this placeholder.
      */
@@ -62,31 +63,12 @@ final class ParsedTwoPartVariableConceptPlaceholder implements Placeholder {
         this.ctx = context;
     }
 
-    @Override
-    public Lexeme pickLexeme(
-        final ActualArguments arguments,
-        final Vocabulary vocabulary
-    ) throws Exception {
-        return this.delegate().pickLexeme(arguments, vocabulary);
-    }
-
-    @Override
-    public ImmutableSet<Grammeme> grammaticalMeaning(
-        final ActualArguments arguments
-    ) throws Exception {
-        return this.delegate().grammaticalMeaning(arguments);
-    }
-
-    @Override
-    public Spelling capitalize(final Spelling spelling) {
-        return this.delegate().capitalize(spelling);
-    }
-
     /**
      * Creates the placeholder from ANTLR parse tree.
      * @return Placeholder
      */
-    private Placeholder delegate() {
+    @Override
+    public Placeholder delegate() {
         return
             this.withCapitalization(
                 this.withAgreement(
@@ -99,6 +81,7 @@ final class ParsedTwoPartVariableConceptPlaceholder implements Placeholder {
 
     /**
      * Adds agreement to the placeholder if markup says so.
+     * @param placeholder Placeholder to decorate
      * @return Placeholder decorated with {@link PhWithAgreement}, or the same
      *  placeholder if markup doesn't declare agreement here.
      */
@@ -127,6 +110,7 @@ final class ParsedTwoPartVariableConceptPlaceholder implements Placeholder {
 
     /**
      * Adds capitalization to the placeholder if markup says so.
+     * @param placeholder Placeholder to decorate
      * @return Placeholder decorated with {@link PhWithCapitalization}, or the
      *  same placeholder if markup doesn't declare capitalization here.
      */
@@ -142,6 +126,7 @@ final class ParsedTwoPartVariableConceptPlaceholder implements Placeholder {
 
     /**
      * Adds static grammatical meaning to the placeholder if markup says so.
+     * @param placeholder Placeholder to decorate
      * @return Placeholder decorated with {@link PhWithGrammemes}, or the
      *  same placeholder if markup doesn't declare adding static grammatical
      *  meaning here

@@ -36,7 +36,7 @@ public abstract class AbstractDelegatingPlaceholder implements Placeholder {
      * Ctor.
      */
     AbstractDelegatingPlaceholder() {
-
+        // Doesn't need to store anything, class' purpose is to delegate methods
     }
 
     /**

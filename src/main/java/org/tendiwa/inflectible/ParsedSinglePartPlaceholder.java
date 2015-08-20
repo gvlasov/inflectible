@@ -23,7 +23,6 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableSet;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 
 /**
@@ -32,7 +31,8 @@ import org.tendiwa.inflectible.antlr.TemplateBundleParser;
  * @version $Id$
  * @since 0.1
  */
-public final class ParsedSinglePartPlaceholder implements Placeholder {
+public final class ParsedSinglePartPlaceholder
+    extends AbstractDelegatingPlaceholder {
     /**
      * ANTLR parse tree of a placeholder.
      */
@@ -46,6 +46,7 @@ public final class ParsedSinglePartPlaceholder implements Placeholder {
     ParsedSinglePartPlaceholder(
         final TemplateBundleParser.SinglePartPlaceholderContext context
     ) {
+        super();
         this.ctx = context;
     }
 
@@ -54,7 +55,8 @@ public final class ParsedSinglePartPlaceholder implements Placeholder {
      * {@link ParsedLexeme#ctx}.
      * @return Lexeme from markup.
      */
-    private Placeholder delegate() {
+    @Override
+    public Placeholder delegate() {
         return this.withCapitalizaton(
             new PhFromArgument(
                 new ArgumentName(
@@ -63,7 +65,6 @@ public final class ParsedSinglePartPlaceholder implements Placeholder {
             )
         );
     }
-
 
     // To be refactored in #47
     /**
@@ -88,25 +89,5 @@ public final class ParsedSinglePartPlaceholder implements Placeholder {
      */
     private String argumentIdentifier() {
         return this.ctx.CAPITALIZABLE_ID().getText();
-    }
-
-    @Override
-    public Lexeme pickLexeme(
-        final ActualArguments arguments,
-        final Vocabulary vocabulary
-    ) throws Exception {
-        return this.delegate().pickLexeme(arguments, vocabulary);
-    }
-
-    @Override
-    public ImmutableSet<Grammeme> grammaticalMeaning(
-        final ActualArguments arguments
-    ) throws Exception {
-        return this.delegate().grammaticalMeaning(arguments);
-    }
-
-    @Override
-    public Spelling capitalize(final Spelling spelling) {
-        return this.delegate().capitalize(spelling);
     }
 }
