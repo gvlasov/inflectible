@@ -3,8 +3,8 @@ lexer grammar LexemeBundleLexer;
 WS: [ \n\r\t] -> skip;
 LEXEME_ID: [A-Z] [A-Z.]* [A-Z];
 WORD_FORMS_START: '{' -> pushMode(WORD_FORMS);
-LBRACKET: '[';
-RBRACKET: ']';
+LT: '<';
+GT: '>';
 GRAMMEME: Identifier;
 
 // Copied from Java.g4 grammar
@@ -33,10 +33,10 @@ fragment JavaLetterOrDigit
 mode WORD_FORMS;
 WORD_FORMS_END: '}' -> popMode;
 WORD_FORMS_WS: WS -> type(WS), skip;
-WORD_FORM_LBRACKET: LBRACKET -> type(LBRACKET), pushMode(WORD_FORM_GRAMMEMES);
-WORD_FORM: ~[ \n\r\t\[\]]+;
+WORD_FORM_LBRACKET: LT -> type(LT), pushMode(WORD_FORM_GRAMMEMES);
+WORD_FORM: ~[ \n\r\t\<\>]+;
 
 mode WORD_FORM_GRAMMEMES;
-WORD_FORM_GRAMMEMES_RBRACKET: RBRACKET -> type(RBRACKET), popMode;
+WORD_FORM_GRAMMEMES_RBRACKET: GT -> type(GT), popMode;
 WORD_FORM_GRAMMEME: GRAMMEME -> type(GRAMMEME);
 WORD_FORM_GRAMMEMES_WS: WS -> type(WS), skip;

@@ -14,5 +14,5 @@ wordForms: wordForm+;
 
 wordForm: WORD_FORM grammemes?;
 
-grammemes: LBRACKET GRAMMEME+ RBRACKET;
+grammemes: LT GRAMMEME+ GT;
 
