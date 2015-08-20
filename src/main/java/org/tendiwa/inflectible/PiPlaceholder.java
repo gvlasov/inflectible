@@ -24,24 +24,23 @@
 package org.tendiwa.inflectible;
 
 /**
- * Raw text piece of template body. Corresponds to ANTLR rule "rawText".
- * @see PiPlaceholder
+ * Template body piece with a {@link Placeholder} in it.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
-final class RawTextPiece implements TemplateBodyPiece {
+public final class PiPlaceholder implements TemplateBodyPiece {
     /**
-     * Raw text.
+     * Placeholder.
      */
-    private final transient String raw;
+    private final transient Placeholder placeholder;
 
     /**
-     *
-     * @param plain Raw text
+     * Ctor.
+     * @param content Placeholder
      */
-    RawTextPiece(final String plain) {
-        this.raw = plain;
+    PiPlaceholder(final Placeholder content) {
+        this.placeholder = content;
     }
 
     @Override
@@ -49,6 +48,9 @@ final class RawTextPiece implements TemplateBodyPiece {
         final ActualArguments arguments,
         final Vocabulary vocabulary
     ) throws Exception {
-        return this.raw;
+        return this.placeholder.capitalize(
+            this.placeholder.pickLexeme(arguments, vocabulary)
+                .wordForm(this.placeholder.grammaticalMeaning(arguments))
+        ).string();
     }
 }
