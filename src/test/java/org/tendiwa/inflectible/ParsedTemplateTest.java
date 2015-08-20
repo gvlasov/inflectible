@@ -62,7 +62,7 @@ public final class ParsedTemplateTest {
                 this.templateContext(
                     Joiner.on('\n').join(
                         "texts.text(a,b) {",
-                        "  Here come a [a] and two [b][Plur;a]. [A] is tall.",
+                        "  Here come a [a] and two [b]<Plur;a>. [A] is tall.",
                         "}"
                     )
                 )

@@ -1,4 +1,4 @@
 log.get_damage(attacker, action, aim) {
 	// Медведь кусает человека, человек получает пизды
-	[Attacker] [action][III] [aim][Р], [aim] получает пизды.
+	[Attacker] [action]<III> [aim]<Р>, [aim] получает пизды.
 }

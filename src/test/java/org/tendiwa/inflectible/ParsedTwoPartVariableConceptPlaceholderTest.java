@@ -47,7 +47,7 @@ public final class ParsedTwoPartVariableConceptPlaceholderTest {
                     new English().grammar(),
                     new BasicTemplateBundleParser(
                         "text(dude) {",
-                        "  [Dude][Sing]",
+                        "  [Dude]<Sing>",
                         "}"
                     )
                         .templates()
