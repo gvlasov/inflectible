@@ -69,7 +69,9 @@ public final class TextTemplateBuilder {
      * @param templateBodyPiece A placeholder
      * @return This builder
      */
-    public TextTemplateBuilder addPlaceholder(final TemplateBodyPiece templateBodyPiece) {
+    public TextTemplateBuilder addPlaceholder(
+        final Placeholder templateBodyPiece
+    ) {
         this.parts.add(templateBodyPiece);
         return this;
     }
