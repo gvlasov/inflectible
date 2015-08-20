@@ -85,19 +85,19 @@ final class ParsedTemplate implements Template {
      * @return Template from markup
      */
     private Template delegate() {
-        return new ParseTreeListener(this.argumentNames()).filledUpText();
+        return new TemplateBuilder(this.argumentNames()).template();
     }
 
     /**
      * Walks an ANTLR parse tree and constructs a template.
      */
-    private final class ParseTreeListener
+    private final class TemplateBuilder
         extends TemplateBundleParserBaseListener {
 
         /**
          * Template builder.
          */
-        private transient TextTemplateBuilder builder;
+        private transient ImmutableList.Builder<TemplateBodyPiece> pieces;
 
         /**
          * Argument names in the order as they appear in markup.
@@ -108,7 +108,7 @@ final class ParsedTemplate implements Template {
          * Ctor.
          * @param names Argument names in the order as they appear in markup
          */
-        ParseTreeListener(final ImmutableList<ArgumentName> names) {
+        TemplateBuilder(final ImmutableList<ArgumentName> names) {
             super();
             this.arguments = names;
         }
@@ -117,10 +117,12 @@ final class ParsedTemplate implements Template {
         public void enterTwoPartPlaceholder(
             final TemplateBundleParser.TwoPartPlaceholderContext context
         ) {
-            this.builder.addPlaceholder(
-                new ParsedTwoPartVariableConceptPlaceholder(
-                    ParsedTemplate.this.grammar,
-                    context
+            this.pieces.add(
+                new PiPlaceholder(
+                    new ParsedTwoPartVariableConceptPlaceholder(
+                        ParsedTemplate.this.grammar,
+                        context
+                    )
                 )
             );
         }
@@ -129,15 +131,17 @@ final class ParsedTemplate implements Template {
         public void enterRawText(
             final TemplateBundleParser.RawTextContext context
         ) {
-            this.builder.addText(context.getText());
+            this.pieces.add(new PiPlainText(context.getText()));
         }
 
         @Override
         public void enterSinglePartPlaceholder(
             final TemplateBundleParser.SinglePartPlaceholderContext context
         ) {
-            this.builder.addPlaceholder(
-                new ParsedSinglePartPlaceholder(context)
+            this.pieces.add(
+                new PiPlaceholder(
+                    new ParsedSinglePartPlaceholder(context)
+                )
             );
         }
 
@@ -146,10 +150,13 @@ final class ParsedTemplate implements Template {
          * it.
          * @return Template.
          */
-        private Template filledUpText() {
-            this.builder = new TextTemplateBuilder(this.arguments);
+        private Template template() {
+            this.pieces = ImmutableList.builder();
             ParseTreeWalker.DEFAULT.walk(this, ParsedTemplate.this.ctx);
-            return this.builder.build();
+            return new BasicTemplate(
+                this.arguments,
+                this.pieces.build()
+            );
         }
     }
 }
