@@ -118,7 +118,7 @@ final class ParsedTemplate implements Template {
             final TemplateBundleParser.TwoPartPlaceholderContext context
         ) {
             this.pieces.add(
-                new PiPlaceholder(
+                new Placeholder(
                     new ParsedTwoPartVariableConceptPlaceholder(
                         ParsedTemplate.this.grammar,
                         context
@@ -139,7 +139,7 @@ final class ParsedTemplate implements Template {
             final TemplateBundleParser.SinglePartPlaceholderContext context
         ) {
             this.pieces.add(
-                new PiPlaceholder(
+                new Placeholder(
                     new ParsedSinglePartPlaceholder(context)
                 )
             );

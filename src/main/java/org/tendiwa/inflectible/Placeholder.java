@@ -23,43 +23,59 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableSet;
-
 /**
- * A piece of {@link Template} that holds place for a word form.
+ * Template body piece that holds place for a string to be inserted in it
+ * during filling out a template. This action is called "resolution of a
+ * placeholder". To resolve a placeholder, we provide it with
+ * {@link ActualArguments} passed to its template and a {@link Vocabulary}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.2.0
  */
-public interface Placeholder {
+public final class Placeholder implements TemplateBodyPiece {
     /**
-     * Picks a lexeme to be used in place of this placeholder when a
-     * {@link Template} is being filled out.
-     * @param arguments Arguments passed to {@link Template}
-     * @param vocabulary Vocabulary
-     * @return Lexeme to be used in place of this placeholder
-     * @throws Exception If couldn't obtain the lexeme
+     * How to choose a lexeme.
      */
-    Lexeme pickLexeme(ActualArguments arguments, Vocabulary vocabulary)
-        throws Exception;
+    private final transient SemanticRule semantic;
 
     /**
-     * Returns grammatical meaning of the word form to be used in place of
-     * this placeholder when {@link Template} is being filled out.
-     * @param arguments Arguments passed to {@link Template}
-     * @return Grammatical meaning of the word form to be used in place of
-     *  this placeholder.
-     * @throws Exception If couldn't obtain grammatical meaning
+     * How to choose a word form.
      */
-    ImmutableSet<Grammeme> grammaticalMeaning(ActualArguments arguments)
-        throws Exception;
+    private final transient GrammarRule grammar;
 
     /**
-     * Capitalized or leaves untouched the spelling of the word form to be used
-     * in place of this placeholder.
-     * @param spelling Spelling of the word form to be used in place of this
-     *  placeholder
-     * @return Spelling with possibly capitalized first letter.
+     * How to choose spelling features.
      */
-    Spelling capitalize(Spelling spelling);
+    private final transient GraphicRule graphic;
+
+    /**
+     * Ctor.
+     * @param sem Semantic rule for resolution of this placeholder
+     * @param gram Grammar rule for resolution of this placeholder
+     * @param graph Graphic rule for resolution of this placeholder
+     */
+    Placeholder(
+        final SemanticRule sem,
+        final GrammarRule gram,
+        final GraphicRule graph
+    ) {
+        this.semantic = sem;
+        this.grammar = gram;
+        this.graphic = graph;
+    }
+
+    @Override
+    public String fillUp(
+        final ActualArguments arguments,
+        final Vocabulary vocabulary
+    ) throws Exception {
+        return
+            this.graphic
+                .adjustSpelling(
+                    this.semantic
+                        .pickLexeme(arguments, vocabulary)
+                        .wordForm(this.grammar.grammaticalMeaning(arguments))
+                )
+                .string();
+    }
 }

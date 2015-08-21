@@ -60,7 +60,7 @@ public final class BasicNativeSpeakerTest {
                         new BasicTemplate(
                             ImmutableList.of(argument),
                             ImmutableList.of(
-                                new PiPlaceholder(
+                                new Placeholder(
                                     new PhWithCapitalization(
                                         new PhFromArgument(argument)
                                     )
