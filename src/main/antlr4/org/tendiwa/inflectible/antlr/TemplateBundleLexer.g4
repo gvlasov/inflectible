@@ -27,7 +27,12 @@ fragment SEA_CHAR: ~('\n' | '\r' | '[' | '}');
 mode PLACEHOLDER_ID;
 NO_GRAMMEME_PLACEHOLDER_END: ']' -> popMode;
 GRAMMEMES_TRANSITION: ']<' -> pushMode(GRAMMEMES);
+KEYWORD_LEXEME: [Ll] 'exeme' -> pushMode(STATIC_LEXEME);
 CAPITALIZABLE_ID: [a-zA-Z] [a-zA-Z_0-9]*;
+
+mode STATIC_LEXEME;
+LEXEME_NAME: [A-Z.]+ -> popMode;
+KEYWORD_LEXEME_WS: WS -> type(WS), skip;
 
 mode GRAMMEMES;
 GRAMMEMES_WS: WS -> type(WS), skip;

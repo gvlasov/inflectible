@@ -6,7 +6,7 @@ options {
 
 lexemes: lexeme+;
 
-lexeme: LEXEME_ID persistentGrammemes? WORD_FORMS_START wordForms WORD_FORMS_END;
+lexeme: LEXEME_NAME persistentGrammemes? WORD_FORMS_START wordForms WORD_FORMS_END;
 
 persistentGrammemes: grammemes;
 

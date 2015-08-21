@@ -1,7 +1,7 @@
 lexer grammar LexemeBundleLexer;
 
 WS: [ \n\r\t] -> skip;
-LEXEME_ID: [A-Z] [A-Z.]* [A-Z];
+LEXEME_NAME: [A-Z] [A-Z.]* [A-Z];
 WORD_FORMS_START: '{' -> pushMode(WORD_FORMS);
 LT: '<';
 GT: '>';
