@@ -70,6 +70,7 @@
                             <instrumentation>
                                 <excludes>
                                     <exclude>org/tendiwa/inflectible/antlr/**</exclude>
+                                    <exclude>org/tendiwa/inflectible/PhFromVocabulary.class</exclude>
                                 </excludes>
                             </instrumentation>
                             <check>
