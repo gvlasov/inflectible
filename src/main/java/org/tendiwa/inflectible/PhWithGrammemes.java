@@ -55,6 +55,7 @@ public final class PhWithGrammemes implements Placeholder {
         this.additional = grammemes;
         this.decorated = wrapped;
     }
+
     @Override
     public Lexeme pickLexeme(
         final ActualArguments arguments,

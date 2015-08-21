@@ -23,8 +23,10 @@
  */
 package org.tendiwa.inflectible;
 
+import java.util.Locale;
 import lombok.EqualsAndHashCode;
 import org.tendiwa.inflectible.antlr.LexemeBundleParser;
+import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 
 /**
  * Name for a {@link Lexeme}. Must consist only of uppercase letters.
@@ -49,10 +51,19 @@ public final class LexemeName implements ValidatedIdentifier {
 
     /**
      * Ctor.
-     * @param ctx ANTLR parse tree for a lexeme.
+     * @param ctx ANTLR parse tree for a {@link Lexeme}.
      */
     public LexemeName(final LexemeBundleParser.LexemeContext ctx) {
-        this(ctx.LEXEME_ID().getText());
+        this(ctx.LEXEME_NAME().getText());
+    }
+
+    /**
+     * Ctor.
+     * @param ctx ANTLR parse tree for the first part of a
+     *  {@link ParsedVocabularyPlaceholder}.
+     */
+    public LexemeName(final TemplateBundleParser.VocabularyPointerContext ctx) {
+        this(ctx.KEYWORD_LEXEME().getText().toLowerCase(Locale.getDefault()));
     }
 
     @Override
