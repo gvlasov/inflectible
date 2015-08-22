@@ -23,49 +23,11 @@
  */
 package org.tendiwa.inflectible;
 
-import lombok.EqualsAndHashCode;
-
 /**
  * Name of an argument declared in a {@link Template}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.2.0
  */
-@EqualsAndHashCode(of = { "value" })
-public final class ArgumentName implements ValidatedIdentifier {
-    /**
-     * String value of the argument name.
-     */
-    private final transient String value;
-
-    /**
-     * Ctor.
-     * @param name String value of the argument name
-     */
-    public ArgumentName(final String name) {
-        this.value = name;
-    }
-
-    @Override
-    public String string() throws Exception {
-        this.validate();
-        return this.value;
-    }
-
-    /**
-     * Validates the argument name.
-     * @throws Exception If value is not invalid
-     */
-    private void validate() throws Exception {
-        for (final char character : this.value.toCharArray()) {
-            if (!Character.isLowerCase(character)) {
-                throw new IllegalArgumentException(
-                    String.format(
-                        "\"%s\" is not a valid argument name",
-                        this.value
-                    )
-                );
-            }
-        }
-    }
+public interface ArgumentName extends ValidatedIdentifier {
 }
