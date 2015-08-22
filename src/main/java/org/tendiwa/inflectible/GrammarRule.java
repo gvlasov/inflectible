@@ -23,8 +23,6 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableSet;
-
 /**
  * Determines grammatical meaning of {@link Placeholder}'s content.
  * @author Georgy Vlasov (suseika@tendiwa.org)
@@ -40,6 +38,6 @@ public interface GrammarRule {
      *  a placeholder.
      * @throws Exception If couldn't obtain grammatical meaning
      */
-    ImmutableSet<Grammeme> grammaticalMeaning(ActualArguments arguments)
+    GrammaticalMeaning grammaticalMeaning(ActualArguments arguments)
         throws Exception;
 }

@@ -23,8 +23,6 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableSet;
-
 /**
  * Collection of word forms belonging to the same conception, and their
  * persistent grammatical meaning.
@@ -50,7 +48,7 @@ public interface Lexeme {
      * @return The word form of this lexeme with its grammatical meaning
      *  closest to {@code grammemes}
      */
-    Spelling wordForm(ImmutableSet<Grammeme> grammemes);
+    Spelling wordForm(GrammaticalMeaning grammemes);
 
     /**
      * Grammemes inherent to this lexeme.
@@ -61,5 +59,5 @@ public interface Lexeme {
      * ({@link org.tendiwa.inflectible.implementations.Russian.Grammemes#Жен}).
      * @return Persistent grammatical meaning of this lexeme
      */
-    ImmutableSet<Grammeme> persistentGrammemes();
+    GrammaticalMeaning persistentGrammemes();
 }

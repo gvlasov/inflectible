@@ -24,7 +24,6 @@
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 
 /**
  * {@link Lexeme} defined by its set of persistent grammemes and list of
@@ -35,9 +34,9 @@ import com.google.common.collect.ImmutableSet;
  */
 public final class BasicLexeme implements Lexeme {
     /**
-     * Persistent grammemes.
+     * Persistent grammatical meaning.
      */
-    private final transient ImmutableSet<Grammeme> persistent;
+    private final transient GrammaticalMeaning persistent;
 
     /**
      * Word forms.
@@ -50,7 +49,7 @@ public final class BasicLexeme implements Lexeme {
      * @param spellings Word forms
      */
     public BasicLexeme(
-        final ImmutableSet<Grammeme> grammemes,
+        final GrammaticalMeaning grammemes,
         final ImmutableList<WordForm> spellings
     ) {
         this.persistent = grammemes;
@@ -63,7 +62,7 @@ public final class BasicLexeme implements Lexeme {
     }
 
     @Override
-    public Spelling wordForm(final ImmutableSet<Grammeme> grammemes) {
+    public Spelling wordForm(final GrammaticalMeaning grammemes) {
         int bestScore = 0;
         WordForm bestMatch = this.baseForm();
         for (final WordForm form : this.forms) {
@@ -77,7 +76,7 @@ public final class BasicLexeme implements Lexeme {
     }
 
     @Override
-    public ImmutableSet<Grammeme> persistentGrammemes() {
+    public GrammaticalMeaning persistentGrammemes() {
         return this.persistent;
     }
 

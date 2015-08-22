@@ -23,7 +23,6 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 
 /**
@@ -41,19 +40,19 @@ public final class BasicWordForm implements WordForm {
     /**
      * Grammatical meaning of this word.
      */
-    private final transient ImmutableSet<Grammeme> grammemes;
+    private final transient GrammaticalMeaning meaning;
 
     /**
      * Ctor.
      * @param word Spelling of this word
-     * @param meaning Grammatical meaning of this word
+     * @param grammemes Grammatical meaning of this word
      */
     public BasicWordForm(
         final Spelling word,
-        final ImmutableSet<Grammeme> meaning
+        final GrammaticalMeaning grammemes
     ) {
         this.form = word;
-        this.grammemes = meaning;
+        this.meaning = grammemes;
     }
 
     @Override
@@ -62,10 +61,10 @@ public final class BasicWordForm implements WordForm {
     }
 
     @Override
-    public int similarity(final ImmutableSet<Grammeme> meaning) {
+    public int similarity(final GrammaticalMeaning grammemes) {
         return Sets.intersection(
-            meaning,
-            this.grammemes
+            grammemes.grammemes(),
+            this.meaning.grammemes()
         ).size();
     }
 }

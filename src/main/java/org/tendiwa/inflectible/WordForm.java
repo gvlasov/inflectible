@@ -23,8 +23,6 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableSet;
-
 /**
  * A word form is what {@link Lexeme}s contain of. All word forms of the same
  * lexeme refer to the same conception, but have different <i>grammatical
@@ -57,5 +55,5 @@ interface WordForm {
      * @return Size of the intersection set of this word form's grammatical
      *  meaning and the other grammatical meaning.
      */
-    int similarity(ImmutableSet<Grammeme> grammemes);
+    int similarity(GrammaticalMeaning grammemes);
 }
