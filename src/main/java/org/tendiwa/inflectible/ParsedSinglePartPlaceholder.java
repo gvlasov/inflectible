@@ -23,7 +23,6 @@
  */
 package org.tendiwa.inflectible;
 
-import java.util.Locale;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 
 /**
@@ -32,8 +31,7 @@ import org.tendiwa.inflectible.antlr.TemplateBundleParser;
  * @version $Id$
  * @since 0.1
  */
-public final class ParsedSinglePartPlaceholder
-    extends AbstractDelegatingPlaceholder {
+public final class ParsedSinglePartPlaceholder implements TemplateBodyPiece {
     /**
      * ANTLR parse tree of a placeholder.
      */
@@ -51,44 +49,22 @@ public final class ParsedSinglePartPlaceholder
         this.ctx = context;
     }
 
-    /**
-     * Creates a placeholder with aspects obtained from the
-     * {@link ParsedLexeme#ctx}.
-     * @return Lexeme from markup.
-     */
     @Override
-    public Placeholder delegate() {
-        return this.withCapitalizaton(
-            new PhFromArgument(
-                new ArgumentName(
-                    this.argumentIdentifier().toLowerCase(Locale.getDefault())
-                )
+    public String fillUp(
+        final ActualArguments arguments,
+        final Vocabulary vocabulary
+    ) throws Exception {
+        return new Placeholder(
+            new LrFromArgument(
+                new AnParsed(this.ctx.argumentName())
+            ),
+            new GrStatic(
+                new GmEmpty()
+            ),
+            new SrParsedArgumentCapitalization(
+                this.ctx.argumentName()
             )
-        );
-    }
-
-    // To be refactored in #47
-    /**
-     * Adds capitalization if it was declared in markup.
-     * @param placeholder Placeholder to decorate
-     * @return Probably capitalized placeholder
-     */
-    private Placeholder withCapitalizaton(final Placeholder placeholder) {
-        final Placeholder modified;
-        if (Character.isUpperCase(this.argumentIdentifier().charAt(0))) {
-            modified = new PhWithCapitalization(placeholder);
-        } else {
-            modified = placeholder;
-        }
-        return modified;
-    }
-
-    /**
-     * Obtains the argument name (probably capitalized) used to fill out this
-     * placeholder.
-     * @return Argument name obtained from an ANTLR parse tree.
-     */
-    private String argumentIdentifier() {
-        return this.ctx.CAPITALIZABLE_ID().getText();
+        )
+            .fillUp(arguments, vocabulary);
     }
 }

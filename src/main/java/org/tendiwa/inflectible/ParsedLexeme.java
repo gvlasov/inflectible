@@ -24,8 +24,7 @@
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
-import org.antlr.v4.runtime.tree.ParseTree;
+import java.util.Optional;
 import org.tendiwa.inflectible.antlr.LexemeBundleParser;
 import org.tenidwa.collections.utils.Collectors;
 
@@ -61,12 +60,12 @@ final class ParsedLexeme implements Lexeme {
     }
 
     @Override
-    public Spelling wordForm(final ImmutableSet<Grammeme> grammemes) {
+    public Spelling wordForm(final GrammaticalMeaning grammemes) {
         return this.delegate().wordForm(grammemes);
     }
 
     @Override
-    public ImmutableSet<Grammeme> persistentGrammemes() {
+    public GrammaticalMeaning persistentGrammemes() {
         return this.delegate().persistentGrammemes();
     }
 
@@ -91,20 +90,17 @@ final class ParsedLexeme implements Lexeme {
      * Obtains grammemes from markup.
      * @return Grammemes
      */
-    private ImmutableSet<Grammeme> grammemes() {
+    private GrammaticalMeaning grammemes() {
         final LexemeBundleParser.PersistentGrammemesContext persistent =
             this.ctx.persistentGrammemes();
-        final ImmutableSet<Grammeme> grammemes;
+        final GrammaticalMeaning grammemes;
         if (persistent == null) {
-            grammemes = ImmutableSet.of();
+            grammemes = new GmEmpty();
         } else {
-            grammemes = persistent
-                .grammemes()
-                .GRAMMEME()
-                .stream()
-                .map(ParseTree::getText)
-                .map(ParsedLexeme.this.grammar::grammemeByName)
-                .collect(Collectors.toImmutableSet());
+            grammemes = new GmOfParsedWordForm(
+                this.grammar,
+                Optional.ofNullable(this.ctx.persistentGrammemes().grammemes())
+            );
         }
         return grammemes;
     }
@@ -118,7 +114,7 @@ final class ParsedLexeme implements Lexeme {
             .wordForms()
             .wordForm()
             .stream()
-            .map(context ->new ParsedWordForm(this.grammar, context))
+            .map(context -> new ParsedWordForm(this.grammar, context))
             .collect(Collectors.toImmutableList());
     }
 }

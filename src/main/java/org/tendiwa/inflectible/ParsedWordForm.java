@@ -23,10 +23,8 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableSet;
-import org.antlr.v4.runtime.tree.ParseTree;
+import java.util.Optional;
 import org.tendiwa.inflectible.antlr.LexemeBundleParser;
-import org.tenidwa.collections.utils.Collectors;
 
 /**
  * {@link WordForm} parsed from an ANTLR parse tree.
@@ -64,26 +62,8 @@ public final class ParsedWordForm implements WordForm {
     }
 
     @Override
-    public int similarity(final ImmutableSet<Grammeme> grammemes) {
+    public int similarity(final GrammaticalMeaning grammemes) {
         return this.delegate().similarity(grammemes);
-    }
-
-    /**
-     * Obtains grammemes from the ANTLR parse tree.
-     * @return Grammemes of this word form
-     */
-    private ImmutableSet<Grammeme> grammemes() {
-        final ImmutableSet<Grammeme> grammemes;
-        if (this.ctx.grammemes() == null) {
-            grammemes = ImmutableSet.of();
-        } else {
-            grammemes = this.ctx.grammemes().GRAMMEME()
-                .stream()
-                .map(ParseTree::getText)
-                .map(ParsedWordForm.this.grammar::grammemeByName)
-                .collect(Collectors.toImmutableSet());
-        }
-        return grammemes;
     }
 
     // To be refactored in #47
@@ -94,7 +74,10 @@ public final class ParsedWordForm implements WordForm {
     private WordForm delegate() {
         return new BasicWordForm(
             new BasicSpelling(this.ctx),
-            this.grammemes()
+            new GmOfParsedWordForm(
+                this.grammar,
+                Optional.ofNullable(this.ctx.grammemes())
+            )
         );
     }
 }

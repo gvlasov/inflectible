@@ -23,7 +23,6 @@
  */
 package org.tendiwa.inflectible;
 
-import java.util.Locale;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 
 /**
@@ -58,7 +57,6 @@ public final class LrParsedFromVocabulary implements LexicalRule {
                 this.ctx
                     .LEXEME_NAME()
                     .getText()
-                    .toLowerCase(Locale.getDefault())
             )
         )
             .pickLexeme(arguments, vocabulary);

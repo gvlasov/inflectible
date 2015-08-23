@@ -36,7 +36,7 @@ public final class Placeholder implements TemplateBodyPiece {
     /**
      * How to choose a lexeme.
      */
-    private final transient SemanticRule semantic;
+    private final transient LexicalRule semantic;
 
     /**
      * How to choose a word form.
@@ -46,7 +46,7 @@ public final class Placeholder implements TemplateBodyPiece {
     /**
      * How to choose spelling features.
      */
-    private final transient GraphicRule graphic;
+    private final transient SpellingRule graphic;
 
     /**
      * Ctor.
@@ -55,9 +55,9 @@ public final class Placeholder implements TemplateBodyPiece {
      * @param graph Graphic rule for resolution of this placeholder
      */
     Placeholder(
-        final SemanticRule sem,
+        final LexicalRule sem,
         final GrammarRule gram,
-        final GraphicRule graph
+        final SpellingRule graph
     ) {
         this.semantic = sem;
         this.grammar = gram;

@@ -24,6 +24,7 @@
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableSet;
+import java.util.Optional;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.tendiwa.inflectible.antlr.LexemeBundleParser;
 import org.tenidwa.collections.utils.Collectors;
@@ -43,7 +44,7 @@ final class GmOfParsedWordForm implements GrammaticalMeaning {
     /**
      * ANTLR parse tree of grammemes in a word form.
      */
-    private final transient LexemeBundleParser.GrammemesContext ctx;
+    private final transient Optional<LexemeBundleParser.GrammemesContext> ctx;
 
     /**
      * Ctor.
@@ -52,7 +53,7 @@ final class GmOfParsedWordForm implements GrammaticalMeaning {
      */
     GmOfParsedWordForm(
         final Grammar gram,
-        final LexemeBundleParser.GrammemesContext context
+        final Optional<LexemeBundleParser.GrammemesContext> context
     ) {
         this.grammar = gram;
         this.ctx = context;
@@ -60,11 +61,17 @@ final class GmOfParsedWordForm implements GrammaticalMeaning {
 
     @Override
     public ImmutableSet<Grammeme> grammemes() {
-        return this.ctx
-            .GRAMMEME()
-            .stream()
-            .map(ParseTree::getText)
-            .map(this.grammar::grammemeByName)
-            .collect(Collectors.toImmutableSet());
+        final ImmutableSet<Grammeme> answer;
+        if (this.ctx.isPresent()) {
+            answer = this.ctx.get()
+                .GRAMMEME()
+                .stream()
+                .map(ParseTree::getText)
+                .map(this.grammar::grammemeByName)
+                .collect(Collectors.toImmutableSet());
+        } else {
+            answer = ImmutableSet.of();
+        }
+        return answer;
     }
 }

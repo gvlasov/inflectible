@@ -68,17 +68,6 @@ final class ParsedTemplate implements Template {
         return this.delegate().fillUp(arguments, vocabulary);
     }
 
-    /**
-     * Obtains the names of the arguments of this text template.
-     * @return Names of arguments.
-     */
-    private ImmutableList<ArgumentName> argumentNames() {
-        return this.ctx.declaredArguments().ID().stream()
-            .map(TerminalNode::getText)
-            .map(ArgumentName::new)
-            .collect(Collectors.toImmutableList());
-    }
-
     // To be refactored in #47
     /**
      * Creates a template from the {@link ParsedLexeme#ctx}.
@@ -86,6 +75,20 @@ final class ParsedTemplate implements Template {
      */
     private Template delegate() {
         return new TemplateBuilder(this.argumentNames()).template();
+    }
+
+    /**
+     * Obtains the names of the arguments of this text template.
+     * @return Names of arguments.
+     */
+    private ImmutableList<ArgumentName> argumentNames() {
+        return this.ctx
+            .declaredArguments()
+            .ID()
+            .stream()
+            .map(TerminalNode::getText)
+            .map(AnBasic::new)
+            .collect(Collectors.toImmutableList());
     }
 
     /**
@@ -118,11 +121,9 @@ final class ParsedTemplate implements Template {
             final TemplateBundleParser.TwoPartPlaceholderContext context
         ) {
             this.pieces.add(
-                new Placeholder(
-                    new ParsedTwoPartVariableConceptPlaceholder(
-                        ParsedTemplate.this.grammar,
-                        context
-                    )
+                new ParsedTwoPartVariableConceptPlaceholder(
+                    ParsedTemplate.this.grammar,
+                    context
                 )
             );
         }
@@ -139,9 +140,7 @@ final class ParsedTemplate implements Template {
             final TemplateBundleParser.SinglePartPlaceholderContext context
         ) {
             this.pieces.add(
-                new Placeholder(
-                    new ParsedSinglePartPlaceholder(context)
-                )
+                new ParsedSinglePartPlaceholder(context)
             );
         }
 
