@@ -39,7 +39,7 @@ final class GmOfParsedWordForm implements GrammaticalMeaning {
     /**
      * Grammar of a language.
      */
-    private final Grammar grammar;
+    private final transient Grammar grammar;
 
     /**
      * ANTLR parse tree of grammemes in a word form.

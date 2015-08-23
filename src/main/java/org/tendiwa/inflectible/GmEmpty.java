@@ -26,7 +26,7 @@ package org.tendiwa.inflectible;
 import com.google.common.collect.ImmutableSet;
 
 /**
- * {@link GrammarRule} that dictates to use no grammatical meaning.
+ * {@link GrammaticalMeaning} that dictates to use no grammatical meaning.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.2.0
@@ -36,6 +36,7 @@ public final class GmEmpty implements GrammaticalMeaning {
      * Ctor.
      */
     GmEmpty() {
+        // All this class needs to be doing is in its method implementation.
     }
 
     @Override

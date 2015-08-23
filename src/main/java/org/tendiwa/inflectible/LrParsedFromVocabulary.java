@@ -35,7 +35,7 @@ public final class LrParsedFromVocabulary implements LexicalRule {
     /**
      * ANTLR parse tree of a vocabulary pointer.
      */
-    private final TemplateBundleParser.VocabularyPointerContext ctx;
+    private final transient TemplateBundleParser.VocabularyPointerContext ctx;
 
     /**
      * Ctor.

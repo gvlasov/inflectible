@@ -38,8 +38,8 @@ public final class GrAgreement implements GrammarRule {
     /**
      * ANTLR parse tree of an agreement directive, or empty.
      */
-    private final transient Optional<TemplateBundleParser.AgreementContext>
-        ctx;
+    private final transient
+        Optional<TemplateBundleParser.AgreementContext> ctx;
 
     /**
      * GrammarRule to decorate.
@@ -50,7 +50,7 @@ public final class GrAgreement implements GrammarRule {
      * Ctor.
      * @param context ANTLR parse tree of an agreement directive, or empty.
      * @param wrapped Decorated grammar rule. Grammatical meaning from
-     * agreement is added to its grammatical meaning.
+     *  agreement is added to its grammatical meaning.
      */
     GrAgreement(
         final Optional<TemplateBundleParser.AgreementContext> context,

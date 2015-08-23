@@ -72,7 +72,10 @@ public final class ParsedVocabularyPlaceholder implements TemplateBodyPiece {
             new GrAgreement(
                 Optional.of(this.ctx.agreement()),
                 new GrStatic(
-                    new GmOfParsedPlaceholder(this.grammar, this.ctx.grammemes())
+                    new GmOfParsedPlaceholder(
+                        this.grammar,
+                        this.ctx.grammemes()
+                    )
                 )
             ),
             new SrParsedVocabularyCapitalization(

@@ -47,8 +47,7 @@ public final class AnFromAgreement implements ArgumentName {
 
     @Override
     public String string() throws Exception {
-        return new AnBasic(argumentName())
-            .string();
+        return new AnBasic(this.argumentName()).string();
     }
 
     /**

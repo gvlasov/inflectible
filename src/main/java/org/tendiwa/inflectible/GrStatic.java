@@ -33,7 +33,7 @@ public final class GrStatic implements GrammarRule {
     /**
      * Grammatical meaning.
      */
-    private final GrammaticalMeaning meaning;
+    private final transient GrammaticalMeaning meaning;
 
     /**
      * Ctor.

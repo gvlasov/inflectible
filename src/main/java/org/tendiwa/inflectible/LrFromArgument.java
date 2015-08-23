@@ -33,7 +33,7 @@ public final class LrFromArgument implements LexicalRule {
     /**
      * Argument name.
      */
-    private final ArgumentName name;
+    private final transient ArgumentName name;
 
     /**
      * Ctor.

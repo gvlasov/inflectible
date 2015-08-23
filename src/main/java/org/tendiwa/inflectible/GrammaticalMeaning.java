@@ -26,8 +26,11 @@ package org.tendiwa.inflectible;
 import com.google.common.collect.ImmutableSet;
 
 /**
- * <a href="http://www.thefreedictionary.com/grammatical+meaning>Grammatical
- * meaning</a> of a word.
+ * A property of a word that tells what other words it is grammatically
+ * interchangeable with. Inflectible template engine fills out its
+ * {@link Template}s by choosing word forms with equivalent grammatical meaning.
+ * @see <a href="http://www.thefreedictionary.com/grammatical+meaning">
+ *  "Grammatical meaning" in the Free Dictionaly</a>.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.2.0

@@ -35,12 +35,12 @@ public final class SrConditionalCapitalization implements SpellingRule {
     /**
      * Condition.
      */
-    private final Supplier<Boolean> condition;
+    private final transient Supplier<Boolean> condition;
 
     /**
      * Ctor.
      * @param check If this condition holds, this GraphicRule will capitalize
-     * spelling, otherwise it will leave spelling as it is.
+     *  spelling, otherwise it will leave spelling as it is.
      */
     SrConditionalCapitalization(final Supplier<Boolean> check) {
         this.condition = check;

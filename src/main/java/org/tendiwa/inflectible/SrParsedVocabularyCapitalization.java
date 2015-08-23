@@ -37,7 +37,7 @@ public final class SrParsedVocabularyCapitalization implements SpellingRule {
     /**
      * ANTLR parse tree with a reference to a lexeme in vocabulary.
      */
-    private final TemplateBundleParser.VocabularyPointerContext ctx;
+    private final transient TemplateBundleParser.VocabularyPointerContext ctx;
 
     /**
      * Ctor.

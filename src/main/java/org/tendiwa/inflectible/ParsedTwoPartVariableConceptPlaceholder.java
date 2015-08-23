@@ -72,7 +72,10 @@ final class ParsedTwoPartVariableConceptPlaceholder
             new GrAgreement(
                 Optional.ofNullable(this.ctx.agreement()),
                 new GrStatic(
-                    new GmOfParsedPlaceholder(this.grammar, this.ctx.grammemes())
+                    new GmOfParsedPlaceholder(
+                        this.grammar,
+                        this.ctx.grammemes()
+                    )
                 )
             ),
             new SrParsedArgumentCapitalization(this.ctx.argumentName())
