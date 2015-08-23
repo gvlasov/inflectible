@@ -30,7 +30,7 @@ package org.tendiwa.inflectible;
  * @version $Id$
  * @since 0.2.0
  */
-public interface GraphicRule {
+public interface SpellingRule {
     /**
      * Adjusts spelling.
      * @param spelling Spelling of the word form to be used in place of this
