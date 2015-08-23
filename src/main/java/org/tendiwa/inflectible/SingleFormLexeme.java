@@ -42,7 +42,7 @@ public final class SingleFormLexeme implements Lexeme {
      * Ctor.
      * @param form Spelling of the dictionary word form.
      */
-    SingleFormLexeme(final String form) {
+    public SingleFormLexeme(final String form) {
         this.spelling = form;
     }
 
