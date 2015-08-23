@@ -43,7 +43,7 @@ public final class BasicNativeSpeakerTest {
      */
     @Test
     public void fillsOutText() throws Exception {
-        final ArgumentName argument = new ArgumentName("attacker");
+        final AnBasic argument = new AnBasic("attacker");
         final String template = "attack.bite";
         final String lexeme = "BEAR";
         MatcherAssert.assertThat(

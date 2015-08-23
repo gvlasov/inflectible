@@ -30,42 +30,42 @@ import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link ArgumentName}.
+ * Unit tests for {@link AnBasic}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1
  */
 public final class ArgumentNameTest {
     /**
-     * {@link ArgumentName} can be created from a lowercase string.
+     * {@link AnBasic} can be created from a lowercase string.
      * @throws Exception If fails
      */
     @Test
     public void allowsLowercase() throws Exception {
         final String name = "dude";
         MatcherAssert.assertThat(
-            new ArgumentName(name).string(),
+            new AnBasic(name).string(),
             CoreMatchers.is(name)
         );
     }
 
     /**
-     * {@link ArgumentName} can not be created from an uppercase string.
+     * {@link AnBasic} can not be created from an uppercase string.
      * @throws Exception If argument name didn't pass validation
      */
     @Test(expected = Exception.class)
     public void disallowsNonLowercase() throws Exception {
-        new ArgumentName("DUDE").string();
+        new AnBasic("DUDE").string();
     }
 
     /**
-     * {@link ArgumentName} can be checked for equality against instances of its
+     * {@link AnBasic} can be checked for equality against instances of its
      * class.
      * @throws Exception If fails
      */
     @Test
     public void obeysEqualsContract() throws Exception {
-        EqualsVerifier.forClass(ArgumentName.class)
+        EqualsVerifier.forClass(AnBasic.class)
             .suppress(Warning.TRANSIENT_FIELDS)
             .verify();
     }

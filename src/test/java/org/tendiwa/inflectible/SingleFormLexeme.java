@@ -24,7 +24,6 @@
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 
 /**
  * Lexeme with only its dictionary form (with default grammatical meaning)
@@ -53,12 +52,12 @@ public final class SingleFormLexeme implements Lexeme {
     }
 
     @Override
-    public Spelling wordForm(final ImmutableSet<Grammeme> grammemes) {
+    public Spelling wordForm(final GrammaticalMeaning grammemes) {
         return this.delegate().wordForm(grammemes);
     }
 
     @Override
-    public ImmutableSet<Grammeme> persistentGrammemes() {
+    public GrammaticalMeaning persistentGrammemes() {
         return this.delegate().persistentGrammemes();
     }
 
@@ -70,11 +69,11 @@ public final class SingleFormLexeme implements Lexeme {
      */
     private Lexeme delegate() {
         return new BasicLexeme(
-            ImmutableSet.of(),
+            new GmEmpty(),
             ImmutableList.<WordForm>of(
                 new BasicWordForm(
                     new BasicSpelling(this.spelling),
-                    ImmutableSet.of()
+                    new GmEmpty()
                 )
             )
         );

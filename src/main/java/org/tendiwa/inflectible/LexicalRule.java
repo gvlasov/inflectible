@@ -30,7 +30,7 @@ package org.tendiwa.inflectible;
  * @version $Id$
  * @since 0.2.0
  */
-public interface SemanticRule {
+public interface LexicalRule {
     /**
      * Picks a lexeme to be used in place of a {@link Placeholder} when a
      * {@link Template} is being filled out.

@@ -47,15 +47,15 @@ public final class BasicActualArgumentsTest {
         MatcherAssert.assertThat(
             new BasicActualArguments(
                 ImmutableList.of(
-                    new ArgumentName(subject),
-                    new ArgumentName("object")
+                    new AnBasic(subject),
+                    new AnBasic("object")
                 ),
                 ImmutableList.of(
                     new SingleFormLexeme(bear),
                     new SingleFormLexeme("human")
                 )
             )
-                .byName(new ArgumentName(subject))
+                .byName(new AnBasic(subject))
                 .defaultSpelling()
                 .string(),
             CoreMatchers.equalTo(bear)
