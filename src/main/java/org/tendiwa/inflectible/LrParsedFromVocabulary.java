@@ -23,27 +23,29 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableSet;
+import java.util.Locale;
+import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 
 /**
- * Placeholder with its lexeme coming from a {@link Vocabulary}.
- * @see PhFromArgument
+ * Picks lexeme name from ANTLR parse tree for a vocabulary pointer.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.2.0
  */
-public final class PhFromVocabulary implements Placeholder {
+public final class LrParsedFromVocabulary implements LexicalRule {
     /**
-     * Lexeme name.
+     * ANTLR parse tree of a vocabulary pointer.
      */
-    private final transient LexemeName name;
+    private final TemplateBundleParser.VocabularyPointerContext ctx;
 
     /**
      * Ctor.
-     * @param lexeme Lexeme name.
+     * @param context ANTLR parse tree of a vocabulary pointer.
      */
-    public PhFromVocabulary(final LexemeName lexeme) {
-        this.name = lexeme;
+    LrParsedFromVocabulary(
+        final TemplateBundleParser.VocabularyPointerContext context
+    ) {
+        this.ctx = context;
     }
 
     @Override
@@ -51,18 +53,14 @@ public final class PhFromVocabulary implements Placeholder {
         final ActualArguments arguments,
         final Vocabulary vocabulary
     ) throws Exception {
-        return vocabulary.lexeme(this.name);
-    }
-
-    @Override
-    public ImmutableSet<Grammeme> grammaticalMeaning(
-        final ActualArguments arguments
-    ) throws Exception {
-        return ImmutableSet.of();
-    }
-
-    @Override
-    public Spelling capitalize(final Spelling spelling) {
-        return spelling;
+        return new LrFromVocabulary(
+            new LexemeName(
+                this.ctx
+                    .LEXEME_NAME()
+                    .getText()
+                    .toLowerCase(Locale.getDefault())
+            )
+        )
+            .pickLexeme(arguments, vocabulary);
     }
 }

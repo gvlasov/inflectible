@@ -23,27 +23,24 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableSet;
-
 /**
- * Placeholder that capitalizes spelling of the resulting word form.
+ * Picks a lexeme from {@link Vocabulary}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.2.0
  */
-public final class PhWithCapitalization implements Placeholder {
-
+public final class LrFromVocabulary implements LexicalRule {
     /**
-     * Placeholder to decorate.
+     * Name of a lexeme.
      */
-    private final transient Placeholder decorated;
+    private final transient LexemeName name;
 
     /**
      * Ctor.
-     * @param wrapped Placeholder to decorate
+     * @param lexeme Name of a lexeme
      */
-    PhWithCapitalization(final Placeholder wrapped) {
-        this.decorated = wrapped;
+    LrFromVocabulary(final LexemeName lexeme) {
+        this.name = lexeme;
     }
 
     @Override
@@ -51,18 +48,6 @@ public final class PhWithCapitalization implements Placeholder {
         final ActualArguments arguments,
         final Vocabulary vocabulary
     ) throws Exception {
-        return this.decorated.pickLexeme(arguments, vocabulary);
-    }
-
-    @Override
-    public ImmutableSet<Grammeme> grammaticalMeaning(
-        final ActualArguments arguments
-    ) throws Exception {
-        return this.decorated.grammaticalMeaning(arguments);
-    }
-
-    @Override
-    public Spelling capitalize(final Spelling spelling) {
-        return new CapitalizedSpelling(spelling);
+        return vocabulary.lexeme(this.name);
     }
 }

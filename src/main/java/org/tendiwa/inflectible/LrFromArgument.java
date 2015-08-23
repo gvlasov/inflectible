@@ -23,28 +23,23 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableSet;
-
 /**
- * Placeholder that picks its lexeme from {@link ActualArguments} passed to its
- * {@link Template}.
- * <p/>
- * Doesn't capitalize spelling, doesn't have any grammatical meaning.
+ * Picks a lexeme from {@link ActualArguments}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.2.0
  */
-public final class PhFromArgument implements Placeholder {
+public final class LrFromArgument implements LexicalRule {
     /**
-     * Name of the argument to pick a lexeme from.
+     * Argument name.
      */
-    private final transient ArgumentName name;
+    private final ArgumentName name;
 
     /**
      * Ctor.
-     * @param argument Name of the argument to pick a lexeme from.
+     * @param argument Argument name
      */
-    PhFromArgument(final ArgumentName argument) {
+    LrFromArgument(final ArgumentName argument) {
         this.name = argument;
     }
 
@@ -54,17 +49,5 @@ public final class PhFromArgument implements Placeholder {
         final Vocabulary vocabulary
     ) throws Exception {
         return arguments.byName(this.name);
-    }
-
-    @Override
-    public ImmutableSet<Grammeme> grammaticalMeaning(
-        final ActualArguments arguments
-    ) {
-        return ImmutableSet.of();
-    }
-
-    @Override
-    public Spelling capitalize(final Spelling spelling) {
-        return spelling;
     }
 }
