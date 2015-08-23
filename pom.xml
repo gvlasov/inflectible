@@ -37,15 +37,6 @@
                 <groupId>org.antlr</groupId>
                 <artifactId>antlr4-maven-plugin</artifactId>
                 <version>4.5.1</version>
-                <executions>
-                    <execution>
-                        <id>default-antlr4</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>antlr4</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
                     <visitor>true</visitor>
                     <arguments>
