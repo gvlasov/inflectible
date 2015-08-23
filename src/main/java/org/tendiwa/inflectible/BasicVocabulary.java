@@ -24,38 +24,59 @@
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+import org.tenidwa.collections.utils.Rethrowing;
 
 /**
  * {@link Vocabulary} defined by a map from lexeme identifiers to lexemes.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.2.0
  */
 public final class BasicVocabulary implements Vocabulary {
     /**
      * Lexemes in this vocabulary.
      */
-    private final transient ImmutableMap<LexemeName, Lexeme> lexemes;
+    private final transient ImmutableMap<Conception, Lexeme> lexemes;
 
     /**
      * Ctor.
      * @param map Map from lexeme identifiers to lexemes
      */
-    BasicVocabulary(final ImmutableMap<LexemeName, Lexeme> map) {
+    BasicVocabulary(final ImmutableMap<Conception, Lexeme> map) {
         this.lexemes = map;
     }
 
     @Override
-    public Lexeme lexeme(final LexemeName name) throws Exception {
-        final Lexeme lexeme = this.lexemes.get(name);
+    public Lexeme lexeme(final Conception name) throws Exception {
+        final Lexeme lexeme = this.stringMap().get(name.identifier());
         if (lexeme == null) {
-            throw new MissingLexemeException(name.string());
+            throw new MissingLexemeException(name.identifier());
         }
         return lexeme;
     }
 
     @Override
-    public boolean hasLexeme(final LexemeName name) {
-        return this.lexemes.containsKey(name);
+    public boolean hasLexeme(final Conception name) throws Exception {
+        return this.stringMap().containsKey(name.identifier());
+    }
+
+    // To be refactored in #47
+    /**
+     * Cretes map from string conception names to their lexemes.
+     * @return Map from string conception names to their lexemes
+     * @throws Exception If could not create the map
+     */
+    private Map<String, Lexeme> stringMap() throws Exception {
+        return this.lexemes
+            .keySet()
+            .stream()
+            .collect(
+                Collectors.toMap(
+                    Rethrowing.rethrowFunction(Conception::identifier),
+                    this.lexemes::get
+                )
+            );
     }
 }

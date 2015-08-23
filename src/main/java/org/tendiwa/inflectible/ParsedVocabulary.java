@@ -70,13 +70,13 @@ public final class ParsedVocabulary implements Vocabulary {
     }
 
     @Override
-    public Lexeme lexeme(final LexemeName identifier) throws Exception {
-        return this.vocabulary.lexeme(identifier);
+    public Lexeme lexeme(final Conception conception) throws Exception {
+        return this.vocabulary.lexeme(conception);
     }
 
     @Override
-    public boolean hasLexeme(final LexemeName name) {
-        return this.vocabulary.hasLexeme(name);
+    public boolean hasLexeme(final Conception conception) throws Exception {
+        return this.vocabulary.hasLexeme(conception);
     }
 
     /**
@@ -85,24 +85,23 @@ public final class ParsedVocabulary implements Vocabulary {
      * @throws IOException If reading from any stream fails
      */
     private Vocabulary delegate() throws IOException {
-        return
-            new BasicVocabulary(
-                ImmutableMap.copyOf(
-                    this.input
-                        .stream()
-                        .map(
-                            Rethrowing.rethrowFunction(
-                                BasicLexemeBundleParser::new
-                            )
+        return new BasicVocabulary(
+            ImmutableMap.copyOf(
+                this.input
+                    .stream()
+                    .map(
+                        Rethrowing.rethrowFunction(
+                            BasicLexemeBundleParser::new
                         )
-                        .flatMap(parser -> parser.lexemes().lexeme().stream())
-                        .collect(
-                            java.util.stream.Collectors.toMap(
-                                LexemeName::new,
-                                ctx -> new ParsedLexeme(this.grammar, ctx)
-                            )
+                    )
+                    .flatMap(parser -> parser.lexemes().lexeme().stream())
+                    .collect(
+                        java.util.stream.Collectors.toMap(
+                            LexemeName::new,
+                            ctx -> new ParsedLexeme(this.grammar, ctx)
                         )
-                )
-            );
+                    )
+            )
+        );
     }
 }

@@ -33,13 +33,13 @@ public final class LrFromVocabulary implements LexicalRule {
     /**
      * Name of a lexeme.
      */
-    private final transient LexemeName name;
+    private final transient Conception name;
 
     /**
      * Ctor.
      * @param lexeme Name of a lexeme
      */
-    LrFromVocabulary(final LexemeName lexeme) {
+    LrFromVocabulary(final Conception lexeme) {
         this.name = lexeme;
     }
 
