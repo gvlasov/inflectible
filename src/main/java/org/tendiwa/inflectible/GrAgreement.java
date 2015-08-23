@@ -23,57 +23,57 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableSet;
+import java.util.Optional;
+import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 
 /**
- * Placeholder that adds grammatical meaning to agree to a specific argument.
+ * {@link GrammarRule} that states that content of a placeholder must
+ * <a href="https://en.wikipedia.org/wiki/Agreement_(linguistics)">agree</a>
+ * with an argument lexeme.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.2.0
  */
-public final class PhWithAgreement implements Placeholder {
+public final class GrAgreement implements GrammarRule {
     /**
-     * Name of the argument to agree to.
+     * ANTLR parse tree of an agreement directive, or empty.
      */
-    private final transient ArgumentName name;
+    private final transient Optional<TemplateBundleParser.AgreementContext>
+        ctx;
 
     /**
-     * Placeholder to decorate.
+     * GrammarRule to decorate.
      */
-    private final transient Placeholder decorated;
+    private final transient GrammarRule decorated;
 
     /**
      * Ctor.
-     * @param argument Name of the argument to agree to
-     * @param wrapped Placeholder to decorate
+     * @param context ANTLR parse tree of an agreement directive, or empty.
+     * @param wrapped Decorated grammar rule. Grammatical meaning from
+     * agreement is added to its grammatical meaning.
      */
-    PhWithAgreement(
-        final ArgumentName argument,
-        final Placeholder wrapped
+    GrAgreement(
+        final Optional<TemplateBundleParser.AgreementContext> context,
+        final GrammarRule wrapped
     ) {
-        this.name = argument;
+        this.ctx = context;
         this.decorated = wrapped;
     }
-    @Override
-    public Lexeme pickLexeme(
-        final ActualArguments arguments,
-        final Vocabulary vocabulary
-    ) throws Exception {
-        return this.decorated.pickLexeme(arguments, vocabulary);
-    }
 
     @Override
-    public ImmutableSet<Grammeme> grammaticalMeaning(
+    public GrammaticalMeaning grammaticalMeaning(
         final ActualArguments arguments
     ) throws Exception {
-        return ImmutableSet.<Grammeme>builder()
-            .addAll(this.decorated.grammaticalMeaning(arguments))
-            .addAll(arguments.byName(this.name).persistentGrammemes())
-            .build();
-    }
-
-    @Override
-    public Spelling capitalize(final Spelling spelling) {
-        return this.decorated.capitalize(spelling);
+        final GrammaticalMeaning modified;
+        if (this.ctx.isPresent()) {
+            modified = new GmCombined(
+                this.decorated.grammaticalMeaning(arguments),
+                arguments.byName(new AnFromAgreement(this.ctx.get()))
+                    .persistentGrammemes()
+            );
+        } else {
+            modified = this.decorated.grammaticalMeaning(arguments);
+        }
+        return modified;
     }
 }
