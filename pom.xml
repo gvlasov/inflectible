@@ -70,6 +70,7 @@
                             <instrumentation>
                                 <excludes>
                                     <exclude>org/tendiwa/inflectible/antlr/**</exclude>
+                                    <exclude>org/tendiwa/inflectible/FilledOutText.class</exclude>
                                 </excludes>
                             </instrumentation>
                             <check>
