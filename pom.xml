@@ -6,12 +6,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <cobertura.branchRate>80</cobertura.branchRate>
-        <cobertura.lineRate>80</cobertura.lineRate>
-        <cobertura.packageBranchRate>90</cobertura.packageBranchRate>
-        <cobertura.packageLineRate>90</cobertura.packageLineRate>
-        <cobertura.totalBranchRate>90</cobertura.totalBranchRate>
-        <cobertura.totalLineRate>90</cobertura.totalLineRate>
     </properties>
     <groupId>org.tendiwa.inflectible</groupId>
     <artifactId>inflectible</artifactId>
@@ -79,12 +73,12 @@
                     </instrumentation>
                     <check>
                         <haltOnFailure>true</haltOnFailure>
-                        <branchRate>${cobertura.branchRate}</branchRate>
-                        <lineRate>${cobertura.lineRate}</lineRate>
-                        <packageBranchRate>${cobertura.packageBranchRate}</packageBranchRate>
-                        <packageLineRate>${cobertura.packageLineRate}</packageLineRate>
-                        <totalBranchRate>${cobertura.totalBranchRate}</totalBranchRate>
-                        <totalLineRate>${cobertura.totalLineRate}</totalLineRate>
+                        <branchRate>80</branchRate>
+                        <lineRate>80</lineRate>
+                        <packageBranchRate>90</packageBranchRate>
+                        <packageLineRate>90</packageLineRate>
+                        <totalBranchRate>90</totalBranchRate>
+                        <totalLineRate>90</totalLineRate>
                     </check>
                 </configuration>
             </plugin>
@@ -121,12 +115,6 @@
                         <configuration>
                             <check>
                                 <haltOnFailure>false</haltOnFailure>
-                                <branchRate>${cobertura.branchRate}</branchRate>
-                                <lineRate>${cobertura.lineRate}</lineRate>
-                                <packageBranchRate>${cobertura.packageBranchRate}</packageBranchRate>
-                                <packageLineRate>${cobertura.packageLineRate}</packageLineRate>
-                                <totalBranchRate>${cobertura.totalBranchRate}</totalBranchRate>
-                                <totalLineRate>${cobertura.totalLineRate}</totalLineRate>
                             </check>
                         </configuration>
                         <executions>
@@ -140,13 +128,6 @@
                             </execution>
                         </executions>
                     </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>qulice</id>
-            <build>
-                <plugins>
                 </plugins>
             </build>
         </profile>
