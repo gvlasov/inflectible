@@ -25,17 +25,17 @@ package org.tendiwa.inflectible;
 
 /**
  * Anything that can be named with a word in a natural language.
- * lexeme in each language, identified by a localization id.
- * @author Georgy Vlasov (suseika@gmail.com)
+ * lexeme in each language, identified by a localization identifier.
+ * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.2.0
  */
 public interface Conception {
     /**
      * Identifier of a conception.
      * @return A string identifier. May contain only English uppercase letters
-     * and dots.
+     *  and dots.
      * @throws Exception If could not obtain an identifier of the conception
      */
-    String id() throws Exception;
+    String identifier() throws Exception;
 }
