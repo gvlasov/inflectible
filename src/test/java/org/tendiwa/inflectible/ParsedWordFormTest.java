@@ -58,7 +58,7 @@ public final class ParsedWordFormTest {
     public void computesSimilarity() throws Exception {
         MatcherAssert.assertThat(
             this.wordFormBears()
-                .similarity(ImmutableSet.of(English.Grammemes.Plur)),
+                .similarity(()->ImmutableSet.of(English.Grammemes.Plur)),
             CoreMatchers.equalTo(1)
         );
     }

@@ -23,6 +23,7 @@
  */
 package org.tendiwa.inflectible;
 
+import com.google.common.collect.ImmutableMap;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
@@ -57,8 +58,11 @@ public final class ParsedTwoPartVariableConceptPlaceholderTest {
                         .piece(0)
                         .twoPartPlaceholder()
                 )
-                    .capitalize(() -> "man")
-                    .string(),
+                    .fillUp(
+                        (name) -> new SingleFormLexeme("man"),
+                        new BasicVocabulary(ImmutableMap.of())
+                    )
+                    ,
             CoreMatchers.equalTo("Man")
         );
     }

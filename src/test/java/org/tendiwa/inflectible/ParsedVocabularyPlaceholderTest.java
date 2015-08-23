@@ -23,10 +23,10 @@
  */
 package org.tendiwa.inflectible;
 
+import com.google.common.collect.ImmutableMap;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.tendiwa.inflectible.implementations.English;
 
 /**
@@ -43,12 +43,6 @@ public final class ParsedVocabularyPlaceholderTest {
     @Test
     public void getsLexemeFromVocabulary() throws Exception {
         final String dude = "dude";
-        final Vocabulary vocabulary = Mockito.mock(Vocabulary.class);
-        Mockito.when(vocabulary.lexeme(Mockito.anyObject()))
-            .thenReturn(new SingleFormLexeme(dude));
-        final ActualArguments arguments = Mockito.mock(ActualArguments.class);
-        Mockito.when(arguments.byName(Mockito.anyObject()))
-            .thenReturn(new SingleFormLexeme("man"));
         MatcherAssert.assertThat(
             new ParsedVocabularyPlaceholder(
                 new English().grammar(),
@@ -64,9 +58,15 @@ public final class ParsedVocabularyPlaceholderTest {
                     .piece(1)
                     .vocabularyPlaceholder()
             )
-                .pickLexeme(arguments, vocabulary)
-                .defaultSpelling()
-                .string(),
+                .fillUp(
+                    (name) -> new SingleFormLexeme("man"),
+                    new BasicVocabulary(
+                        ImmutableMap.of(
+                            new LexemeName("DUDE"),
+                            new SingleFormLexeme(dude)
+                        )
+                    )
+                ),
             CoreMatchers.equalTo(dude)
         );
     }
@@ -77,19 +77,12 @@ public final class ParsedVocabularyPlaceholderTest {
      */
     @Test
     public void capitalizes() throws Exception {
-        final String cat = "cat";
-        final Vocabulary vocabulary = Mockito.mock(Vocabulary.class);
-        Mockito.when(vocabulary.lexeme(Mockito.anyObject()))
-            .thenReturn(new SingleFormLexeme(cat));
-        final ActualArguments arguments = Mockito.mock(ActualArguments.class);
-        Mockito.when(arguments.byName(Mockito.anyObject()))
-            .thenReturn(new SingleFormLexeme("woman"));
         MatcherAssert.assertThat(
             new ParsedVocabularyPlaceholder(
                 new English().grammar(),
                 new BasicTemplateBundleParser(
                     "text.id(object) { ",
-                    "  [Lexeme DUDE]<;object> greets you.",
+                    "  [Lexeme CAT]<;object> greets you.",
                     "} "
                 )
                     .templates()
@@ -99,8 +92,15 @@ public final class ParsedVocabularyPlaceholderTest {
                     .piece(0)
                     .vocabularyPlaceholder()
             )
-                .capitalize(new BasicSpelling(cat))
-                .string(),
+                .fillUp(
+                    (name)->new SingleFormLexeme("woman"),
+                    new BasicVocabulary(
+                        ImmutableMap.of(
+                            new LexemeName("CAT"),
+                            new SingleFormLexeme("cat")
+                        )
+                    )
+                ),
             CoreMatchers.equalTo("Cat")
         );
     }

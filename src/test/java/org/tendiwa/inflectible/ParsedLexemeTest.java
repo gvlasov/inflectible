@@ -68,7 +68,8 @@ public final class ParsedLexemeTest {
         MatcherAssert.assertThat(
             this
                 .wordOfBundle(ParsedLexemeTest.LEXEMES_RESOURCE, 0)
-                .persistentGrammemes(),
+                .persistentGrammemes()
+                .grammemes(),
             CoreMatchers.equalTo(ImmutableSet.of())
         );
     }
@@ -83,7 +84,7 @@ public final class ParsedLexemeTest {
         MatcherAssert.assertThat(
             this
                 .wordOfBundle(ParsedLexemeTest.LEXEMES_RESOURCE, 0)
-                .wordForm(ImmutableSet.of(English.Grammemes.Plur))
+                .wordForm(() -> ImmutableSet.of(English.Grammemes.Plur))
                 .string(),
             CoreMatchers.equalTo("bears")
         );
@@ -115,7 +116,9 @@ public final class ParsedLexemeTest {
     public void canHavePersistentGrammemes() throws Exception {
         MatcherAssert.assertThat(
             this.wordOfBundle(ParsedLexemeTest.LEXEMES_RESOURCE, 2)
-                .persistentGrammemes().size(),
+                .persistentGrammemes()
+                .grammemes()
+                .size(),
             CoreMatchers.equalTo(1)
         );
     }

@@ -23,11 +23,10 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * Unit tests for {@link BasicNativeSpeaker}.
@@ -43,36 +42,17 @@ public final class BasicNativeSpeakerTest {
      */
     @Test
     public void fillsOutText() throws Exception {
-        final AnBasic argument = new AnBasic("attacker");
-        final String template = "attack.bite";
-        final String lexeme = "BEAR";
+        final String hello = "Hello";
+        final Templatuary templatuary = Mockito.mock(Templatuary.class);
+        Mockito.when(templatuary.template(Mockito.anyObject()))
+            .thenReturn((arguments, vocabulary) -> hello);
         MatcherAssert.assertThat(
             new BasicNativeSpeaker(
-                new BasicVocabulary(
-                    ImmutableMap.of(
-                        new LexemeName(lexeme),
-                        new SingleFormLexeme("bear")
-                    )
-                ),
-                new BasicTemplatuary(
-                    ImmutableMap.of(
-                        new TemplateName(template),
-                        new BasicTemplate(
-                            ImmutableList.of(argument),
-                            ImmutableList.of(
-                                new Placeholder(
-                                    new PhWithCapitalization(
-                                        new PhFromArgument(argument)
-                                    )
-                                ),
-                                new PiPlainText(" furiously bites YOU!")
-                            )
-                        )
-                    )
-                )
+                Mockito.mock(Vocabulary.class),
+                templatuary
             )
-                .text(template, () -> lexeme),
-            CoreMatchers.equalTo("Bear furiously bites YOU!")
+                .text("greeting"),
+            CoreMatchers.equalTo(hello)
         );
     }
 }

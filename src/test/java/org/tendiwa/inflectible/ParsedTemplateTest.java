@@ -23,14 +23,11 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
-import java.io.IOException;
-import org.apache.commons.io.IOUtils;
+import com.google.common.collect.ImmutableMap;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
-import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 import org.tendiwa.inflectible.implementations.English;
 
 /**
@@ -45,7 +42,6 @@ public final class ParsedTemplateTest {
      * @throws Exception If fails
      */
     @Test
-    @SuppressWarnings("PMD.UseConcurrentHashMap")
     public void fillsUpItself() throws Exception {
         final Grammar grammar = new English().grammar();
         final Vocabulary vocabulary = new ParsedVocabulary(
@@ -59,19 +55,19 @@ public final class ParsedTemplateTest {
         MatcherAssert.assertThat(
             new ParsedTemplate(
                 grammar,
-                this.templateContext(
-                    Joiner.on('\n').join(
-                        "texts.text(a,b) {",
-                        "  Here come a [a] and two [b]<Plur;a>. [A] is tall.",
-                        "}"
-                    )
+                new BasicTemplateBundleParser(
+                    "texts.text(a,b) {",
+                    "  Here come a [a] and two [b]<Plur;a>. [A] is tall.",
+                    "}"
                 )
+                    .templates()
+                    .template(0)
             ).fillUp(
                 ImmutableList.of(
                     vocabulary.lexeme(new LexemeName("HUMAN")),
                     vocabulary.lexeme(new LexemeName("BEAR"))
                 ),
-                new BasicVocabulary()
+                new BasicVocabulary(ImmutableMap.of())
             ),
             CoreMatchers.equalTo(
                 "Here come a human and two bears. Human is tall."
@@ -79,18 +75,4 @@ public final class ParsedTemplateTest {
         );
     }
 
-    /**
-     * Creates an ANTLR parse tree for a single text template.
-     * @param template Template markup
-     * @return ANTLR parse tree created from the markup
-     * @throws IOException If fails
-     */
-    private TemplateBundleParser.TemplateContext templateContext(
-        final String template
-    ) throws IOException {
-        return
-            new BasicTemplateBundleParser(IOUtils.toInputStream(template))
-                .templates()
-                .template(0);
-    }
 }
