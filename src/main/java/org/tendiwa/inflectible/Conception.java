@@ -24,16 +24,18 @@
 package org.tendiwa.inflectible;
 
 /**
- * Anything that can be named. For each Localizable, there may be a single
+ * Anything that can be named with a word in a natural language.
  * lexeme in each language, identified by a localization id.
  * @author Georgy Vlasov (suseika@gmail.com)
  * @version $Id$
  * @since 0.1
  */
-public interface Localizable {
+public interface Conception {
     /**
-     * Identifier of a lexeme.
-     * @return A string identifier. May contain only English letters and spaces.
+     * Identifier of a conception.
+     * @return A string identifier. May contain only English uppercase letters
+     * and dots.
+     * @throws Exception If could not obtain an identifier of the conception
      */
-    String getLocalizationId();
+    String id() throws Exception;
 }

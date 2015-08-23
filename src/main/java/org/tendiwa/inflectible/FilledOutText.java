@@ -47,7 +47,7 @@ public final class FilledOutText implements Text {
     /**
      * Arguments to fill out the template with.
      */
-    private final transient List<Localizable> arguments;
+    private final transient List<Conception> arguments;
 
     /**
      * Ctor.
@@ -58,7 +58,7 @@ public final class FilledOutText implements Text {
     public FilledOutText(
         final Template text,
         final Vocabulary lexemes,
-        final List<Localizable> conceptions
+        final List<Conception> conceptions
     ) {
         this.template = text;
         this.vocabulary = lexemes;
@@ -76,7 +76,7 @@ public final class FilledOutText implements Text {
                             -> this.vocabulary
                             .lexeme(
                                 new LexemeName(
-                                    conception.getLocalizationId()
+                                    conception.id()
                                 )
                             )
                     )

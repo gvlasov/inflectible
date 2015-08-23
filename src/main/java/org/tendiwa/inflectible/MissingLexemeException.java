@@ -39,8 +39,8 @@ public final class MissingLexemeException extends Exception {
      * Ctor.
      * @param conception Conception for which a lexeme is missing
      */
-    public MissingLexemeException(final Localizable conception) {
-        this(conception.getLocalizationId());
+    public MissingLexemeException(final Conception conception) {
+        this(conception.id());
     }
 
     /**
