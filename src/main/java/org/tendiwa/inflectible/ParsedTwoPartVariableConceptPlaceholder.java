@@ -30,7 +30,7 @@ import org.tendiwa.inflectible.antlr.TemplateBundleParser;
  * {@link TemplateBodyPiece} parsed from an ANTLR parse tree.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 final class ParsedTwoPartVariableConceptPlaceholder
     implements TemplateBodyPiece {

@@ -33,7 +33,7 @@ import org.tenidwa.collections.utils.Rethrowing;
  * heterogeneous list of its parts (placeholders and plain text chunks).
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 public final class BasicTemplate implements Template {
     /**

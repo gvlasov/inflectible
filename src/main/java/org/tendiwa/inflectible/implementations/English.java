@@ -30,7 +30,7 @@ import org.tendiwa.inflectible.Grammeme;
  * English language.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 public class English extends AbstractLanguage {
     /**

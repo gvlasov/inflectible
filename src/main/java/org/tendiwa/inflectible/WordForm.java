@@ -39,7 +39,7 @@ package org.tendiwa.inflectible;
  * form, the other is a perfect form.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 interface WordForm {
     /**

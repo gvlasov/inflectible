@@ -27,7 +27,7 @@ package org.tendiwa.inflectible;
  * A meaningful text for a human to read.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 public interface Text {
     /**

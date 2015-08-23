@@ -32,7 +32,7 @@ import org.tenidwa.collections.utils.Collectors;
  * {@link Lexeme} constructed from an ANTLR parse tree.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 final class ParsedLexeme implements Lexeme {
 

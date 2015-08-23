@@ -27,7 +27,7 @@ package org.tendiwa.inflectible;
  * Indicated that a lexeme for a particular conception is missing.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 public final class MissingLexemeException extends Exception {
     /**

@@ -32,7 +32,7 @@ import org.mockito.Mockito;
  * Unit tests for {@link BasicNativeSpeaker}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  * @checkstyle ClassDataAbstractionCouplingCheck (3 lines)
  */
 public final class BasicNativeSpeakerTest {

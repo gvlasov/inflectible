@@ -27,7 +27,7 @@ package org.tendiwa.inflectible;
  * Grammar of a natural language. Knows grammemes by their name.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 public interface Grammar {
     /**

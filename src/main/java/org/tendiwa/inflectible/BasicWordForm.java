@@ -29,7 +29,7 @@ import com.google.common.collect.Sets;
  * A {@link WordForm} defined by its spelling and grammatical meaning.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 public final class BasicWordForm implements WordForm {
     /**

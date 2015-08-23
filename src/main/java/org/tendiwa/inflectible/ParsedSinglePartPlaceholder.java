@@ -29,7 +29,7 @@ import org.tendiwa.inflectible.antlr.TemplateBundleParser;
  * {@link TemplateBodyPiece} constructed from an ANTLR parse tree.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 public final class ParsedSinglePartPlaceholder implements TemplateBodyPiece {
     /**

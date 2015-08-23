@@ -32,7 +32,7 @@ import java.lang.reflect.InvocationTargetException;
  * compile-time checking for grammemes.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 public final class EnumBasedGrammar implements Grammar {
 

@@ -31,7 +31,7 @@ import org.tenidwa.collections.utils.Rethrowing;
  * Text created by filling out a {@link Template}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 public final class FilledOutText implements Text {
     /**

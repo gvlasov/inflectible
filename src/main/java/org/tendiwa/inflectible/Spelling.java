@@ -27,7 +27,7 @@ package org.tendiwa.inflectible;
  * Spelling of a word form.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 public interface Spelling {
     /**

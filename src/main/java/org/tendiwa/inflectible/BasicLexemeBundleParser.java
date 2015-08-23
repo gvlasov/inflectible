@@ -37,7 +37,7 @@ import org.tendiwa.inflectible.antlr.LexemeBundleParser;
  * {@link InputStream} without explicitly specifying any additional plumbing.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 public final class BasicLexemeBundleParser extends LexemeBundleParser {
     /**

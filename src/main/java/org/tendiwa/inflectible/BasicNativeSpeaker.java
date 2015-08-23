@@ -30,7 +30,7 @@ import com.google.common.collect.ImmutableList;
  * templatuary of {@link Template}s.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 public final class BasicNativeSpeaker implements NativeSpeaker {
     /**

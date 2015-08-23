@@ -33,7 +33,7 @@ import org.tenidwa.collections.utils.Rethrowing;
  * A bundle of texts loaded from a textual input stream.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 public final class ParsedTemplatuary implements Templatuary {
     /**

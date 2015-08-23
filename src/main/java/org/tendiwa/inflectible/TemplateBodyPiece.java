@@ -30,7 +30,7 @@ package org.tendiwa.inflectible;
  * At the time of filling the {@link Template}, it will produce some text.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 interface TemplateBodyPiece {
     /**

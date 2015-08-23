@@ -27,7 +27,7 @@ package org.tendiwa.inflectible;
  * Some string identifier that must be in a specific format.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 public interface ValidatedIdentifier {
     /**

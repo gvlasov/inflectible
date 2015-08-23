@@ -28,7 +28,7 @@ package org.tendiwa.inflectible;
  * Language that creates its {@link Grammar} from an enum of {@link Grammeme}s.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 public abstract class AbstractLanguage implements Language {
 

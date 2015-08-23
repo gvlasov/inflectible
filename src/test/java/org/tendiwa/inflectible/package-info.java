@@ -26,6 +26,6 @@
  * Tests for core classes.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 package org.tendiwa.inflectible;

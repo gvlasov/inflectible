@@ -30,7 +30,7 @@ package org.tendiwa.inflectible;
  *  Wikipedia</a>
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 public interface Lexeme {
     /**

@@ -35,7 +35,7 @@ import org.tendiwa.inflectible.antlr.TemplateBundleLexer;
  * Unit tests for {@link TemplateBundleLexer}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 public final class TemplateBundleLexerTest {
     /**

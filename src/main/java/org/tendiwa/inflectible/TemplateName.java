@@ -31,7 +31,7 @@ import org.tendiwa.inflectible.antlr.TemplateBundleParser;
  * e.g. "actions.attack".
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 @EqualsAndHashCode(of = { "value" })
 public final class TemplateName implements ValidatedIdentifier {

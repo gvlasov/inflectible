@@ -30,7 +30,7 @@ import org.tendiwa.inflectible.antlr.LexemeBundleParser;
  * {@link WordForm} parsed from an ANTLR parse tree.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 public final class ParsedWordForm implements WordForm {
     /**

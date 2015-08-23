@@ -30,7 +30,7 @@ import com.google.common.collect.ImmutableList;
  * and no persistent grammemes.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 public final class SingleFormLexeme implements Lexeme {
     /**

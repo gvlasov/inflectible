@@ -34,7 +34,7 @@ import org.tenidwa.collections.utils.Collectors;
  * {@link Template} parsed from an ANTLR parse tree.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 final class ParsedTemplate implements Template {
      /**

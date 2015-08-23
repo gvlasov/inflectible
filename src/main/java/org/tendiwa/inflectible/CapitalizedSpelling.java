@@ -27,7 +27,7 @@ package org.tendiwa.inflectible;
  * Spelling with its first letter capitalized.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 public final class CapitalizedSpelling implements Spelling {
     /**

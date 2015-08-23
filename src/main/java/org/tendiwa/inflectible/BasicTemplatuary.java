@@ -29,7 +29,7 @@ import com.google.common.collect.ImmutableMap;
  * {@link Templatuary} defined by a map from template identifiers to templates.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.1.0
  */
 public final class BasicTemplatuary implements Templatuary {
     /**
