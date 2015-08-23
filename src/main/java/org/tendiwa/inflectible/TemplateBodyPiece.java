@@ -32,7 +32,7 @@ package org.tendiwa.inflectible;
  * @version $Id$
  * @since 0.1.0
  */
-interface TemplateBodyPiece {
+public interface TemplateBodyPiece {
     /**
      * Retrieves the string value of this text part given the arguments and
      * vocabulary used to fill out the whole {@link Template}.

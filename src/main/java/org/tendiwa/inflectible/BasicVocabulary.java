@@ -44,7 +44,7 @@ public final class BasicVocabulary implements Vocabulary {
      * Ctor.
      * @param map Map from lexeme identifiers to lexemes
      */
-    BasicVocabulary(final ImmutableMap<Conception, Lexeme> map) {
+    public BasicVocabulary(final ImmutableMap<Conception, Lexeme> map) {
         this.lexemes = map;
     }
 

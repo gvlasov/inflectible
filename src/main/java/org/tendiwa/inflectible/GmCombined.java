@@ -48,7 +48,7 @@ public final class GmCombined implements GrammaticalMeaning {
      * @param another Grammatical meaning to decorate
      * @param grammemes Grammemes to add
      */
-    GmCombined(
+    public GmCombined(
         final GrammaticalMeaning another,
         final GrammaticalMeaning grammemes
     ) {

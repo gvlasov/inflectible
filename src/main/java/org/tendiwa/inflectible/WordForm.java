@@ -41,7 +41,7 @@ package org.tendiwa.inflectible;
  * @version $Id$
  * @since 0.1.0
  */
-interface WordForm {
+public interface WordForm {
     /**
      * How a word form is spelled.
      * @return Spelling.

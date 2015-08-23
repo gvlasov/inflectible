@@ -39,7 +39,7 @@ public final class PiPlainText implements TemplateBodyPiece {
      * Ctor.
      * @param plain Plain text.
      */
-    PiPlainText(final String plain) {
+    public PiPlainText(final String plain) {
         this.string = plain;
     }
 

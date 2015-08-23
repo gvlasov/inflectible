@@ -52,7 +52,7 @@ public final class BasicTemplate implements Template {
      * @param pieces Heterogeneous list of template's parts (placeholders
      *  and plain text chunks)
      */
-    BasicTemplate(
+    public BasicTemplate(
         final ImmutableList<ArgumentName> names,
         final List<TemplateBodyPiece> pieces
     ) {

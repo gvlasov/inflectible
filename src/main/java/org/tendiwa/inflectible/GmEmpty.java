@@ -35,7 +35,7 @@ public final class GmEmpty implements GrammaticalMeaning {
     /**
      * Ctor.
      */
-    GmEmpty() {
+    public GmEmpty() {
         // All this class needs to be doing is in its method implementation.
     }
 

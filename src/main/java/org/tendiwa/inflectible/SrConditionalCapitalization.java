@@ -42,7 +42,7 @@ public final class SrConditionalCapitalization implements SpellingRule {
      * @param check If this condition holds, this GraphicRule will capitalize
      *  spelling, otherwise it will leave spelling as it is.
      */
-    SrConditionalCapitalization(final Supplier<Boolean> check) {
+    public SrConditionalCapitalization(final Supplier<Boolean> check) {
         this.condition = check;
     }
 

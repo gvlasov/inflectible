@@ -54,7 +54,7 @@ public final class Placeholder implements TemplateBodyPiece {
      * @param gram Grammar rule for resolution of this placeholder
      * @param graph Graphic rule for resolution of this placeholder
      */
-    Placeholder(
+    public Placeholder(
         final LexicalRule sem,
         final GrammarRule gram,
         final SpellingRule graph

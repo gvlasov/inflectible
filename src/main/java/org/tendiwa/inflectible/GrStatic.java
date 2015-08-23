@@ -39,7 +39,7 @@ public final class GrStatic implements GrammarRule {
      * Ctor.
      * @param grammemes Grammatical meaning to return always.
      */
-    GrStatic(final GrammaticalMeaning grammemes) {
+    public GrStatic(final GrammaticalMeaning grammemes) {
         this.meaning = grammemes;
     }
 
