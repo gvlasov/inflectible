@@ -47,6 +47,26 @@
                     </arguments>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.qulice</groupId>
+                <artifactId>qulice-maven-plugin</artifactId>
+                <version>0.12.2</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sourceforge.pmd</groupId>
+                        <artifactId>pmd</artifactId>
+                        <version>5.1.3</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <excludes>
+                        <exclude>findbugs:org.tendiwa.inflectible.antlr.LexemeBundleLexer</exclude>
+                        <exclude>findbugs:org.tendiwa.inflectible.antlr.TemplateBundleLexer</exclude>
+                        <exclude>findbugs:org.tendiwa.inflectible.antlr.LexemeBundleParser</exclude>
+                        <exclude>findbugs:org.tendiwa.inflectible.antlr.TemplateBundleParser</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <profiles>
@@ -123,38 +143,6 @@
             <id>qulice</id>
             <build>
                 <plugins>
-                    <plugin>
-                        <groupId>com.qulice</groupId>
-                        <artifactId>qulice-maven-plugin</artifactId>
-                        <version>0.12.2</version>
-                        <dependencies>
-                            <dependency>
-                                <groupId>net.sourceforge.pmd</groupId>
-                                <artifactId>pmd</artifactId>
-                                <version>5.1.3</version>
-                            </dependency>
-                        </dependencies>
-                        <configuration>
-                            <excludes>
-                                <exclude>findbugs:org.tendiwa.inflectible.antlr.LexemeBundleLexer</exclude>
-                                <exclude>findbugs:org.tendiwa.inflectible.antlr.TemplateBundleLexer</exclude>
-                                <exclude>findbugs:org.tendiwa.inflectible.antlr.LexemeBundleParser</exclude>
-                                <exclude>findbugs:org.tendiwa.inflectible.antlr.TemplateBundleParser</exclude>
-                            </excludes>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>jcabi-check</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                                <configuration>
-                                    <license>file:${basedir}/LICENSE.txt</license>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
                 </plugins>
             </build>
         </profile>
