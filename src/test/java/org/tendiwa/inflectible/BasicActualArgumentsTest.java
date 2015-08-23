@@ -27,6 +27,7 @@ import com.google.common.collect.ImmutableList;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * Unit tests for {@link BasicActualArguments}.
@@ -60,5 +61,19 @@ public final class BasicActualArgumentsTest {
                 .string(),
             CoreMatchers.equalTo(bear)
         );
+    }
+
+    /**
+     * {@link BasicActualArguments} can fail if it is asked for an argument
+     * whose name wasn't declared.
+     * @throws Exception If fails
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void failsIfNoArgumentWithSuchName() throws Exception {
+        new BasicActualArguments(
+            ImmutableList.of(new AnBasic("action")),
+            ImmutableList.of(Mockito.mock(Lexeme.class))
+        )
+            .byName(new AnBasic("property"));
     }
 }

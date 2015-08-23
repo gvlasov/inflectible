@@ -49,8 +49,8 @@ public final class BasicTemplatuaryTest {
             new BasicTemplatuary(
                 ImmutableMap.of(identifier, template)
             )
-                .hasTemplate(identifier),
-            CoreMatchers.is(true)
+                .template(identifier),
+            CoreMatchers.is(template)
         );
     }
 
