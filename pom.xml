@@ -67,6 +67,27 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <configuration>
+                    <instrumentation>
+                        <excludes>
+                            <exclude>org/tendiwa/inflectible/antlr/**</exclude>
+                            <exclude>org/tendiwa/inflectible/FilledOutText.class</exclude>
+                        </excludes>
+                    </instrumentation>
+                    <check>
+                        <haltOnFailure>true</haltOnFailure>
+                        <branchRate>${cobertura.branchRate}</branchRate>
+                        <lineRate>${cobertura.lineRate}</lineRate>
+                        <packageBranchRate>${cobertura.packageBranchRate}</packageBranchRate>
+                        <packageLineRate>${cobertura.packageLineRate}</packageLineRate>
+                        <totalBranchRate>${cobertura.totalBranchRate}</totalBranchRate>
+                        <totalLineRate>${cobertura.totalLineRate}</totalLineRate>
+                    </check>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <profiles>
@@ -77,23 +98,6 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>cobertura-maven-plugin</artifactId>
-                        <configuration>
-                            <instrumentation>
-                                <excludes>
-                                    <exclude>org/tendiwa/inflectible/antlr/**</exclude>
-                                    <exclude>org/tendiwa/inflectible/FilledOutText.class</exclude>
-                                </excludes>
-                            </instrumentation>
-                            <check>
-                                <haltOnFailure>true</haltOnFailure>
-                                <branchRate>${cobertura.branchRate}</branchRate>
-                                <lineRate>${cobertura.lineRate}</lineRate>
-                                <packageBranchRate>${cobertura.packageBranchRate}</packageBranchRate>
-                                <packageLineRate>${cobertura.packageLineRate}</packageLineRate>
-                                <totalBranchRate>${cobertura.totalBranchRate}</totalBranchRate>
-                                <totalLineRate>${cobertura.totalLineRate}</totalLineRate>
-                            </check>
-                        </configuration>
                         <executions>
                             <execution>
                                 <goals>
