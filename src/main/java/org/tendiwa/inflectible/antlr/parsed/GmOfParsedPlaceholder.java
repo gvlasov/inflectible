@@ -28,12 +28,12 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import org.tendiwa.inflectible.Grammar;
 import org.tendiwa.inflectible.GrammaticalMeaning;
 import org.tendiwa.inflectible.Grammeme;
-import org.tendiwa.inflectible.Placeholder;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 import org.tenidwa.collections.utils.Collectors;
 
 /**
- * {@link GrammaticalMeaning} from an ANTLR parse tree of a {@link Placeholder}.
+ * {@link GrammaticalMeaning} from an ANTLR parse tree of a
+ * {@link org.tendiwa.inflectible.Placeholder}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.2.0

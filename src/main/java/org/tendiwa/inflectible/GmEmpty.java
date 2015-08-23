@@ -32,13 +32,6 @@ import com.google.common.collect.ImmutableSet;
  * @since 0.2.0
  */
 public final class GmEmpty implements GrammaticalMeaning {
-    /**
-     * Ctor.
-     */
-    public GmEmpty() {
-        // All this class needs to be doing is in its method implementation.
-    }
-
     @Override
     public ImmutableSet<Grammeme> grammemes() {
         return ImmutableSet.of();

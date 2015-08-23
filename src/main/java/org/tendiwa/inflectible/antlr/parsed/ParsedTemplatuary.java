@@ -27,7 +27,11 @@ import com.google.common.collect.ImmutableMap;
 import java.io.InputStream;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.tendiwa.inflectible.*;
+import org.tendiwa.inflectible.BasicTemplatuary;
+import org.tendiwa.inflectible.Grammar;
+import org.tendiwa.inflectible.Template;
+import org.tendiwa.inflectible.TemplateName;
+import org.tendiwa.inflectible.Templatuary;
 import org.tenidwa.collections.utils.Rethrowing;
 
 /**
@@ -88,7 +92,7 @@ public final class ParsedTemplatuary implements Templatuary {
                 this.inputs.stream()
                     .map(
                         Rethrowing.rethrowFunction(
-                            stream -> new BasicTemplateBundleParser(stream)
+                            BasicTemplateBundleParser::new
                         )
                     )
                     .flatMap(parser -> parser.templates().template().stream())

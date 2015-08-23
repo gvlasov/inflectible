@@ -34,7 +34,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.tendiwa.inflectible.Grammar;
 import org.tendiwa.inflectible.TemplateName;
-import org.tendiwa.inflectible.antlr.parsed.ParsedTemplatuary;
 
 /**
  * Unit tests for {@link ParsedTemplatuary}.

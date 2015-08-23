@@ -23,13 +23,14 @@
  */
 package org.tendiwa.inflectible.antlr.parsed;
 
-import org.tendiwa.inflectible.*;
+import org.tendiwa.inflectible.Spelling;
+import org.tendiwa.inflectible.SpellingRule;
+import org.tendiwa.inflectible.SrConditionalCapitalization;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 
 /**
- * Determines how to caiptalize the content of a {@link Placeholder} whose
- * lexeme is provided via an argument.
- * @see ActualArguments For what are arguments
+ * Adds capitalization to a {@link Spelling} if an argument starts from a
+ * capital letter.
  * @see SrParsedVocabularyCapitalization
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$

@@ -23,12 +23,14 @@
  */
 package org.tendiwa.inflectible.antlr.parsed;
 
-import org.tendiwa.inflectible.*;
+import org.tendiwa.inflectible.Spelling;
+import org.tendiwa.inflectible.SpellingRule;
+import org.tendiwa.inflectible.SrConditionalCapitalization;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 
 /**
- * Determines how to capitalize the content of a {@link Placeholder} whose
- * lexeme is taken from a {@link Vocabulary}.
+ * Adds capitalization to a {@link Spelling} if a <pre>lexeme</pre> keyword
+ * starts from a capital letter.
  * @see SrParsedArgumentCapitalization
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
@@ -36,14 +38,15 @@ import org.tendiwa.inflectible.antlr.TemplateBundleParser;
  */
 public final class SrParsedVocabularyCapitalization implements SpellingRule {
     /**
-     * ANTLR parse tree with a reference to a lexeme in vocabulary.
+     * ANTLR parse tree with a <pre>lexeme</pre> keyword and a reference to a
+     * lexeme in vocabulary.
      */
     private final transient TemplateBundleParser.VocabularyPointerContext ctx;
 
     /**
      * Ctor.
-     * @param context ANTLR parse tree with a reference to a lexeme in
-     *  vocabulary.
+     * @param context ANTLR parse tree with a <pre>lexeme</pre> keyword and a
+     *  reference to a lexeme in vocabulary.
      */
     SrParsedVocabularyCapitalization(
         final TemplateBundleParser.VocabularyPointerContext context

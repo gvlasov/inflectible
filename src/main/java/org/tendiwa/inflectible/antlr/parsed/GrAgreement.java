@@ -24,7 +24,10 @@
 package org.tendiwa.inflectible.antlr.parsed;
 
 import java.util.Optional;
-import org.tendiwa.inflectible.*;
+import org.tendiwa.inflectible.ActualArguments;
+import org.tendiwa.inflectible.GmCombined;
+import org.tendiwa.inflectible.GrammarRule;
+import org.tendiwa.inflectible.GrammaticalMeaning;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 
 /**

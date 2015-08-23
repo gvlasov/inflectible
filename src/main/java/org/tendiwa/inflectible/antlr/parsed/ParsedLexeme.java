@@ -25,7 +25,13 @@ package org.tendiwa.inflectible.antlr.parsed;
 
 import com.google.common.collect.ImmutableList;
 import java.util.Optional;
-import org.tendiwa.inflectible.*;
+import org.tendiwa.inflectible.BasicLexeme;
+import org.tendiwa.inflectible.GmEmpty;
+import org.tendiwa.inflectible.Grammar;
+import org.tendiwa.inflectible.GrammaticalMeaning;
+import org.tendiwa.inflectible.Lexeme;
+import org.tendiwa.inflectible.Spelling;
+import org.tendiwa.inflectible.WordForm;
 import org.tendiwa.inflectible.antlr.LexemeBundleParser;
 import org.tenidwa.collections.utils.Collectors;
 

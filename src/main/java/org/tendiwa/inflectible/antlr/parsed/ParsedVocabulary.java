@@ -27,7 +27,12 @@ import com.google.common.collect.ImmutableMap;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import org.tendiwa.inflectible.*;
+import org.tendiwa.inflectible.BasicVocabulary;
+import org.tendiwa.inflectible.Conception;
+import org.tendiwa.inflectible.Grammar;
+import org.tendiwa.inflectible.Lexeme;
+import org.tendiwa.inflectible.ValidatedConception;
+import org.tendiwa.inflectible.Vocabulary;
 import org.tenidwa.collections.utils.Rethrowing;
 
 /**

@@ -21,39 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tendiwa.inflectible.antlr.parsed;
-
-import org.tendiwa.inflectible.ActualArguments;
-import org.tendiwa.inflectible.ArgumentName;
-import org.tendiwa.inflectible.Lexeme;
-import org.tendiwa.inflectible.LexicalRule;
-import org.tendiwa.inflectible.Vocabulary;
 
 /**
- * Picks a lexeme from {@link ActualArguments}.
+ * Implementations of domain-specific classes that get their data from parsed
+ * markup.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.2.0
  */
-public final class LrFromArgument implements LexicalRule {
-    /**
-     * Argument name.
-     */
-    private final transient ArgumentName name;
-
-    /**
-     * Ctor.
-     * @param argument Argument name
-     */
-    LrFromArgument(final ArgumentName argument) {
-        this.name = argument;
-    }
-
-    @Override
-    public Lexeme pickLexeme(
-        final ActualArguments arguments,
-        final Vocabulary vocabulary
-    ) throws Exception {
-        return arguments.byName(this.name);
-    }
-}
+package org.tendiwa.inflectible.antlr.parsed;

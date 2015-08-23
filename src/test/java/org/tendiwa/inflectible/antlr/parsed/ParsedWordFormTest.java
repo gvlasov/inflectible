@@ -28,8 +28,6 @@ import java.io.IOException;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
-import org.tendiwa.inflectible.antlr.parsed.BasicLexemeBundleParser;
-import org.tendiwa.inflectible.antlr.parsed.ParsedWordForm;
 import org.tendiwa.inflectible.implementations.English;
 
 /**
