@@ -24,8 +24,8 @@
 package org.tendiwa.inflectible;
 
 /**
- * Exception indicating that a {@link Template} with specific id is missing in a
- * {@link Templatuary}.
+ * Exception indicating that a {@link Template} with specific name is  missing
+ * in a {@link Templatuary}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1

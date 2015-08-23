@@ -40,7 +40,7 @@ public final class MissingLexemeExceptionTest {
     @Test
     public void hasMessage() {
         MatcherAssert.assertThat(
-            new MissingLexemeException(() -> "BEAR").getMessage(),
+            new MissingLexemeException("BEAR").getMessage(),
             CoreMatchers.is("No lexeme with name \"BEAR\"")
         );
     }
