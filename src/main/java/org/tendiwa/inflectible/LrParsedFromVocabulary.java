@@ -53,7 +53,7 @@ public final class LrParsedFromVocabulary implements LexicalRule {
         final Vocabulary vocabulary
     ) throws Exception {
         return new LrFromVocabulary(
-            new LexemeName(
+            new ValidatedConception(
                 this.ctx
                     .LEXEME_NAME()
                     .getText()

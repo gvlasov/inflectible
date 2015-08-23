@@ -97,7 +97,7 @@ public final class ParsedVocabulary implements Vocabulary {
                     .flatMap(parser -> parser.lexemes().lexeme().stream())
                     .collect(
                         java.util.stream.Collectors.toMap(
-                            LexemeName::new,
+                            ValidatedConception::new,
                             ctx -> new ParsedLexeme(this.grammar, ctx)
                         )
                     )

@@ -47,7 +47,7 @@ public final class ParsedVocabularyPlaceholderTest {
             new ParsedVocabularyPlaceholder(
                 new English().grammar(),
                 new BasicTemplateBundleParser(
-                    "text.id(object) {",
+                    "text.identifier(object) {",
                     "  This [lexeme DUDE]<;object> greets you.",
                     "}"
                 )
@@ -62,7 +62,7 @@ public final class ParsedVocabularyPlaceholderTest {
                     (name) -> new SingleFormLexeme("man"),
                     new BasicVocabulary(
                         ImmutableMap.of(
-                            new LexemeName("DUDE"),
+                            new ValidatedConception("DUDE"),
                             new SingleFormLexeme(dude)
                         )
                     )
@@ -81,7 +81,7 @@ public final class ParsedVocabularyPlaceholderTest {
             new ParsedVocabularyPlaceholder(
                 new English().grammar(),
                 new BasicTemplateBundleParser(
-                    "text.id(object) { ",
+                    "text.identifier(object) { ",
                     "  [Lexeme CAT]<;object> greets you.",
                     "} "
                 )
@@ -96,7 +96,7 @@ public final class ParsedVocabularyPlaceholderTest {
                     (name)->new SingleFormLexeme("woman"),
                     new BasicVocabulary(
                         ImmutableMap.of(
-                            new LexemeName("CAT"),
+                            new ValidatedConception("CAT"),
                             new SingleFormLexeme("cat")
                         )
                     )

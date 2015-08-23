@@ -75,7 +75,7 @@ public final class FilledOutText implements Text {
                         conception
                             -> this.vocabulary
                             .lexeme(
-                                new LexemeName(
+                                new ValidatedConception(
                                     conception.identifier()
                                 )
                             )

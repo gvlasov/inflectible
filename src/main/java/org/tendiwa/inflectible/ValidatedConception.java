@@ -23,51 +23,56 @@
  */
 package org.tendiwa.inflectible;
 
-import nl.jqno.equalsverifier.EqualsVerifier;
-import nl.jqno.equalsverifier.Warning;
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
-import org.junit.Test;
+import org.tendiwa.inflectible.antlr.LexemeBundleParser;
 
 /**
- * Unit tests for {@link LexemeName}.
+ * Validated {@link Conception}. Must consist only of uppercase letters.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1
+ * @since 0.2.0
  */
-public final class LexemeNameTest {
+public final class ValidatedConception implements Conception {
     /**
-     * {@link LexemeName} can be created from an uppercase string.
-     * @throws Exception If fails
+     * String value of the lexeme name.
      */
-    @Test
-    public void allowsUppercase() throws Exception {
-        final String name = "DUDE";
-        MatcherAssert.assertThat(
-            new LexemeName(name).string(),
-            CoreMatchers.is(name)
-        );
+    private final transient String value;
+
+    /**
+     * Ctor.
+     * @param name String value of the lexeme name.
+     */
+    public ValidatedConception(final String name) {
+        this.value = name;
     }
 
     /**
-     * {@link LexemeName} can not be created from a string with any
-     * non-uppercase letters.
-     * @throws Exception If argument name didn't pass validation
+     * Ctor.
+     * @param ctx ANTLR parse tree for a {@link Lexeme}.
      */
-    @Test(expected = Exception.class)
-    public void disallowsNonUppercase() throws Exception {
-        new LexemeName("dude").string();
+    public ValidatedConception(final LexemeBundleParser.LexemeContext ctx) {
+        this(ctx.LEXEME_NAME().getText());
+    }
+
+    @Override
+    public String identifier() throws Exception {
+        this.validate();
+        return this.value;
     }
 
     /**
-     * {@link LexemeName} can be tested for equality against instances of its
-     * class.
-     * @throws Exception If fails
+     * Validates lexeme name.
+     * @throws Exception If the name is not valid
      */
-    @Test
-    public void obeysEqualsContract() throws Exception {
-        EqualsVerifier.forClass(LexemeName.class)
-            .suppress(Warning.TRANSIENT_FIELDS)
-            .verify();
+    private void validate() throws Exception {
+        for (final char character : this.value.toCharArray()) {
+            if (!Character.isUpperCase(character)) {
+                throw new IllegalArgumentException(
+                    String.format(
+                        "\"%s\" is not a valid lexeme identifier",
+                        this.value
+                    )
+                );
+            }
+        }
     }
 }
