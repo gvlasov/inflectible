@@ -24,6 +24,8 @@
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableList;
+import org.tenidwa.collections.utils.Collectors;
+import org.tenidwa.collections.utils.Rethrowing;
 
 /**
  * {@link ActualArguments} defined by a list of declared arguments' names and
@@ -58,6 +60,18 @@ public final class BasicActualArguments implements ActualArguments {
 
     @Override
     public Lexeme byName(final ArgumentName name) throws Exception {
-        return this.values.get(this.declared.indexOf(name));
+        final int index = this.declared.stream()
+            .map(Rethrowing.rethrowFunction(ArgumentName::string))
+            .collect(Collectors.toImmutableList())
+            .indexOf(name.string());
+        if (index == -1) {
+            throw new IllegalArgumentException(
+                String.format(
+                    "No declared argument with name \"%s\"",
+                    name.string()
+                )
+            );
+        }
+        return this.values.get(index);
     }
 }
