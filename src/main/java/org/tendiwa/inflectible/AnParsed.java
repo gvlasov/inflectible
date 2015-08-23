@@ -23,6 +23,7 @@
  */
 package org.tendiwa.inflectible;
 
+import java.util.Locale;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 
 /**
@@ -48,6 +49,9 @@ public final class AnParsed implements ArgumentName {
 
     @Override
     public String string() throws Exception {
-        return this.ctx.CAPITALIZABLE_ID().getText();
+        return this.ctx
+            .CAPITALIZABLE_ID()
+            .getText()
+            .toLowerCase(Locale.getDefault());
     }
 }
