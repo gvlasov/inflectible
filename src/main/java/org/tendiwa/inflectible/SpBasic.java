@@ -23,15 +23,13 @@
  */
 package org.tendiwa.inflectible;
 
-import org.tendiwa.inflectible.antlr.LexemeBundleParser;
-
 /**
  * {@link Spelling} defined by its string value.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1.0
+ * @since 0.2.0
  */
-public final class BasicSpelling implements Spelling {
+public final class SpBasic implements Spelling {
     /**
      * String value of the spelling.
      */
@@ -41,16 +39,8 @@ public final class BasicSpelling implements Spelling {
      * Ctor.
      * @param spelling String value of the spelling.
      */
-    public BasicSpelling(final String spelling) {
+    public SpBasic(final String spelling) {
         this.value = spelling;
-    }
-
-    /**
-     * Ctor.
-     * @param ctx ANTLR parse tree of a word form.
-     */
-    public BasicSpelling(final LexemeBundleParser.WordFormContext ctx) {
-        this(ctx.WORD_FORM().getText());
     }
 
     @Override
