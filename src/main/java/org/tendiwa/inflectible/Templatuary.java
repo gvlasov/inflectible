@@ -42,6 +42,7 @@ public interface Templatuary {
      * Checks if there is a template with a specific name.
      * @param identifier Name of a template
      * @return True iff there is a template with a specific name
+     * @throws Exception If could not check for presence of a template
      */
     boolean hasTemplate(TemplateName identifier) throws Exception;
 }
