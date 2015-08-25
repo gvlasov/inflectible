@@ -59,7 +59,7 @@ public final class BasicNativeSpeaker implements NativeSpeaker {
     @Override
     public String text(
         final String identifier,
-        final Conception... arguments
+        final Concept... arguments
     ) throws Exception {
         return new FilledOutText(
             this.templatuary.template(new TemplateName(identifier)),

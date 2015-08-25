@@ -23,15 +23,13 @@
  */
 package org.tendiwa.inflectible;
 
-import org.tendiwa.inflectible.antlr.LexemeBundleParser;
-
 /**
- * Validated {@link Conception}. Must consist only of uppercase letters.
+ * Validated {@link Concept}. Must consist only of uppercase letters.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.2.0
  */
-public final class ValidatedConception implements Conception {
+public final class ValidatedConcept implements Concept {
     /**
      * String value of the lexeme name.
      */
@@ -41,16 +39,8 @@ public final class ValidatedConception implements Conception {
      * Ctor.
      * @param name String value of the lexeme name.
      */
-    public ValidatedConception(final String name) {
+    public ValidatedConcept(final String name) {
         this.value = name;
-    }
-
-    /**
-     * Ctor.
-     * @param ctx ANTLR parse tree for a {@link Lexeme}.
-     */
-    public ValidatedConception(final LexemeBundleParser.LexemeContext ctx) {
-        this(ctx.LEXEME_NAME().getText());
     }
 
     @Override
@@ -61,9 +51,8 @@ public final class ValidatedConception implements Conception {
 
     /**
      * Validates lexeme name.
-     * @throws Exception If the name is not valid
      */
-    private void validate() throws Exception {
+    private void validate() {
         for (final char character : this.value.toCharArray()) {
             if (!Character.isUpperCase(character)) {
                 throw new IllegalArgumentException(

@@ -38,34 +38,34 @@ public final class BasicVocabulary implements Vocabulary {
     /**
      * Lexemes in this vocabulary.
      */
-    private final transient ImmutableMap<Conception, Lexeme> lexemes;
+    private final transient ImmutableMap<Concept, Lexeme> lexemes;
 
     /**
      * Ctor.
      * @param map Map from lexeme identifiers to lexemes
      */
-    public BasicVocabulary(final ImmutableMap<Conception, Lexeme> map) {
+    public BasicVocabulary(final ImmutableMap<Concept, Lexeme> map) {
         this.lexemes = map;
     }
 
     @Override
-    public Lexeme lexeme(final Conception name) throws Exception {
-        final Lexeme lexeme = this.stringMap().get(name.identifier());
+    public Lexeme lexeme(final Concept concept) throws Exception {
+        final Lexeme lexeme = this.stringMap().get(concept.identifier());
         if (lexeme == null) {
-            throw new MissingLexemeException(name.identifier());
+            throw new MissingLexemeException(concept.identifier());
         }
         return lexeme;
     }
 
     @Override
-    public boolean hasLexeme(final Conception name) throws Exception {
+    public boolean hasLexeme(final Concept name) throws Exception {
         return this.stringMap().containsKey(name.identifier());
     }
 
     // To be refactored in #47
     /**
-     * Cretes map from string conception names to their lexemes.
-     * @return Map from string conception names to their lexemes
+     * Cretes map from string concept names to their lexemes.
+     * @return Map from string concept names to their lexemes
      * @throws Exception If could not create the map
      */
     private Map<String, Lexeme> stringMap() throws Exception {
@@ -74,7 +74,7 @@ public final class BasicVocabulary implements Vocabulary {
             .stream()
             .collect(
                 Collectors.toMap(
-                    Rethrowing.rethrowFunction(Conception::identifier),
+                    Rethrowing.rethrowFunction(Concept::identifier),
                     this.lexemes::get
                 )
             );

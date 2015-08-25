@@ -38,5 +38,5 @@ public interface NativeSpeaker {
      * @return Text for humans to read.
      * @throws Exception If couldn't produce a text
      */
-    String text(String identifier, Conception... arguments) throws Exception;
+    String text(String identifier, Concept... arguments) throws Exception;
 }

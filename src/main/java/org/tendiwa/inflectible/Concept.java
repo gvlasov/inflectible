@@ -21,39 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tendiwa.inflectible.antlr.parsed;
-
-import org.tendiwa.inflectible.ActualArguments;
-import org.tendiwa.inflectible.Conception;
-import org.tendiwa.inflectible.Lexeme;
-import org.tendiwa.inflectible.LexicalRule;
-import org.tendiwa.inflectible.Vocabulary;
+package org.tendiwa.inflectible;
 
 /**
- * Picks a lexeme from {@link Vocabulary}.
+ * Anything that can be named with a word in a natural language.
+ * lexeme in each language, identified by a localization identifier.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.2.0
  */
-public final class LrFromVocabulary implements LexicalRule {
+public interface Concept {
     /**
-     * Name of a lexeme.
+     * Identifier of a concept.
+     * @return A string identifier. May contain only English uppercase letters
+     *  and dots.
+     * @throws Exception If could not obtain an identifier of the concept
      */
-    private final transient Conception name;
-
-    /**
-     * Ctor.
-     * @param lexeme Name of a lexeme
-     */
-    LrFromVocabulary(final Conception lexeme) {
-        this.name = lexeme;
-    }
-
-    @Override
-    public Lexeme pickLexeme(
-        final ActualArguments arguments,
-        final Vocabulary vocabulary
-    ) throws Exception {
-        return vocabulary.lexeme(this.name);
-    }
+    String identifier() throws Exception;
 }

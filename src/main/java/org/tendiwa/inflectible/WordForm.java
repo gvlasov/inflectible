@@ -25,7 +25,7 @@ package org.tendiwa.inflectible;
 
 /**
  * A word form is what {@link Lexeme}s contain of. All word forms of the same
- * lexeme refer to the same conception, but have different <i>grammatical
+ * lexeme refer to the same concept, but have different <i>grammatical
  * meaning</i> and, consecutively, <i>spelling</i>. Grammatical meaning is a
  * set of {@link Grammeme}s, and spelling is just how this particular word
  * form is written.

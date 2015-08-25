@@ -24,7 +24,7 @@
 package org.tendiwa.inflectible;
 
 /**
- * Indicated that a lexeme for a particular conception is missing.
+ * Indicated that a lexeme for a particular concept is missing.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1.0

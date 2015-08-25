@@ -32,17 +32,17 @@ package org.tendiwa.inflectible;
 public interface Vocabulary {
     /**
      * Returns a lexeme with a given identifier.
-     * @param conception Conception for which there exists a lexeme to name it
+     * @param concept Conception for which there exists a lexeme to name it
      * @return Lexeme, or nothing if there is no lexeme with such identifier
      * @throws Exception If could not find a lexeme with such name
      */
-    Lexeme lexeme(Conception conception) throws Exception;
+    Lexeme lexeme(Concept concept) throws Exception;
 
     /**
-     * Checks if there is a lexeme for a specific conception.
-     * @param conception Conception
-     * @return True iff there is a lexeme for that conception
+     * Checks if there is a lexeme for a specific concept.
+     * @param concept Conception
+     * @return True iff there is a lexeme for that concept
      * @throws Exception If could not search for a lexeme
      */
-    boolean hasLexeme(Conception conception) throws Exception;
+    boolean hasLexeme(Concept concept) throws Exception;
 }

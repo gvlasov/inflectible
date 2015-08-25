@@ -24,7 +24,7 @@
 package org.tendiwa.inflectible;
 
 /**
- * Collection of word forms belonging to the same conception, and their
+ * Collection of word forms belonging to the same concept, and their
  * persistent grammatical meaning.
  * @see <a href="https://en.wikipedia.org/wiki/Lexeme">Lexeme article on
  *  Wikipedia</a>

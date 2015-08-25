@@ -47,22 +47,22 @@ public final class FilledOutText implements Text {
     /**
      * Arguments to fill out the template with.
      */
-    private final transient List<Conception> arguments;
+    private final transient List<Concept> arguments;
 
     /**
      * Ctor.
      * @param text Template to fill out
      * @param lexemes Vocabulary to search for lexemes in
-     * @param conceptions Arguments to fill out the template with
+     * @param concepts Arguments to fill out the template with
      */
     public FilledOutText(
         final Template text,
         final Vocabulary lexemes,
-        final List<Conception> conceptions
+        final List<Concept> concepts
     ) {
         this.template = text;
         this.vocabulary = lexemes;
-        this.arguments = conceptions;
+        this.arguments = concepts;
     }
 
     @Override
@@ -72,11 +72,11 @@ public final class FilledOutText implements Text {
                 .stream()
                 .map(
                     Rethrowing.rethrowFunction(
-                        conception
+                        concept
                             -> this.vocabulary
                             .lexeme(
-                                new ValidatedConception(
-                                    conception.identifier()
+                                new ValidatedConcept(
+                                    concept.identifier()
                                 )
                             )
                     )

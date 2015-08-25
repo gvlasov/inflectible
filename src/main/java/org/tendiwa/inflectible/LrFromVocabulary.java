@@ -24,18 +24,30 @@
 package org.tendiwa.inflectible;
 
 /**
- * Anything that can be named with a word in a natural language.
- * lexeme in each language, identified by a localization identifier.
+ * Picks a lexeme from {@link Vocabulary}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.2.0
  */
-public interface Conception {
+public final class LrFromVocabulary implements LexicalRule {
     /**
-     * Identifier of a conception.
-     * @return A string identifier. May contain only English uppercase letters
-     *  and dots.
-     * @throws Exception If could not obtain an identifier of the conception
+     * Name of a lexeme.
      */
-    String identifier() throws Exception;
+    private final transient Concept name;
+
+    /**
+     * Ctor.
+     * @param lexeme Name of a lexeme
+     */
+    public LrFromVocabulary(final Concept lexeme) {
+        this.name = lexeme;
+    }
+
+    @Override
+    public Lexeme pickLexeme(
+        final ActualArguments arguments,
+        final Vocabulary vocabulary
+    ) throws Exception {
+        return vocabulary.lexeme(this.name);
+    }
 }
