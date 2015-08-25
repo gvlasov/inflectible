@@ -23,15 +23,12 @@
  */
 package org.tendiwa.inflectible;
 
-import lombok.EqualsAndHashCode;
-
 /**
  * {@link ArgumentName} defined by a string.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1.0
  */
-@EqualsAndHashCode(of = { "value" })
 public final class AnBasic implements ArgumentName {
     /**
      * String value of the argument name.

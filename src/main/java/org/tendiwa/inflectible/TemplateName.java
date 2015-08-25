@@ -23,7 +23,6 @@
  */
 package org.tendiwa.inflectible;
 
-import lombok.EqualsAndHashCode;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 
 /**
@@ -33,7 +32,6 @@ import org.tendiwa.inflectible.antlr.TemplateBundleParser;
  * @version $Id$
  * @since 0.1.0
  */
-@EqualsAndHashCode(of = { "value" })
 public final class TemplateName implements ValidatedIdentifier {
     /**
      * String value of the template name.
