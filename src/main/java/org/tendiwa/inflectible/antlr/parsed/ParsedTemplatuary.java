@@ -77,7 +77,7 @@ public final class ParsedTemplatuary implements Templatuary {
     }
 
     @Override
-    public boolean hasTemplate(final TemplateName identifier) {
+    public boolean hasTemplate(final TemplateName identifier) throws Exception {
         return this.templatuary.hasTemplate(identifier);
     }
 

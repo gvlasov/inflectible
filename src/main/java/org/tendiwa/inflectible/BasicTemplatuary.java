@@ -24,6 +24,9 @@
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+import org.tenidwa.collections.utils.Rethrowing;
 
 /**
  * {@link Templatuary} defined by a map from template identifiers to templates.
@@ -55,7 +58,25 @@ public final class BasicTemplatuary implements Templatuary {
     }
 
     @Override
-    public boolean hasTemplate(final TemplateName identifier) {
-        return this.templates.containsKey(identifier);
+    public boolean hasTemplate(final TemplateName name) throws Exception {
+        return this.stringMap().containsKey(name.string());
+    }
+
+    // To be refactored in #47
+    /**
+     * Cretes map from string template names to their templates.
+     * @return Map from string template names to their templates
+     * @throws Exception If could not create the map
+     */
+    private Map<String, Template> stringMap() throws Exception {
+        return this.templates
+            .keySet()
+            .stream()
+            .collect(
+                Collectors.toMap(
+                    Rethrowing.rethrowFunction(TemplateName::string),
+                    this.templates::get
+                )
+            );
     }
 }
