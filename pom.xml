@@ -33,12 +33,6 @@
                 <version>4.5.1</version>
                 <configuration>
                     <visitor>true</visitor>
-                    <arguments>
-                        <argument>-package</argument>
-                        <argument>org.tendiwa.inflectible.antlr</argument>
-                        <argument>-lib</argument>
-                        <argument>src/main/antlr4/org/tendiwa/inflectible/antlr</argument>
-                    </arguments>
                 </configuration>
             </plugin>
             <plugin>
@@ -67,7 +61,7 @@
                 <configuration>
                     <instrumentation>
                         <excludes>
-                            <exclude>org/tendiwa/inflectible/antlr/**</exclude>
+                            <exclude>org/tendiwa/inflectible/antlr/*</exclude>
                             <exclude>org/tendiwa/inflectible/FilledOutText.class</exclude>
                         </excludes>
                     </instrumentation>
@@ -151,7 +145,7 @@
         <dependency>
             <groupId>org.tendiwa</groupId>
             <artifactId>collections-utils</artifactId>
-            <version>0.2.0</version>
+            <version>0.4.0</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
