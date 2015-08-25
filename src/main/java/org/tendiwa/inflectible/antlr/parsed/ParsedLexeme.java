@@ -24,7 +24,6 @@
 package org.tendiwa.inflectible.antlr.parsed;
 
 import com.google.common.collect.ImmutableList;
-import java.util.Optional;
 import org.tendiwa.inflectible.BasicLexeme;
 import org.tendiwa.inflectible.GmEmpty;
 import org.tendiwa.inflectible.Grammar;
@@ -98,15 +97,16 @@ final class ParsedLexeme implements Lexeme {
      * @return Grammemes
      */
     private GrammaticalMeaning grammemes() {
-        final LexemeBundleParser.PersistentGrammemesContext persistent =
-            this.ctx.persistentGrammemes();
         final GrammaticalMeaning grammemes;
-        if (persistent == null) {
+        if (this.ctx.persistentGrammemes() == null) {
             grammemes = new GmEmpty();
         } else {
-            grammemes = new GmOfParsedWordForm(
+            grammemes = new GmOfParsedGrammemes(
                 this.grammar,
-                Optional.ofNullable(this.ctx.persistentGrammemes().grammemes())
+                this.ctx
+                    .persistentGrammemes()
+                    .grammaticalMeaning()
+                    .grammemes()
             );
         }
         return grammemes;

@@ -28,10 +28,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import org.tendiwa.inflectible.BasicVocabulary;
-import org.tendiwa.inflectible.Conception;
+import org.tendiwa.inflectible.Concept;
 import org.tendiwa.inflectible.Grammar;
 import org.tendiwa.inflectible.Lexeme;
-import org.tendiwa.inflectible.ValidatedConception;
 import org.tendiwa.inflectible.Vocabulary;
 import org.tenidwa.collections.utils.Rethrowing;
 
@@ -76,13 +75,13 @@ public final class ParsedVocabulary implements Vocabulary {
     }
 
     @Override
-    public Lexeme lexeme(final Conception conception) throws Exception {
-        return this.vocabulary.lexeme(conception);
+    public Lexeme lexeme(final Concept concept) throws Exception {
+        return this.vocabulary.lexeme(concept);
     }
 
     @Override
-    public boolean hasLexeme(final Conception conception) throws Exception {
-        return this.vocabulary.hasLexeme(conception);
+    public boolean hasLexeme(final Concept concept) throws Exception {
+        return this.vocabulary.hasLexeme(concept);
     }
 
     /**
@@ -103,7 +102,7 @@ public final class ParsedVocabulary implements Vocabulary {
                     .flatMap(parser -> parser.lexemes().lexeme().stream())
                     .collect(
                         java.util.stream.Collectors.toMap(
-                            ValidatedConception::new,
+                            ctx -> new ParsedConcept(ctx.conceptId()),
                             ctx -> new ParsedLexeme(this.grammar, ctx)
                         )
                     )

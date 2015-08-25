@@ -1,15 +1,24 @@
 lexer grammar TemplateBundleLexer;
 
+import SharedLexer;
+
 NL: '\r'? '\n' -> skip;
 ID: SMALL_LETTER ALPHANUM*;
 TEMPLATE_START: '{' -> pushMode(TEMPLATE);
-fragment ALPHANUM: [a-zA-Z_0-9];
-fragment SMALL_LETTER: [a-z];
-LPAREN: '(';
-RPAREN: ')';
-COMMA: ',';
+LPAREN: '(' -> pushMode(ARGUMENTS);
 DOT: '.';
 WS: ' ' -> skip;
+CAPITALIZED_ARGUMENT_NAME: CAPITAL_LETTER SMALL_LETTER*;
+ARGUMENT_NAME: SMALL_LETTER+;
+fragment ALPHANUM: [a-zA-Z_0-9];
+fragment SMALL_LETTER: [a-z];
+fragment CAPITAL_LETTER: [A-Z];
+
+mode ARGUMENTS;
+ARG_WS: WS -> type(WS), skip;
+ARG: ARGUMENT_NAME -> type(ARGUMENT_NAME);
+COMMA: ',';
+RPAREN: ')' -> popMode;
 
 mode TEMPLATE;
 TEMPLATE_END: '}' -> popMode;
@@ -27,42 +36,20 @@ fragment SEA_CHAR: ~('\n' | '\r' | '[' | '}');
 mode PLACEHOLDER_ID;
 NO_GRAMMEME_PLACEHOLDER_END: ']' -> popMode;
 GRAMMEMES_TRANSITION: ']<' -> pushMode(GRAMMEMES);
-KEYWORD_LEXEME: [Ll] 'exeme' -> pushMode(STATIC_LEXEME);
-CAPITALIZABLE_ID: [a-zA-Z] [a-zA-Z_0-9]*;
+KEYWORD_LEXEME: 'lexeme' -> pushMode(STATIC_LEXEME);
+CAPITALIZED_KEYWORD_LEXEME: 'Lexeme' -> pushMode(STATIC_LEXEME);
+PH_ARG: ARGUMENT_NAME -> type(ARGUMENT_NAME);
+PH_ARG_CAPITALIZED: CAPITALIZED_ARGUMENT_NAME -> type(CAPITALIZED_ARGUMENT_NAME);
 
 mode STATIC_LEXEME;
-LEXEME_NAME: [A-Z.]+ -> popMode;
+PH_CONCEPT_ID: CONCEPT_ID -> type(CONCEPT_ID), popMode;
 KEYWORD_LEXEME_WS: WS -> type(WS), skip;
 
 mode GRAMMEMES;
 GRAMMEMES_WS: WS -> type(WS), skip;
-GRAMMEME: Identifier;
 PLACEHOLDER_END: '>' -> popMode, popMode; // Pops through PLACEHOLDER_ID
 AGREEMENT_DELIMITER: ';' -> pushMode(AGREEMENT);
+GR_GRAMMEME: GRAMMEME -> type(GRAMMEME);
 
 mode AGREEMENT;
-AGREEMENT_ID: [a-z] [a-zA-Z_0-9]* -> popMode;
-
-// Copied from Java.g4 grammar
-fragment Identifier: JavaLetter JavaLetterOrDigit*;
-
-fragment JavaLetter
-    :   [a-zA-Z$_] // these are the "java letters" below 0xFF
-    |   // covers all characters above 0xFF which are not a surrogate
-        ~[\u0000-\u00FF\uD800-\uDBFF]
-        {Character.isJavaIdentifierStart(_input.LA(-1))}?
-    |   // covers UTF-16 surrogate pairs encodings for U+10000 to U+10FFFF
-        [\uD800-\uDBFF] [\uDC00-\uDFFF]
-        {Character.isJavaIdentifierStart(Character.toCodePoint((char)_input.LA(-2), (char)_input.LA(-1)))}?
-    ;
-
-fragment JavaLetterOrDigit
-    :   [a-zA-Z0-9$_] // these are the "java letters or digits" below 0xFF
-    |   // covers all characters above 0xFF which are not a surrogate
-        ~[\u0000-\u00FF\uD800-\uDBFF]
-        {Character.isJavaIdentifierPart(_input.LA(-1))}?
-    |   // covers UTF-16 surrogate pairs encodings for U+10000 to U+10FFFF
-        [\uD800-\uDBFF] [\uDC00-\uDFFF]
-        {Character.isJavaIdentifierPart(Character.toCodePoint((char)_input.LA(-2), (char)_input.LA(-1)))}?
-    ;
-
+AGREEMENT_ID: ARGUMENT_NAME -> type(ARGUMENT_NAME), popMode;

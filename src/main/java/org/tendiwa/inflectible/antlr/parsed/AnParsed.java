@@ -51,7 +51,7 @@ public final class AnParsed implements ArgumentName {
     @Override
     public String string() throws Exception {
         return this.ctx
-            .CAPITALIZABLE_ID()
+            .ARGUMENT_NAME()
             .getText()
             .toLowerCase(Locale.getDefault());
     }

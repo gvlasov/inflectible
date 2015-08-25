@@ -66,8 +66,6 @@ public final class SrParsedVocabularyCapitalization implements SpellingRule {
      *  content.
      */
     private boolean capitalizes() {
-        return Character.isUpperCase(
-            this.ctx.KEYWORD_LEXEME().getText().charAt(0)
-        );
+        return this.ctx.keywordLexeme().CAPITALIZED_KEYWORD_LEXEME() != null;
     }
 }

@@ -23,52 +23,33 @@
  */
 package org.tendiwa.inflectible.antlr.parsed;
 
-import com.google.common.collect.ImmutableSet;
-import org.antlr.v4.runtime.tree.TerminalNode;
-import org.tendiwa.inflectible.Grammar;
-import org.tendiwa.inflectible.GrammaticalMeaning;
-import org.tendiwa.inflectible.Grammeme;
+import org.tendiwa.inflectible.Concept;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
-import org.tenidwa.collections.utils.Collectors;
 
 /**
- * {@link GrammaticalMeaning} from an ANTLR parse tree of a
- * {@link org.tendiwa.inflectible.Placeholder}.
+ * Concept parsed from an ANTLR parse tree for a concept identifier.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.2.0
  */
-public final class GmOfParsedPlaceholder implements GrammaticalMeaning {
+public final class CpParsed implements Concept {
     /**
-     * Grammar of a language.
+     * ANTLR parse tree of a concept identifier.
      */
-    private final transient Grammar grammar;
-
-    /**
-     * ANTLR parse tree of grammemes.
-     */
-    private final transient TemplateBundleParser.GrammemesContext ctx;
+    private final transient TemplateBundleParser.ConceptIdContext ctx;
 
     /**
      * Ctor.
-     * @param gram Grammar of a language
-     * @param context ANTLR parse tree of grammemes
+     * @param context ANTLR parse tree of a concept identifier
      */
-    GmOfParsedPlaceholder(
-        final Grammar gram,
-        final TemplateBundleParser.GrammemesContext context
+    public CpParsed(
+        final TemplateBundleParser.ConceptIdContext context
     ) {
-        this.grammar = gram;
         this.ctx = context;
     }
 
     @Override
-    public ImmutableSet<Grammeme> grammemes() {
-        return this.ctx
-            .GRAMMEME()
-            .stream()
-            .map(TerminalNode::getText)
-            .map(this.grammar::grammemeByName)
-            .collect(Collectors.toImmutableSet());
+    public String identifier() throws Exception {
+        return this.ctx.getText();
     }
 }

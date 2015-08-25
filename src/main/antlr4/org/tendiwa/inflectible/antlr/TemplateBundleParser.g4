@@ -1,5 +1,7 @@
 parser grammar TemplateBundleParser;
 
+import SharedParser;
+
 options {
     tokenVocab=TemplateBundleLexer;
 }
@@ -10,7 +12,7 @@ template: id LPAREN declaredArguments RPAREN TEMPLATE_START templateBody TEMPLAT
 
 id: ID (DOT ID)*;
 
-declaredArguments: (ID (COMMA ID)*)?;
+declaredArguments: (argumentName (COMMA argumentName)*)?;
 
 templateBody: line*;
 
@@ -23,16 +25,20 @@ piece: singlePartPlaceholder
 
 rawText: (~(PLACEHOLDER_START | TEMPLATE_INDENT | TEMPLATE_END))+;
 
-singlePartPlaceholder: PLACEHOLDER_START argumentName NO_GRAMMEME_PLACEHOLDER_END;
+singlePartPlaceholder: PLACEHOLDER_START capitalizableArgumentName NO_GRAMMEME_PLACEHOLDER_END;
 
-twoPartPlaceholder: PLACEHOLDER_START argumentName GRAMMEMES_TRANSITION grammemes agreement? PLACEHOLDER_END;
+twoPartPlaceholder: PLACEHOLDER_START capitalizableArgumentName GRAMMEMES_TRANSITION grammemes? agreement? PLACEHOLDER_END;
 
-vocabularyPlaceholder: PLACEHOLDER_START vocabularyPointer GRAMMEMES_TRANSITION grammemes agreement PLACEHOLDER_END;
+vocabularyPlaceholder: PLACEHOLDER_START vocabularyPointer GRAMMEMES_TRANSITION grammemes? agreement PLACEHOLDER_END;
 
-grammemes: GRAMMEME*;
+vocabularyPointer: keywordLexeme conceptId;
 
-vocabularyPointer: KEYWORD_LEXEME LEXEME_NAME;
+capitalizableArgumentName: argumentName | capitalizedArgumentName;
 
-agreement: AGREEMENT_DELIMITER AGREEMENT_ID;
+keywordLexeme: KEYWORD_LEXEME | CAPITALIZED_KEYWORD_LEXEME;
 
-argumentName: CAPITALIZABLE_ID;
+argumentName: ARGUMENT_NAME;
+
+capitalizedArgumentName: CAPITALIZED_ARGUMENT_NAME;
+
+agreement: AGREEMENT_DELIMITER argumentName;

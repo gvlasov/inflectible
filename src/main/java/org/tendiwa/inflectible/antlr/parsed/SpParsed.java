@@ -23,59 +23,31 @@
  */
 package org.tendiwa.inflectible.antlr.parsed;
 
-import com.google.common.collect.ImmutableSet;
-import java.util.Optional;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.tendiwa.inflectible.Grammar;
-import org.tendiwa.inflectible.GrammaticalMeaning;
-import org.tendiwa.inflectible.Grammeme;
+import org.tendiwa.inflectible.Spelling;
 import org.tendiwa.inflectible.antlr.LexemeBundleParser;
-import org.tenidwa.collections.utils.Collectors;
 
 /**
- * {@link GrammaticalMeaning} from an ANTLR parse tree of a
- * {@link org.tendiwa.inflectible.WordForm}.
+ * Spelling parsed from an ANTLR parse tree of a word form.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.2.0
  */
-final class GmOfParsedWordForm implements GrammaticalMeaning {
+public final class SpParsed implements Spelling {
     /**
-     * Grammar of a language.
+     * ANTLR parse tree of a word form.
      */
-    private final transient Grammar grammar;
-
-    /**
-     * ANTLR parse tree of grammemes in a word form.
-     */
-    private final transient Optional<LexemeBundleParser.GrammemesContext> ctx;
+    private final transient LexemeBundleParser.WordFormContext ctx;
 
     /**
      * Ctor.
-     * @param gram Grammar of a language
-     * @param context ANTLR parse tree of grammemes in a word form.
+     * @param context ANTLR parse tree of a word form
      */
-    GmOfParsedWordForm(
-        final Grammar gram,
-        final Optional<LexemeBundleParser.GrammemesContext> context
-    ) {
-        this.grammar = gram;
+    public SpParsed(final LexemeBundleParser.WordFormContext context) {
         this.ctx = context;
     }
 
     @Override
-    public ImmutableSet<Grammeme> grammemes() {
-        final ImmutableSet<Grammeme> answer;
-        if (this.ctx.isPresent()) {
-            answer = this.ctx.get()
-                .GRAMMEME()
-                .stream()
-                .map(ParseTree::getText)
-                .map(this.grammar::grammemeByName)
-                .collect(Collectors.toImmutableSet());
-        } else {
-            answer = ImmutableSet.of();
-        }
-        return answer;
+    public String string() {
+        return this.ctx.WORD_FORM().getText();
     }
 }

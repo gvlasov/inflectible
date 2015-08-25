@@ -23,47 +23,31 @@
  */
 package org.tendiwa.inflectible.antlr.parsed;
 
-import org.tendiwa.inflectible.ActualArguments;
-import org.tendiwa.inflectible.Lexeme;
-import org.tendiwa.inflectible.LexicalRule;
-import org.tendiwa.inflectible.ValidatedConception;
-import org.tendiwa.inflectible.Vocabulary;
-import org.tendiwa.inflectible.antlr.TemplateBundleParser;
+import org.tendiwa.inflectible.Concept;
+import org.tendiwa.inflectible.antlr.LexemeBundleParser;
 
 /**
- * Picks lexeme name from ANTLR parse tree for a vocabulary pointer.
+ * Concept parsed from an ANTLR parse tree.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.2.0
  */
-public final class LrParsedFromVocabulary implements LexicalRule {
+public final class ParsedConcept implements Concept {
     /**
-     * ANTLR parse tree of a vocabulary pointer.
+     * ANTLR parse tree of a concept id.
      */
-    private final transient TemplateBundleParser.VocabularyPointerContext ctx;
+    private final transient LexemeBundleParser.ConceptIdContext ctx;
 
     /**
      * Ctor.
-     * @param context ANTLR parse tree of a vocabulary pointer.
+     * @param context ANTLR parse tree of a concept id.
      */
-    LrParsedFromVocabulary(
-        final TemplateBundleParser.VocabularyPointerContext context
-    ) {
+    public ParsedConcept(final LexemeBundleParser.ConceptIdContext context) {
         this.ctx = context;
     }
 
     @Override
-    public Lexeme pickLexeme(
-        final ActualArguments arguments,
-        final Vocabulary vocabulary
-    ) throws Exception {
-        return new LrFromVocabulary(
-            new ValidatedConception(
-                this.ctx
-                    .LEXEME_NAME()
-                    .getText()
-            )
-        )
-            .pickLexeme(arguments, vocabulary);
+    public String identifier() throws Exception {
+        return this.ctx.CONCEPT_ID().getText();
     }
 }

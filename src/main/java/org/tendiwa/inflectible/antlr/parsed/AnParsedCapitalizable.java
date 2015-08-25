@@ -23,40 +23,45 @@
  */
 package org.tendiwa.inflectible.antlr.parsed;
 
-import org.tendiwa.inflectible.AnBasic;
+import java.util.Locale;
 import org.tendiwa.inflectible.ArgumentName;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 
 /**
- * {@link ArgumentName} from an ANTLR parse tree of an agreement directive.
+ * Argument name from ANTLR parse tree about which it is not known until
+ * runtime if its content is capitalized or not.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.2.0
  */
-public final class AnFromAgreement implements ArgumentName {
+public final class AnParsedCapitalizable implements ArgumentName {
     /**
-     * ANTLR parse tree of an agreement directive.
+     * ANTLR parse tree with a probably capitalized argument name.
      */
-    private final transient TemplateBundleParser.AgreementContext ctx;
+    private final transient
+        TemplateBundleParser.CapitalizableArgumentNameContext ctx;
 
     /**
      * Ctor.
-     * @param context ANTLR parse tree of an agreement directive.
+     * @param context ANLTR parse tree with a probably capitalized argument name
      */
-    AnFromAgreement(final TemplateBundleParser.AgreementContext context) {
+    AnParsedCapitalizable(
+        final TemplateBundleParser.CapitalizableArgumentNameContext context
+    ) {
         this.ctx = context;
     }
-
     @Override
     public String string() throws Exception {
-        return new AnBasic(this.argumentName()).string();
-    }
-
-    /**
-     * Returns the name of an argument in agreement directive.
-     * @return Name of an argument in agreement directive
-     */
-    private String argumentName() {
-        return this.ctx.AGREEMENT_ID().getText();
+        final String answer;
+        if (this.ctx.argumentName() == null) {
+            answer = this.ctx
+                .capitalizedArgumentName()
+                .CAPITALIZED_ARGUMENT_NAME()
+                .getText()
+                .toLowerCase(Locale.getDefault());
+        } else {
+            answer = this.ctx.argumentName().ARGUMENT_NAME().getText();
+        }
+        return answer;
     }
 }

@@ -25,8 +25,6 @@ package org.tendiwa.inflectible.antlr.parsed;
 
 import com.google.common.collect.ImmutableList;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.antlr.v4.runtime.tree.TerminalNode;
-import org.tendiwa.inflectible.AnBasic;
 import org.tendiwa.inflectible.ArgumentName;
 import org.tendiwa.inflectible.BasicTemplate;
 import org.tendiwa.inflectible.Grammar;
@@ -93,10 +91,9 @@ final class ParsedTemplate implements Template {
     private ImmutableList<ArgumentName> argumentNames() {
         return this.ctx
             .declaredArguments()
-            .ID()
+            .argumentName()
             .stream()
-            .map(TerminalNode::getText)
-            .map(AnBasic::new)
+            .map(AnParsed::new)
             .collect(Collectors.toImmutableList());
     }
 

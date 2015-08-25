@@ -23,9 +23,7 @@
  */
 package org.tendiwa.inflectible.antlr.parsed;
 
-import java.util.Optional;
 import org.tendiwa.inflectible.ActualArguments;
-import org.tendiwa.inflectible.GmCombined;
 import org.tendiwa.inflectible.GrammarRule;
 import org.tendiwa.inflectible.GrammaticalMeaning;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
@@ -40,44 +38,25 @@ import org.tendiwa.inflectible.antlr.TemplateBundleParser;
  */
 public final class GrAgreement implements GrammarRule {
     /**
-     * ANTLR parse tree of an agreement directive, or empty.
+     * ANTLR parse tree of an agreement directive.
      */
-    private final transient
-        Optional<TemplateBundleParser.AgreementContext> ctx;
-
-    /**
-     * GrammarRule to decorate.
-     */
-    private final transient GrammarRule decorated;
+    private final transient TemplateBundleParser.AgreementContext ctx;
 
     /**
      * Ctor.
-     * @param context ANTLR parse tree of an agreement directive, or empty.
-     * @param wrapped Decorated grammar rule. Grammatical meaning from
-     *  agreement is added to its grammatical meaning.
+     * @param context ANTLR parse tree of an agreement directive.
      */
     GrAgreement(
-        final Optional<TemplateBundleParser.AgreementContext> context,
-        final GrammarRule wrapped
+        final TemplateBundleParser.AgreementContext context
     ) {
         this.ctx = context;
-        this.decorated = wrapped;
     }
 
     @Override
     public GrammaticalMeaning grammaticalMeaning(
         final ActualArguments arguments
     ) throws Exception {
-        final GrammaticalMeaning modified;
-        if (this.ctx.isPresent()) {
-            modified = new GmCombined(
-                this.decorated.grammaticalMeaning(arguments),
-                arguments.byName(new AnFromAgreement(this.ctx.get()))
-                    .persistentGrammemes()
-            );
-        } else {
-            modified = this.decorated.grammaticalMeaning(arguments);
-        }
-        return modified;
+        return arguments.byName(new AnParsed(this.ctx.argumentName()))
+            .persistentGrammemes();
     }
 }

@@ -40,14 +40,15 @@ final class SrParsedArgumentCapitalization implements SpellingRule {
     /**
      * ANTLR parse tree with an argument name.
      */
-    private final transient TemplateBundleParser.ArgumentNameContext ctx;
+    private final transient
+        TemplateBundleParser.CapitalizableArgumentNameContext ctx;
 
     /**
      * Ctor.
      * @param context ANTLR parse tree with an argument name
      */
     SrParsedArgumentCapitalization(
-        final TemplateBundleParser.ArgumentNameContext context
+        final TemplateBundleParser.CapitalizableArgumentNameContext context
     ) {
         this.ctx = context;
     }
@@ -64,8 +65,6 @@ final class SrParsedArgumentCapitalization implements SpellingRule {
      *  content.
      */
     private boolean capitalizes() {
-        return Character.isUpperCase(
-            this.ctx.CAPITALIZABLE_ID().getText().charAt(0)
-        );
+        return this.ctx.capitalizedArgumentName() != null;
     }
 }

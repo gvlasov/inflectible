@@ -81,6 +81,7 @@ public final class ParsedTemplatuary implements Templatuary {
         return this.templatuary.hasTemplate(identifier);
     }
 
+    // To be refactored in #47
     /**
      * Parse templates.
      * @return Templatuary with templates.

@@ -23,66 +23,57 @@
  */
 package org.tendiwa.inflectible.antlr.parsed;
 
+import com.google.common.collect.ImmutableSet;
 import java.util.Optional;
-import org.tendiwa.inflectible.BasicWordForm;
 import org.tendiwa.inflectible.Grammar;
 import org.tendiwa.inflectible.GrammaticalMeaning;
-import org.tendiwa.inflectible.Spelling;
-import org.tendiwa.inflectible.WordForm;
+import org.tendiwa.inflectible.Grammeme;
 import org.tendiwa.inflectible.antlr.LexemeBundleParser;
 
 /**
- * {@link WordForm} parsed from an ANTLR parse tree.
+ * {@link GrammaticalMeaning} from an ANTLR parse tree of a
+ * {@link org.tendiwa.inflectible.WordForm}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1.0
+ * @since 0.2.0
  */
-public final class ParsedWordForm implements WordForm {
+final class GmParsed implements GrammaticalMeaning {
     /**
-     * Grammar of the language of this word form.
+     * Grammar of a language.
      */
     private final transient Grammar grammar;
 
     /**
-     * ANTLR parse tree of this word from.
+     * ANTLR parse tree of grammatical meaning.
      */
-    private final transient LexemeBundleParser.WordFormContext ctx;
+    private final transient
+        Optional<LexemeBundleParser.GrammaticalMeaningContext> ctx;
 
     /**
      * Ctor.
-     * @param grammemes Grammar of the language of this word form
-     * @param context ANTLR parse tree of this word form
+     * @param gram Grammar of a language
+     * @param context ANTLR parse tree of grammemes in a word form.
      */
-    ParsedWordForm(
-        final Grammar grammemes,
-        final LexemeBundleParser.WordFormContext context
+    GmParsed(
+        final Grammar gram,
+        final Optional<LexemeBundleParser.GrammaticalMeaningContext> context
     ) {
-        this.grammar = grammemes;
+        this.grammar = gram;
         this.ctx = context;
     }
 
     @Override
-    public Spelling spelling() {
-        return this.delegate().spelling();
-    }
-
-    @Override
-    public int similarity(final GrammaticalMeaning grammemes) {
-        return this.delegate().similarity(grammemes);
-    }
-
-    // To be refactored in #47
-    /**
-     * Creates a word form from the {@link ParsedWordForm#ctx}.
-     * @return Word form
-     */
-    private WordForm delegate() {
-        return new BasicWordForm(
-            new SpParsed(this.ctx),
-            new GmParsed(
+    public ImmutableSet<Grammeme> grammemes() {
+        final ImmutableSet<Grammeme> answer;
+        if (this.ctx.isPresent()) {
+            answer = new GmOfParsedGrammemes(
                 this.grammar,
-                Optional.ofNullable(this.ctx.grammaticalMeaning())
+                this.ctx.get().grammemes()
             )
-        );
+                .grammemes();
+        } else {
+            answer = ImmutableSet.of();
+        }
+        return answer;
     }
 }

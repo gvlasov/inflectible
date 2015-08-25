@@ -26,6 +26,7 @@ package org.tendiwa.inflectible.antlr.parsed;
 import org.tendiwa.inflectible.ActualArguments;
 import org.tendiwa.inflectible.GmEmpty;
 import org.tendiwa.inflectible.GrStatic;
+import org.tendiwa.inflectible.LrFromArgument;
 import org.tendiwa.inflectible.Placeholder;
 import org.tendiwa.inflectible.TemplateBodyPiece;
 import org.tendiwa.inflectible.Vocabulary;
@@ -62,13 +63,15 @@ public final class ParsedSinglePartPlaceholder implements TemplateBodyPiece {
     ) throws Exception {
         return new Placeholder(
             new LrFromArgument(
-                new AnParsed(this.ctx.argumentName())
+                new AnParsedCapitalizable(
+                    this.ctx.capitalizableArgumentName()
+                )
             ),
             new GrStatic(
                 new GmEmpty()
             ),
             new SrParsedArgumentCapitalization(
-                this.ctx.argumentName()
+                this.ctx.capitalizableArgumentName()
             )
         )
             .fillUp(arguments, vocabulary);

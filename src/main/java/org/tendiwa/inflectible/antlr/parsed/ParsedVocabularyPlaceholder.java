@@ -25,8 +25,8 @@ package org.tendiwa.inflectible.antlr.parsed;
 
 import java.util.Optional;
 import org.tendiwa.inflectible.ActualArguments;
-import org.tendiwa.inflectible.GrStatic;
 import org.tendiwa.inflectible.Grammar;
+import org.tendiwa.inflectible.LrFromVocabulary;
 import org.tendiwa.inflectible.Placeholder;
 import org.tendiwa.inflectible.TemplateBodyPiece;
 import org.tendiwa.inflectible.Vocabulary;
@@ -72,17 +72,15 @@ public final class ParsedVocabularyPlaceholder implements TemplateBodyPiece {
         final Vocabulary vocabulary
     ) throws Exception {
         return new Placeholder(
-            new LrParsedFromVocabulary(
-                this.ctx.vocabularyPointer()
-            ),
-            new GrAgreement(
-                Optional.of(this.ctx.agreement()),
-                new GrStatic(
-                    new GmOfParsedPlaceholder(
-                        this.grammar,
-                        this.ctx.grammemes()
-                    )
+            new LrFromVocabulary(
+                new CpParsed(
+                    this.ctx.vocabularyPointer().conceptId()
                 )
+            ),
+            new GrParsedStaticOrAgreement(
+                this.grammar,
+                Optional.ofNullable(this.ctx.grammemes()),
+                Optional.of(this.ctx.agreement())
             ),
             new SrParsedVocabularyCapitalization(
                 this.ctx.vocabularyPointer()
