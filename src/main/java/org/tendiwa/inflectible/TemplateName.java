@@ -27,7 +27,7 @@ import lombok.EqualsAndHashCode;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 
 /**
- * Name for a {@link Template}. May consist of only dots or lowrcase letters,
+ * Name for a {@link Template}. May consist of only dots or lowercase letters,
  * e.g. "actions.attack".
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
@@ -69,9 +69,8 @@ public final class TemplateName implements ValidatedIdentifier {
 
     /**
      * Validates the template name.
-     * @throws Exception If template name is not valid
      */
-    private void validate() throws Exception {
+    private void validate() {
         for (final char character : this.value.toCharArray()) {
             if (!this.isValidCharacter(character)) {
                 throw new IllegalArgumentException(

@@ -72,7 +72,7 @@ public final class SingleFormLexeme implements Lexeme {
             new GmEmpty(),
             ImmutableList.<WordForm>of(
                 new BasicWordForm(
-                    new BasicSpelling(this.spelling),
+                    new SpBasic(this.spelling),
                     new GmEmpty()
                 )
             )

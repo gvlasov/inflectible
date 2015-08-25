@@ -50,7 +50,7 @@ public final class SrConditionalCapitalization implements SpellingRule {
     public Spelling adjustSpelling(final Spelling spelling) {
         final Spelling modified;
         if (this.condition.get()) {
-            modified = new CapitalizedSpelling(spelling);
+            modified = new SpCapitalized(spelling);
         } else {
             modified = spelling;
         }

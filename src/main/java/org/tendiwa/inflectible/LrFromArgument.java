@@ -21,13 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tendiwa.inflectible.antlr.parsed;
-
-import org.tendiwa.inflectible.ActualArguments;
-import org.tendiwa.inflectible.ArgumentName;
-import org.tendiwa.inflectible.Lexeme;
-import org.tendiwa.inflectible.LexicalRule;
-import org.tendiwa.inflectible.Vocabulary;
+package org.tendiwa.inflectible;
 
 /**
  * Picks a lexeme from {@link ActualArguments}.
@@ -45,7 +39,7 @@ public final class LrFromArgument implements LexicalRule {
      * Ctor.
      * @param argument Argument name
      */
-    LrFromArgument(final ArgumentName argument) {
+    public LrFromArgument(final ArgumentName argument) {
         this.name = argument;
     }
 

@@ -36,7 +36,7 @@ public final class Placeholder implements TemplateBodyPiece {
     /**
      * How to choose a lexeme.
      */
-    private final transient LexicalRule semantic;
+    private final transient LexicalRule lexical;
 
     /**
      * How to choose a word form.
@@ -46,22 +46,22 @@ public final class Placeholder implements TemplateBodyPiece {
     /**
      * How to choose spelling features.
      */
-    private final transient SpellingRule graphic;
+    private final transient SpellingRule spelling;
 
     /**
      * Ctor.
-     * @param sem Semantic rule for resolution of this placeholder
+     * @param lex Lexical rule for resolution of this placeholder
      * @param gram Grammar rule for resolution of this placeholder
-     * @param graph Graphic rule for resolution of this placeholder
+     * @param spell Graphic rule for resolution of this placeholder
      */
     public Placeholder(
-        final LexicalRule sem,
+        final LexicalRule lex,
         final GrammarRule gram,
-        final SpellingRule graph
+        final SpellingRule spell
     ) {
-        this.semantic = sem;
+        this.lexical = lex;
         this.grammar = gram;
-        this.graphic = graph;
+        this.spelling = spell;
     }
 
     @Override
@@ -70,9 +70,9 @@ public final class Placeholder implements TemplateBodyPiece {
         final Vocabulary vocabulary
     ) throws Exception {
         return
-            this.graphic
+            this.spelling
                 .adjustSpelling(
-                    this.semantic
+                    this.lexical
                         .pickLexeme(arguments, vocabulary)
                         .wordForm(this.grammar.grammaticalMeaning(arguments))
                 )

@@ -49,8 +49,8 @@ public final class BasicTemplate implements Template {
     /**
      * Ctor.
      * @param names Argument names
-     * @param pieces Heterogeneous list of template's parts (placeholders
-     *  and plain text chunks)
+     * @param pieces List of template's parts (placeholders and plain text
+     *  chunks)
      */
     public BasicTemplate(
         final ImmutableList<ArgumentName> names,

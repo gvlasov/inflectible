@@ -54,9 +54,8 @@ public final class AnBasic implements ArgumentName {
 
     /**
      * Validates the argument name.
-     * @throws Exception If value is not invalid
      */
-    private void validate() throws Exception {
+    private void validate() {
         for (final char character : this.value.toCharArray()) {
             if (!Character.isLowerCase(character)) {
                 throw new IllegalArgumentException(

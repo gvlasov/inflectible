@@ -29,7 +29,7 @@ package org.tendiwa.inflectible;
  * @version $Id$
  * @since 0.1.0
  */
-public final class CapitalizedSpelling implements Spelling {
+public final class SpCapitalized implements Spelling {
     /**
      * Decorated spelling.
      */
@@ -39,7 +39,7 @@ public final class CapitalizedSpelling implements Spelling {
      * Ctor.
      * @param wrapped Decorated spelling
      */
-    public CapitalizedSpelling(final Spelling wrapped) {
+    public SpCapitalized(final Spelling wrapped) {
         this.decorated = wrapped;
     }
 
