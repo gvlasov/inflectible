@@ -23,7 +23,9 @@
  */
 package org.tendiwa.inflectible;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import org.tenidwa.collections.utils.Collectors;
 
 /**
  * Combines two grammatical meanings into a single grammatical meaning with
@@ -34,34 +36,24 @@ import com.google.common.collect.ImmutableSet;
  */
 public final class GmCombined implements GrammaticalMeaning {
     /**
-     * Grammatical meaning to decorate.
+     * Grammatical meanings to combine.
      */
-    private final transient GrammaticalMeaning decorated;
-
-    /**
-     * Grammemes to add.
-     */
-    private final transient GrammaticalMeaning added;
+    private final transient ImmutableList<GrammaticalMeaning> meanings;
 
     /**
      * Ctor.
-     * @param another Grammatical meaning to decorate
-     * @param grammemes Grammemes to add
+     * @param combined Grammatical meanings to combine
      */
     public GmCombined(
-        final GrammaticalMeaning another,
-        final GrammaticalMeaning grammemes
+        final ImmutableList<GrammaticalMeaning> combined
     ) {
-        this.decorated = another;
-        this.added = grammemes;
+        this.meanings = combined;
     }
 
     @Override
     public ImmutableSet<Grammeme> grammemes() {
-        return ImmutableSet
-            .<Grammeme>builder()
-            .addAll(this.decorated.grammemes())
-            .addAll(this.added.grammemes())
-            .build();
+        return this.meanings.stream()
+            .flatMap(meaning -> meaning.grammemes().stream())
+            .collect(Collectors.toImmutableSet());
     }
 }
