@@ -42,15 +42,15 @@ public final class BasicVocabularyTest {
      */
     @Test
     public void returnsLexemeByIdentifier() throws Exception {
-        final Conception conception = new ValidatedConception("DUDE");
+        final Concept concept = new ValidatedConcept("DUDE");
         MatcherAssert.assertThat(
             new BasicVocabulary(
                 ImmutableMap.of(
-                    conception,
+                    concept,
                     new SingleFormLexeme("dude")
                 )
             )
-                .hasLexeme(conception),
+                .hasLexeme(concept),
             CoreMatchers.is(true)
         );
     }
@@ -65,11 +65,11 @@ public final class BasicVocabularyTest {
         MatcherAssert.assertThat(
             new BasicVocabulary(
                 ImmutableMap.of(
-                    new ValidatedConception("GUY"),
+                    new ValidatedConcept("GUY"),
                     new SingleFormLexeme("guy")
                 )
             )
-                .hasLexeme(new ValidatedConception("MAN")),
+                .hasLexeme(new ValidatedConcept("MAN")),
             CoreMatchers.is(false)
         );
     }
@@ -83,11 +83,11 @@ public final class BasicVocabularyTest {
     public void failsIfTriesToReturnMissingLexeme() throws Exception {
         new BasicVocabulary(
             ImmutableMap.of(
-                new ValidatedConception("TABLE"),
+                new ValidatedConcept("TABLE"),
                 new SingleFormLexeme("table")
             )
         )
-            .lexeme(new ValidatedConception("CHAIR"));
+            .lexeme(new ValidatedConcept("CHAIR"));
     }
 
 }

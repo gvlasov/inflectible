@@ -54,16 +54,16 @@ public final class ParsedTemplatuaryTest {
                 ImmutableList.of(
                     IOUtils.toInputStream(
                         Joiner.on('\n').join(
-                            "id2(args2, more) {",
-                            "  things [more] [args2][;more]",
+                            "id(args, more) {",
+                            "  things [more] [args]<;more>",
                             "} ",
-                            "id3.compund(hey, you) {",
+                            "id.compound(hey, you) {",
                             " [hey] [you]",
                             "}  "
                         )
                     )
                 )
-            ).hasTemplate(new TemplateName("id2")),
+            ).hasTemplate(new TemplateName("id.compound")),
             CoreMatchers.is(true)
         );
     }

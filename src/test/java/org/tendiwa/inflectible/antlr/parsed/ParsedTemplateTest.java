@@ -30,7 +30,7 @@ import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.tendiwa.inflectible.BasicVocabulary;
 import org.tendiwa.inflectible.Grammar;
-import org.tendiwa.inflectible.ValidatedConception;
+import org.tendiwa.inflectible.ValidatedConcept;
 import org.tendiwa.inflectible.Vocabulary;
 import org.tendiwa.inflectible.implementations.English;
 
@@ -68,8 +68,8 @@ public final class ParsedTemplateTest {
                     .template(0)
             ).fillUp(
                 ImmutableList.of(
-                    vocabulary.lexeme(new ValidatedConception("HUMAN")),
-                    vocabulary.lexeme(new ValidatedConception("BEAR"))
+                    vocabulary.lexeme(new ValidatedConcept("HUMAN")),
+                    vocabulary.lexeme(new ValidatedConcept("BEAR"))
                 ),
                 new BasicVocabulary(ImmutableMap.of())
             ),

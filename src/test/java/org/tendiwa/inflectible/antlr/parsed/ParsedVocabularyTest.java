@@ -30,7 +30,7 @@ import org.apache.commons.io.IOUtils;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
-import org.tendiwa.inflectible.ValidatedConception;
+import org.tendiwa.inflectible.ValidatedConcept;
 import org.tendiwa.inflectible.implementations.English;
 
 /**
@@ -48,7 +48,7 @@ public final class ParsedVocabularyTest {
     public void findsWords() throws Exception {
         final ParsedVocabulary bundle = this.englishVocabulary();
         MatcherAssert.assertThat(
-            bundle.hasLexeme(new ValidatedConception("DRAGON")),
+            bundle.hasLexeme(new ValidatedConcept("DRAGON")),
             CoreMatchers.equalTo(true)
         );
     }
@@ -65,12 +65,12 @@ public final class ParsedVocabularyTest {
                 IOUtils.toInputStream(
                     Joiner.on('\n').join(
                         "DRAGON {",
-                        "   dragon  [Sing]",
-                        "   dragons [Plur]",
+                        "   dragon  <Sing>",
+                        "   dragons <Plur>",
                         "}",
                         "BEE {",
-                        "   bee  [Sing]",
-                        "   bees [Plur]",
+                        "   bee  <Sing>",
+                        "   bees <Plur>",
                         "} "
                     )
                 )

@@ -28,32 +28,32 @@ import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link ValidatedConception}.
+ * Unit tests for {@link ValidatedConcept}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1.0
  */
-public final class ValidatedConceptionTest {
+public final class ValidatedConceptTest {
     /**
-     * {@link ValidatedConception} can be created from an uppercase string.
+     * {@link ValidatedConcept} can be created from an uppercase string.
      * @throws Exception If fails
      */
     @Test
     public void allowsUppercase() throws Exception {
         final String name = "DUDE";
         MatcherAssert.assertThat(
-            new ValidatedConception(name).identifier(),
+            new ValidatedConcept(name).identifier(),
             CoreMatchers.is(name)
         );
     }
 
     /**
-     * {@link ValidatedConception} can not be created from a string with any
+     * {@link ValidatedConcept} can not be created from a string with any
      * non-uppercase letters.
      * @throws Exception If argument name didn't pass validation
      */
     @Test(expected = Exception.class)
     public void disallowsNonUppercase() throws Exception {
-        new ValidatedConception("dude").identifier();
+        new ValidatedConcept("dude").identifier();
     }
 }

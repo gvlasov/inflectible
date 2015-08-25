@@ -61,7 +61,7 @@ public final class TemplateBundleParserTest {
                 .templates()
                 .template(0)
                 .declaredArguments()
-                .ID(2)
+                .argumentName(2)
                 .getText(),
             CoreMatchers.equalTo("aim")
         );

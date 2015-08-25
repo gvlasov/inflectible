@@ -29,7 +29,7 @@ import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.tendiwa.inflectible.BasicVocabulary;
 import org.tendiwa.inflectible.SingleFormLexeme;
-import org.tendiwa.inflectible.ValidatedConception;
+import org.tendiwa.inflectible.ValidatedConcept;
 import org.tendiwa.inflectible.implementations.English;
 
 /**
@@ -65,7 +65,7 @@ public final class ParsedVocabularyPlaceholderTest {
                     (name) -> new SingleFormLexeme("man"),
                     new BasicVocabulary(
                         ImmutableMap.of(
-                            new ValidatedConception("DUDE"),
+                            new ValidatedConcept("DUDE"),
                             new SingleFormLexeme(dude)
                         )
                     )
@@ -99,7 +99,7 @@ public final class ParsedVocabularyPlaceholderTest {
                     (name)->new SingleFormLexeme("woman"),
                     new BasicVocabulary(
                         ImmutableMap.of(
-                            new ValidatedConception("CAT"),
+                            new ValidatedConcept("CAT"),
                             new SingleFormLexeme("cat")
                         )
                     )
