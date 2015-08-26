@@ -23,70 +23,13 @@
  */
 package org.tendiwa.inflectible;
 
-import org.tendiwa.inflectible.antlr.TemplateBundleParser;
-
 /**
  * Name for a {@link Template}. May consist of only dots or lowercase letters,
  * e.g. "actions.attack".
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1.0
+ * @since 0.2.0
  */
-public final class TemplateName implements ValidatedIdentifier {
-    /**
-     * String value of the template name.
-     */
-    private final transient String value;
-
-    /**
-     * Ctor.
-     * @param name String value of the template name
-     */
-    public TemplateName(final String name) {
-        this.value = name;
-    }
-
-    /**
-     * Ctor.
-     * @param ctx ANTLR parse tree of a template
-     */
-    public TemplateName(final TemplateBundleParser.TemplateContext ctx) {
-        this(ctx.id().getText());
-    }
-
-    @Override
-    public String string() throws Exception {
-        this.validate();
-        return this.value;
-    }
-
-    @Override
-    public String toString() {
-        return this.value;
-    }
-
-    /**
-     * Validates the template name.
-     */
-    private void validate() {
-        for (final char character : this.value.toCharArray()) {
-            if (!this.isValidCharacter(character)) {
-                throw new IllegalArgumentException(
-                    String.format(
-                        "%s is not a valid template name",
-                        this.value
-                    )
-                );
-            }
-        }
-    }
-
-    /**
-     * Checks if a character is a valid one for a template's name.
-     * @param character Character
-     * @return True iff {@code character} can be in a template's name.
-     */
-    private boolean isValidCharacter(final char character) {
-        return character == '.' || Character.isLowerCase(character);
-    }
+public interface TemplateName {
+    String string() throws Exception;
 }
