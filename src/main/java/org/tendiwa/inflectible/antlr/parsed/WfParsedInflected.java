@@ -23,7 +23,6 @@
  */
 package org.tendiwa.inflectible.antlr.parsed;
 
-import java.util.Optional;
 import org.tendiwa.inflectible.BasicWordForm;
 import org.tendiwa.inflectible.Grammar;
 import org.tendiwa.inflectible.GrammaticalMeaning;
@@ -32,12 +31,13 @@ import org.tendiwa.inflectible.WordForm;
 import org.tendiwa.inflectible.antlr.LexemeBundleParser;
 
 /**
- * {@link WordForm} parsed from an ANTLR parse tree.
+ * {@link WordForm} that is inflected (in contrast to
+ * {@link WfParsedDictionary}, which is not), parsed from an ANTLR parse tree.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1.0
+ * @since 0.2.0
  */
-public final class ParsedWordForm implements WordForm {
+public final class WfParsedInflected implements WordForm {
     /**
      * Grammar of the language of this word form.
      */
@@ -46,16 +46,16 @@ public final class ParsedWordForm implements WordForm {
     /**
      * ANTLR parse tree of this word from.
      */
-    private final transient LexemeBundleParser.WordFormContext ctx;
+    private final transient LexemeBundleParser.InflectedWordFormContext ctx;
 
     /**
      * Ctor.
      * @param grammemes Grammar of the language of this word form
      * @param context ANTLR parse tree of this word form
      */
-    ParsedWordForm(
+    WfParsedInflected(
         final Grammar grammemes,
-        final LexemeBundleParser.WordFormContext context
+        final LexemeBundleParser.InflectedWordFormContext context
     ) {
         this.grammar = grammemes;
         this.ctx = context;
@@ -73,15 +73,15 @@ public final class ParsedWordForm implements WordForm {
 
     // To be refactored in #47
     /**
-     * Creates a word form from the {@link ParsedWordForm#ctx}.
+     * Creates a word form from the {@link WfParsedInflected#ctx}.
      * @return Word form
      */
     private WordForm delegate() {
         return new BasicWordForm(
-            new SpParsed(this.ctx),
-            new GmParsed(
+            new SpParsed(this.ctx.spelling()),
+            new GmOfParsedGrammemes(
                 this.grammar,
-                Optional.ofNullable(this.ctx.grammaticalMeaning())
+                this.ctx.grammaticalMeaning().grammemes()
             )
         );
     }
