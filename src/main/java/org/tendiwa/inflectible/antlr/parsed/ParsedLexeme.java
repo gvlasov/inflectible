@@ -32,7 +32,6 @@ import org.tendiwa.inflectible.Lexeme;
 import org.tendiwa.inflectible.Spelling;
 import org.tendiwa.inflectible.WordForm;
 import org.tendiwa.inflectible.antlr.LexemeBundleParser;
-import org.tenidwa.collections.utils.Collectors;
 
 /**
  * {@link Lexeme} constructed from an ANTLR parse tree.
@@ -117,11 +116,20 @@ final class ParsedLexeme implements Lexeme {
      * @return Word forms.
      */
     private ImmutableList<WordForm> wordForms() {
-        return this.ctx
+        final ImmutableList.Builder<WordForm> builder = ImmutableList.builder();
+        if (this.ctx.wordForms().dictionaryWordForm() != null) {
+            builder.add(
+                new WfParsedDictionary(
+                    this.ctx.wordForms().dictionaryWordForm()
+                )
+            );
+        }
+        this.ctx
             .wordForms()
-            .wordForm()
+            .inflectedWordForm()
             .stream()
-            .map(context -> new ParsedWordForm(this.grammar, context))
-            .collect(Collectors.toImmutableList());
+            .map(context -> new WfParsedInflected(this.grammar, context))
+            .forEach(builder::add);
+        return builder.build();
     }
 }
