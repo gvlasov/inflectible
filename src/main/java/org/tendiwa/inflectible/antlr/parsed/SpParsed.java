@@ -36,18 +36,18 @@ public final class SpParsed implements Spelling {
     /**
      * ANTLR parse tree of a word form.
      */
-    private final transient LexemeBundleParser.WordFormContext ctx;
+    private final transient LexemeBundleParser.SpellingContext ctx;
 
     /**
      * Ctor.
      * @param context ANTLR parse tree of a word form
      */
-    public SpParsed(final LexemeBundleParser.WordFormContext context) {
+    public SpParsed(final LexemeBundleParser.SpellingContext context) {
         this.ctx = context;
     }
 
     @Override
     public String string() {
-        return this.ctx.WORD_FORM().getText();
+        return this.ctx.SPELLING().getText();
     }
 }
