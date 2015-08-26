@@ -1,0 +1,76 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Georgy Vlasov
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.tendiwa.inflectible.antlr.parsed;
+
+import org.tendiwa.inflectible.BasicWordForm;
+import org.tendiwa.inflectible.GmEmpty;
+import org.tendiwa.inflectible.GrammaticalMeaning;
+import org.tendiwa.inflectible.Spelling;
+import org.tendiwa.inflectible.WordForm;
+import org.tendiwa.inflectible.antlr.LexemeBundleParser;
+
+/**
+ * The most basic word form that could be put into the dictionary, parsed
+ * from an ANTLR parse tree. Doesn't have any additional grammatical meaning.
+ * @author Georgy Vlasov (suseika@tendiwa.org)
+ * @version $Id$
+ * @since 0.2.0
+ */
+public final class WfParsedDictionary implements WordForm {
+    /**
+     * ANTLR parse tree of a dictionary word form.
+     */
+    private final transient LexemeBundleParser.DictionaryWordFormContext ctx;
+
+    /**
+     * Ctor.
+     * @param context ANTLR parse tree of a dictionary word form.
+     */
+    public WfParsedDictionary(
+        final LexemeBundleParser.DictionaryWordFormContext context
+    ) {
+        this.ctx = context;
+    }
+
+    @Override
+    public Spelling spelling() {
+        return this.delegate().spelling();
+    }
+
+    @Override
+    public int similarity(final GrammaticalMeaning grammemes) {
+        return this.delegate().similarity(grammemes);
+    }
+
+    /**
+     * Creates a dictionary word form.
+     * @return Dictionary word form.
+     */
+    private WordForm delegate() {
+        return new BasicWordForm(
+            new SpParsed(this.ctx.spelling()),
+            new GmEmpty()
+        );
+    }
+}
