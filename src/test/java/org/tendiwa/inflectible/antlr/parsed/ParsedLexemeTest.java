@@ -103,7 +103,7 @@ public final class ParsedLexemeTest {
         IntStream.range(0, 2).forEach(
             i -> MatcherAssert.assertThat(
                 lexeme.defaultSpelling().string(),
-                CoreMatchers.equalTo("human")
+                CoreMatchers.equalTo("scissors")
             )
         );
     }
@@ -115,11 +115,26 @@ public final class ParsedLexemeTest {
     @Test
     public void canHavePersistentGrammemes() throws Exception {
         MatcherAssert.assertThat(
-            this.wordOfBundle(ParsedLexemeTest.LEXEMES_RESOURCE, 2)
+            this.wordOfBundle(ParsedLexemeTest.LEXEMES_RESOURCE, 1)
                 .persistentGrammemes()
                 .grammemes()
                 .size(),
             CoreMatchers.equalTo(1)
+        );
+    }
+
+    /**
+     * {@link ParsedLexeme} will not fail if given a parse tree without a
+     * dictionary word form (the one without any additional grammemes).
+     * @throws Exception If fails
+     */
+    @Test
+    public void canHandleLexemeWithNoDictionaryForm() throws Exception {
+        MatcherAssert.assertThat(
+            this.wordOfBundle(ParsedLexemeTest.LEXEMES_RESOURCE, 2)
+                .defaultSpelling()
+                .string(),
+            CoreMatchers.equalTo("dad")
         );
     }
 

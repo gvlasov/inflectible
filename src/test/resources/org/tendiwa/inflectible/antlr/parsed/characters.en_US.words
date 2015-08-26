@@ -3,11 +3,11 @@ BEAR {
     bears <Plur>
 }
 
-HUMAN {
-    human
-    humans <Plur>
-}
-
 SCISSORS <Plur> {
     scissors
+}
+
+DAD {
+    dad  <Sing>
+    dads <Plur>
 }

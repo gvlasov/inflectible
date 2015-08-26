@@ -68,13 +68,13 @@ public final class ParsedTemplateTest {
                     .template(0)
             ).fillUp(
                 ImmutableList.of(
-                    vocabulary.lexeme(new ValidatedConcept("HUMAN")),
+                    vocabulary.lexeme(new ValidatedConcept("DAD")),
                     vocabulary.lexeme(new ValidatedConcept("BEAR"))
                 ),
                 new BasicVocabulary(ImmutableMap.of())
             ),
             CoreMatchers.equalTo(
-                "Here come a human and two bears. Human is tall."
+                "Here come a dad and two bears. Dad is tall."
             )
         );
     }
