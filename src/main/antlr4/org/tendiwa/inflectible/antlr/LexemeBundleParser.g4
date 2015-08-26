@@ -12,8 +12,12 @@ lexeme: conceptId persistentGrammemes? WORD_FORMS_START wordForms WORD_FORMS_END
 
 persistentGrammemes: grammaticalMeaning;
 
-wordForms: wordForm+;
+wordForms: dictionaryWordForm? inflectedWordForm*;
 
-wordForm: WORD_FORM grammaticalMeaning?;
+dictionaryWordForm: spelling;
+
+inflectedWordForm: spelling grammaticalMeaning;
+
+spelling: SPELLING;
 
 grammaticalMeaning: LT grammemes GT;
