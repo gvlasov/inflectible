@@ -67,8 +67,8 @@ public final class WfParsedInflected implements WordForm {
     }
 
     @Override
-    public int similarity(final GrammaticalMeaning grammemes) {
-        return this.delegate().similarity(grammemes);
+    public GrammaticalMeaning grammaticalMeaning() {
+        return this.delegate().grammaticalMeaning();
     }
 
     // To be refactored in #47

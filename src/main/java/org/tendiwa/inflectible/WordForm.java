@@ -49,11 +49,8 @@ public interface WordForm {
     Spelling spelling();
 
     /**
-     * How similar is this word form's grammatical meaning to another
-     * grammatical meaning.
-     * @param grammemes Another grammatical meaning.
-     * @return Size of the intersection set of this word form's grammatical
-     *  meaning and the other grammatical meaning.
+     * Returns the grammatical meaning of this word form.
+     * @return Grammatical meaning of this word form
      */
-    int similarity(GrammaticalMeaning grammemes);
+    GrammaticalMeaning grammaticalMeaning();
 }

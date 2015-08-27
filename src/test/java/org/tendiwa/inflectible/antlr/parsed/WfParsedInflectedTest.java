@@ -58,8 +58,9 @@ public final class WfParsedInflectedTest {
     public void computesSimilarity() throws Exception {
         MatcherAssert.assertThat(
             this.wordFormBears()
-                .similarity(()->ImmutableSet.of(English.Grammemes.Plur)),
-            CoreMatchers.equalTo(1)
+                .grammaticalMeaning()
+                .grammemes(),
+            CoreMatchers.equalTo(ImmutableSet.of(English.Grammemes.Plur))
         );
     }
 

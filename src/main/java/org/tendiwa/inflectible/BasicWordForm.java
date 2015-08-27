@@ -23,8 +23,6 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.Sets;
-
 /**
  * A {@link WordForm} defined by its spelling and grammatical meaning.
  * @author Georgy Vlasov (suseika@tendiwa.org)
@@ -61,10 +59,7 @@ public final class BasicWordForm implements WordForm {
     }
 
     @Override
-    public int similarity(final GrammaticalMeaning grammemes) {
-        return Sets.intersection(
-            grammemes.grammemes(),
-            this.meaning.grammemes()
-        ).size();
+    public GrammaticalMeaning grammaticalMeaning() {
+        return this.meaning;
     }
 }
