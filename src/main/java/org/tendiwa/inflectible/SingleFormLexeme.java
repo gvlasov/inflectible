@@ -26,15 +26,14 @@ package org.tendiwa.inflectible;
 import com.google.common.collect.ImmutableList;
 
 /**
- * Lexeme with only its dictionary form (with default grammatical meaning)
- * and no persistent grammemes.
+ * Lexeme with only its headword and no persistent grammemes.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1.0
  */
 public final class SingleFormLexeme implements Lexeme {
     /**
-     * Spelling of the dictionary word form.
+     * Spelling of the headword.
      */
     private final transient String spelling;
 
