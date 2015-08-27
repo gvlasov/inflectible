@@ -25,8 +25,11 @@ package org.tendiwa.inflectible.antlr.parsed;
 
 import java.io.IOException;
 import java.io.InputStream;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.tendiwa.inflectible.antlr.TemplateBundleLexer;
 
 /**
  * Unit tests for {@link BasicTemplateBundleParser}.
@@ -45,5 +48,30 @@ public final class BasicTemplateBundleParserTest {
         final InputStream failing = Mockito.mock(InputStream.class);
         Mockito.when(failing.read()).thenThrow(new IOException());
         new BasicTemplateBundleParser(failing);
+    }
+
+    /**
+     * {@link BasicTemplateBundleParser} can parse escaped characters from a
+     * stream.
+     * @throws Exception If fails
+     */
+    @Test
+    public void readsEscapedCharacters() throws Exception {
+        MatcherAssert.assertThat(
+            new BasicTemplateBundleParser(
+                "text.id() {",
+                "  Hello, \\[, this is \\\\",
+                "}"
+            )
+                .templates()
+                .template(0)
+                .templateBody()
+                .line(0)
+                .piece(0)
+                .rawText()
+                .getTokens(TemplateBundleLexer.ESC)
+                .size(),
+            CoreMatchers.equalTo(2)
+        );
     }
 }
