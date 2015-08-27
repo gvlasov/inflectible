@@ -93,7 +93,7 @@ public final class ParsedTemplatuary implements Templatuary {
                 this.inputs.stream()
                     .map(
                         Rethrowing.rethrowFunction(
-                            BasicTemplateBundleParser::new
+                            BasicTemplateParser::new
                         )
                     )
                     .flatMap(parser -> parser.templates().template().stream())

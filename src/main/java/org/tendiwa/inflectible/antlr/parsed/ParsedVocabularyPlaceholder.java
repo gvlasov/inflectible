@@ -30,7 +30,7 @@ import org.tendiwa.inflectible.LrFromVocabulary;
 import org.tendiwa.inflectible.Placeholder;
 import org.tendiwa.inflectible.TemplateBodyPiece;
 import org.tendiwa.inflectible.Vocabulary;
-import org.tendiwa.inflectible.antlr.TemplateBundleParser;
+import org.tendiwa.inflectible.antlr.TemplateParser;
 
 /**
  * Placeholder that gets a lexeme from a vocabulary instead of from an argument.
@@ -49,7 +49,7 @@ public final class ParsedVocabularyPlaceholder implements TemplateBodyPiece {
     /**
      * ANTLR parse tree with a vocabulary placeholder's markup.
      */
-    private final transient TemplateBundleParser.VocabularyPlaceholderContext
+    private final transient TemplateParser.VocabularyPlaceholderContext
         ctx;
 
     /**
@@ -59,7 +59,7 @@ public final class ParsedVocabularyPlaceholder implements TemplateBodyPiece {
      */
     ParsedVocabularyPlaceholder(
         final Grammar grammemes,
-        final TemplateBundleParser.VocabularyPlaceholderContext context
+        final TemplateParser.VocabularyPlaceholderContext context
     ) {
         super();
         this.grammar = grammemes;

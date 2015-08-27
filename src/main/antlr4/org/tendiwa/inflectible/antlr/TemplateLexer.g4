@@ -1,4 +1,4 @@
-lexer grammar TemplateBundleLexer;
+lexer grammar TemplateLexer;
 
 import SharedLexer;
 

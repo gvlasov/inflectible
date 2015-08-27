@@ -31,7 +31,7 @@ import org.tendiwa.inflectible.GrammaticalMeaning;
 import org.tendiwa.inflectible.Lexeme;
 import org.tendiwa.inflectible.Spelling;
 import org.tendiwa.inflectible.WordForm;
-import org.tendiwa.inflectible.antlr.LexemeBundleParser;
+import org.tendiwa.inflectible.antlr.LexemeParser;
 
 /**
  * {@link Lexeme} constructed from an ANTLR parse tree.
@@ -49,7 +49,7 @@ final class ParsedLexeme implements Lexeme {
     /**
      * ANTLR parse tree of a lexeme.
      */
-    private final transient LexemeBundleParser.LexemeContext ctx;
+    private final transient LexemeParser.LexemeContext ctx;
 
     /**
      * Ctor.
@@ -58,7 +58,7 @@ final class ParsedLexeme implements Lexeme {
      */
     public ParsedLexeme(
         final Grammar grammemes,
-        final LexemeBundleParser.LexemeContext context
+        final LexemeParser.LexemeContext context
     ) {
         this.grammar = grammemes;
         this.ctx = context;

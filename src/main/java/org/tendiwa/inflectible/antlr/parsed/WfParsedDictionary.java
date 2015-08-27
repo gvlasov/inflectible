@@ -28,7 +28,7 @@ import org.tendiwa.inflectible.GmEmpty;
 import org.tendiwa.inflectible.GrammaticalMeaning;
 import org.tendiwa.inflectible.Spelling;
 import org.tendiwa.inflectible.WordForm;
-import org.tendiwa.inflectible.antlr.LexemeBundleParser;
+import org.tendiwa.inflectible.antlr.LexemeParser;
 
 /**
  * The most basic word form that could be put into the dictionary, parsed
@@ -41,14 +41,14 @@ public final class WfParsedDictionary implements WordForm {
     /**
      * ANTLR parse tree of a dictionary word form.
      */
-    private final transient LexemeBundleParser.DictionaryWordFormContext ctx;
+    private final transient LexemeParser.DictionaryWordFormContext ctx;
 
     /**
      * Ctor.
      * @param context ANTLR parse tree of a dictionary word form.
      */
     public WfParsedDictionary(
-        final LexemeBundleParser.DictionaryWordFormContext context
+        final LexemeParser.DictionaryWordFormContext context
     ) {
         this.ctx = context;
     }

@@ -32,7 +32,7 @@ import org.tendiwa.inflectible.BasicVocabulary;
 import org.tendiwa.inflectible.Grammar;
 import org.tendiwa.inflectible.ValidatedConcept;
 import org.tendiwa.inflectible.Vocabulary;
-import org.tendiwa.inflectible.antlr.TemplateBundleLexer;
+import org.tendiwa.inflectible.antlr.TemplateLexer;
 import org.tendiwa.inflectible.implementations.English;
 
 /**
@@ -60,8 +60,8 @@ public final class ParsedTemplateTest {
         MatcherAssert.assertThat(
             new ParsedTemplate(
                 grammar,
-                new BasicTemplateBundleParser(
-                    TemplateBundleLexer.DEFAULT_MODE,
+                new BasicTemplateParser(
+                    TemplateLexer.DEFAULT_MODE,
                     "texts.text(a,b) {",
                     "  Here come a [a] and two [b]<Plur;a>. [A] is tall.",
                     "}"

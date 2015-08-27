@@ -1,9 +1,9 @@
-parser grammar TemplateBundleParser;
+parser grammar TemplateParser;
 
 import SharedParser;
 
 options {
-    tokenVocab=TemplateBundleLexer;
+    tokenVocab=TemplateLexer;
 }
 
 templates: template+;

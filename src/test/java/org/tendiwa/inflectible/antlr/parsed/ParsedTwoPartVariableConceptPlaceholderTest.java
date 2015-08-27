@@ -29,7 +29,7 @@ import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.tendiwa.inflectible.BasicVocabulary;
 import org.tendiwa.inflectible.SingleFormLexeme;
-import org.tendiwa.inflectible.antlr.TemplateBundleLexer;
+import org.tendiwa.inflectible.antlr.TemplateLexer;
 import org.tendiwa.inflectible.implementations.English;
 
 /**
@@ -49,8 +49,8 @@ public final class ParsedTwoPartVariableConceptPlaceholderTest {
         MatcherAssert.assertThat(
                 new ParsedTwoPartVariableConceptPlaceholder(
                     new English().grammar(),
-                    new BasicTemplateBundleParser(
-                        TemplateBundleLexer.LINE_CONTENT,
+                    new BasicTemplateParser(
+                        TemplateLexer.LINE_CONTENT,
                         "[Dude]<Sing>"
                     )
                         .twoPartPlaceholder()

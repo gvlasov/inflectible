@@ -31,7 +31,7 @@ import org.tendiwa.inflectible.GrStatic;
 import org.tendiwa.inflectible.Grammar;
 import org.tendiwa.inflectible.GrammarRule;
 import org.tendiwa.inflectible.GrammaticalMeaning;
-import org.tendiwa.inflectible.antlr.TemplateBundleParser;
+import org.tendiwa.inflectible.antlr.TemplateParser;
 
 /**
  * Grammar rule that produces grammatical meaning by looking at placeholder's
@@ -51,13 +51,13 @@ public final class GrParsedStaticOrAgreement implements GrammarRule {
      * ANTLR parse tree of grammemes.
      */
     private final transient
-        Optional<TemplateBundleParser.GrammemesContext> grammemes;
+        Optional<TemplateParser.GrammemesContext> grammemes;
 
     /**
      * ANTLR parse tree of agreement.
      */
     private final transient
-        Optional<TemplateBundleParser.AgreementContext> agreement;
+        Optional<TemplateParser.AgreementContext> agreement;
 
     /**
      * Ctor.
@@ -67,8 +67,8 @@ public final class GrParsedStaticOrAgreement implements GrammarRule {
      */
     public GrParsedStaticOrAgreement(
         final Grammar gram,
-        final Optional<TemplateBundleParser.GrammemesContext> grams,
-        final Optional<TemplateBundleParser.AgreementContext> agr
+        final Optional<TemplateParser.GrammemesContext> grams,
+        final Optional<TemplateParser.AgreementContext> agr
     ) {
         this.grammar = gram;
         this.grammemes = grams;

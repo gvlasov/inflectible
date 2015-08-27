@@ -25,18 +25,21 @@ package org.tendiwa.inflectible.antlr.parsed;
 
 import java.io.IOException;
 import java.io.InputStream;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.tendiwa.inflectible.antlr.TemplateLexer;
 
 /**
- * Unit tests for {@link BasicLexemeBundleParser}.
+ * Unit tests for {@link BasicTemplateParser}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1.0
  */
-public final class BasicLexemeBundleParserTest {
+public final class BasicTemplateParserTest {
     /**
-     * {@link BasicLexemeBundleParser} can fail if an input stream passed to
+     * {@link BasicTemplateParser} can fail if an input stream passed to
      * it throws {@link IOException}.
      * @throws Exception If fails
      */
@@ -44,6 +47,42 @@ public final class BasicLexemeBundleParserTest {
     public void failsWithBadInputStream() throws Exception {
         final InputStream failing = Mockito.mock(InputStream.class);
         Mockito.when(failing.read()).thenThrow(new IOException());
-        new BasicLexemeBundleParser(failing);
+        new BasicTemplateParser(failing);
+    }
+
+    /**
+     * {@link BasicTemplateParser} can parse escaped characters from a
+     * stream.
+     * @throws Exception If fails
+     */
+    @Test
+    public void readsEscapedCharacters() throws Exception {
+        MatcherAssert.assertThat(
+            new BasicTemplateParser(
+                TemplateLexer.LINE_CONTENT,
+                "Hello, \\[, this is \\\\"
+            )
+                .rawText()
+                .getTokens(TemplateLexer.ESC)
+                .size(),
+            CoreMatchers.equalTo(2)
+        );
+    }
+
+    /**
+     * {@link BasicTemplateParser} can start parsing in arbitrary mode,
+     * not only in the default mode.
+     * @throws Exception If fails
+     */
+    @Test
+    public void canStartParsingInArbitraryMode() throws Exception {
+        MatcherAssert.assertThat(
+            new BasicTemplateParser(
+                TemplateLexer.LINE_CONTENT,
+                "[man]"
+            )
+                .singlePartPlaceholder(),
+            CoreMatchers.notNullValue()
+        );
     }
 }

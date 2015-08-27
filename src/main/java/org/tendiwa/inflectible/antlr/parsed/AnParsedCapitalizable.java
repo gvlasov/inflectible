@@ -25,7 +25,7 @@ package org.tendiwa.inflectible.antlr.parsed;
 
 import java.util.Locale;
 import org.tendiwa.inflectible.ArgumentName;
-import org.tendiwa.inflectible.antlr.TemplateBundleParser;
+import org.tendiwa.inflectible.antlr.TemplateParser;
 
 /**
  * Argument name from ANTLR parse tree about which it is not known until
@@ -39,14 +39,14 @@ public final class AnParsedCapitalizable implements ArgumentName {
      * ANTLR parse tree with a probably capitalized argument name.
      */
     private final transient
-        TemplateBundleParser.CapitalizableArgumentNameContext ctx;
+        TemplateParser.CapitalizableArgumentNameContext ctx;
 
     /**
      * Ctor.
      * @param context ANLTR parse tree with a probably capitalized argument name
      */
     AnParsedCapitalizable(
-        final TemplateBundleParser.CapitalizableArgumentNameContext context
+        final TemplateParser.CapitalizableArgumentNameContext context
     ) {
         this.ctx = context;
     }

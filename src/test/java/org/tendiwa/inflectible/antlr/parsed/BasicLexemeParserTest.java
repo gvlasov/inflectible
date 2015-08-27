@@ -23,48 +23,27 @@
  */
 package org.tendiwa.inflectible.antlr.parsed;
 
-import com.google.common.base.Joiner;
 import java.io.IOException;
 import java.io.InputStream;
-import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.apache.commons.io.IOUtils;
-import org.tendiwa.inflectible.antlr.LexemeBundleLexer;
-import org.tendiwa.inflectible.antlr.LexemeBundleParser;
+import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
- * A convenience descendant of {@link LexemeBundleParser} created from an
- * {@link InputStream} without explicitly specifying any additional plumbing.
+ * Unit tests for {@link BasicLexemeParser}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1.0
  */
-public final class BasicLexemeBundleParser extends LexemeBundleParser {
+public final class BasicLexemeParserTest {
     /**
-     * Ctor.
-     * @param input Input stream with lexemes' markup
-     * @throws IOException If can't read in input stream
+     * {@link BasicLexemeParser} can fail if an input stream passed to
+     * it throws {@link IOException}.
+     * @throws Exception If fails
      */
-    public BasicLexemeBundleParser(final InputStream input) throws IOException {
-        super(
-            new CommonTokenStream(
-                new LexemeBundleLexer(
-                    new ANTLRInputStream(input)
-                )
-            )
-        );
-    }
-
-    /**
-     * Ctor.
-     * @param markup Lexemes' markup
-     * @throws IOException If can't read the input stream
-     */
-    public BasicLexemeBundleParser(final String... markup) throws IOException {
-        this(
-            IOUtils.toInputStream(
-                Joiner.on('\n').join(markup)
-            )
-        );
+    @Test(expected = IOException.class)
+    public void failsWithBadInputStream() throws Exception {
+        final InputStream failing = Mockito.mock(InputStream.class);
+        Mockito.when(failing.read()).thenThrow(new IOException());
+        new BasicLexemeParser(failing);
     }
 }

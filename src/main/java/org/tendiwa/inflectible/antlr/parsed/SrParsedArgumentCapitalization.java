@@ -26,7 +26,7 @@ package org.tendiwa.inflectible.antlr.parsed;
 import org.tendiwa.inflectible.Spelling;
 import org.tendiwa.inflectible.SpellingRule;
 import org.tendiwa.inflectible.SrConditionalCapitalization;
-import org.tendiwa.inflectible.antlr.TemplateBundleParser;
+import org.tendiwa.inflectible.antlr.TemplateParser;
 
 /**
  * Adds capitalization to a {@link Spelling} if an argument starts from a
@@ -41,14 +41,14 @@ final class SrParsedArgumentCapitalization implements SpellingRule {
      * ANTLR parse tree with an argument name.
      */
     private final transient
-        TemplateBundleParser.CapitalizableArgumentNameContext ctx;
+        TemplateParser.CapitalizableArgumentNameContext ctx;
 
     /**
      * Ctor.
      * @param context ANTLR parse tree with an argument name
      */
     SrParsedArgumentCapitalization(
-        final TemplateBundleParser.CapitalizableArgumentNameContext context
+        final TemplateParser.CapitalizableArgumentNameContext context
     ) {
         this.ctx = context;
     }

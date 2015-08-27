@@ -27,7 +27,7 @@ import org.tendiwa.inflectible.ActualArguments;
 import org.tendiwa.inflectible.PiPlainText;
 import org.tendiwa.inflectible.TemplateBodyPiece;
 import org.tendiwa.inflectible.Vocabulary;
-import org.tendiwa.inflectible.antlr.TemplateBundleParser;
+import org.tendiwa.inflectible.antlr.TemplateParser;
 
 /**
  * Plain text, probably with escaped characters, parsed from an ANTLR parse
@@ -40,14 +40,14 @@ public final class PiParsedPlainText implements TemplateBodyPiece {
     /**
      * ANTLR parse tree of some plain text.
      */
-    private final transient TemplateBundleParser.RawTextContext ctx;
+    private final transient TemplateParser.RawTextContext ctx;
 
     /**
      * Ctor.
      * @param context ANTLR parse tree of some plain text.
      */
     public PiParsedPlainText(
-        final TemplateBundleParser.RawTextContext context
+        final TemplateParser.RawTextContext context
     ) {
         this.ctx = context;
     }

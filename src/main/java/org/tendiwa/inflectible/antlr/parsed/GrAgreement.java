@@ -26,7 +26,7 @@ package org.tendiwa.inflectible.antlr.parsed;
 import org.tendiwa.inflectible.ActualArguments;
 import org.tendiwa.inflectible.GrammarRule;
 import org.tendiwa.inflectible.GrammaticalMeaning;
-import org.tendiwa.inflectible.antlr.TemplateBundleParser;
+import org.tendiwa.inflectible.antlr.TemplateParser;
 
 /**
  * {@link GrammarRule} that states that content of a placeholder must
@@ -40,14 +40,14 @@ public final class GrAgreement implements GrammarRule {
     /**
      * ANTLR parse tree of an agreement directive.
      */
-    private final transient TemplateBundleParser.AgreementContext ctx;
+    private final transient TemplateParser.AgreementContext ctx;
 
     /**
      * Ctor.
      * @param context ANTLR parse tree of an agreement directive.
      */
     GrAgreement(
-        final TemplateBundleParser.AgreementContext context
+        final TemplateParser.AgreementContext context
     ) {
         this.ctx = context;
     }

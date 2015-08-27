@@ -28,7 +28,7 @@ import org.tendiwa.inflectible.Grammar;
 import org.tendiwa.inflectible.GrammaticalMeaning;
 import org.tendiwa.inflectible.Spelling;
 import org.tendiwa.inflectible.WordForm;
-import org.tendiwa.inflectible.antlr.LexemeBundleParser;
+import org.tendiwa.inflectible.antlr.LexemeParser;
 
 /**
  * {@link WordForm} that is inflected (in contrast to
@@ -46,7 +46,7 @@ public final class WfParsedInflected implements WordForm {
     /**
      * ANTLR parse tree of this word from.
      */
-    private final transient LexemeBundleParser.InflectedWordFormContext ctx;
+    private final transient LexemeParser.InflectedWordFormContext ctx;
 
     /**
      * Ctor.
@@ -55,7 +55,7 @@ public final class WfParsedInflected implements WordForm {
      */
     WfParsedInflected(
         final Grammar grammemes,
-        final LexemeBundleParser.InflectedWordFormContext context
+        final LexemeParser.InflectedWordFormContext context
     ) {
         this.grammar = grammemes;
         this.ctx = context;

@@ -96,7 +96,7 @@ public final class ParsedVocabulary implements Vocabulary {
                     .stream()
                     .map(
                         Rethrowing.rethrowFunction(
-                            BasicLexemeBundleParser::new
+                            BasicLexemeParser::new
                         )
                     )
                     .flatMap(parser -> parser.lexemes().lexeme().stream())

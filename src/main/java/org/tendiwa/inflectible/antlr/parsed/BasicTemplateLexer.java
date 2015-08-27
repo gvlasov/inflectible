@@ -26,23 +26,23 @@ package org.tendiwa.inflectible.antlr.parsed;
 import java.io.IOException;
 import java.io.InputStream;
 import org.antlr.v4.runtime.ANTLRInputStream;
-import org.tendiwa.inflectible.antlr.TemplateBundleLexer;
+import org.tendiwa.inflectible.antlr.TemplateLexer;
 
 /**
- * {@link TemplateBundleLexer} created from any stream, and in a particular
+ * {@link TemplateLexer} created from any stream, and in a particular
  * mode.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.2.0
  */
-public final class BasicTemplateBundleLexer extends TemplateBundleLexer {
+public final class BasicTemplateLexer extends TemplateLexer {
     /**
      * Ctor.
      * @param mode Starting lexer mode
      * @param input Input stream with templates' markup
      * @throws IOException If couldn't read the stream
      */
-    public BasicTemplateBundleLexer(
+    public BasicTemplateLexer(
         final int mode,
         final InputStream input
     ) throws IOException {

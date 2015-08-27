@@ -1,9 +1,9 @@
-parser grammar LexemeBundleParser;
+parser grammar LexemeParser;
 
 import SharedParser;
 
 options {
-    tokenVocab=LexemeBundleLexer;
+    tokenVocab=LexemeLexer;
 }
 
 lexemes: lexeme+;

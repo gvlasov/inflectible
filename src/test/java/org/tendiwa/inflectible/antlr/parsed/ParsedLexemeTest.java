@@ -152,7 +152,7 @@ public final class ParsedLexemeTest {
     ) throws IOException {
         return new ParsedLexeme(
             new English().grammar(),
-            new BasicLexemeBundleParser(
+            new BasicLexemeParser(
                 ParsedLexemeTest.class.getResourceAsStream(resource)
             )
                 .lexemes()

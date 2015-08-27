@@ -48,10 +48,10 @@
                 </dependencies>
                 <configuration>
                     <excludes>
-                        <exclude>findbugs:org.tendiwa.inflectible.antlr.LexemeBundleLexer</exclude>
-                        <exclude>findbugs:org.tendiwa.inflectible.antlr.TemplateBundleLexer</exclude>
-                        <exclude>findbugs:org.tendiwa.inflectible.antlr.LexemeBundleParser</exclude>
-                        <exclude>findbugs:org.tendiwa.inflectible.antlr.TemplateBundleParser</exclude>
+                        <exclude>findbugs:org.tendiwa.inflectible.antlr.LexemeLexer</exclude>
+                        <exclude>findbugs:org.tendiwa.inflectible.antlr.TemplateLexer</exclude>
+                        <exclude>findbugs:org.tendiwa.inflectible.antlr.LexemeParser</exclude>
+                        <exclude>findbugs:org.tendiwa.inflectible.antlr.TemplateParser</exclude>
                     </excludes>
                 </configuration>
             </plugin>

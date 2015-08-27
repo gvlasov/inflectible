@@ -25,7 +25,7 @@ package org.tendiwa.inflectible.antlr.parsed;
 
 import org.tendiwa.inflectible.TemplateName;
 import org.tendiwa.inflectible.TnBasic;
-import org.tendiwa.inflectible.antlr.TemplateBundleParser;
+import org.tendiwa.inflectible.antlr.TemplateParser;
 
 /**
  * {@link TemplateName} parsed from an ANTLR parse tree.
@@ -37,13 +37,13 @@ public final class TnParsed implements TemplateName {
     /**
      * ANTLR parse tree of a template identifier.
      */
-    private final transient TemplateBundleParser.IdContext ctx;
+    private final transient TemplateParser.IdContext ctx;
 
     /**
      * Ctor.
      * @param context ANTLR parse tree of a template identifier
      */
-    TnParsed(final TemplateBundleParser.IdContext context) {
+    TnParsed(final TemplateParser.IdContext context) {
         this.ctx = context;
     }
 

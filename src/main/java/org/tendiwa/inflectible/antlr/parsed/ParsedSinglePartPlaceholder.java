@@ -30,7 +30,7 @@ import org.tendiwa.inflectible.LrFromArgument;
 import org.tendiwa.inflectible.Placeholder;
 import org.tendiwa.inflectible.TemplateBodyPiece;
 import org.tendiwa.inflectible.Vocabulary;
-import org.tendiwa.inflectible.antlr.TemplateBundleParser;
+import org.tendiwa.inflectible.antlr.TemplateParser;
 
 /**
  * {@link TemplateBodyPiece} constructed from an ANTLR parse tree.
@@ -42,7 +42,7 @@ public final class ParsedSinglePartPlaceholder implements TemplateBodyPiece {
     /**
      * ANTLR parse tree of a placeholder.
      */
-    private final transient TemplateBundleParser.SinglePartPlaceholderContext
+    private final transient TemplateParser.SinglePartPlaceholderContext
         ctx;
 
     /**
@@ -50,7 +50,7 @@ public final class ParsedSinglePartPlaceholder implements TemplateBodyPiece {
      * @param context ANTLR parse tree of a two-part placeholder.
      */
     ParsedSinglePartPlaceholder(
-        final TemplateBundleParser.SinglePartPlaceholderContext context
+        final TemplateParser.SinglePartPlaceholderContext context
     ) {
         super();
         this.ctx = context;

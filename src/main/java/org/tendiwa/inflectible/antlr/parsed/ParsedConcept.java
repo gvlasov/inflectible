@@ -24,7 +24,7 @@
 package org.tendiwa.inflectible.antlr.parsed;
 
 import org.tendiwa.inflectible.Concept;
-import org.tendiwa.inflectible.antlr.LexemeBundleParser;
+import org.tendiwa.inflectible.antlr.LexemeParser;
 
 /**
  * Concept parsed from an ANTLR parse tree.
@@ -36,13 +36,13 @@ public final class ParsedConcept implements Concept {
     /**
      * ANTLR parse tree of a concept id.
      */
-    private final transient LexemeBundleParser.ConceptIdContext ctx;
+    private final transient LexemeParser.ConceptIdContext ctx;
 
     /**
      * Ctor.
      * @param context ANTLR parse tree of a concept id.
      */
-    public ParsedConcept(final LexemeBundleParser.ConceptIdContext context) {
+    public ParsedConcept(final LexemeParser.ConceptIdContext context) {
         this.ctx = context;
     }
 

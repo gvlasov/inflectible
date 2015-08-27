@@ -29,7 +29,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.tendiwa.inflectible.ActualArguments;
 import org.tendiwa.inflectible.Vocabulary;
-import org.tendiwa.inflectible.antlr.TemplateBundleLexer;
+import org.tendiwa.inflectible.antlr.TemplateLexer;
 
 /**
  * Unit tests for {@link PiParsedPlainText}.
@@ -48,8 +48,8 @@ public final class PiParsedPlainTextTest {
         final String markup = "Hello world";
         MatcherAssert.assertThat(
             new PiParsedPlainText(
-                new BasicTemplateBundleParser(
-                    TemplateBundleLexer.LINE_CONTENT,
+                new BasicTemplateParser(
+                    TemplateLexer.LINE_CONTENT,
                     markup
                 )
                     .rawText()
@@ -71,8 +71,8 @@ public final class PiParsedPlainTextTest {
     public void unescapesEscapeSequences() throws Exception {
         MatcherAssert.assertThat(
             new PiParsedPlainText(
-                new BasicTemplateBundleParser(
-                    TemplateBundleLexer.LINE_CONTENT,
+                new BasicTemplateParser(
+                    TemplateLexer.LINE_CONTENT,
                     "Hello \\[mom], backslashes: \\\\\\\\"
                 )
                     .rawText()

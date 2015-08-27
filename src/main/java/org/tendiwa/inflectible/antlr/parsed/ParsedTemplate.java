@@ -32,8 +32,8 @@ import org.tendiwa.inflectible.Lexeme;
 import org.tendiwa.inflectible.Template;
 import org.tendiwa.inflectible.TemplateBodyPiece;
 import org.tendiwa.inflectible.Vocabulary;
-import org.tendiwa.inflectible.antlr.TemplateBundleParser;
-import org.tendiwa.inflectible.antlr.TemplateBundleParserBaseListener;
+import org.tendiwa.inflectible.antlr.TemplateParser;
+import org.tendiwa.inflectible.antlr.TemplateParserBaseListener;
 import org.tenidwa.collections.utils.Collectors;
 
 /**
@@ -51,7 +51,7 @@ final class ParsedTemplate implements Template {
     /**
      * ANTLR parse tree of a template.
      */
-    private final transient TemplateBundleParser.TemplateContext ctx;
+    private final transient TemplateParser.TemplateContext ctx;
 
     /**
      * Ctor.
@@ -60,7 +60,7 @@ final class ParsedTemplate implements Template {
      */
     ParsedTemplate(
         final Grammar grammemes,
-        final TemplateBundleParser.TemplateContext context
+        final TemplateParser.TemplateContext context
     ) {
         this.grammar = grammemes;
         this.ctx = context;
@@ -100,7 +100,7 @@ final class ParsedTemplate implements Template {
      * Walks an ANTLR parse tree and constructs a template.
      */
     private final class TemplateBuilder
-        extends TemplateBundleParserBaseListener {
+        extends TemplateParserBaseListener {
 
         /**
          * Template builder.
@@ -123,7 +123,7 @@ final class ParsedTemplate implements Template {
 
         @Override
         public void enterTwoPartPlaceholder(
-            final TemplateBundleParser.TwoPartPlaceholderContext context
+            final TemplateParser.TwoPartPlaceholderContext context
         ) {
             this.pieces.add(
                 new ParsedTwoPartVariableConceptPlaceholder(
@@ -135,7 +135,7 @@ final class ParsedTemplate implements Template {
 
         @Override
         public void enterRawText(
-            final TemplateBundleParser.RawTextContext context
+            final TemplateParser.RawTextContext context
         ) {
             this.pieces.add(
                 new PiParsedPlainText(context)
@@ -144,7 +144,7 @@ final class ParsedTemplate implements Template {
 
         @Override
         public void enterSinglePartPlaceholder(
-            final TemplateBundleParser.SinglePartPlaceholderContext context
+            final TemplateParser.SinglePartPlaceholderContext context
         ) {
             this.pieces.add(
                 new ParsedSinglePartPlaceholder(context)

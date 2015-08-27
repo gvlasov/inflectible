@@ -29,17 +29,17 @@ import org.apache.commons.io.IOUtils;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
-import org.tendiwa.inflectible.antlr.TemplateBundleLexer;
+import org.tendiwa.inflectible.antlr.TemplateLexer;
 
 /**
- * Unit tests for {@link TemplateBundleLexer}.
+ * Unit tests for {@link TemplateLexer}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1.0
  */
-public final class TemplateBundleLexerTest {
+public final class TemplateLexerTest {
     /**
-     * TemplateBundleLexer can split a correct piece of markup into tokens.
+     * TemplateLexer can split a correct piece of markup into tokens.
      * @throws Exception If fails
      */
     @Test
@@ -51,7 +51,7 @@ public final class TemplateBundleLexerTest {
             "}"
         );
         MatcherAssert.assertThat(
-            new TemplateBundleLexer(
+            new TemplateLexer(
                 new ANTLRInputStream(
                     IOUtils.toInputStream(text)
                 )

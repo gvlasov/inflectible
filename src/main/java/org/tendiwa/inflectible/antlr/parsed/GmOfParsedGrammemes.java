@@ -29,8 +29,8 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import org.tendiwa.inflectible.Grammar;
 import org.tendiwa.inflectible.GrammaticalMeaning;
 import org.tendiwa.inflectible.Grammeme;
-import org.tendiwa.inflectible.antlr.LexemeBundleParser;
-import org.tendiwa.inflectible.antlr.TemplateBundleParser;
+import org.tendiwa.inflectible.antlr.LexemeParser;
+import org.tendiwa.inflectible.antlr.TemplateParser;
 import org.tenidwa.collections.utils.Collectors;
 
 /**
@@ -70,7 +70,7 @@ public final class GmOfParsedGrammemes implements GrammaticalMeaning {
      */
     GmOfParsedGrammemes(
         final Grammar gram,
-        final TemplateBundleParser.GrammemesContext context
+        final TemplateParser.GrammemesContext context
     ) {
         this(gram, context.GRAMMEME());
     }
@@ -82,7 +82,7 @@ public final class GmOfParsedGrammemes implements GrammaticalMeaning {
      */
     GmOfParsedGrammemes(
         final Grammar gram,
-        final LexemeBundleParser.GrammemesContext context
+        final LexemeParser.GrammemesContext context
     ) {
         this(gram, context.GRAMMEME());
     }

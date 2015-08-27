@@ -25,7 +25,7 @@ package org.tendiwa.inflectible.antlr.parsed;
 
 import java.util.Locale;
 import org.tendiwa.inflectible.ArgumentName;
-import org.tendiwa.inflectible.antlr.TemplateBundleParser;
+import org.tendiwa.inflectible.antlr.TemplateParser;
 
 /**
  * {@link ArgumentName} parsed from an ANTLR parse tree of an argument name.
@@ -38,13 +38,13 @@ public final class AnParsed implements ArgumentName {
     /**
      * ANTLR parse tree of an argument name.
      */
-    private final transient TemplateBundleParser.ArgumentNameContext ctx;
+    private final transient TemplateParser.ArgumentNameContext ctx;
 
     /**
      * Ctor.
      * @param context ANTLR parse tree of an argument name
      */
-    AnParsed(final TemplateBundleParser.ArgumentNameContext context) {
+    AnParsed(final TemplateParser.ArgumentNameContext context) {
         this.ctx = context;
     }
 

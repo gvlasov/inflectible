@@ -1,4 +1,4 @@
-lexer grammar LexemeBundleLexer;
+lexer grammar LexemeLexer;
 
 import SharedLexer;
 

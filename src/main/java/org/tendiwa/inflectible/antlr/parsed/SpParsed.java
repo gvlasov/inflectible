@@ -24,7 +24,7 @@
 package org.tendiwa.inflectible.antlr.parsed;
 
 import org.tendiwa.inflectible.Spelling;
-import org.tendiwa.inflectible.antlr.LexemeBundleParser;
+import org.tendiwa.inflectible.antlr.LexemeParser;
 
 /**
  * Spelling parsed from an ANTLR parse tree of a word form.
@@ -36,13 +36,13 @@ public final class SpParsed implements Spelling {
     /**
      * ANTLR parse tree of a word form.
      */
-    private final transient LexemeBundleParser.SpellingContext ctx;
+    private final transient LexemeParser.SpellingContext ctx;
 
     /**
      * Ctor.
      * @param context ANTLR parse tree of a word form
      */
-    public SpParsed(final LexemeBundleParser.SpellingContext context) {
+    public SpParsed(final LexemeParser.SpellingContext context) {
         this.ctx = context;
     }
 

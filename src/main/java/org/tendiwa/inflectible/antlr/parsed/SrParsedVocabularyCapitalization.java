@@ -26,7 +26,7 @@ package org.tendiwa.inflectible.antlr.parsed;
 import org.tendiwa.inflectible.Spelling;
 import org.tendiwa.inflectible.SpellingRule;
 import org.tendiwa.inflectible.SrConditionalCapitalization;
-import org.tendiwa.inflectible.antlr.TemplateBundleParser;
+import org.tendiwa.inflectible.antlr.TemplateParser;
 
 /**
  * Adds capitalization to a {@link Spelling} if a <pre>lexeme</pre> keyword
@@ -41,7 +41,7 @@ public final class SrParsedVocabularyCapitalization implements SpellingRule {
      * ANTLR parse tree with a <pre>lexeme</pre> keyword and a reference to a
      * lexeme in vocabulary.
      */
-    private final transient TemplateBundleParser.VocabularyPointerContext ctx;
+    private final transient TemplateParser.VocabularyPointerContext ctx;
 
     /**
      * Ctor.
@@ -49,7 +49,7 @@ public final class SrParsedVocabularyCapitalization implements SpellingRule {
      *  reference to a lexeme in vocabulary.
      */
     SrParsedVocabularyCapitalization(
-        final TemplateBundleParser.VocabularyPointerContext context
+        final TemplateParser.VocabularyPointerContext context
     ) {
         this.ctx = context;
     }

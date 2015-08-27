@@ -30,28 +30,28 @@ import org.apache.commons.io.IOUtils;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
-import org.tendiwa.inflectible.antlr.TemplateBundleLexer;
-import org.tendiwa.inflectible.antlr.TemplateBundleParser;
+import org.tendiwa.inflectible.antlr.TemplateLexer;
+import org.tendiwa.inflectible.antlr.TemplateParser;
 
 /**
- * Unit tests for {@link TemplateBundleParser}.
+ * Unit tests for {@link TemplateParser}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1.0
  */
-public final class TemplateBundleParserTest {
+public final class TemplateParserTest {
     /**
-     * TemplateBundleParser can locate entry arguments in the markup.
+     * TemplateParser can locate entry arguments in the markup.
      * @throws Exception If fails
      */
     @Test
     public void findsArguments() throws Exception {
         MatcherAssert.assertThat(
-            new TemplateBundleParser(
+            new TemplateParser(
                 new CommonTokenStream(
-                    new TemplateBundleLexer(
+                    new TemplateLexer(
                         new ANTLRInputStream(
-                            TemplateBundleLexerTest.class.getResourceAsStream(
+                            TemplateLexerTest.class.getResourceAsStream(
                                 "messages.ru_RU.texts"
                             )
                         )
@@ -68,15 +68,15 @@ public final class TemplateBundleParserTest {
     }
 
     /**
-     * TemplateBundleParser can handle more than one template per bundle.
+     * TemplateParser can handle more than one template per bundle.
      * @throws Exception If fails
      */
     @Test
     public void parsesMultipleEntriesInOneTemplateBundle() throws Exception {
         MatcherAssert.assertThat(
-            new TemplateBundleParser(
+            new TemplateParser(
                 new CommonTokenStream(
-                    new TemplateBundleLexer(
+                    new TemplateLexer(
                         new ANTLRInputStream(
                             IOUtils.toInputStream(
                                 Joiner.on('\n').join(

@@ -30,7 +30,7 @@ import org.junit.Test;
 import org.tendiwa.inflectible.BasicVocabulary;
 import org.tendiwa.inflectible.SingleFormLexeme;
 import org.tendiwa.inflectible.ValidatedConcept;
-import org.tendiwa.inflectible.antlr.TemplateBundleLexer;
+import org.tendiwa.inflectible.antlr.TemplateLexer;
 import org.tendiwa.inflectible.implementations.English;
 
 /**
@@ -50,8 +50,8 @@ public final class ParsedVocabularyPlaceholderTest {
         MatcherAssert.assertThat(
             new ParsedVocabularyPlaceholder(
                 new English().grammar(),
-                new BasicTemplateBundleParser(
-                    TemplateBundleLexer.LINE_CONTENT,
+                new BasicTemplateParser(
+                    TemplateLexer.LINE_CONTENT,
                     "[lexeme DUDE]<;object>"
                 )
                     .vocabularyPlaceholder()
@@ -78,8 +78,8 @@ public final class ParsedVocabularyPlaceholderTest {
         MatcherAssert.assertThat(
             new ParsedVocabularyPlaceholder(
                 new English().grammar(),
-                new BasicTemplateBundleParser(
-                    TemplateBundleLexer.LINE_CONTENT,
+                new BasicTemplateParser(
+                    TemplateLexer.LINE_CONTENT,
                     "[Lexeme CAT]<;object>"
                 )
                     .vocabularyPlaceholder()

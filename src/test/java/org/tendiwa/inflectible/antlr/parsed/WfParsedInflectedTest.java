@@ -71,7 +71,7 @@ public final class WfParsedInflectedTest {
     private WfParsedInflected wordFormBears() throws IOException {
         return new WfParsedInflected(
             new English().grammar(),
-            new BasicLexemeBundleParser(
+            new BasicLexemeParser(
                 "BEAR {",
                 "  bear",
                 "  bears <Plur>",

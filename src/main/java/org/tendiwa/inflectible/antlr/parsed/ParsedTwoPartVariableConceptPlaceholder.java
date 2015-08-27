@@ -30,7 +30,7 @@ import org.tendiwa.inflectible.LrFromArgument;
 import org.tendiwa.inflectible.Placeholder;
 import org.tendiwa.inflectible.TemplateBodyPiece;
 import org.tendiwa.inflectible.Vocabulary;
-import org.tendiwa.inflectible.antlr.TemplateBundleParser;
+import org.tendiwa.inflectible.antlr.TemplateParser;
 
 /**
  * {@link TemplateBodyPiece} parsed from an ANTLR parse tree.
@@ -49,7 +49,7 @@ final class ParsedTwoPartVariableConceptPlaceholder
      *
      * ANTLR parse tree of a placeholder.
      */
-    private final transient TemplateBundleParser.TwoPartPlaceholderContext ctx;
+    private final transient TemplateParser.TwoPartPlaceholderContext ctx;
 
     /**
      * Ctor.
@@ -59,7 +59,7 @@ final class ParsedTwoPartVariableConceptPlaceholder
      */
     ParsedTwoPartVariableConceptPlaceholder(
         final Grammar rules,
-        final TemplateBundleParser.TwoPartPlaceholderContext context
+        final TemplateParser.TwoPartPlaceholderContext context
     ) {
         super();
         this.grammar = rules;
