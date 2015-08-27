@@ -26,7 +26,6 @@ package org.tendiwa.inflectible.antlr.parsed;
 import com.google.common.base.Joiner;
 import java.io.IOException;
 import java.io.InputStream;
-import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.apache.commons.io.IOUtils;
 import org.tendiwa.inflectible.antlr.TemplateBundleLexer;
@@ -42,30 +41,45 @@ import org.tendiwa.inflectible.antlr.TemplateBundleParser;
 public final class BasicTemplateBundleParser extends TemplateBundleParser {
     /**
      * Ctor.
-     * @param input Input stream with templates' markup.
+     * @param mode Identifier of a lexer mode to start at. Identifiers are
+     *  static fields of the generated class {@link TemplateBundleLexer}.
+     * @param input Input stream with templates' markup
      * @throws IOException If can't read the input stream
      */
     public BasicTemplateBundleParser(
+        final int mode,
         final InputStream input
     ) throws IOException {
         super(
             new CommonTokenStream(
-                new TemplateBundleLexer(
-                    new ANTLRInputStream(input)
-                )
+                new BasicTemplateBundleLexer(mode, input)
             )
         );
     }
 
     /**
      * Ctor.
+     * @param input Input Input stream with templates' markup
+     * @throws IOException If can't read the input stream
+     */
+    public BasicTemplateBundleParser(
+        final InputStream input
+    ) throws IOException {
+        this(TemplateBundleLexer.DEFAULT_MODE, input);
+    }
+
+    /**
+     * Ctor.
+     * @param mode Starting lexer mode
      * @param markup Templates' markup
      * @throws IOException If can't read the input stream
      */
     public BasicTemplateBundleParser(
+        final int mode,
         final String... markup
     ) throws IOException {
         this(
+            mode,
             IOUtils.toInputStream(
                 Joiner.on('\n').join(markup)
             )
