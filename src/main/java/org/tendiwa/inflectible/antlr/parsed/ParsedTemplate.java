@@ -29,7 +29,6 @@ import org.tendiwa.inflectible.ArgumentName;
 import org.tendiwa.inflectible.BasicTemplate;
 import org.tendiwa.inflectible.Grammar;
 import org.tendiwa.inflectible.Lexeme;
-import org.tendiwa.inflectible.PiPlainText;
 import org.tendiwa.inflectible.Template;
 import org.tendiwa.inflectible.TemplateBodyPiece;
 import org.tendiwa.inflectible.Vocabulary;
@@ -138,7 +137,9 @@ final class ParsedTemplate implements Template {
         public void enterRawText(
             final TemplateBundleParser.RawTextContext context
         ) {
-            this.pieces.add(new PiPlainText(context.getText()));
+            this.pieces.add(
+                new PiParsedPlainText(context)
+            );
         }
 
         @Override
