@@ -38,6 +38,7 @@ public interface Lexeme {
      * <p>E.g. infinitive for a verb in English, or singular form in
      * nominative case for a noun in Russian.
      * @return The default spelling of this lexeme.
+     * @throws Exception If could not obtain spelling
      */
     Spelling defaultSpelling() throws Exception;
 
@@ -47,6 +48,7 @@ public interface Lexeme {
      * @param grammemes Grammatical meaning
      * @return The word form of this lexeme with its grammatical meaning
      *  closest to {@code grammemes}
+     * @throws Exception If could not obtain word form
      */
     Spelling wordForm(GrammaticalMeaning grammemes) throws Exception;
 
@@ -58,6 +60,7 @@ public interface Lexeme {
      * contain Feminine grammeme
      * ({@link org.tendiwa.inflectible.implementations.Russian.Grammemes#Жен}).
      * @return Persistent grammatical meaning of this lexeme
+     * @throws Exception If could not obtain persistent grammemes
      */
     GrammaticalMeaning persistentGrammemes() throws Exception;
 }

@@ -70,8 +70,9 @@ public final class FailSafeVocabularyTest {
         final Vocabulary vocabulary = Mockito.mock(Vocabulary.class);
         Mockito.when(vocabulary.hasLexeme(Mockito.anyObject()))
             .thenReturn(true);
+        final String man = "man";
         Mockito.when(vocabulary.lexeme(Mockito.anyObject()))
-            .thenReturn(new SingleFormLexeme("man"));
+            .thenReturn(new SingleFormLexeme(man));
         MatcherAssert.assertThat(
             new FailSafeVocabulary(
                 Mockito.mock(Language.class),
@@ -80,7 +81,7 @@ public final class FailSafeVocabularyTest {
                 .lexeme(() -> "MAN")
                 .defaultSpelling()
                 .string(),
-            CoreMatchers.equalTo("man")
+            CoreMatchers.equalTo(man)
         );
     }
 }

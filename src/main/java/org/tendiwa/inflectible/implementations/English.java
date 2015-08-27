@@ -32,7 +32,7 @@ import org.tendiwa.inflectible.Grammeme;
  * @version $Id$
  * @since 0.1.0
  */
-public class English extends AbstractLanguage {
+public final class English extends AbstractLanguage {
     /**
      * Ctor.
      */

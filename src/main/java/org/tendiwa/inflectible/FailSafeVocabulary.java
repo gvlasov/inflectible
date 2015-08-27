@@ -38,12 +38,13 @@ public final class FailSafeVocabulary implements Vocabulary {
     private final transient Vocabulary wrapped;
 
     /**
-     * A natural language.
+     * Natural language.
      */
     private final transient Language language;
 
     /**
      * Ctor.
+     * @param lang Natural language
      * @param vocabulary Vocabulary to decorate
      */
     FailSafeVocabulary(final Language lang, final Vocabulary vocabulary) {
