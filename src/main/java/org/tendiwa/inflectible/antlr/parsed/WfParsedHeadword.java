@@ -37,18 +37,18 @@ import org.tendiwa.inflectible.antlr.LexemeParser;
  * @version $Id$
  * @since 0.2.0
  */
-public final class WfParsedDictionary implements WordForm {
+public final class WfParsedHeadword implements WordForm {
     /**
      * ANTLR parse tree of a dictionary word form.
      */
-    private final transient LexemeParser.DictionaryWordFormContext ctx;
+    private final transient LexemeParser.HeadwordContext ctx;
 
     /**
      * Ctor.
      * @param context ANTLR parse tree of a dictionary word form.
      */
-    public WfParsedDictionary(
-        final LexemeParser.DictionaryWordFormContext context
+    public WfParsedHeadword(
+        final LexemeParser.HeadwordContext context
     ) {
         this.ctx = context;
     }

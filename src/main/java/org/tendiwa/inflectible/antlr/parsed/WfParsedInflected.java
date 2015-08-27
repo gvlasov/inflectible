@@ -32,7 +32,7 @@ import org.tendiwa.inflectible.antlr.LexemeParser;
 
 /**
  * {@link WordForm} that is inflected (in contrast to
- * {@link WfParsedDictionary}, which is not), parsed from an ANTLR parse tree.
+ * {@link WfParsedHeadword}, which is not), parsed from an ANTLR parse tree.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.2.0

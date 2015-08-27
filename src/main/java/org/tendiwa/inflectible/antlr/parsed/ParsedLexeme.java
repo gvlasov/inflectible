@@ -117,10 +117,10 @@ final class ParsedLexeme implements Lexeme {
      */
     private ImmutableList<WordForm> wordForms() {
         final ImmutableList.Builder<WordForm> builder = ImmutableList.builder();
-        if (this.ctx.wordForms().dictionaryWordForm() != null) {
+        if (this.ctx.wordForms().headword() != null) {
             builder.add(
-                new WfParsedDictionary(
-                    this.ctx.wordForms().dictionaryWordForm()
+                new WfParsedHeadword(
+                    this.ctx.wordForms().headword()
                 )
             );
         }
