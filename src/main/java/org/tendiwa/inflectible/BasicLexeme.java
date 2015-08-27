@@ -58,15 +58,16 @@ public final class BasicLexeme implements Lexeme {
 
     @Override
     public Spelling defaultSpelling() {
-        return this.baseForm().spelling();
+        return this.headword().spelling();
     }
 
     @Override
     public Spelling wordForm(final GrammaticalMeaning grammemes) {
         int bestScore = 0;
-        WordForm bestMatch = this.baseForm();
+        final GmWithSimilarity similar = new GmWithSimilarity(grammemes);
+        WordForm bestMatch = this.headword();
         for (final WordForm form : this.forms) {
-            final int score = form.similarity(grammemes);
+            final int score = similar.similarity(form.grammaticalMeaning());
             if (score > bestScore) {
                 bestScore = score;
                 bestMatch = form;
@@ -86,7 +87,7 @@ public final class BasicLexeme implements Lexeme {
      *  Dictionary form</a>
      * @return The dictionary form of this lexeme.
      */
-    private WordForm baseForm() {
+    private WordForm headword() {
         return this.forms.get(0);
     }
 }
