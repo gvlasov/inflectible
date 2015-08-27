@@ -12,9 +12,9 @@ lexeme: conceptId persistentGrammemes? WORD_FORMS_START wordForms WORD_FORMS_END
 
 persistentGrammemes: grammaticalMeaning;
 
-wordForms: dictionaryWordForm? inflectedWordForm*;
+wordForms: headword? inflectedWordForm*;
 
-dictionaryWordForm: spelling;
+headword: spelling;
 
 inflectedWordForm: spelling grammaticalMeaning;
 
