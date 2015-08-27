@@ -27,11 +27,11 @@ TEMPLATE_NL: NL -> type(NL), skip;
 
 mode LINE_CONTENT;
 COMMENT: '//' SEA_CHAR* -> popMode;
-ESC: '\\[';
+ESC: '\\[' | '\\\\';
 PLACEHOLDER_START: '[' -> pushMode(PLACEHOLDER_ID);
 RAW_TEXT: SEA_CHAR+;
 LINE_CONTENT_NL: NL -> popMode, type(NL), skip;
-fragment SEA_CHAR: ~('\n' | '\r' | '[' | '}');
+fragment SEA_CHAR: ~('\n' | '\r' | '[' | '}' | '\\');
 
 mode PLACEHOLDER_ID;
 NO_GRAMMEME_PLACEHOLDER_END: ']' -> popMode;
