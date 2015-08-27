@@ -28,32 +28,20 @@ import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link Russian}.
+ * Unit tests for {@link English}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1.0
+ * @since 0.2.0
  */
-public final class RussianTest {
+public final class EnglishTest {
     /**
-     * {@link Russian} can create its grammar.
-     * @throws Exception If fails
-     */
-    @Test
-    public void createsGrammar() throws Exception {
-        MatcherAssert.assertThat(
-            new Russian().grammar().grammemeByName("III"),
-            CoreMatchers.equalTo(Russian.Grammemes.III)
-        );
-    }
-
-    /**
-     * {@link Russian} can provide an error message format.
+     * {@link EnglishTest} can provide an error message format.
      * @throws Exception If fails
      */
     @Test
     public void hasMissingLexemeErrorMessage() throws Exception {
         MatcherAssert.assertThat(
-            new Russian().missingLexemeFormat().indexOf("%s"),
+            new English().missingLexemeFormat().indexOf("%s"),
             CoreMatchers.not(CoreMatchers.equalTo(-1))
         );
     }
