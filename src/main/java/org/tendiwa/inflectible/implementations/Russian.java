@@ -40,6 +40,11 @@ public class Russian extends AbstractLanguage {
         super(Russian.Grammemes.class);
     }
 
+    @Override
+    public String missingLexemeFormat() {
+        return "[Пропущенная лексема %s]";
+    }
+
     /**
      * Grammemes of Russian grammar.
      */

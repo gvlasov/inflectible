@@ -65,17 +65,19 @@ final class ParsedLexeme implements Lexeme {
     }
 
     @Override
-    public Spelling wordForm(final GrammaticalMeaning grammemes) {
+    public Spelling wordForm(
+        final GrammaticalMeaning grammemes
+    ) throws Exception {
         return this.delegate().wordForm(grammemes);
     }
 
     @Override
-    public GrammaticalMeaning persistentGrammemes() {
+    public GrammaticalMeaning persistentGrammemes() throws Exception {
         return this.delegate().persistentGrammemes();
     }
 
     @Override
-    public Spelling defaultSpelling() {
+    public Spelling defaultSpelling() throws Exception {
         return this.delegate().defaultSpelling();
     }
 

@@ -36,4 +36,12 @@ public interface Language {
      * @return Grammar of this language.
      */
     Grammar grammar();
+
+    /**
+     * Format for {@link String#format(String, Object...)} to use for generating
+     * spelling for missing lexemes. Must have a single %s conversion and no
+     * more conversions.
+     * @return Format to use for generating spelling of missing lexemes.
+     */
+    String missingLexemeFormat();
 }

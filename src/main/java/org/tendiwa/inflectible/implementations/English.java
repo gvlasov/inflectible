@@ -40,6 +40,11 @@ public class English extends AbstractLanguage {
         super(English.Grammemes.class);
     }
 
+    @Override
+    public String missingLexemeFormat() {
+        return "[Missing lexeme %s]";
+    }
+
     /**
      * Grammemes of English grammar.
      */

@@ -39,7 +39,7 @@ public interface Lexeme {
      * nominative case for a noun in Russian.
      * @return The default spelling of this lexeme.
      */
-    Spelling defaultSpelling();
+    Spelling defaultSpelling() throws Exception;
 
     /**
      * Finds a word form of this lexeme with grammatical meaning closest to
@@ -48,7 +48,7 @@ public interface Lexeme {
      * @return The word form of this lexeme with its grammatical meaning
      *  closest to {@code grammemes}
      */
-    Spelling wordForm(GrammaticalMeaning grammemes);
+    Spelling wordForm(GrammaticalMeaning grammemes) throws Exception;
 
     /**
      * Grammemes inherent to this lexeme.
@@ -59,5 +59,5 @@ public interface Lexeme {
      * ({@link org.tendiwa.inflectible.implementations.Russian.Grammemes#Жен}).
      * @return Persistent grammatical meaning of this lexeme
      */
-    GrammaticalMeaning persistentGrammemes();
+    GrammaticalMeaning persistentGrammemes() throws Exception;
 }

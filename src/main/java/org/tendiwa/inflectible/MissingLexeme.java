@@ -23,26 +23,32 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableList;
-
 /**
- * Lexeme with only its headword and no persistent grammemes.
+ * Fake lexeme that consists of a single word form whose spelling is just an
+ * error message.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1.0
+ * @since 0.2.0
  */
-public final class SingleFormLexeme implements Lexeme {
+public final class MissingLexeme implements Lexeme {
     /**
-     * Spelling of the headword.
+     * Language of the fake lexeme.
      */
-    private final transient String spelling;
+    private final transient Language language;
+
+    /**
+     * Concept that is missing a lexeme.
+     */
+    private final transient Concept concept;
 
     /**
      * Ctor.
-     * @param form Spelling of the dictionary word form.
+     * @param conc Concept that is missing a lexeme
+     * @param lang Language of the fake lexeme
      */
-    public SingleFormLexeme(final String form) {
-        this.spelling = form;
+    public MissingLexeme(final Concept conc, final Language lang) {
+        this.language = lang;
+        this.concept = conc;
     }
 
     @Override
@@ -63,19 +69,17 @@ public final class SingleFormLexeme implements Lexeme {
     }
 
     /**
-     * Creates a lexeme to delegate all the interface methods of
-     * {@link SingleFormLexeme}.
-     * @return Lexeme with a single word form (with default grammatical
-     *  meaning) and no persistent grammemes.
+     * Creates a lexeme with a single word form whose spelling consists of
+     * the error message.
+     * @return Lexeme with a single word form whose spelling consists of the
+     *  error message.
+     * @throws Exception If the Concept identifier is not valid
      */
-    private Lexeme delegate() {
-        return new BasicLexeme(
-            new GmEmpty(),
-            ImmutableList.<WordForm>of(
-                new BasicWordForm(
-                    new SpBasic(this.spelling),
-                    new GmEmpty()
-                )
+    private Lexeme delegate() throws Exception {
+        return new SingleFormLexeme(
+            String.format(
+                this.language.missingLexemeFormat(),
+                this.concept.identifier()
             )
         );
     }
