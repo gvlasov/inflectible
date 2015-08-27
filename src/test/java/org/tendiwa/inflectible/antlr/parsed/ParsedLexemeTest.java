@@ -26,7 +26,6 @@ package org.tendiwa.inflectible.antlr.parsed;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableSet;
 import java.io.IOException;
-import java.util.stream.IntStream;
 import org.apache.commons.io.IOUtils;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
@@ -96,25 +95,6 @@ public final class ParsedLexemeTest {
                 .wordForm(() -> ImmutableSet.of(English.Grammemes.Plur))
                 .string(),
             CoreMatchers.equalTo("cows")
-        );
-    }
-
-    /**
-     * ParsedLexeme can be used multiple times to return the same thing.
-     * @throws Exception If fails
-     */
-    @Test
-    public void canBeUsedMultipleTimes() throws Exception {
-        final ParsedLexeme lexeme = this.englishLexeme(
-            "BUCKET {",
-            "  bucket",
-            "}   "
-        );
-        IntStream.range(0, 2).forEach(
-            i -> MatcherAssert.assertThat(
-                lexeme.defaultSpelling().string(),
-                CoreMatchers.equalTo("bucket")
-            )
         );
     }
 
