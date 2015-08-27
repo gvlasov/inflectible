@@ -24,45 +24,35 @@
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
+import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
- * Decorator {@link GrammaticalMeaning} that can tell how similar it is to
- * another GrammaticalMeaning.
+ * Unit tests for {@link GmWithSimilarity}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.2.0
  */
-public final class GmWithSimilarity implements GrammaticalMeaning {
+public final class GmWithSimilarityTest {
     /**
-     * Decorated grammatical meaning.
+     * {@link GmWithSimilarity} can tell how similar it is to another
+     * GrammaticalMeaning.
+     * @throws Exception If fails
      */
-    private final transient GrammaticalMeaning wrapped;
-
-    /**
-     * Ctor.
-     * @param grammemes Grammatical meaning
-     */
-    public GmWithSimilarity(final GrammaticalMeaning grammemes) {
-        this.wrapped = grammemes;
-    }
-
-    @Override
-    public ImmutableSet<Grammeme> grammemes() {
-        return this.wrapped.grammemes();
-    }
-
-    /**
-     * Tells many grammemes this grammatical meaning has in common with
-     * another one.
-     * @param another Another grammatial meaning
-     * @return The number of grammemes this grammatical meaning has in common
-     *  with another one
-     */
-    public int similarity(final GrammaticalMeaning another) {
-        return Sets.intersection(
-            this.wrapped.grammemes(),
-            another.grammemes()
-        ).size();
+    @Test
+    public void computesSimilarity() throws Exception {
+        final Grammeme one = Mockito.mock(Grammeme.class);
+        final Grammeme two = Mockito.mock(Grammeme.class);
+        final Grammeme three = Mockito.mock(Grammeme.class);
+        MatcherAssert.assertThat(
+            new GmWithSimilarity(
+                () -> ImmutableSet.of(one, two)
+            ).similarity(
+                () -> ImmutableSet.of(one, two, three)
+            ),
+            CoreMatchers.equalTo(2)
+        );
     }
 }
