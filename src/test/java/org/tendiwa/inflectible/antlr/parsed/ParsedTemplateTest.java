@@ -32,6 +32,7 @@ import org.tendiwa.inflectible.BasicVocabulary;
 import org.tendiwa.inflectible.Grammar;
 import org.tendiwa.inflectible.ValidatedConcept;
 import org.tendiwa.inflectible.Vocabulary;
+import org.tendiwa.inflectible.antlr.TemplateBundleLexer;
 import org.tendiwa.inflectible.implementations.English;
 
 /**
@@ -42,11 +43,11 @@ import org.tendiwa.inflectible.implementations.English;
  */
 public final class ParsedTemplateTest {
     /**
-     * ParsedTextTemplate can fill itself up with arguments.
+     * ParsedTextTemplate can be fileld up with arguments.
      * @throws Exception If fails
      */
     @Test
-    public void fillsUpItself() throws Exception {
+    public void fillsUp() throws Exception {
         final Grammar grammar = new English().grammar();
         final Vocabulary vocabulary = new ParsedVocabulary(
             grammar,
@@ -60,6 +61,7 @@ public final class ParsedTemplateTest {
             new ParsedTemplate(
                 grammar,
                 new BasicTemplateBundleParser(
+                    TemplateBundleLexer.DEFAULT_MODE,
                     "texts.text(a,b) {",
                     "  Here come a [a] and two [b]<Plur;a>. [A] is tall.",
                     "}"

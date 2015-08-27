@@ -29,6 +29,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.tendiwa.inflectible.ActualArguments;
 import org.tendiwa.inflectible.Vocabulary;
+import org.tendiwa.inflectible.antlr.TemplateBundleLexer;
 
 /**
  * Unit tests for {@link PiParsedPlainText}.
@@ -44,25 +45,20 @@ public final class PiParsedPlainTextTest {
      */
     @Test
     public void parsesText() throws Exception {
+        final String markup = "Hello world";
         MatcherAssert.assertThat(
             new PiParsedPlainText(
                 new BasicTemplateBundleParser(
-                    "text.identifier() {",
-                    " Hello world",
-                    "} "
+                    TemplateBundleLexer.LINE_CONTENT,
+                    markup
                 )
-                    .templates()
-                    .template(0)
-                    .templateBody()
-                    .line(0)
-                    .piece(0)
                     .rawText()
             )
                 .fillUp(
                     Mockito.mock(ActualArguments.class),
                     Mockito.mock(Vocabulary.class)
                 ),
-            CoreMatchers.equalTo("Hello world")
+            CoreMatchers.equalTo(markup)
         );
     }
 
@@ -76,15 +72,9 @@ public final class PiParsedPlainTextTest {
         MatcherAssert.assertThat(
             new PiParsedPlainText(
                 new BasicTemplateBundleParser(
-                    "text.id() {",
-                    "  Hello \\[mom], backslashes: \\\\\\\\",
-                    "}"
+                    TemplateBundleLexer.LINE_CONTENT,
+                    "Hello \\[mom], backslashes: \\\\\\\\"
                 )
-                    .templates()
-                    .template(0)
-                    .templateBody()
-                    .line(0)
-                    .piece(0)
                     .rawText()
             )
                 .fillUp(

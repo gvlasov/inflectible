@@ -30,6 +30,7 @@ import org.junit.Test;
 import org.tendiwa.inflectible.BasicVocabulary;
 import org.tendiwa.inflectible.SingleFormLexeme;
 import org.tendiwa.inflectible.ValidatedConcept;
+import org.tendiwa.inflectible.antlr.TemplateBundleLexer;
 import org.tendiwa.inflectible.implementations.English;
 
 /**
@@ -50,15 +51,9 @@ public final class ParsedVocabularyPlaceholderTest {
             new ParsedVocabularyPlaceholder(
                 new English().grammar(),
                 new BasicTemplateBundleParser(
-                    "text.identifier(object) {",
-                    "  This [lexeme DUDE]<;object> greets you.",
-                    "}"
+                    TemplateBundleLexer.LINE_CONTENT,
+                    "[lexeme DUDE]<;object>"
                 )
-                    .templates()
-                    .template(0)
-                    .templateBody()
-                    .line(0)
-                    .piece(1)
                     .vocabularyPlaceholder()
             )
                 .fillUp(
@@ -84,15 +79,9 @@ public final class ParsedVocabularyPlaceholderTest {
             new ParsedVocabularyPlaceholder(
                 new English().grammar(),
                 new BasicTemplateBundleParser(
-                    "text.identifier(object) { ",
-                    "  [Lexeme CAT]<;object> greets you.",
-                    "} "
+                    TemplateBundleLexer.LINE_CONTENT,
+                    "[Lexeme CAT]<;object>"
                 )
-                    .templates()
-                    .template(0)
-                    .templateBody()
-                    .line(0)
-                    .piece(0)
                     .vocabularyPlaceholder()
             )
                 .fillUp(

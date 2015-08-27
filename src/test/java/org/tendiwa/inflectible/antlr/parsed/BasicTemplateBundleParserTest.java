@@ -59,19 +59,30 @@ public final class BasicTemplateBundleParserTest {
     public void readsEscapedCharacters() throws Exception {
         MatcherAssert.assertThat(
             new BasicTemplateBundleParser(
-                "text.id() {",
-                "  Hello, \\[, this is \\\\",
-                "}"
+                TemplateBundleLexer.LINE_CONTENT,
+                "Hello, \\[, this is \\\\"
             )
-                .templates()
-                .template(0)
-                .templateBody()
-                .line(0)
-                .piece(0)
                 .rawText()
                 .getTokens(TemplateBundleLexer.ESC)
                 .size(),
             CoreMatchers.equalTo(2)
+        );
+    }
+
+    /**
+     * {@link BasicTemplateBundleParser} can start parsing in arbitrary mode,
+     * not only in the default mode.
+     * @throws Exception If fails
+     */
+    @Test
+    public void canStartParsingInArbitraryMode() throws Exception {
+        MatcherAssert.assertThat(
+            new BasicTemplateBundleParser(
+                TemplateBundleLexer.LINE_CONTENT,
+                "[man]"
+            )
+                .singlePartPlaceholder(),
+            CoreMatchers.notNullValue()
         );
     }
 }
