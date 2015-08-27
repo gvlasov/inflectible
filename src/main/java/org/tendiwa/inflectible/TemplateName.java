@@ -31,5 +31,10 @@ package org.tendiwa.inflectible;
  * @since 0.2.0
  */
 public interface TemplateName {
+    /**
+     * Returns string with this template name.
+     * @return String with this template name
+     * @throws Exception If can't obtain the name
+     */
     String string() throws Exception;
 }
