@@ -43,7 +43,7 @@ public final class TemplateNameTest {
     public void allowsLowercaseAndDots() throws Exception {
         final String name = "action.attack";
         MatcherAssert.assertThat(
-            new TemplateName(name).string(),
+            new TnBasic(name).string(),
             CoreMatchers.is(name)
         );
     }
@@ -55,6 +55,6 @@ public final class TemplateNameTest {
      */
     @Test(expected = Exception.class)
     public void disallowsNonLowercaseOrDots() throws Exception {
-        new TemplateName("ACTION.attack").string();
+        new TnBasic("ACTION.attack").string();
     }
 }

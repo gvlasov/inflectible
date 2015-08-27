@@ -43,7 +43,7 @@ public final class BasicTemplatuaryTest {
      */
     @Test
     public void returnsTemplateByIdentifier() throws Exception {
-        final TemplateName identifier = new TemplateName("message");
+        final TemplateName identifier = new TnBasic("message");
         final Template template = Mockito.mock(Template.class);
         MatcherAssert.assertThat(
             new BasicTemplatuary(
@@ -63,6 +63,6 @@ public final class BasicTemplatuaryTest {
     @Test(expected = Exception.class)
     public void returnsEmptyIfNoSuchIdentifier() throws Exception {
         new BasicTemplatuary(ImmutableMap.of())
-            .template(new TemplateName("occurrence"));
+            .template(new TnBasic("occurrence"));
     }
 }

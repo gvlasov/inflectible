@@ -99,9 +99,8 @@ public final class ParsedTemplatuary implements Templatuary {
                     .flatMap(parser -> parser.templates().template().stream())
                     .collect(
                         Collectors.toMap(
-                            TemplateName::new,
-                            templateCtx
-                                -> new ParsedTemplate(this.grammar, templateCtx)
+                            context -> new TnParsed(context.id()),
+                            context -> new ParsedTemplate(this.grammar, context)
                         )
                     )
             )

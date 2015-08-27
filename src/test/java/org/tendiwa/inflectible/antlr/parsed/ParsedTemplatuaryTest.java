@@ -33,7 +33,7 @@ import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.tendiwa.inflectible.Grammar;
-import org.tendiwa.inflectible.TemplateName;
+import org.tendiwa.inflectible.TnBasic;
 
 /**
  * Unit tests for {@link ParsedTemplatuary}.
@@ -63,7 +63,7 @@ public final class ParsedTemplatuaryTest {
                         )
                     )
                 )
-            ).hasTemplate(new TemplateName("id.compound")),
+            ).hasTemplate(new TnBasic("id.compound")),
             CoreMatchers.is(true)
         );
     }

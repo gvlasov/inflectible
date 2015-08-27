@@ -62,7 +62,7 @@ public final class BasicNativeSpeaker implements NativeSpeaker {
         final Concept... arguments
     ) throws Exception {
         return new FilledOutText(
-            this.templatuary.template(new TemplateName(identifier)),
+            this.templatuary.template(new TnBasic(identifier)),
             this.vocabulary,
             ImmutableList.copyOf(arguments)
         ).string();
