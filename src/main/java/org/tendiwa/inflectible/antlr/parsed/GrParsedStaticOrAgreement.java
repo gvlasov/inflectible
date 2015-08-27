@@ -23,8 +23,8 @@
  */
 package org.tendiwa.inflectible.antlr.parsed;
 
+import com.google.common.collect.ImmutableList;
 import java.util.Optional;
-import java.util.stream.Stream;
 import org.tendiwa.inflectible.ActualArguments;
 import org.tendiwa.inflectible.GrCombined;
 import org.tendiwa.inflectible.GrStatic;
@@ -32,8 +32,6 @@ import org.tendiwa.inflectible.Grammar;
 import org.tendiwa.inflectible.GrammarRule;
 import org.tendiwa.inflectible.GrammaticalMeaning;
 import org.tendiwa.inflectible.antlr.TemplateBundleParser;
-import org.tenidwa.collections.utils.Collectors;
-import org.tenidwa.collections.utils.OptionalStream;
 
 /**
  * Grammar rule that produces grammatical meaning by looking at placeholder's
@@ -81,7 +79,7 @@ public final class GrParsedStaticOrAgreement implements GrammarRule {
     public GrammaticalMeaning grammaticalMeaning(
         final ActualArguments arguments
     ) throws Exception {
-        return this.delegate().grammaticalMeaning(arguments);
+        return this.upToTwoCombinedRules().grammaticalMeaning(arguments);
     }
 
     /**
@@ -89,22 +87,26 @@ public final class GrParsedStaticOrAgreement implements GrammarRule {
      * to do.
      * @return Grammar rule
      */
-    private GrammarRule delegate() {
-        return new GrCombined(
-            Stream.concat(
-                new OptionalStream<>(this.agreement).map(GrAgreement::new),
-                new OptionalStream<GrammarRule>(
-                    this.grammemes.map(
-                        context -> new GrStatic(
-                            new GmOfParsedGrammemes(
-                                this.grammar,
-                                context
-                            )
-                        )
+    private GrammarRule upToTwoCombinedRules() {
+        final ImmutableList.Builder<GrammarRule> rules =
+            ImmutableList.builder();
+        if (this.agreement.isPresent()) {
+            rules.add(
+                new GrAgreement(
+                    this.agreement.get()
+                )
+            );
+        }
+        if (this.grammemes.isPresent()) {
+            rules.add(
+                new GrStatic(
+                    new GmOfParsedGrammemes(
+                        this.grammar,
+                        this.grammemes.get()
                     )
                 )
-            )
-                .collect(Collectors.toImmutableList())
-        );
+            );
+        }
+        return new GrCombined(rules.build());
     }
 }
