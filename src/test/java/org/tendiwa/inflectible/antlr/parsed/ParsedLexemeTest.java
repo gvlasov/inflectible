@@ -23,9 +23,11 @@
  */
 package org.tendiwa.inflectible.antlr.parsed;
 
+import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableSet;
 import java.io.IOException;
 import java.util.stream.IntStream;
+import org.apache.commons.io.IOUtils;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
@@ -39,19 +41,17 @@ import org.tendiwa.inflectible.implementations.English;
  */
 public final class ParsedLexemeTest {
     /**
-     * Name of a resource with lexemes.
-     */
-    public static final String LEXEMES_RESOURCE = "characters.en_US.words";
-
-    /**
-     * ParsedLexeme can return its base form.
+     * ParsedLexeme can return its headword.
      * @throws Exception If fails
      */
     @Test
-    public void hasBaseForm() throws Exception {
+    public void hasHeadword() throws Exception {
         MatcherAssert.assertThat(
-            this
-                .wordOfBundle(ParsedLexemeTest.LEXEMES_RESOURCE, 0)
+            this.englishLexeme(
+                "BEAR {",
+                "  bear",
+                "}"
+            )
                 .defaultSpelling()
                 .string(),
             CoreMatchers.equalTo("bear")
@@ -67,7 +67,11 @@ public final class ParsedLexemeTest {
     public void worksWithZeroPersistentGrammemes() throws Exception {
         MatcherAssert.assertThat(
             this
-                .wordOfBundle(ParsedLexemeTest.LEXEMES_RESOURCE, 0)
+                .englishLexeme(
+                    "WOLF {",
+                    " wolf",
+                    "} "
+                )
                 .persistentGrammemes()
                 .grammemes(),
             CoreMatchers.equalTo(ImmutableSet.of())
@@ -83,10 +87,15 @@ public final class ParsedLexemeTest {
     public void canAssumeCorrectForm() throws Exception {
         MatcherAssert.assertThat(
             this
-                .wordOfBundle(ParsedLexemeTest.LEXEMES_RESOURCE, 0)
+                .englishLexeme(
+                    "COW {",
+                    "  cow",
+                    "  cows <Plur>",
+                    "}  "
+                )
                 .wordForm(() -> ImmutableSet.of(English.Grammemes.Plur))
                 .string(),
-            CoreMatchers.equalTo("bears")
+            CoreMatchers.equalTo("cows")
         );
     }
 
@@ -96,14 +105,15 @@ public final class ParsedLexemeTest {
      */
     @Test
     public void canBeUsedMultipleTimes() throws Exception {
-        final ParsedLexeme lexeme = this.wordOfBundle(
-            ParsedLexemeTest.LEXEMES_RESOURCE,
-            1
+        final ParsedLexeme lexeme = this.englishLexeme(
+            "BUCKET {",
+            "  bucket",
+            "}   "
         );
         IntStream.range(0, 2).forEach(
             i -> MatcherAssert.assertThat(
                 lexeme.defaultSpelling().string(),
-                CoreMatchers.equalTo("scissors")
+                CoreMatchers.equalTo("bucket")
             )
         );
     }
@@ -115,7 +125,11 @@ public final class ParsedLexemeTest {
     @Test
     public void canHavePersistentGrammemes() throws Exception {
         MatcherAssert.assertThat(
-            this.wordOfBundle(ParsedLexemeTest.LEXEMES_RESOURCE, 1)
+            this.englishLexeme(
+                "SCISSORS <Plur> {",
+                "  scissors",
+                "}    "
+            )
                 .persistentGrammemes()
                 .grammemes()
                 .size(),
@@ -124,14 +138,19 @@ public final class ParsedLexemeTest {
     }
 
     /**
-     * {@link ParsedLexeme} will not fail if given a parse tree without a
-     * dictionary word form (the one without any additional grammemes).
+     * {@link ParsedLexeme} will not fail if given a parse tree without the
+     * grammemeless headword.
      * @throws Exception If fails
      */
     @Test
-    public void canHandleLexemeWithNoDictionaryForm() throws Exception {
+    public void canHandleLexemeWithNoGrammemelessForm() throws Exception {
         MatcherAssert.assertThat(
-            this.wordOfBundle(ParsedLexemeTest.LEXEMES_RESOURCE, 2)
+            this.englishLexeme(
+                "DAD {",
+                " dad <Sing>",
+                " dads <Plur>",
+                "}      "
+            )
                 .defaultSpelling()
                 .string(),
             CoreMatchers.equalTo("dad")
@@ -139,24 +158,22 @@ public final class ParsedLexemeTest {
     }
 
     /**
-     * Picks {@code index}'th form of a lexeme from a resource with lexemes'
-     * markup.
-     * @param resource Name of a resource with lexemes' markup
-     * @param index Index of a lexeme in the markup
+     * Creates an English lexeme from markup.
+     * @param markup Lines of markup for a lexeme
      * @return Lexeme on {@code index}'th place in the markup
      * @throws IOException If can't read the resource
      */
-    private ParsedLexeme wordOfBundle(
-        final String resource,
-        final int index
+    private ParsedLexeme englishLexeme(
+        final String... markup
     ) throws IOException {
         return new ParsedLexeme(
             new English().grammar(),
             new BasicLexemeParser(
-                ParsedLexemeTest.class.getResourceAsStream(resource)
+                IOUtils.toInputStream(
+                    Joiner.on('\n').join(markup)
+                )
             )
-                .lexemes()
-                .lexeme(index)
+                .lexeme()
         );
     }
 }
