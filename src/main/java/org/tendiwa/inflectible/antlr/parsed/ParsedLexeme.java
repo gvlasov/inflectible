@@ -29,6 +29,7 @@ import org.tendiwa.inflectible.GmEmpty;
 import org.tendiwa.inflectible.Grammar;
 import org.tendiwa.inflectible.GrammaticalMeaning;
 import org.tendiwa.inflectible.Lexeme;
+import org.tendiwa.inflectible.PartOfSpeech;
 import org.tendiwa.inflectible.Spelling;
 import org.tendiwa.inflectible.antlr.LexemeParser;
 
@@ -93,6 +94,14 @@ final class ParsedLexeme implements Lexeme {
     }
 
     /**
+     * Returns part of speech of this lexeme.
+     * @return Part of speech of this lexeme.
+     */
+    private PartOfSpeech partOfSpeech() {
+        return new PosParsed(this.grammar, this.ctx.partOfSpeech());
+    }
+
+    /**
      * Obtains grammatical meaning from markup.
      * @return Grammatical meaning
      */
@@ -103,6 +112,7 @@ final class ParsedLexeme implements Lexeme {
         } else {
             grammemes = new GmOfParsedGrammemes(
                 this.grammar,
+                this.partOfSpeech(),
                 this.ctx
                     .persistentGrammemes()
                     .grammaticalMeaning()
@@ -134,6 +144,7 @@ final class ParsedLexeme implements Lexeme {
                     -> builder.put(
                     new GmOfParsedGrammemes(
                         this.grammar,
+                        this.partOfSpeech(),
                         context.grammaticalMeaning().grammemes()
                     ),
                     new SpParsed(

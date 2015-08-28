@@ -26,12 +26,15 @@ package org.tendiwa.inflectible.antlr.parsed;
 import com.google.common.collect.ImmutableSet;
 import java.util.List;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import org.tendiwa.inflectible.GmValidated;
 import org.tendiwa.inflectible.Grammar;
 import org.tendiwa.inflectible.GrammaticalMeaning;
 import org.tendiwa.inflectible.Grammeme;
+import org.tendiwa.inflectible.PartOfSpeech;
 import org.tendiwa.inflectible.antlr.LexemeParser;
 import org.tendiwa.inflectible.antlr.TemplateParser;
 import org.tenidwa.collections.utils.Collectors;
+import org.tenidwa.collections.utils.Rethrowing;
 
 /**
  * {@link GrammaticalMeaning} from an ANTLR parse tree of grammemes.
@@ -46,6 +49,11 @@ public final class GmOfParsedGrammemes implements GrammaticalMeaning {
     private final transient Grammar grammar;
 
     /**
+     * Part of speech.
+     */
+    private final transient PartOfSpeech part;
+
+    /**
      * Parsed grammeme names.
      */
     private final transient List<TerminalNode> nodes;
@@ -53,46 +61,61 @@ public final class GmOfParsedGrammemes implements GrammaticalMeaning {
     /**
      * Ctor.
      * @param gram Grammar of a natural language
+     * @param prt Part of speech
      * @param grammemes ANTLR terminal nodes with grammeme names
      */
     private GmOfParsedGrammemes(
         final Grammar gram,
+        final PartOfSpeech prt,
         final List<TerminalNode> grammemes
     ) {
         this.grammar = gram;
+        this.part = prt;
         this.nodes = grammemes;
     }
 
     /**
      * Ctor.
      * @param gram Grammar of a natural language
+     * @param prt Part of speech
      * @param context ANTLR parse tree of grammemes
      */
     GmOfParsedGrammemes(
         final Grammar gram,
+        final PartOfSpeech prt,
         final TemplateParser.GrammemesContext context
     ) {
-        this(gram, context.GRAMMEME());
+        this(gram, prt, context.GRAMMEME());
     }
 
     /**
      * Ctor.
      * @param gram Grammar of a natural language
+     * @param prt Part of speech
      * @param context ANTLR parse tree of grammemes
      */
     GmOfParsedGrammemes(
         final Grammar gram,
+        final PartOfSpeech prt,
         final LexemeParser.GrammemesContext context
     ) {
-        this(gram, context.GRAMMEME());
+        this(gram, prt, context.GRAMMEME());
     }
 
     @Override
-    public ImmutableSet<Grammeme> grammemes() {
-        return this.nodes
-            .stream()
-            .map(TerminalNode::getText)
-            .map(this.grammar::grammemeByName)
-            .collect(Collectors.toImmutableSet());
+    public ImmutableSet<Grammeme> grammemes() throws Exception {
+        return new GmValidated(
+            this.part,
+            this.nodes
+                .stream()
+                .map(TerminalNode::getText)
+                .map(
+                    Rethrowing.rethrowFunction(
+                        this.grammar::grammemeByName
+                    )
+                )
+                .collect(Collectors.toImmutableSet())
+        )
+            .grammemes();
     }
 }

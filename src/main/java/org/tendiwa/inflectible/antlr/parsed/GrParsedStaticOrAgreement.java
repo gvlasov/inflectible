@@ -26,6 +26,7 @@ package org.tendiwa.inflectible.antlr.parsed;
 import com.google.common.collect.ImmutableList;
 import java.util.Optional;
 import org.tendiwa.inflectible.ActualArguments;
+import org.tendiwa.inflectible.AnyPartOfSpeech;
 import org.tendiwa.inflectible.GrCombined;
 import org.tendiwa.inflectible.GrStatic;
 import org.tendiwa.inflectible.Grammar;
@@ -102,6 +103,7 @@ public final class GrParsedStaticOrAgreement implements GrammarRule {
                 new GrStatic(
                     new GmOfParsedGrammemes(
                         this.grammar,
+                        new AnyPartOfSpeech(),
                         this.grammemes.get()
                     )
                 )
