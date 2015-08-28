@@ -8,9 +8,11 @@ options {
 
 lexemes: lexeme+;
 
-lexeme: conceptId persistentGrammemes? WORD_FORMS_START wordForms WORD_FORMS_END;
+lexeme: conceptId partOfSpeech persistentGrammemes? WORD_FORMS_START wordForms WORD_FORMS_END;
 
 persistentGrammemes: grammaticalMeaning;
+
+partOfSpeech: LPAREN PART_OF_SPEECH RPAREN;
 
 wordForms: headword? inflectedWordForm*;
 

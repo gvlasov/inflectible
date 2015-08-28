@@ -6,6 +6,11 @@ WS: [ \n\r\t] -> skip;
 WORD_FORMS_START: '{' -> pushMode(WORD_FORMS);
 LT: '<';
 GT: '>';
+LPAREN: '(' -> pushMode(PARTS_OF_SPEECH);
+
+mode PARTS_OF_SPEECH;
+PART_OF_SPEECH: Identifier;
+RPAREN: ')' -> popMode;
 
 mode WORD_FORMS;
 WORD_FORMS_END: '}' -> popMode;
