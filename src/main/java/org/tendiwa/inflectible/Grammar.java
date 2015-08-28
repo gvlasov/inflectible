@@ -31,10 +31,18 @@ package org.tendiwa.inflectible;
  */
 public interface Grammar {
     /**
-     * Get a grammeme by its name.
+     * Returns a grammeme by its name.
      * @param name Name of a grammeme
-     * @return Grammeme by its name.
-     * @throws IllegalArgumentException If there is no Grammeme with such name.
+     * @return Grammeme
+     * @throws Exception If could not get grammeme with such name
      */
-    Grammeme grammemeByName(String name);
+    Grammeme grammemeByName(String name) throws Exception;
+
+    /**
+     * Returns a part of speech by its name.
+     * @param text Name of a part of speech
+     * @return Part of speech
+     * @throws Exception If could not get part of speech with such name
+     */
+    PartOfSpeech partOfSpeechByName(String text) throws Exception;
 }
