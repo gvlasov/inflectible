@@ -39,16 +39,29 @@ public abstract class AbstractLanguage implements Language {
     private final transient Class<? extends Grammeme> grammemes;
 
     /**
+     * Enum that contains parts of speech for this language's
+     * {@link Language#grammar()}.
+     */
+    private final transient Class<? extends PartOfSpeech> parts;
+
+    /**
      * Ctor.
-     * @param cls Enum that contains grammemes for this language's
+     * @param grams Enum that contains grammemes for this language's
+     *  {@link Language#grammar()}.
+     * @param prts Enum that contains parts of speech for this language's
      *  {@link Language#grammar()}.
      */
-    protected AbstractLanguage(final Class<? extends Grammeme> cls) {
-        this.grammemes = cls;
+    protected AbstractLanguage(
+        final Class<? extends Grammeme> grams,
+        final Class<? extends PartOfSpeech> prts
+
+    ) {
+        this.grammemes = grams;
+        this.parts = prts;
     }
 
     @Override
     public final Grammar grammar() {
-        return new EnumBasedGrammar(this.grammemes);
+        return new EnumBasedGrammar(this.grammemes, this.parts);
     }
 }

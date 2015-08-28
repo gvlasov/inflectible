@@ -23,8 +23,6 @@
  */
 package org.tendiwa.inflectible;
 
-import java.lang.reflect.InvocationTargetException;
-
 /**
  * {@link Grammar} that has its grammemes stored in an enum. Storing
  * grammemes in an enum, as opposed to storing them in a Map<String, Grammeme>,
@@ -35,43 +33,53 @@ import java.lang.reflect.InvocationTargetException;
  * @since 0.1.0
  */
 public final class EnumBasedGrammar implements Grammar {
+    /**
+     * Name of the method that returns name of enum instance.
+     */
+    private static final String ENUM_NAME_METHOD = "valueOf";
 
     /**
      * Enum with grammemes.
      */
-    private final transient Class<? extends Grammeme> cls;
+    private final transient Class<? extends Grammeme> grammemes;
+
+    /**
+     * Enum with parts of speech.
+     */
+    private final transient Class<? extends PartOfSpeech> parts;
 
     /**
      * Ctor.
-     * @param grammemes Enum with grammemes.
+     * @param grams Enum with grammemes
+     * @param prts Enum with parts of speech
      */
-    public EnumBasedGrammar(final Class<? extends Grammeme> grammemes) {
-        if (!grammemes.isEnum()) {
+    public EnumBasedGrammar(
+        final Class<? extends Grammeme> grams,
+        final Class<? extends PartOfSpeech> prts
+    ) {
+        if (!grams.isEnum()) {
             throw new IllegalArgumentException(
                 String.format(
                     "%s: Grammemes class must be an enum",
-                    grammemes.getCanonicalName()
+                    grams.getCanonicalName()
                 )
             );
         }
-        this.cls = grammemes;
+        this.grammemes = grams;
+        this.parts = prts;
     }
 
     @Override
-    public Grammeme grammemeByName(final String name) {
-        try {
-            return (Grammeme) this.cls
-                .getMethod("valueOf", String.class)
-                .invoke(null, name);
-        } catch (
-            final NoSuchMethodException
-                | InvocationTargetException
-                | IllegalAccessException ex
-        ) {
-            throw new AssertionError(
-                "Reflective static method call failed. Report this bug please",
-                ex
-            );
-        }
+    public Grammeme grammemeByName(final String name) throws Exception {
+        return (Grammeme) this.grammemes
+            .getMethod(EnumBasedGrammar.ENUM_NAME_METHOD, String.class)
+            .invoke(null, name);
+    }
+
+    @Override
+    public PartOfSpeech partOfSpeechByName(final String name) throws Exception {
+        return (PartOfSpeech) this.parts
+            .getMethod(EnumBasedGrammar.ENUM_NAME_METHOD, String.class)
+            .invoke(null, name);
     }
 }
