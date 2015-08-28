@@ -23,8 +23,11 @@
  */
 package org.tendiwa.inflectible;
 
+import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * {@link Lexeme} defined by its set of persistent grammemes and a map of
@@ -91,12 +94,29 @@ public final class BasicLexeme implements Lexeme {
      * elements with particular grammatical meaning.
      * @return Searchable map
      */
+    @SuppressWarnings("PMD.UseConcurrentHashMap")
     private ImmutableMap<ImmutableSet<Grammeme>, Spelling> searchableMap() {
-        final ImmutableMap.Builder<ImmutableSet<Grammeme>, Spelling> builder =
-            ImmutableMap.builder();
+        final Map<ImmutableSet<Grammeme>, Spelling> map =
+            new LinkedHashMap<>(this.forms.size());
         for (final GrammaticalMeaning meaning : this.forms.keySet()) {
-            builder.put(meaning.grammemes(), this.forms.get(meaning));
+            final ImmutableSet<Grammeme> key = meaning.grammemes();
+            if (map.containsKey(key)) {
+                throw new IllegalStateException(
+                    String.format(
+                        Joiner.on("").join(
+                            "Lexeme contains word forms ",
+                            "with same grammatical meaning: ",
+                            "%s <%s>, %s <%s>"
+                        ),
+                        map.get(key).string(),
+                        key,
+                        this.forms.get(meaning).string(),
+                        key
+                    )
+                );
+            }
+            map.put(key, this.forms.get(meaning));
         }
-        return builder.build();
+        return ImmutableMap.copyOf(map);
     }
 }
