@@ -48,7 +48,7 @@ public final class GmWithSimilarity implements GrammaticalMeaning {
     }
 
     @Override
-    public ImmutableSet<Grammeme> grammemes() {
+    public ImmutableSet<Grammeme> grammemes() throws Exception {
         return this.wrapped.grammemes();
     }
 
@@ -58,8 +58,9 @@ public final class GmWithSimilarity implements GrammaticalMeaning {
      * @param another Another grammatial meaning
      * @return The number of grammemes this grammatical meaning has in common
      *  with another one
+     * @throws Exception If couldn't compute similarity
      */
-    public int similarity(final GrammaticalMeaning another) {
+    public int similarity(final GrammaticalMeaning another) throws Exception {
         return Sets.intersection(
             this.wrapped.grammemes(),
             another.grammemes()

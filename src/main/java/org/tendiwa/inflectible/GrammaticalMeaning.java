@@ -41,6 +41,7 @@ public interface GrammaticalMeaning {
     /**
      * Units of which this grammatical meaning consists.
      * @return Grammemes
+     * @throws Exception If could not obtain grammemes
      */
-    ImmutableSet<Grammeme> grammemes();
+    ImmutableSet<Grammeme> grammemes() throws Exception;
 }

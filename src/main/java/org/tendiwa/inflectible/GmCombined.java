@@ -26,6 +26,7 @@ package org.tendiwa.inflectible;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import org.tenidwa.collections.utils.Collectors;
+import org.tenidwa.collections.utils.Rethrowing;
 
 /**
  * Combines two grammatical meanings into a single grammatical meaning with
@@ -51,9 +52,13 @@ public final class GmCombined implements GrammaticalMeaning {
     }
 
     @Override
-    public ImmutableSet<Grammeme> grammemes() {
+    public ImmutableSet<Grammeme> grammemes() throws Exception {
         return this.meanings.stream()
-            .flatMap(meaning -> meaning.grammemes().stream())
+            .flatMap(
+                Rethrowing.rethrowFunction(
+                    meaning -> meaning.grammemes().stream()
+                )
+            )
             .collect(Collectors.toImmutableSet());
     }
 }
