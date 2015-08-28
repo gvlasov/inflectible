@@ -26,6 +26,7 @@ package org.tendiwa.inflectible;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * Unit tests for {@link EnumBasedGrammar}.
@@ -41,7 +42,10 @@ public final class EnumBasedGrammarTest {
     @Test
     public void findsGrammemeByName() throws Exception {
         MatcherAssert.assertThat(
-            new EnumBasedGrammar(KobaianGrammemes.class)
+            new EnumBasedGrammar(
+                KobaianGrammemes.class,
+                KobaianPartOfSpeech.class
+            )
                 .grammemeByName("Default"),
             CoreMatchers.equalTo(KobaianGrammemes.Default)
         );
@@ -53,16 +57,39 @@ public final class EnumBasedGrammarTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void disallowsNonEnumGrammemes() {
-        new EnumBasedGrammar(Grammeme.class);
+        new EnumBasedGrammar(
+            Grammeme.class,
+            KobaianPartOfSpeech.class
+        );
     }
 
     /**
-     * A simple grammar for a Kobaian language.
+     * Grammemes for Kobaian language.
      */
     private enum KobaianGrammemes implements Grammeme {
         /**
          * The only grammeme.
          */
-        Default
+        Default {
+            @Override
+            public GrammaticalCategory category() {
+                return Mockito.mock(GrammaticalCategory.class);
+            }
+        }
+    }
+
+    /**
+     * Parts of speech for Kobaian language.
+     */
+    private enum KobaianPartOfSpeech implements PartOfSpeech {
+        /**
+         * The only part of speech.
+         */
+        Default {
+            @Override
+            public boolean usesCategory(final GrammaticalCategory category) {
+                return false;
+            }
+        };
     }
 }
