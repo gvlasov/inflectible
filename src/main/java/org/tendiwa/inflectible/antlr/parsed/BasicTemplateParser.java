@@ -34,6 +34,7 @@ import org.tendiwa.inflectible.antlr.TemplateParser;
 /**
  * A convenience descendant of {@link TemplateParser} created from an
  * {@link InputStream} without explicitly specifying any additional plumbing.
+ * Throws errors on failed parsing, unlike {@link TemplateParser}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1.0
@@ -55,6 +56,7 @@ public final class BasicTemplateParser extends TemplateParser {
                 new BasicTemplateLexer(mode, input)
             )
         );
+        this.addErrorListener(new SimpleErrorListener());
     }
 
     /**

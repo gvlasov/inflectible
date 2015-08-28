@@ -35,6 +35,7 @@ import org.tendiwa.inflectible.antlr.LexemeParser;
 /**
  * A convenience descendant of {@link LexemeParser} created from an
  * {@link InputStream} without explicitly specifying any additional plumbing.
+ * Throws errors on failed parsing, unlike {@link LexemeParser}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1.0
@@ -53,6 +54,7 @@ public final class BasicLexemeParser extends LexemeParser {
                 )
             )
         );
+        this.addErrorListener(new SimpleErrorListener());
     }
 
     /**
