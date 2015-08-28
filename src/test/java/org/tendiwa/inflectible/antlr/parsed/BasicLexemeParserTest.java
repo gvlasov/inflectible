@@ -25,6 +25,7 @@ package org.tendiwa.inflectible.antlr.parsed;
 
 import java.io.IOException;
 import java.io.InputStream;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -45,5 +46,19 @@ public final class BasicLexemeParserTest {
         final InputStream failing = Mockito.mock(InputStream.class);
         Mockito.when(failing.read()).thenThrow(new IOException());
         new BasicLexemeParser(failing);
+    }
+
+    /**
+     * {@link BasicLexemeParser} can throw an exception if it can't parse
+     * some input. ANTLR parsers don't throw exceptions by default.
+     * @throws Exception If fails
+     */
+    @Test(expected = ParseCancellationException.class)
+    public void throwsIfCantParse() throws Exception {
+        new BasicLexemeParser(
+            "DUDE {",
+            " dude"
+        )
+            .lexeme();
     }
 }

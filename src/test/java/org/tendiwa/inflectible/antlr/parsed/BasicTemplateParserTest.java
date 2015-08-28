@@ -25,6 +25,7 @@ package org.tendiwa.inflectible.antlr.parsed;
 
 import java.io.IOException;
 import java.io.InputStream;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
@@ -84,5 +85,20 @@ public final class BasicTemplateParserTest {
                 .singlePartPlaceholder(),
             CoreMatchers.notNullValue()
         );
+    }
+
+    /**
+     * {@link BasicTemplateParser} can throw an exception if it can't parse
+     * some input. ANTLR parsers don't throw exceptions by default.
+     * @throws Exception If fails
+     */
+    @Test(expected = ParseCancellationException.class)
+    public void throwsIfCantParse() throws Exception {
+        new BasicTemplateParser(
+            TemplateLexer.DEFAULT_MODE,
+            "text.id() {",
+            " hello world"
+        )
+            .template();
     }
 }
