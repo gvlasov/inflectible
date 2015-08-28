@@ -21,17 +21,54 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tendiwa.inflectible;
+package org.tendiwa.inflectible.implementations;
+
+import org.tendiwa.inflectible.Grammeme;
 
 /**
- * A grammeme is a value of a {@link GrammaticalCategory}. For example, in
- * English language, Singular and Plural are values for the grammatical category
- * of number.
- * @see <a href="https://en.wikipedia.org/wiki/Grammeme">
- *  Grammeme of Wikipedia</a>
+ * Grammemes of English grammar.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1.0
+ * @since 0.2.0
  */
-public interface Grammeme {
+public enum EnglishGrammeme implements Grammeme {
+    /**
+     * Singular.
+     */
+    Sing,
+
+    /**
+     * Plural.
+     */
+    Plur,
+
+    /**
+     * Present tense.
+     */
+    Present,
+
+    /**
+     * Past tense.
+     */
+    Past,
+
+    /**
+     * First person.
+     */
+    I,
+
+    /**
+     * Third person.
+     */
+    III,
+
+    /**
+     * Infinitive.
+     */
+    Inf,
+
+    /**
+     * Gerund.
+     */
+    Ger
 }

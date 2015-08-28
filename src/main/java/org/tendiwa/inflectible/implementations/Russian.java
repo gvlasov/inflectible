@@ -24,7 +24,6 @@
 package org.tendiwa.inflectible.implementations;
 
 import org.tendiwa.inflectible.AbstractLanguage;
-import org.tendiwa.inflectible.Grammeme;
 
 /**
  * Russian language.
@@ -37,94 +36,11 @@ public final class Russian extends AbstractLanguage {
      * Ctor.
      */
     public Russian() {
-        super(Russian.Grammemes.class);
+        super(RussianGrammeme.class);
     }
 
     @Override
     public String missingLexemeFormat() {
         return "[Пропущенная лексема %s]";
-    }
-
-    /**
-     * Grammemes of Russian grammar.
-     */
-    public enum Grammemes implements Grammeme {
-        /**
-         * Masculine gender.
-         * <p>Мужской род.
-         */
-        Муж,
-        /**
-         * Feminine gender.
-         * <p>Женский род.
-         */
-        Жен,
-        /**
-         * Nominative case.
-         * <p>Именительный падеж.
-         */
-        И,
-        /**
-         * Genitive case.
-         * <p>Родительный падеж.
-         */
-        Р,
-        /**
-         * Dative case.
-         * <p>Дательный падеж.
-         */
-        Д,
-        /**
-         * Accusative case.
-         * <p>Винительный падеж.
-         */
-        В,
-        /**
-         * Instrumental case.
-         * <p>Творительный падеж.
-         */
-        Т,
-        /**
-         * Prepositional case.
-         * <p>Предложный падеж.
-         */
-        П,
-        /**
-         * First declension.
-         * <p>Первое склонение.
-         */
-        I,
-        /**
-         * Second declension.
-         * <p>Второе склонение.
-         */
-        II,
-        /**
-         * Third declension.
-         * <p>Третье склонение.
-         */
-        III,
-        /**
-         * Plural number.
-         * <p>Множественное число.
-         */
-        Мн,
-        /**
-         * Singular number.
-         * <p>Единственное число.
-         */
-        Ед,
-        /**
-         * Present tense.
-         * <p>Настоящее время.
-         */
-        Наст,
-        /**
-         * A number ending with a digit 2, 3 or 4, but not numbers 12, 13
-         * and 14.
-         * <p>Числительное, заканчивающееся на цифру от 2 до 4, но не 12, 13 и
-         * не 14.
-         */
-        Числ2До4
     }
 }

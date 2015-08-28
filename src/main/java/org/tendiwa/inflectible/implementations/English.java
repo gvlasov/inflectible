@@ -24,7 +24,6 @@
 package org.tendiwa.inflectible.implementations;
 
 import org.tendiwa.inflectible.AbstractLanguage;
-import org.tendiwa.inflectible.Grammeme;
 
 /**
  * English language.
@@ -37,7 +36,7 @@ public final class English extends AbstractLanguage {
      * Ctor.
      */
     public English() {
-        super(English.Grammemes.class);
+        super(EnglishGrammeme.class);
     }
 
     @Override
@@ -45,28 +44,4 @@ public final class English extends AbstractLanguage {
         return "[Missing lexeme %s]";
     }
 
-    /**
-     * Grammemes of English grammar.
-     */
-    public enum Grammemes implements Grammeme {
-        /**
-         * Gerund.
-         */
-        Ger,
-
-        /**
-         * Singular.
-         */
-        Sing,
-
-        /**
-         * Plural.
-         */
-        Plur,
-
-        /**
-         * Third person.
-         */
-        III
-    }
 }

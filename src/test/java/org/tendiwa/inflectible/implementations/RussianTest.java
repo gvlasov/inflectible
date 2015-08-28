@@ -42,7 +42,7 @@ public final class RussianTest {
     public void createsGrammar() throws Exception {
         MatcherAssert.assertThat(
             new Russian().grammar().grammemeByName("III"),
-            CoreMatchers.equalTo(Russian.Grammemes.III)
+            CoreMatchers.equalTo(RussianGrammeme.III)
         );
     }
 

@@ -31,6 +31,7 @@ import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.tendiwa.inflectible.implementations.English;
+import org.tendiwa.inflectible.implementations.EnglishGrammeme;
 
 /**
  * Unit tests for {@link ParsedLexeme}.
@@ -92,7 +93,7 @@ public final class ParsedLexemeTest {
                     "  cows <Plur>",
                     "}  "
                 )
-                .wordForm(() -> ImmutableSet.of(English.Grammemes.Plur))
+                .wordForm(() -> ImmutableSet.of(EnglishGrammeme.Plur))
                 .string(),
             CoreMatchers.equalTo("cows")
         );

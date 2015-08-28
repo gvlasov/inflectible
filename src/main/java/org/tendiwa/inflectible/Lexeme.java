@@ -67,7 +67,7 @@ public interface Lexeme {
      * inherently contains Feminine grammeme from the grammatical category of
      * gender. No matter the word form of <i>кошка</i>, all of them will
      * contain Feminine grammeme
-     * ({@link org.tendiwa.inflectible.implementations.Russian.Grammemes#Жен}).
+     * ({@link org.tendiwa.inflectible.implementations.RussianGrammeme#Жен}).
      * @return Persistent grammatical meaning of this lexeme
      * @throws Exception If could not obtain persistent grammemes
      */
