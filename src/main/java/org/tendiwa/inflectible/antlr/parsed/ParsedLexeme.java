@@ -23,14 +23,13 @@
  */
 package org.tendiwa.inflectible.antlr.parsed;
 
-import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import org.tendiwa.inflectible.BasicLexeme;
 import org.tendiwa.inflectible.GmEmpty;
 import org.tendiwa.inflectible.Grammar;
 import org.tendiwa.inflectible.GrammaticalMeaning;
 import org.tendiwa.inflectible.Lexeme;
 import org.tendiwa.inflectible.Spelling;
-import org.tendiwa.inflectible.WordForm;
 import org.tendiwa.inflectible.antlr.LexemeParser;
 
 /**
@@ -94,8 +93,8 @@ final class ParsedLexeme implements Lexeme {
     }
 
     /**
-     * Obtains grammemes from markup.
-     * @return Grammemes
+     * Obtains grammatical meaning from markup.
+     * @return Grammatical meaning
      */
     private GrammaticalMeaning grammemes() {
         final GrammaticalMeaning grammemes;
@@ -117,21 +116,31 @@ final class ParsedLexeme implements Lexeme {
      * Obtains word forms from markup.
      * @return Word forms.
      */
-    private ImmutableList<WordForm> wordForms() {
-        final ImmutableList.Builder<WordForm> builder = ImmutableList.builder();
+    private ImmutableMap<GrammaticalMeaning, Spelling> wordForms() {
+        final ImmutableMap.Builder<GrammaticalMeaning, Spelling> builder =
+            ImmutableMap.builder();
         if (this.ctx.wordForms().headword() != null) {
-            builder.add(
-                new WfParsedHeadword(
-                    this.ctx.wordForms().headword()
-                )
+            builder.put(
+                new GmEmpty(),
+                new SpParsed(this.ctx.wordForms().headword().spelling())
             );
         }
         this.ctx
             .wordForms()
             .inflectedWordForm()
             .stream()
-            .map(context -> new WfParsedInflected(this.grammar, context))
-            .forEach(builder::add);
+            .forEach(
+                context
+                    -> builder.put(
+                    new GmOfParsedGrammemes(
+                        this.grammar,
+                        context.grammaticalMeaning().grammemes()
+                    ),
+                    new SpParsed(
+                        context.spelling()
+                    )
+                )
+            );
         return builder.build();
     }
 }

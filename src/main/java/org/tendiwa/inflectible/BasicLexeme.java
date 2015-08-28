@@ -23,11 +23,12 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 
 /**
- * {@link Lexeme} defined by its set of persistent grammemes and list of
- * possible word forms.
+ * {@link Lexeme} defined by its set of persistent grammemes and a map of
+ * possible spellings.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.1.0
@@ -41,16 +42,16 @@ public final class BasicLexeme implements Lexeme {
     /**
      * Word forms.
      */
-    private final transient ImmutableList<WordForm> forms;
+    private final transient ImmutableMap<GrammaticalMeaning, Spelling> forms;
 
     /**
      * Ctor.
      * @param grammemes Persistent grammemes
-     * @param spellings Word forms
+     * @param spellings Map from grammatical meanings to spellings
      */
     public BasicLexeme(
         final GrammaticalMeaning grammemes,
-        final ImmutableList<WordForm> spellings
+        final ImmutableMap<GrammaticalMeaning, Spelling> spellings
     ) {
         this.persistent = grammemes;
         this.forms = spellings;
@@ -58,22 +59,24 @@ public final class BasicLexeme implements Lexeme {
 
     @Override
     public Spelling defaultSpelling() {
-        return this.headword().spelling();
+        return this.searchableMap().get(
+            this.searchableMap().keySet().iterator().next()
+        );
     }
 
     @Override
     public Spelling wordForm(final GrammaticalMeaning grammemes) {
         int bestScore = 0;
         final GmWithSimilarity similar = new GmWithSimilarity(grammemes);
-        WordForm bestMatch = this.headword();
-        for (final WordForm form : this.forms) {
-            final int score = similar.similarity(form.grammaticalMeaning());
+        Spelling bestMatch = this.defaultSpelling();
+        for (final GrammaticalMeaning meaning : this.forms.keySet()) {
+            final int score = similar.similarity(meaning);
             if (score > bestScore) {
                 bestScore = score;
-                bestMatch = form;
+                bestMatch = this.forms.get(meaning);
             }
         }
-        return bestMatch.spelling();
+        return bestMatch;
     }
 
     @Override
@@ -81,13 +84,19 @@ public final class BasicLexeme implements Lexeme {
         return this.persistent;
     }
 
+    // To be refactored in #47
     /**
-     * The dictionary form of this lexeme.
-     * @see <a href="https://en.wikipedia.org/wiki/Dictionary_form">
-     *  Dictionary form</a>
-     * @return The dictionary form of this lexeme.
+     * Creates a map from grammeme sets to spellings. Unlike in
+     * {@link BasicLexeme#forms}, in this map we can efficiently search for
+     * elements with particular grammatical meaning.
+     * @return Searchable map
      */
-    private WordForm headword() {
-        return this.forms.get(0);
+    private ImmutableMap<ImmutableSet<Grammeme>, Spelling> searchableMap() {
+        final ImmutableMap.Builder<ImmutableSet<Grammeme>, Spelling> builder =
+            ImmutableMap.builder();
+        for (final GrammaticalMeaning meaning : this.forms.keySet()) {
+            builder.put(meaning.grammemes(), this.forms.get(meaning));
+        }
+        return builder.build();
     }
 }

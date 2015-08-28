@@ -23,7 +23,7 @@
  */
 package org.tendiwa.inflectible;
 
-import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 
 /**
  * Lexeme with only its headword and no persistent grammemes.
@@ -71,11 +71,9 @@ public final class SingleFormLexeme implements Lexeme {
     private Lexeme delegate() {
         return new BasicLexeme(
             new GmEmpty(),
-            ImmutableList.<WordForm>of(
-                new BasicWordForm(
-                    new SpBasic(this.spelling),
-                    new GmEmpty()
-                )
+            ImmutableMap.of(
+                new GmEmpty(),
+                new SpBasic(this.spelling)
             )
         );
     }
