@@ -34,4 +34,9 @@ package org.tendiwa.inflectible;
  * @since 0.1.0
  */
 public interface Grammeme {
+    /**
+     * Returns grammatical category of this grammeme.
+     * @return Grammatical category of this grammeme
+     */
+    GrammaticalCategory category();
 }
