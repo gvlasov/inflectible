@@ -96,8 +96,24 @@ public final class BasicTemplateParserTest {
     public void throwsIfCantParse() throws Exception {
         new BasicTemplateParser(
             TemplateLexer.DEFAULT_MODE,
-            "text.id() {",
+            "text.identifier() {",
             " hello world"
+        )
+            .template();
+    }
+
+    /**
+     * {@link BasicTemplateParser} can throw an error if a placeholder has an
+     * empty bracket pair for grammemes.
+     * @throws Exception If fails
+     */
+    @Test(expected = ParseCancellationException.class)
+    public void disallowsEmptyBracketPairInPlaceholder() throws Exception {
+        new BasicTemplateParser(
+            TemplateLexer.DEFAULT_MODE,
+            "text.id() {",
+            " [A]<>",
+            "}"
         )
             .template();
     }

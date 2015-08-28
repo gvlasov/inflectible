@@ -27,7 +27,11 @@ rawText: (~(PLACEHOLDER_START | TEMPLATE_INDENT | TEMPLATE_END))+;
 
 singlePartPlaceholder: PLACEHOLDER_START capitalizableArgumentName NO_GRAMMEME_PLACEHOLDER_END;
 
-twoPartPlaceholder: PLACEHOLDER_START capitalizableArgumentName GRAMMEMES_TRANSITION grammemes? agreement? PLACEHOLDER_END;
+twoPartPlaceholder: PLACEHOLDER_START capitalizableArgumentName GRAMMEMES_TRANSITION grammaticalMeaning PLACEHOLDER_END;
+
+grammaticalMeaning: grammemes
+    | agreement
+    | grammemes agreement;
 
 vocabularyPlaceholder: PLACEHOLDER_START vocabularyPointer GRAMMEMES_TRANSITION grammemes? agreement PLACEHOLDER_END;
 
