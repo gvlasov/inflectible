@@ -24,8 +24,17 @@
 package org.tendiwa.inflectible;
 
 /**
- * Collection of word forms belonging to the same concept, and their
- * persistent grammatical meaning.
+ * Various spellings used to refer to the same concept, but in different
+ * grammatical contexts. For example, in English, <i>runs</i>, <i>ran</i> and
+ * <i>running</i> are two forms of the same lexeme, RUN.
+ * <p/>
+ * All word forms of the same lexeme refer to the same concept, but have
+ * different {@link GrammaticalMeaning} and, probably, different
+ * {@link Spelling}.
+ * <p/>
+ * For example, <i>choose</i> and <i>chosen</i> are two word forms of a lexeme
+ * CHOOSE. They have different grammatical meaning: one is an infinitive
+ * form, the other is a perfect form.
  * @see <a href="https://en.wikipedia.org/wiki/Lexeme">Lexeme article on
  *  Wikipedia</a>
  * @author Georgy Vlasov (suseika@tendiwa.org)

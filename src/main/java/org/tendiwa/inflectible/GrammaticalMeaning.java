@@ -27,8 +27,10 @@ import com.google.common.collect.ImmutableSet;
 
 /**
  * A property of a word that tells what other words it is grammatically
- * interchangeable with. Inflectible template engine fills out its
- * {@link Template}s by choosing word forms with equivalent grammatical meaning.
+ * interchangeable with. <i>Inflectible</i> template engine fills out its
+ * {@link Template}s by choosing word forms with similar grammatical meaning.
+ * <p/>
+ * Grammatical meaning can be seen as a set of {@link Grammeme}s.
  * @see <a href="http://www.thefreedictionary.com/grammatical+meaning">
  *  "Grammatical meaning" in the Free Dictionaly</a>.
  * @author Georgy Vlasov (suseika@tendiwa.org)
