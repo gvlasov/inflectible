@@ -61,14 +61,16 @@ public final class BasicLexeme implements Lexeme {
     }
 
     @Override
-    public Spelling defaultSpelling() {
+    public Spelling defaultSpelling() throws Exception {
         return this.searchableMap().get(
             this.searchableMap().keySet().iterator().next()
         );
     }
 
     @Override
-    public Spelling wordForm(final GrammaticalMeaning grammemes) {
+    public Spelling wordForm(
+        final GrammaticalMeaning grammemes
+    ) throws Exception {
         int bestScore = 0;
         final GmWithSimilarity similar = new GmWithSimilarity(grammemes);
         Spelling bestMatch = this.defaultSpelling();
@@ -93,9 +95,11 @@ public final class BasicLexeme implements Lexeme {
      * {@link BasicLexeme#forms}, in this map we can efficiently search for
      * elements with particular grammatical meaning.
      * @return Searchable map
+     * @throws Exception If couldn't create the map
      */
     @SuppressWarnings("PMD.UseConcurrentHashMap")
-    private ImmutableMap<ImmutableSet<Grammeme>, Spelling> searchableMap() {
+    private ImmutableMap<ImmutableSet<Grammeme>, Spelling> searchableMap()
+        throws Exception {
         final Map<ImmutableSet<Grammeme>, Spelling> map =
             new LinkedHashMap<>(this.forms.size());
         for (final GrammaticalMeaning meaning : this.forms.keySet()) {
