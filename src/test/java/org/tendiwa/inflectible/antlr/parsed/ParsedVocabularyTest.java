@@ -64,11 +64,11 @@ public final class ParsedVocabularyTest {
             Collections.singletonList(
                 IOUtils.toInputStream(
                     Joiner.on('\n').join(
-                        "DRAGON {",
+                        "DRAGON (Noun) {",
                         "   dragon  <Sing>",
                         "   dragons <Plur>",
                         "}",
-                        "BEE {",
+                        "BEE (Noun) {",
                         "   bee  <Sing>",
                         "   bees <Plur>",
                         "} "

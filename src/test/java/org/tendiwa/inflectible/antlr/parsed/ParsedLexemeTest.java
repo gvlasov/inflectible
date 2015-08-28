@@ -48,7 +48,7 @@ public final class ParsedLexemeTest {
     public void hasHeadword() throws Exception {
         MatcherAssert.assertThat(
             this.englishLexeme(
-                "BEAR {",
+                "BEAR (Noun) {",
                 "  bear",
                 "}"
             )
@@ -68,7 +68,7 @@ public final class ParsedLexemeTest {
         MatcherAssert.assertThat(
             this
                 .englishLexeme(
-                    "WOLF {",
+                    "WOLF (Noun) {",
                     " wolf",
                     "} "
                 )
@@ -88,7 +88,7 @@ public final class ParsedLexemeTest {
         MatcherAssert.assertThat(
             this
                 .englishLexeme(
-                    "COW {",
+                    "COW (Noun) {",
                     "  cow",
                     "  cows <Plur>",
                     "}  "
@@ -107,7 +107,7 @@ public final class ParsedLexemeTest {
     public void canHavePersistentGrammemes() throws Exception {
         MatcherAssert.assertThat(
             this.englishLexeme(
-                "SCISSORS <Plur> {",
+                "SCISSORS (Noun) <Plur> {",
                 "  scissors",
                 "}    "
             )
@@ -127,7 +127,7 @@ public final class ParsedLexemeTest {
     public void canHandleLexemeWithNoGrammemelessForm() throws Exception {
         MatcherAssert.assertThat(
             this.englishLexeme(
-                "DAD {",
+                "DAD (Noun) {",
                 " dad <Sing>",
                 " dads <Plur>",
                 "}      "

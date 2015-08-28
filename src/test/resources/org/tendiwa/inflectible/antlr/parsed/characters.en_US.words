@@ -1,13 +1,13 @@
-BEAR {
+BEAR (Noun) {
     bear
     bears <Plur>
 }
 
-SCISSORS <Plur> {
+SCISSORS (Noun) <Plur> {
     scissors
 }
 
-DAD {
+DAD (Noun) {
     dad  <Sing>
     dads <Plur>
 }
