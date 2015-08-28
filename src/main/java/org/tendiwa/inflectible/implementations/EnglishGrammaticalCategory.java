@@ -26,6 +26,7 @@ package org.tendiwa.inflectible.implementations;
 import com.google.common.collect.ImmutableList;
 import org.tendiwa.inflectible.GrammaticalCategory;
 import org.tendiwa.inflectible.Grammeme;
+import org.tenidwa.collections.utils.Collectors;
 
 /**
  * Grammatical categories of English language.
@@ -37,43 +38,42 @@ public enum EnglishGrammaticalCategory implements GrammaticalCategory {
     /**
      * Grammatical number.
      */
-    Number(ImmutableList.of(EnglishGrammeme.Sing, EnglishGrammeme.Plur)),
+    Number,
 
     /**
      * Grammatical tense.
      */
-    Tense(ImmutableList.of(EnglishGrammeme.Present, EnglishGrammeme.Past)),
+    Tense,
 
     /**
      * Grammatical person.
      */
-    Person(ImmutableList.of(EnglishGrammeme.I, EnglishGrammeme.III)),
+    Person,
 
     /**
      * Verb form.
      */
-    Form(ImmutableList.of(EnglishGrammeme.Inf, EnglishGrammeme.Ger));
-
-    /**
-     * Grammemes of this grammatical category.
-     */
-    private final transient ImmutableList<? extends Grammeme> grammemes;
-
-    /**
-     * Ctor.
-     * @param grams Grammemes of this grammatical category
-     */
-    EnglishGrammaticalCategory(final ImmutableList<? extends Grammeme> grams) {
-        this.grammemes = grams;
-    }
+    Form;
 
     @Override
     public Grammeme defaultGrammeme() {
-        return this.grammemes.get(0);
+        return this.grammemes().get(0);
     }
 
     @Override
     public boolean containsGrammeme(final Grammeme grammeme) {
-        return this.grammemes.contains(grammeme);
+        return this.grammemes().contains(grammeme);
+    }
+
+    /**
+     * Returns grammemes of this grammatical category.
+     * @return Grammemes of this grammatical category
+     */
+    private ImmutableList<Grammeme> grammemes() {
+        return ImmutableList
+            .copyOf(EnglishGrammeme.values())
+            .stream()
+            .filter(grammeme -> grammeme.category() == this)
+            .collect(Collectors.toImmutableList());
     }
 }

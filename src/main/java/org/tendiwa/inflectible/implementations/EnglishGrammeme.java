@@ -23,6 +23,7 @@
  */
 package org.tendiwa.inflectible.implementations;
 
+import org.tendiwa.inflectible.GrammaticalCategory;
 import org.tendiwa.inflectible.Grammeme;
 
 /**
@@ -35,40 +36,66 @@ public enum EnglishGrammeme implements Grammeme {
     /**
      * Singular.
      */
-    Sing,
+    Sing(EnglishGrammaticalCategory.Number),
 
     /**
      * Plural.
      */
-    Plur,
+    Plur(EnglishGrammaticalCategory.Number),
 
     /**
      * Present tense.
      */
-    Present,
+    Present(EnglishGrammaticalCategory.Tense),
 
     /**
      * Past tense.
      */
-    Past,
+    Past(EnglishGrammaticalCategory.Tense),
 
     /**
      * First person.
      */
-    I,
+    I(EnglishGrammaticalCategory.Person),
 
     /**
      * Third person.
      */
-    III,
+    III(EnglishGrammaticalCategory.Person),
 
     /**
      * Infinitive.
      */
-    Inf,
+    Inf(EnglishGrammaticalCategory.Form),
 
     /**
      * Gerund.
      */
-    Ger
+    Ger(EnglishGrammaticalCategory.Form);
+
+    /**
+     * Grammatical category of this grammeme.
+     */
+    private transient GrammaticalCategory category;
+
+    /**
+     * Ctor.
+     * @param cat Grammatical category of this grammeme
+     */
+    EnglishGrammeme(final GrammaticalCategory cat) {
+        this.category = cat;
+    }
+
+    @Override
+    public GrammaticalCategory category() {
+        return this.category;
+    }
+    /**
+     * Sets grammatical category for this grammeme. A dirty hack to allow a
+     * two-way relation between elements of enums.
+     * @param cat Grammatical category
+     */
+    void setCategory(final GrammaticalCategory cat) {
+        this.category = cat;
+    }
 }

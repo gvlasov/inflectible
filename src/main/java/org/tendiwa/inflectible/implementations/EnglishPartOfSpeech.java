@@ -23,73 +23,63 @@
  */
 package org.tendiwa.inflectible.implementations;
 
-import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import org.tendiwa.inflectible.GrammaticalCategory;
-import org.tendiwa.inflectible.Grammeme;
-import org.tenidwa.collections.utils.Collectors;
+import org.tendiwa.inflectible.PartOfSpeech;
 
 /**
- * Grammatical categories of Russian language.
+ * Parts of speech in English language.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.2.0
  */
-public enum RussianGrammaticalCategory implements GrammaticalCategory {
+public enum  EnglishPartOfSpeech implements PartOfSpeech {
     /**
-     * Grammatical gender.
-     * <p>Род.
+     * Noun.
      */
-    Род,
+    Noun(
+        ImmutableSet.of(
+            EnglishGrammaticalCategory.Number
+        )
+    ),
 
     /**
-     * Grammatical number.
-     * <p>Число.
+     * Verb.
      */
-    Число,
+    Verb(
+        ImmutableSet.of(
+            EnglishGrammaticalCategory.Number,
+            EnglishGrammaticalCategory.Form,
+            EnglishGrammaticalCategory.Person,
+            EnglishGrammaticalCategory.Tense
+        )
+    ),
 
     /**
-     * Grammatical case.
-     * <p>Падеж.
+     * Adjective.
      */
-    Падеж,
+    Adjective(
+        ImmutableSet.<GrammaticalCategory>of()
+    );
 
     /**
-     * Grammatical tense.
-     * <p>Время.
+     * Grammatical categories that can be used in this part of speech.
      */
-    Время,
+    private final transient ImmutableSet<? extends GrammaticalCategory> used;
 
     /**
-     * Grammatical person.
-     * <p>Лицо.
+     * Ctor.
+     * @param categories Grammatical categories that can be used in this part of
+     *  speech.
      */
-    Лицо,
-
-    /**
-     * Verb form.
-     * <p>Форма глагола
-     */
-    Форма;
-
-    @Override
-    public Grammeme defaultGrammeme() {
-        return this.grammemes().get(0);
+    EnglishPartOfSpeech(
+        final ImmutableSet<? extends GrammaticalCategory> categories
+    ) {
+        this.used = categories;
     }
 
     @Override
-    public boolean containsGrammeme(final Grammeme grammeme) {
-        return this.grammemes().contains(grammeme);
-    }
-
-    /**
-     * Returns grammemes of this grammatical category.
-     * @return Grammemes of this grammatical category
-     */
-    private ImmutableList<Grammeme> grammemes() {
-        return ImmutableList
-            .copyOf(RussianGrammeme.values())
-            .stream()
-            .filter(grammeme -> grammeme.category() == this)
-            .collect(Collectors.toImmutableList());
+    public boolean usesCategory(final GrammaticalCategory category) {
+        return this.used.contains(category);
     }
 }

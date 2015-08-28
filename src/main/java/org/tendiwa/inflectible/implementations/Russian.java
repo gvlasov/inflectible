@@ -36,7 +36,7 @@ public final class Russian extends AbstractLanguage {
      * Ctor.
      */
     public Russian() {
-        super(RussianGrammeme.class);
+        super(RussianGrammeme.class, RussianPartOfSpeech.class);
     }
 
     @Override

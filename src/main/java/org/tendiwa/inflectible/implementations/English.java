@@ -36,7 +36,7 @@ public final class English extends AbstractLanguage {
      * Ctor.
      */
     public English() {
-        super(EnglishGrammeme.class);
+        super(EnglishGrammeme.class, EnglishPartOfSpeech.class);
     }
 
     @Override

@@ -23,6 +23,7 @@
  */
 package org.tendiwa.inflectible.implementations;
 
+import org.tendiwa.inflectible.GrammaticalCategory;
 import org.tendiwa.inflectible.Grammeme;
 
 /**
@@ -36,101 +37,125 @@ public enum RussianGrammeme implements Grammeme {
      * Masculine gender.
      * <p>Мужской род.
      */
-    Муж,
+    Муж(RussianGrammaticalCategory.Род),
     /**
      * Feminine gender.
      * <p>Женский род.
      */
-    Жен,
+    Жен(RussianGrammaticalCategory.Род),
     /**
      * Neuter gender.
      * <p>Средний род
      */
-    Средн,
+    Средн(RussianGrammaticalCategory.Падеж),
     /**
      * Nominative case.
      * <p>Именительный падеж.
      */
-    И,
+    И(RussianGrammaticalCategory.Падеж),
     /**
      * Genitive case.
      * <p>Родительный падеж.
      */
-    Р,
+    Р(RussianGrammaticalCategory.Падеж),
     /**
      * Dative case.
      * <p>Дательный падеж.
      */
-    Д,
+    Д(RussianGrammaticalCategory.Падеж),
     /**
      * Accusative case.
      * <p>Винительный падеж.
      */
-    В,
+    В(RussianGrammaticalCategory.Падеж),
     /**
      * Instrumental case.
      * <p>Творительный падеж.
      */
-    Т,
+    Т(RussianGrammaticalCategory.Падеж),
     /**
      * Prepositional case.
      * <p>Предложный падеж.
      */
-    П,
+    П(RussianGrammaticalCategory.Род),
     /**
      * First person.
      * <p>Первое лицо.
      */
-    I,
+    I(RussianGrammaticalCategory.Лицо),
     /**
      * Second person.
      * <p>Второе лицо.
      */
-    II,
+    II(RussianGrammaticalCategory.Лицо),
     /**
      * Third person.
      * <p>Третье лицо.
      */
-    III,
+    III(RussianGrammaticalCategory.Лицо),
     /**
      * Plural number.
      * <p>Множественное число.
      */
-    Мн,
-    /**
-     * Singular number.
-     * <p>Единственное число.
-     */
-    Ед,
+    Ед(RussianGrammaticalCategory.Число),
     /**
      * Present tense.
      * <p>Настоящее время.
      */
-    Наст,
+    Мн(RussianGrammaticalCategory.Число),
+    /**
+     * Singular number.
+     * <p>Единственное число.
+     */
+    Наст(RussianGrammaticalCategory.Время),
     /**
      * Past tense.
      * <p>Прошедшее время.
      */
-    Прош,
-
+    Прош(RussianGrammaticalCategory.Время),
     /**
      * Infinitive.
      * <p>Неопределённая форма глагола.
      */
-    Инф,
-
+    Инф(RussianGrammaticalCategory.Форма),
     /**
      * Participle.
      * <p>Причастие как форма глагола.
      */
-    Прич,
-
+    Прич(RussianGrammaticalCategory.Форма),
     /**
      * Transgressive.
      * <p>Деепричастие как форма глагола.
      * @see <a href=
-     * "https://en.wikipedia.org/wiki/Transgressive_(linguistics)">
-     * Transgressive (linguistics) on Wikipedia</a>
+     *  "https://en.wikipedia.org/wiki/Transgressive_(linguistics)">
+     *  Transgressive (linguistics) on Wikipedia</a>
      */
-    Дееприч
+    Дееприч(RussianGrammaticalCategory.Форма);
+
+    /**
+     * Grammatical category of this grammeme.
+     */
+    private transient GrammaticalCategory category;
+
+    /**
+     * Ctor.
+     * @param cat Grammatical category of this grammeme
+     */
+    RussianGrammeme(final GrammaticalCategory cat) {
+        this.category = cat;
+    }
+
+    @Override
+    public GrammaticalCategory category() {
+        return this.category;
+    }
+
+    /**
+     * Sets grammatical category for this grammeme. A dirty hack to allow a
+     * two-way relation between elements of enums.
+     * @param cat Grammatical category
+     */
+    void setCategory(final GrammaticalCategory cat) {
+        this.category = cat;
+    }
 }
