@@ -24,7 +24,6 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                    <!--<compilerArgument>-proc:none</compilerArgument>-->
                 </configuration>
             </plugin>
             <plugin>
@@ -143,6 +142,11 @@
                     <artifactId>org.abego.treelayout.core</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.tendiwa</groupId>
+            <artifactId>lombok-lazy</artifactId>
+            <version>1.16.5</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
