@@ -29,7 +29,7 @@ package org.tendiwa.inflectible;
  * @version $Id$
  * @since 0.1.0
  */
-public final class MissingLexemeException extends Exception {
+final class MissingLexemeException extends Exception {
     /**
      * SerialVersionUID.
      */

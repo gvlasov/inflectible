@@ -29,7 +29,7 @@ package org.tendiwa.inflectible;
  * @version $Id$
  * @since 0.1.0
  */
-public interface Text {
+interface Text {
     /**
      * Returns a string representation of the text.
      * @return String representation of the text.

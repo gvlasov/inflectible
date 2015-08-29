@@ -35,7 +35,7 @@ import org.antlr.v4.runtime.misc.ParseCancellationException;
  * @since 0.2.0
  * @checkstyle ParameterNumberCheck (20 lines)
  */
-public final class SimpleErrorListener extends BaseErrorListener {
+final class SimpleErrorListener extends BaseErrorListener {
     @Override
     public void syntaxError(
         final Recognizer<?, ?> recognizer,

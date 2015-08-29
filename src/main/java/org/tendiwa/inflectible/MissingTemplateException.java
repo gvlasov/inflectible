@@ -30,7 +30,7 @@ package org.tendiwa.inflectible;
  * @version $Id$
  * @since 0.1.0
  */
-public final class MissingTemplateException extends Exception {
+final class MissingTemplateException extends Exception {
     /**
      * SerialVersionUID.
      */
