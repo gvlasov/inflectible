@@ -8,11 +8,13 @@ template engines can't.
 
 # Maven dependency
 
+```xml
 <dependency>
     <groupId>org.tendiwa</groupId>
     <artifactId>inflectible</groupId>
     <version>0.2.0</version>
 </dependency>
+```
 
 # What problem does it solve?
 
