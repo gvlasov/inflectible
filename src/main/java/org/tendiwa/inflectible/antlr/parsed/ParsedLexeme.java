@@ -32,6 +32,7 @@ import org.tendiwa.inflectible.Lexeme;
 import org.tendiwa.inflectible.PartOfSpeech;
 import org.tendiwa.inflectible.Spelling;
 import org.tendiwa.inflectible.antlr.LexemeParser;
+import org.tendiwa.inflectible.inflection.GeneratedLexeme;
 
 /**
  * {@link Lexeme} constructed from an ANTLR parse tree.
@@ -85,14 +86,26 @@ final class ParsedLexeme implements Lexeme {
      * Creates a lexeme with word forms and persistent grammatical meaning
      * obtained from the {@link ParsedLexeme#ctx}.
      * @return Lexeme from markup.
+     * @throws Exception If fails
      */
-    private Lexeme delegate() {
-        return new BasicLexeme(
-            this.grammemes(),
-            this.wordForms()
-        );
+    private Lexeme delegate() throws Exception {
+        final Lexeme answer;
+        if (this.ctx.ELLIPSIS() == null) {
+            answer = new BasicLexeme(
+                this.grammemes(),
+                this.wordForms()
+            );
+        } else {
+            answer = new GeneratedLexeme(
+                this.partOfSpeech().inflection(),
+                this.grammemes(),
+                this.wordForms()
+            );
+        }
+        return answer;
     }
 
+    // To be refactored in #47
     /**
      * Returns part of speech of this lexeme.
      * @return Part of speech of this lexeme.

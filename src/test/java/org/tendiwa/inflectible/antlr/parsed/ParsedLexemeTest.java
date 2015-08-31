@@ -32,6 +32,8 @@ import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.tendiwa.inflectible.implementations.English;
 import org.tendiwa.inflectible.implementations.EnglishGrammeme;
+import org.tendiwa.inflectible.implementations.Russian;
+import org.tendiwa.inflectible.implementations.RussianGrammeme;
 
 /**
  * Unit tests for {@link ParsedLexeme}.
@@ -135,6 +137,67 @@ public final class ParsedLexemeTest {
                 .defaultSpelling()
                 .string(),
             CoreMatchers.equalTo("dad")
+        );
+    }
+
+    /**
+     * {@link ParsedLexeme} can generate word forms if the markup for a
+     * lexeme ends with an ellipsis.
+     * @throws Exception If fails
+     */
+    @Test
+    public void producesGeneratedWordForms() throws Exception {
+        MatcherAssert.assertThat(
+            new ParsedLexeme(
+                new Russian().grammar(),
+                new BasicLexemeParser(
+                    IOUtils.toInputStream(
+                        Joiner.on('\n').join(
+                            "BEAR (Сущ) <Муж> {",
+                            " медведь",
+                            " ...",
+                            "}       "
+                        )
+                    )
+                )
+                    .lexeme()
+            )
+                .wordForm(
+                    () -> ImmutableSet.of(RussianGrammeme.Мн, RussianGrammeme.П)
+                )
+                .string(),
+            CoreMatchers.equalTo("медведях")
+        );
+    }
+
+    /**
+     * {@link ParsedLexeme} can generate suppletive word forms from markup
+     * with an ellipsis.
+     * @throws Exception If fails
+     */
+    @Test
+    public void producesGeneratedSuppletiveWordForms() throws Exception {
+        MatcherAssert.assertThat(
+            new ParsedLexeme(
+                new Russian().grammar(),
+                new BasicLexemeParser(
+                    IOUtils.toInputStream(
+                        Joiner.on('\n').join(
+                            "HUMAN (Сущ) <Муж> {",
+                            " человек",
+                            " люди <Мн>",
+                            " ... ",
+                            "}        "
+                        )
+                    )
+                )
+                    .lexeme()
+            )
+                .wordForm(
+                    () -> ImmutableSet.of(RussianGrammeme.Мн, RussianGrammeme.Р)
+                )
+                .string(),
+            CoreMatchers.equalTo("людей")
         );
     }
 

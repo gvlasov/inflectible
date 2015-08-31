@@ -27,6 +27,7 @@ import org.tendiwa.inflectible.Grammar;
 import org.tendiwa.inflectible.GrammaticalCategory;
 import org.tendiwa.inflectible.PartOfSpeech;
 import org.tendiwa.inflectible.antlr.LexemeParser;
+import org.tendiwa.inflectible.inflection.PartOfSpeechInflection;
 
 /**
  * Part of speech parsed from an ANTLR parse tree.
@@ -63,6 +64,11 @@ final class PosParsed implements PartOfSpeech {
         final GrammaticalCategory category
     ) throws Exception {
         return this.delegate().usesCategory(category);
+    }
+
+    @Override
+    public PartOfSpeechInflection inflection() throws Exception {
+        return this.delegate().inflection();
     }
 
     @Override

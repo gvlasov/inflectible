@@ -27,6 +27,7 @@ import com.google.common.collect.ImmutableSet;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
+import org.tendiwa.inflectible.SpBasic;
 
 /**
  * Unit tests for {@link RussianNounInflection}.
@@ -50,6 +51,23 @@ public final class RussianNounInflectionTest {
                 this.numberOfGrammemesIn(RussianGrammaticalCategory.Число)
                     * this.numberOfGrammemesIn(RussianGrammaticalCategory.Падеж)
             )
+        );
+    }
+
+    /**
+     * {@link RussianNounInflection} can generate spellings for Russian nouns.
+     * @throws Exception If fails
+     */
+    @Test
+    public void canGenerateNouns() throws Exception {
+        MatcherAssert.assertThat(
+            new RussianNounInflection().createStem(
+                () -> ImmutableSet.of(RussianGrammeme.Муж),
+                new SpBasic("Игорь")
+            )
+                .form(() -> ImmutableSet.of(RussianGrammeme.В))
+                .string(),
+            CoreMatchers.equalTo("Игоря")
         );
     }
 
