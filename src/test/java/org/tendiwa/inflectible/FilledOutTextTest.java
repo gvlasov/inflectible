@@ -23,37 +23,37 @@
  */
 package org.tendiwa.inflectible;
 
+import com.google.common.collect.ImmutableList;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
- * Unit tests for {@link ValidatedConcept}.
+ * Unit tests for {@link FilledOutText}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1.0
+ * @since 0.3.0
  */
-public final class ValidatedConceptTest {
+public final class FilledOutTextTest {
     /**
-     * {@link ValidatedConcept} can be created from an uppercase string.
+     * {@link FilledOutText} can build a string using its parameters.
      * @throws Exception If fails
      */
     @Test
-    public void allowsUppercase() throws Exception {
-        final String name = "DUDE";
+    public void combinesIntoString() throws Exception {
+        final Template template = Mockito.mock(Template.class);
+        final String text = "Template";
+        Mockito.when(template.fillUp(Mockito.any(), Mockito.any()))
+            .thenReturn(text);
         MatcherAssert.assertThat(
-            new ValidatedConcept(name).identifier(),
-            CoreMatchers.is(name)
+            new FilledOutText(
+                template,
+                Mockito.mock(Vocabulary.class),
+                ImmutableList.of()
+            )
+                .string(),
+            CoreMatchers.equalTo(text)
         );
-    }
-
-    /**
-     * {@link ValidatedConcept} can not be created from a string with any
-     * non-uppercase letters.
-     * @throws Exception If argument name didn't pass validation
-     */
-    @Test(expected = Exception.class)
-    public void disallowsNonUppercase() throws Exception {
-        new ValidatedConcept("dUDe").identifier();
     }
 }

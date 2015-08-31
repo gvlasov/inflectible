@@ -23,37 +23,33 @@
  */
 package org.tendiwa.inflectible;
 
+import com.google.common.collect.ImmutableSet;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
- * Unit tests for {@link ValidatedConcept}.
+ * Unit tests for {@link GrStatic}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1.0
+ * @since 0.3.0
  */
-public final class ValidatedConceptTest {
+public final class GrStaticTest {
     /**
-     * {@link ValidatedConcept} can be created from an uppercase string.
+     * {@link GrStatic} can return the grammemes it was created from.
      * @throws Exception If fails
      */
     @Test
-    public void allowsUppercase() throws Exception {
-        final String name = "DUDE";
-        MatcherAssert.assertThat(
-            new ValidatedConcept(name).identifier(),
-            CoreMatchers.is(name)
+    public void returnsGrammemes() throws Exception {
+        final ImmutableSet<Grammeme> grammemes = ImmutableSet.of(
+            Mockito.mock(Grammeme.class)
         );
-    }
-
-    /**
-     * {@link ValidatedConcept} can not be created from a string with any
-     * non-uppercase letters.
-     * @throws Exception If argument name didn't pass validation
-     */
-    @Test(expected = Exception.class)
-    public void disallowsNonUppercase() throws Exception {
-        new ValidatedConcept("dUDe").identifier();
+        MatcherAssert.assertThat(
+            new GrStatic(() -> grammemes)
+                .grammaticalMeaning(Mockito.mock(ActualArguments.class))
+            .grammemes(),
+            CoreMatchers.is(grammemes)
+        );
     }
 }

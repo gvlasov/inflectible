@@ -21,39 +21,49 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tendiwa.inflectible;
+package org.tendiwa.inflectible.implementations;
 
+import com.google.common.collect.ImmutableSet;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link ValidatedConcept}.
+ * Unit tests for {@link RussianNounInflection}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1.0
+ * @since 0.3.0
  */
-public final class ValidatedConceptTest {
+public final class RussianNounInflectionTest {
     /**
-     * {@link ValidatedConcept} can be created from an uppercase string.
+     * {@link RussianNounInflection} can tell all possible inflected
+     * grammatical meanings that can be assumed by Russian nouns.
      * @throws Exception If fails
      */
     @Test
-    public void allowsUppercase() throws Exception {
-        final String name = "DUDE";
+    public void knowsAllPossibleInflectedMeanings() throws Exception {
         MatcherAssert.assertThat(
-            new ValidatedConcept(name).identifier(),
-            CoreMatchers.is(name)
+            new RussianNounInflection()
+                .allPossibleInflectedMeanings()
+                .size(),
+            CoreMatchers.equalTo(
+                this.numberOfGrammemesIn(RussianGrammaticalCategory.Число)
+                    * this.numberOfGrammemesIn(RussianGrammaticalCategory.Падеж)
+            )
         );
     }
 
     /**
-     * {@link ValidatedConcept} can not be created from a string with any
-     * non-uppercase letters.
-     * @throws Exception If argument name didn't pass validation
+     * Returns the number of grammemes in a particular grammatical category.
+     * @param category Grammatical category
+     * @return Number of grammemes in a particular grammatical category
      */
-    @Test(expected = Exception.class)
-    public void disallowsNonUppercase() throws Exception {
-        new ValidatedConcept("dUDe").identifier();
+    private int numberOfGrammemesIn(final RussianGrammaticalCategory category) {
+        return (int) ImmutableSet.copyOf(
+            RussianGrammeme.values()
+        )
+            .stream()
+            .filter(g -> g.category() == category)
+            .count();
     }
 }

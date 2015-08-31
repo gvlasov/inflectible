@@ -24,6 +24,8 @@
 package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableSet;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.tendiwa.inflectible.implementations.RussianGrammeme;
@@ -35,6 +37,27 @@ import org.tendiwa.inflectible.implementations.RussianGrammeme;
  * @since 0.2.0
  */
 public final class GmValidatedTest {
+    /**
+     * {@link GmValidated} can be valid and return its grammemes.
+     * @throws Exception If fails
+     */
+    @Test
+    public void returnsGrammemesIfValid() throws Exception {
+        final PartOfSpeech part = Mockito.mock(PartOfSpeech.class);
+        final Grammeme grammeme = Mockito.mock(Grammeme.class);
+        final GrammaticalCategory category = Mockito.mock(
+            GrammaticalCategory.class
+        );
+        Mockito.when(grammeme.category()).thenReturn(category);
+        Mockito.when(part.usesCategory(category)).thenReturn(true);
+        MatcherAssert.assertThat(
+            new GmValidated(
+                part,
+                ImmutableSet.of(grammeme)
+            ).grammemes().contains(grammeme),
+            CoreMatchers.is(true)
+        );
+    }
     /**
      * {@link GmValidated} can throw an exception if it contains multiple
      * grammemes from the same {@link GrammaticalCategory}.

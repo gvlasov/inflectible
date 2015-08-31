@@ -32,7 +32,7 @@ import org.mockito.Mockito;
  * Unit tests for {@link MissingLexeme}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.2.0
+ * @since 0.2.
  */
 public final class MissingLexemeTest {
     /**
@@ -53,6 +53,27 @@ public final class MissingLexemeTest {
                 .defaultSpelling()
                 .string(),
             CoreMatchers.equalTo("[Missing lexeme DUDE]")
+        );
+    }
+
+    /**
+     * {@link MissingLexeme} can always be with no grammemes.
+     * @throws Exception If fails
+     */
+    @Test
+    public void hasNoPersistentGrammemes() throws Exception {
+        final Language language = Mockito.mock(Language.class);
+        Mockito.when(language.missingLexemeFormat())
+            .thenReturn("[No such lexeme %s]");
+        MatcherAssert.assertThat(
+            new MissingLexeme(
+                () -> "CAT",
+                language
+            )
+                .persistentGrammemes()
+                .grammemes()
+                .isEmpty(),
+            CoreMatchers.is(true)
         );
     }
 }
