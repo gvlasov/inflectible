@@ -47,7 +47,7 @@ public enum RussianGrammeme implements Grammeme {
      * Neuter gender.
      * <p>Средний род
      */
-    Средн(RussianGrammaticalCategory.Падеж),
+    Средн(RussianGrammaticalCategory.Род),
     /**
      * Nominative case.
      * <p>Именительный падеж.
@@ -77,7 +77,7 @@ public enum RussianGrammeme implements Grammeme {
      * Prepositional case.
      * <p>Предложный падеж.
      */
-    П(RussianGrammaticalCategory.Род),
+    П(RussianGrammaticalCategory.Падеж),
     /**
      * First person.
      * <p>Первое лицо.
@@ -119,6 +119,11 @@ public enum RussianGrammeme implements Grammeme {
      */
     Инф(RussianGrammaticalCategory.Форма),
     /**
+     * Finite form.
+     * <p>Определённая форма глагола.
+     */
+    Опред(RussianGrammaticalCategory.Форма),
+    /**
      * Participle.
      * <p>Причастие как форма глагола.
      */
@@ -135,7 +140,7 @@ public enum RussianGrammeme implements Grammeme {
     /**
      * Grammatical category of this grammeme.
      */
-    private transient GrammaticalCategory category;
+    private final transient GrammaticalCategory category;
 
     /**
      * Ctor.
@@ -148,14 +153,5 @@ public enum RussianGrammeme implements Grammeme {
     @Override
     public GrammaticalCategory category() {
         return this.category;
-    }
-
-    /**
-     * Sets grammatical category for this grammeme. A dirty hack to allow a
-     * two-way relation between elements of enums.
-     * @param cat Grammatical category
-     */
-    void setCategory(final GrammaticalCategory cat) {
-        this.category = cat;
     }
 }

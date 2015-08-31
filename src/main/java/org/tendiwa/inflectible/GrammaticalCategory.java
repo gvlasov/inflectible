@@ -50,4 +50,12 @@ public interface GrammaticalCategory {
      * @return True iff this grammatical category contains a particular grammeme
      */
     boolean containsGrammeme(Grammeme grammeme);
+
+    /**
+     * Finds the grammeme of this grammatical category from meaning.
+     * @param meaning GrammaticalMeaning to search in
+     * @return Grammeme in this grammatical category
+     * @throws Exception If could not find the grammeme
+     */
+    Grammeme getGrammeme(GrammaticalMeaning meaning) throws Exception;
 }

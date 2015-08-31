@@ -25,6 +25,7 @@ package org.tendiwa.inflectible.implementations;
 
 import com.google.common.collect.ImmutableList;
 import org.tendiwa.inflectible.GrammaticalCategory;
+import org.tendiwa.inflectible.GrammaticalMeaning;
 import org.tendiwa.inflectible.Grammeme;
 import org.tenidwa.collections.utils.Collectors;
 
@@ -81,6 +82,17 @@ public enum RussianGrammaticalCategory implements GrammaticalCategory {
         return this.grammemes().contains(grammeme);
     }
 
+    @Override
+    public Grammeme getGrammeme(
+        final GrammaticalMeaning meaning
+    ) throws Exception {
+        return meaning.grammemes()
+            .stream()
+            .filter(g->g.category() == this)
+            .findFirst()
+            .orElse(this.defaultGrammeme());
+    }
+
     /**
      * Returns grammemes of this grammatical category.
      * @return Grammemes of this grammatical category
@@ -92,4 +104,5 @@ public enum RussianGrammaticalCategory implements GrammaticalCategory {
             .filter(grammeme -> grammeme.category() == this)
             .collect(Collectors.toImmutableList());
     }
+
 }

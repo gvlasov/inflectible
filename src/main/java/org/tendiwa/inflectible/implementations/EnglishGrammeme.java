@@ -90,12 +90,4 @@ public enum EnglishGrammeme implements Grammeme {
     public GrammaticalCategory category() {
         return this.category;
     }
-    /**
-     * Sets grammatical category for this grammeme. A dirty hack to allow a
-     * two-way relation between elements of enums.
-     * @param cat Grammatical category
-     */
-    void setCategory(final GrammaticalCategory cat) {
-        this.category = cat;
-    }
 }
