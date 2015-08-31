@@ -52,6 +52,22 @@ public final class EnumBasedGrammarTest {
     }
 
     /**
+     * {@link EnumBasedGrammar} can return a part of speech by its name.
+     * @throws Exception If fails
+     */
+    @Test
+    public void findsPartOfSpeechByName() throws Exception {
+        MatcherAssert.assertThat(
+            new EnumBasedGrammar(
+                KobaianGrammemes.class,
+                KobaianPartOfSpeech.class
+            )
+                .partOfSpeechByName("Basic"),
+            CoreMatchers.equalTo(KobaianPartOfSpeech.Basic)
+        );
+    }
+
+    /**
      * EnumBasedGrammar can fail if a class that is not an enum is provided
      * to its constructor.
      */
@@ -85,7 +101,7 @@ public final class EnumBasedGrammarTest {
         /**
          * The only part of speech.
          */
-        Default {
+        Basic {
             @Override
             public boolean usesCategory(final GrammaticalCategory category) {
                 return false;

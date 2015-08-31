@@ -27,6 +27,7 @@ import com.google.common.collect.ImmutableMap;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * Unit tests for {@link BasicVocabulary}.
@@ -90,4 +91,42 @@ public final class BasicVocabularyTest {
             .lexeme(new ValidatedConcept("CHAIR"));
     }
 
+    /**
+     * {@link BasicVocabulary} can tell if it contains a lexeme for a
+     * particular concept.
+     * @throws Exception If fails
+     */
+    @Test
+    public void mayContainLexeme() throws Exception {
+        final Concept name = () -> "dude.hello";
+        MatcherAssert.assertThat(
+            new BasicVocabulary(
+                ImmutableMap.of(
+                    name,
+                    Mockito.mock(Lexeme.class)
+                )
+            )
+                .hasLexeme(name),
+            CoreMatchers.is(true)
+        );
+    }
+
+    /**
+     * {@link BasicVocabulary} can tell if it doesn't contain a lexeme for a
+     * particular concept.
+     * @throws Exception If fails
+     */
+    @Test
+    public void mayBeMissingLexeme() throws Exception {
+        MatcherAssert.assertThat(
+            new BasicVocabulary(
+                ImmutableMap.of(
+                    () -> "name.of.lexeme",
+                    Mockito.mock(Lexeme.class)
+                )
+            )
+                .hasLexeme(() -> "different.name"),
+            CoreMatchers.is(false)
+        );
+    }
 }

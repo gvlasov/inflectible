@@ -23,37 +23,39 @@
  */
 package org.tendiwa.inflectible;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
- * Unit tests for {@link ValidatedConcept}.
+ * Unit tests for {@link GmCombined}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1.0
+ * @since 0.3.0
  */
-public final class ValidatedConceptTest {
+public final class GmCombinedTest {
     /**
-     * {@link ValidatedConcept} can be created from an uppercase string.
+     * {@link GmCombined} can combine multiple grammatical meanings.
      * @throws Exception If fails
      */
     @Test
-    public void allowsUppercase() throws Exception {
-        final String name = "DUDE";
-        MatcherAssert.assertThat(
-            new ValidatedConcept(name).identifier(),
-            CoreMatchers.is(name)
+    public void combinesGrammaticalMeanings() throws Exception {
+        final Grammeme one = Mockito.mock(Grammeme.class);
+        final Grammeme two = Mockito.mock(Grammeme.class);
+        final Grammeme three = Mockito.mock(Grammeme.class);
+        final GrammaticalMeaning meaning = new GmCombined(
+            ImmutableList.of(
+                () -> ImmutableSet.of(one),
+                () -> ImmutableSet.of(two),
+                () -> ImmutableSet.of(three)
+            )
         );
-    }
-
-    /**
-     * {@link ValidatedConcept} can not be created from a string with any
-     * non-uppercase letters.
-     * @throws Exception If argument name didn't pass validation
-     */
-    @Test(expected = Exception.class)
-    public void disallowsNonUppercase() throws Exception {
-        new ValidatedConcept("dUDe").identifier();
+        MatcherAssert.assertThat(
+            meaning.grammemes().containsAll(ImmutableList.of(one, two, three)),
+            CoreMatchers.is(true)
+        );
     }
 }

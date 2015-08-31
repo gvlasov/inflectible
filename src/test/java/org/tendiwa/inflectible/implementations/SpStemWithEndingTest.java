@@ -21,39 +21,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tendiwa.inflectible;
+package org.tendiwa.inflectible.implementations;
 
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
+import org.tendiwa.inflectible.SpBasic;
 
 /**
- * Unit tests for {@link ValidatedConcept}.
+ * Unit tests for {@link SpStemWithEnding}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1.0
+ * @since 0.3.0
  */
-public final class ValidatedConceptTest {
+public final class SpStemWithEndingTest {
     /**
-     * {@link ValidatedConcept} can be created from an uppercase string.
+     * {@link SpStemWithEnding} can produce a string that consists of the
+     * ending appended after the string of the stem.
      * @throws Exception If fails
      */
     @Test
-    public void allowsUppercase() throws Exception {
-        final String name = "DUDE";
+    public void appendsEnding() throws Exception {
         MatcherAssert.assertThat(
-            new ValidatedConcept(name).identifier(),
-            CoreMatchers.is(name)
+            new SpStemWithEnding(
+                new SpBasic("самокат"),
+                "ами"
+            )
+                .string(),
+            CoreMatchers.equalTo("самокатами")
         );
-    }
-
-    /**
-     * {@link ValidatedConcept} can not be created from a string with any
-     * non-uppercase letters.
-     * @throws Exception If argument name didn't pass validation
-     */
-    @Test(expected = Exception.class)
-    public void disallowsNonUppercase() throws Exception {
-        new ValidatedConcept("dUDe").identifier();
     }
 }

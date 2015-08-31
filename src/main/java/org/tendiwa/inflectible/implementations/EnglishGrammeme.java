@@ -76,7 +76,7 @@ public enum EnglishGrammeme implements Grammeme {
     /**
      * Grammatical category of this grammeme.
      */
-    private transient GrammaticalCategory category;
+    private final transient GrammaticalCategory category;
 
     /**
      * Ctor.

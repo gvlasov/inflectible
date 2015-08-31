@@ -25,6 +25,8 @@ package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -54,5 +56,51 @@ public final class BasicLexemeTest {
             )
         )
             .defaultSpelling();
+    }
+
+    /**
+     * {@link BasicLexeme} can return the first of the provided spellings as
+     * its default spelling.
+     * @throws Exception If fails
+     */
+    @Test
+    public void returnsTheFirstSpellingAsDefault() throws Exception {
+        final String chair = "chair";
+        MatcherAssert.assertThat(
+            new BasicLexeme(
+                new GmEmpty(),
+                ImmutableMap.of(
+                    new GmEmpty(),
+                    new SpBasic(chair),
+                    () -> ImmutableSet.of(Mockito.mock(Grammeme.class)),
+                    new SpBasic("table")
+                )
+            )
+                .defaultSpelling()
+                .string(),
+            CoreMatchers.equalTo(chair)
+        );
+    }
+
+    /**
+     * {@link BasicLexeme} can have persistent grammemes.
+     * @throws Exception If fails
+     */
+    @Test
+    public void hasPersistentGrammemes() throws Exception {
+        final GrammaticalMeaning persistent = Mockito.mock(
+            GrammaticalMeaning.class
+        );
+        MatcherAssert.assertThat(
+            new BasicLexeme(
+                persistent,
+                ImmutableMap.of(
+                    new GmEmpty(),
+                    () -> "hey"
+                )
+            )
+                .persistentGrammemes(),
+            CoreMatchers.is(persistent)
+        );
     }
 }

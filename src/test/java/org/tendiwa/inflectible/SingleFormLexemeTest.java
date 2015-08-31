@@ -21,39 +21,67 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tendiwa.inflectible.implementations;
+package org.tendiwa.inflectible;
 
+import com.google.common.collect.ImmutableSet;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.tendiwa.inflectible.GrammaticalCategory;
 
 /**
- * Unit tests for {@link RussianPartOfSpeech}.
+ * Unit tests for {@link SingleFormLexeme}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.2.0
+ * @since 0.3.0
  */
-public final class RussianPartOfSpeechTest {
+public final class SingleFormLexemeTest {
     /**
-     * {@link RussianPartOfSpeech} can tell if it is using a particular
-     * {@link org.tendiwa.inflectible.GrammaticalCategory}.
+     * {@link SingleFormLexeme} can have default spelling that returns
+     * lexeme's argument.
      * @throws Exception If fails
      */
     @Test
-    public void canTellIfUsesCategory() throws Exception {
+    public void hasDefaultSpelling() throws Exception {
+        final String dude = "dude";
         MatcherAssert.assertThat(
-            RussianPartOfSpeech.Глаг.usesCategory(
-                Mockito.mock(GrammaticalCategory.class)
-            ),
-            CoreMatchers.is(false)
+            new SingleFormLexeme(dude).defaultSpelling().string(),
+            CoreMatchers.equalTo(dude)
         );
+    }
+
+    /**
+     * {@link SingleFormLexeme} can always return empty persistent
+     * grammatical meaning.
+     * @throws Exception If fails
+     */
+    @Test
+    public void returnsEmptyPersistentGrammaticalMeaning() throws Exception {
         MatcherAssert.assertThat(
-            RussianPartOfSpeech.Глаг.usesCategory(
-                RussianGrammaticalCategory.Число
-            ),
+            new SingleFormLexeme("man").persistentGrammemes()
+                .grammemes().isEmpty(),
             CoreMatchers.is(true)
+        );
+    }
+
+    /**
+     * {@link SingleFormLexeme} can return its headword against non-default
+     * grammatical meanings.
+     * @throws Exception If fails
+     */
+    @Test
+    public void returnsSameWordForm() throws Exception {
+        final String woman = "woman";
+        MatcherAssert.assertThat(
+            new SingleFormLexeme(woman).wordForm(
+                ()-> ImmutableSet.of(
+                    Mockito.mock(Grammeme.class),
+                    Mockito.mock(Grammeme.class),
+                    Mockito.mock(Grammeme.class)
+                )
+            )
+                .string(),
+            CoreMatchers.equalTo(woman)
         );
     }
 }

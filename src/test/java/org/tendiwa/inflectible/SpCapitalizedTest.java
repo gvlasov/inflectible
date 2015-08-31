@@ -28,32 +28,41 @@ import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link ValidatedConcept}.
+ * Unit tests for {@link SpCapitalized}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1.0
+ * @since 0.3.0
  */
-public final class ValidatedConceptTest {
+public final class SpCapitalizedTest {
     /**
-     * {@link ValidatedConcept} can be created from an uppercase string.
+     * {@link SpCapitalized} can capitalize its argument.
      * @throws Exception If fails
      */
     @Test
-    public void allowsUppercase() throws Exception {
-        final String name = "DUDE";
+    public void capitalizesWords() throws Exception {
         MatcherAssert.assertThat(
-            new ValidatedConcept(name).identifier(),
-            CoreMatchers.is(name)
+            new SpCapitalized(
+                ()->"hello"
+            )
+                .string(),
+            CoreMatchers.equalTo("Hello")
         );
     }
 
     /**
-     * {@link ValidatedConcept} can not be created from a string with any
-     * non-uppercase letters.
-     * @throws Exception If argument name didn't pass validation
+     * {@link SpCapitalized} can leave its already capitalized argument as it
+     * is.
+     * @throws Exception If fails
      */
-    @Test(expected = Exception.class)
-    public void disallowsNonUppercase() throws Exception {
-        new ValidatedConcept("dUDe").identifier();
+    @Test
+    public void leavesCapitalizedWordsAsTheyAre() throws Exception {
+        final String jeff = "Jeff";
+        MatcherAssert.assertThat(
+            new SpCapitalized(
+                () -> jeff
+            )
+                .string(),
+            CoreMatchers.equalTo(jeff)
+        );
     }
 }

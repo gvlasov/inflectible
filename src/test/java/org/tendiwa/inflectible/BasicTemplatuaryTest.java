@@ -65,4 +65,43 @@ public final class BasicTemplatuaryTest {
         new BasicTemplatuary(ImmutableMap.of())
             .template(new TnBasic("occurrence"));
     }
+
+    /**
+     * {@link BasicTemplatuary} can tell if it contains a template with
+     * particular name.
+     * @throws Exception If fails
+     */
+    @Test
+    public void mayContainTemplate() throws Exception {
+        final TemplateName name = new TnBasic("dude.hello");
+        MatcherAssert.assertThat(
+            new BasicTemplatuary(
+                ImmutableMap.of(
+                    name,
+                    Mockito.mock(Template.class)
+                )
+            )
+                .hasTemplate(name),
+            CoreMatchers.is(true)
+        );
+    }
+
+    /**
+     * {@link BasicTemplatuary} can tell if it doesn't contain a template
+     * with particular name.
+     * @throws Exception If fails
+     */
+    @Test
+    public void mayBeMissingTemplate() throws Exception {
+        MatcherAssert.assertThat(
+            new BasicTemplatuary(
+                ImmutableMap.of(
+                    () -> "name.of.template",
+                    Mockito.mock(Template.class)
+                )
+            )
+                .hasTemplate(() -> "different.name"),
+            CoreMatchers.is(false)
+        );
+    }
 }

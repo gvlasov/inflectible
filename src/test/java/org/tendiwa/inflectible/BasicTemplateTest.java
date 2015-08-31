@@ -23,37 +23,44 @@
  */
 package org.tendiwa.inflectible;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
- * Unit tests for {@link ValidatedConcept}.
+ * Unit tests for {@link BasicTemplate}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.1.0
+ * @since 0.3.0
  */
-public final class ValidatedConceptTest {
+public final class BasicTemplateTest {
     /**
-     * {@link ValidatedConcept} can be created from an uppercase string.
+     * {@link BasicTemplate} can fill itself up.
      * @throws Exception If fails
      */
     @Test
-    public void allowsUppercase() throws Exception {
-        final String name = "DUDE";
+    public void fillsUp() throws Exception {
+        final TemplateBodyPiece one = Mockito.mock(TemplateBodyPiece.class);
+        Mockito.when(one.fillUp(Mockito.any(), Mockito.any()))
+            .thenReturn("Hey");
+        final TemplateBodyPiece two = Mockito.mock(TemplateBodyPiece.class);
+        Mockito.when(two.fillUp(Mockito.any(), Mockito.any()))
+            .thenReturn(" dude");
         MatcherAssert.assertThat(
-            new ValidatedConcept(name).identifier(),
-            CoreMatchers.is(name)
+            new BasicTemplate(
+                ImmutableList.of(),
+                ImmutableList.of(one, two)
+            )
+                .fillUp(
+                    ImmutableList.of(
+                        Mockito.mock(Lexeme.class)
+                    ),
+                    new BasicVocabulary(ImmutableMap.of())
+                ),
+            CoreMatchers.equalTo("Hey dude")
         );
-    }
-
-    /**
-     * {@link ValidatedConcept} can not be created from a string with any
-     * non-uppercase letters.
-     * @throws Exception If argument name didn't pass validation
-     */
-    @Test(expected = Exception.class)
-    public void disallowsNonUppercase() throws Exception {
-        new ValidatedConcept("dUDe").identifier();
     }
 }
