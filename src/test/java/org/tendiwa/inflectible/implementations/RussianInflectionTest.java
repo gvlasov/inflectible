@@ -23,62 +23,39 @@
  */
 package org.tendiwa.inflectible.implementations;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
+import org.tendiwa.inflectible.GmEmpty;
+import org.tendiwa.inflectible.SpBasic;
 
 /**
- * Unit tests for {@link EnglishGrammaticalCategory}.
+ * Unit tests for {@link RussianInflection}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
- * @since 0.2.0
+ * @since 0.3.0
  */
-public final class EnglishGrammaticalCategoryTest {
+public final class RussianInflectionTest {
     /**
-     * {@link EnglishGrammaticalCategory} can tell if it contains a
-     * particular grammeme or not.
+     * {@link RussianInflection} can generate lexemes for Russian nouns.
      * @throws Exception If fails
      */
     @Test
-    public void containsGrammemes() throws Exception {
+    public void canGenerateNouns() throws Exception {
         MatcherAssert.assertThat(
-            EnglishGrammaticalCategory.Person
-                .containsGrammeme(EnglishGrammeme.I),
-            CoreMatchers.is(true)
-        );
-        MatcherAssert.assertThat(
-            EnglishGrammaticalCategory.Person
-                .containsGrammeme(EnglishGrammeme.Plur),
-            CoreMatchers.is(false)
-        );
-    }
-
-    /**
-     * {@link EnglishGrammaticalCategory} can tell its default grammeme.
-     * @throws Exception If fails
-     */
-    @Test
-    public void hasDefaultGrammeme() throws Exception {
-        MatcherAssert.assertThat(
-            EnglishGrammaticalCategory.Number
-                .defaultGrammeme(),
-            CoreMatchers.is(EnglishGrammeme.Sing)
-        );
-    }
-
-    /**
-     * {@link EnglishGrammaticalCategory} can get its grammeme from
-     * {@link org.tendiwa.inflectible.GrammaticalMeaning}.
-     * @throws Exception If fails
-     */
-    @Test
-    public void getsGrammeme() throws Exception {
-        MatcherAssert.assertThat(
-            EnglishGrammaticalCategory.Person.getGrammeme(
-                ()-> ImmutableSet.of(EnglishGrammeme.Ger, EnglishGrammeme.III)
-            ),
-            CoreMatchers.is(EnglishGrammeme.III)
+            new RussianInflection().generate(
+                RussianPartOfSpeech.Сущ,
+                () -> ImmutableSet.of(RussianGrammeme.Муж, RussianGrammeme.Ед),
+                ImmutableMap.of(
+                    new GmEmpty(),
+                    new SpBasic("Игорь")
+                )
+            )
+                .wordForm(() -> ImmutableSet.of(RussianGrammeme.В))
+                .string(),
+            CoreMatchers.equalTo("Игоря")
         );
     }
 }
