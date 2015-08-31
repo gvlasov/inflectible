@@ -69,6 +69,8 @@
                         <excludes>
                             <exclude>org/tendiwa/inflectible/antlr/*</exclude>
                             <exclude>org/tendiwa/inflectible/FilledOutText.class</exclude>
+                            <exclude>org/tendiwa/inflectible/inflection/GeneratedLexeme.class</exclude>
+                            <exclude>org/tendiwa/inflectible/implementations/RussianNounStem.class</exclude>
                         </excludes>
                     </instrumentation>
                     <check>
@@ -142,11 +144,6 @@
                     <artifactId>org.abego.treelayout.core</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.tendiwa</groupId>
-            <artifactId>lombok-lazy</artifactId>
-            <version>1.16.5</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
