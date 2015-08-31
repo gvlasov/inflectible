@@ -83,6 +83,20 @@ public enum RussianPartOfSpeech implements PartOfSpeech {
     Нареч(
         ImmutableSet.<GrammaticalCategory>of(),
         new NotImplementedInflection()
+    ),
+
+    /**
+     * Pronoun.
+     * <p>Местоимение.
+     */
+    Местоим(
+        ImmutableSet.of(
+            RussianGrammaticalCategory.Лицо,
+            RussianGrammaticalCategory.Падеж,
+            RussianGrammaticalCategory.Число,
+            RussianGrammaticalCategory.Род
+        ),
+        new NotImplementedInflection()
     );
 
     /**
