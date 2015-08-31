@@ -101,7 +101,7 @@ System.out.printf(
 
 This may seem not very useful for English, but it makes a lot of sense e.g.
 in Russian, where a lexeme for НОЖ (KNIFE) would look like this:
-
+```
 НОЖ (Сущ) <Муж Неодуш> {
     нож
     ножа   <Ед Р>
@@ -116,7 +116,7 @@ in Russian, where a lexeme for НОЖ (KNIFE) would look like this:
     ножами <Мн Т>
     ноже   <Мн П>
 }
-
+```
 There are 12 different forms a word НОЖ can assume under different
 grammatical meanings, so choosing the correct one can become crucial.
 
