@@ -6,6 +6,14 @@ Inflectible is a flexible template engine with [inflection](https://en
 .wikipedia.org/wiki/Inflection). It can use correct word forms where other
 template engines can't.
 
+# Maven dependency
+
+<dependency>
+    <groupId>org.tendiwa</groupId>
+    <artifactId>inflectible</groupId>
+    <version>0.2.0</version>
+</dependency>
+
 # What problem does it solve?
 
 Many languages rely heavily on non-trivial rules of inflection. In order to
