@@ -8,7 +8,7 @@ options {
 
 lexemes: lexeme+;
 
-lexeme: conceptId partOfSpeech persistentGrammemes? WORD_FORMS_START wordForms WORD_FORMS_END;
+lexeme: conceptId partOfSpeech persistentGrammemes? WORD_FORMS_START wordForms ELLIPSIS? WORD_FORMS_END;
 
 persistentGrammemes: grammaticalMeaning;
 

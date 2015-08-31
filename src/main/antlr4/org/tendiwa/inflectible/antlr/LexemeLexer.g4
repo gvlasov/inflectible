@@ -16,7 +16,8 @@ mode WORD_FORMS;
 WORD_FORMS_END: '}' -> popMode;
 WORD_FORMS_WS: WS -> type(WS), skip;
 WORD_FORM_LBRACKET: LT -> type(LT), pushMode(WORD_FORM_GRAMMEMES);
-SPELLING: ~[ \n\r\t\<\>]+;
+SPELLING: ~[ \n\r\t\<\>.]+;
+ELLIPSIS: '...';
 
 mode WORD_FORM_GRAMMEMES;
 WORD_FORM_GRAMMEMES_RBRACKET: GT -> type(GT), popMode;
