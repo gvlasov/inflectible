@@ -48,4 +48,13 @@ public final class AnyPartOfSpeechTest {
             CoreMatchers.is(true)
         );
     }
+
+    /**
+     * {@link AnyPartOfSpeech} can return only always failing inflection rules.
+     * @throws Exception If fails
+     */
+    @Test(expected = UnsupportedOperationException.class)
+    public void failsAtReturningInflection() throws Exception {
+        new AnyPartOfSpeech().inflection().allPossibleInflectedMeanings();
+    }
 }

@@ -23,6 +23,9 @@
  */
 package org.tendiwa.inflectible;
 
+import org.tendiwa.inflectible.inflection.NotImplementedInflection;
+import org.tendiwa.inflectible.inflection.PartOfSpeechInflection;
+
 /**
  * Part of speech that doesn't have any restrictions on what grammatical
  * categories it may use.
@@ -36,5 +39,10 @@ public final class AnyPartOfSpeech implements PartOfSpeech {
         final GrammaticalCategory category
     ) throws Exception {
         return true;
+    }
+
+    @Override
+    public PartOfSpeechInflection inflection() {
+        return new NotImplementedInflection();
     }
 }

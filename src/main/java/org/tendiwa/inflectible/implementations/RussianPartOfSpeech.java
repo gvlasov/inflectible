@@ -26,6 +26,8 @@ package org.tendiwa.inflectible.implementations;
 import com.google.common.collect.ImmutableSet;
 import org.tendiwa.inflectible.GrammaticalCategory;
 import org.tendiwa.inflectible.PartOfSpeech;
+import org.tendiwa.inflectible.inflection.NotImplementedInflection;
+import org.tendiwa.inflectible.inflection.PartOfSpeechInflection;
 
 /**
  * Part of speech in Russian language.
@@ -43,7 +45,8 @@ public enum RussianPartOfSpeech implements PartOfSpeech {
             RussianGrammaticalCategory.Род,
             RussianGrammaticalCategory.Число,
             RussianGrammaticalCategory.Падеж
-        )
+        ),
+        new RussianNounInflection()
     ),
 
     /**
@@ -56,7 +59,8 @@ public enum RussianPartOfSpeech implements PartOfSpeech {
             RussianGrammaticalCategory.Лицо,
             RussianGrammaticalCategory.Число,
             RussianGrammaticalCategory.Форма
-        )
+        ),
+        new NotImplementedInflection()
     ),
 
     /**
@@ -68,14 +72,18 @@ public enum RussianPartOfSpeech implements PartOfSpeech {
             RussianGrammaticalCategory.Род,
             RussianGrammaticalCategory.Число,
             RussianGrammaticalCategory.Падеж
-        )
+        ),
+        new NotImplementedInflection()
     ),
 
     /**
      * Adverb.
      * <p>Наречие.
      */
-    Нареч(ImmutableSet.<GrammaticalCategory>of());
+    Нареч(
+        ImmutableSet.<GrammaticalCategory>of(),
+        new NotImplementedInflection()
+    );
 
     /**
      * Grammatical categories that can be used in this part of speech.
@@ -83,18 +91,31 @@ public enum RussianPartOfSpeech implements PartOfSpeech {
     private final transient ImmutableSet<? extends GrammaticalCategory> used;
 
     /**
+     * Inflection rules of this part of speech.
+     */
+    private final transient PartOfSpeechInflection inflect;
+
+    /**
      * Ctor.
      * @param categories Grammatical categories that can be used in this part of
-     *  speech.
+     *  speech
+     * @param infl Inflection rules of this part of speech
      */
     RussianPartOfSpeech(
-        final ImmutableSet<? extends GrammaticalCategory> categories
+        final ImmutableSet<? extends GrammaticalCategory> categories,
+        final PartOfSpeechInflection infl
     ) {
         this.used = categories;
+        this.inflect = infl;
     }
 
     @Override
     public boolean usesCategory(final GrammaticalCategory category) {
         return this.used.contains(category);
+    }
+
+    @Override
+    public PartOfSpeechInflection inflection() {
+        return this.inflect;
     }
 }

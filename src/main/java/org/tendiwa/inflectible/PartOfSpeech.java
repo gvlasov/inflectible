@@ -23,6 +23,8 @@
  */
 package org.tendiwa.inflectible;
 
+import org.tendiwa.inflectible.inflection.PartOfSpeechInflection;
+
 /**
  * A part of speech is a category of words which have similar grammatical
  * properties. Words that are assigned to the same part of speech generally
@@ -50,4 +52,11 @@ public interface PartOfSpeech {
      *  category or not
      */
     boolean usesCategory(GrammaticalCategory category) throws Exception;
+
+    /**
+     * Returns the rules of inflection for this part of speech.
+     * @return The rules of inflection for this part of speech
+     * @throws Exception If could not obtain the rules of inflection
+     */
+    PartOfSpeechInflection inflection() throws Exception;
 }

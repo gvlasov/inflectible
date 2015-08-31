@@ -27,6 +27,8 @@ import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.tendiwa.inflectible.inflection.NotImplementedInflection;
+import org.tendiwa.inflectible.inflection.PartOfSpeechInflection;
 
 /**
  * Unit tests for {@link EnumBasedGrammar}.
@@ -105,6 +107,11 @@ public final class EnumBasedGrammarTest {
             @Override
             public boolean usesCategory(final GrammaticalCategory category) {
                 return false;
+            }
+
+            @Override
+            public PartOfSpeechInflection inflection() throws Exception {
+                return new NotImplementedInflection();
             }
         };
     }

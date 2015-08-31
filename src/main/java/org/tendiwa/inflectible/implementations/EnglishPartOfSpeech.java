@@ -26,6 +26,8 @@ package org.tendiwa.inflectible.implementations;
 import com.google.common.collect.ImmutableSet;
 import org.tendiwa.inflectible.GrammaticalCategory;
 import org.tendiwa.inflectible.PartOfSpeech;
+import org.tendiwa.inflectible.inflection.NotImplementedInflection;
+import org.tendiwa.inflectible.inflection.PartOfSpeechInflection;
 
 /**
  * Parts of speech in English language.
@@ -40,7 +42,8 @@ public enum  EnglishPartOfSpeech implements PartOfSpeech {
     Noun(
         ImmutableSet.of(
             EnglishGrammaticalCategory.Number
-        )
+        ),
+        new NotImplementedInflection()
     ),
 
     /**
@@ -52,14 +55,16 @@ public enum  EnglishPartOfSpeech implements PartOfSpeech {
             EnglishGrammaticalCategory.Form,
             EnglishGrammaticalCategory.Person,
             EnglishGrammaticalCategory.Tense
-        )
+        ),
+        new NotImplementedInflection()
     ),
 
     /**
      * Adjective.
      */
     Adjective(
-        ImmutableSet.<GrammaticalCategory>of()
+        ImmutableSet.<GrammaticalCategory>of(),
+        new NotImplementedInflection()
     );
 
     /**
@@ -68,18 +73,31 @@ public enum  EnglishPartOfSpeech implements PartOfSpeech {
     private final transient ImmutableSet<? extends GrammaticalCategory> used;
 
     /**
+     * Rules of inflection for this part of speech.
+     */
+    private final transient PartOfSpeechInflection inflect;
+
+    /**
      * Ctor.
      * @param categories Grammatical categories that can be used in this part of
-     *  speech.
+     *  speech
+     * @param infl Rules of inflection for this part of speech
      */
     EnglishPartOfSpeech(
-        final ImmutableSet<? extends GrammaticalCategory> categories
+        final ImmutableSet<? extends GrammaticalCategory> categories,
+        final PartOfSpeechInflection infl
     ) {
         this.used = categories;
+        this.inflect = infl;
     }
 
     @Override
     public boolean usesCategory(final GrammaticalCategory category) {
         return this.used.contains(category);
+    }
+
+    @Override
+    public PartOfSpeechInflection inflection() {
+        return this.inflect;
     }
 }
