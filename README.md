@@ -18,7 +18,7 @@ template engines can't.
 
 # What problem does it solve?
 
-Many languages rely heavily on non-trivial rules of inflection. In order to
+Many natural languages rely heavily on non-trivial rules of inflection. In order to
 construct texts in those languages with variable members of sentences, we
 can't always just concatenate strings: generally we have to know the grammatical
 structure of sentences we're constructing, and we have to know how words in
