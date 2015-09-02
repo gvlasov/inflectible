@@ -2,9 +2,9 @@
 
 # Inflectible
 
-Inflectible is a flexible template engine with [inflection](https://en
-.wikipedia.org/wiki/Inflection). It can use correct word forms where other
-template engines can't.
+Inflectible is a flexible template engine with 
+[inflection](https://en.wikipedia.org/wiki/Inflection). 
+It can use correct word forms where other template engines can't.
 
 # Maven dependency
 
