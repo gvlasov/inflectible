@@ -70,7 +70,6 @@
                             <exclude>org/tendiwa/inflectible/antlr/*</exclude>
                             <exclude>org/tendiwa/inflectible/FilledOutText.class</exclude>
                             <exclude>org/tendiwa/inflectible/inflection/GeneratedLexeme.class</exclude>
-                            <exclude>org/tendiwa/inflectible/implementations/NotImplementedLexeme.class</exclude>
                             <exclude>org/tendiwa/inflectible/implementations/EnglishPartOfSpeech.class</exclude>
                         </excludes>
                     </instrumentation>
