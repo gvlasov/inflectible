@@ -32,7 +32,7 @@ import org.tendiwa.inflectible.Lexeme;
 import org.tendiwa.inflectible.PartOfSpeech;
 import org.tendiwa.inflectible.Spelling;
 import org.tendiwa.inflectible.antlr.LexemeParser;
-import org.tendiwa.inflectible.inflection.GeneratedLexeme;
+import org.tendiwa.inflectible.inflection.LxWithSuppletivism;
 
 /**
  * {@link Lexeme} constructed from an ANTLR parse tree.
@@ -96,8 +96,8 @@ final class ParsedLexeme implements Lexeme {
                 this.wordForms()
             );
         } else {
-            answer = new GeneratedLexeme(
-                this.partOfSpeech().inflection(),
+            answer = new LxWithSuppletivism(
+                this.partOfSpeech(),
                 this.grammemes(),
                 this.wordForms()
             );

@@ -33,6 +33,7 @@ import org.tendiwa.inflectible.GmWithSimilarity;
 import org.tendiwa.inflectible.GrammaticalMeaning;
 import org.tendiwa.inflectible.Grammeme;
 import org.tendiwa.inflectible.Lexeme;
+import org.tendiwa.inflectible.PartOfSpeech;
 import org.tendiwa.inflectible.Spelling;
 import org.tenidwa.collections.utils.Collectors;
 import org.tenidwa.collections.utils.Rethrowing;
@@ -44,35 +45,36 @@ import org.tenidwa.collections.utils.Rethrowing;
  * @version $Id$
  * @since 0.3.0
  */
-public final class GeneratedLexeme implements Lexeme {
+public final class LxWithSuppletivism implements Lexeme {
     /**
-     * Part of speech infection.
+     * Part of speech.
      */
-    private final transient PartOfSpeechInflection inflection;
+    private final transient PartOfSpeech part;
 
     /**
-     * Persistent grammatical meaning of the lexeme.
+     * Persistent grammatical meaning.
      */
     private final transient GrammaticalMeaning persistent;
 
     /**
-     * Known word forms.
+     * Initially known word forms.
      */
     private final transient
         ImmutableMap<GrammaticalMeaning, Spelling> headwords;
 
     /**
      * Ctor.
-     * @param infl Inflection rules of a natural language
+     * @param pos Part of speech of this lexeme
      * @param pers Persistent grammatical meaning of the lexeme
-     * @param forms Known word forms. New forms will be derived from these
+     * @param forms Known word forms of this lexeme. New forms will be derived
+     *  from these
      */
-    public GeneratedLexeme(
-        final PartOfSpeechInflection infl,
+    public LxWithSuppletivism(
+        final PartOfSpeech pos,
         final GrammaticalMeaning pers,
         final ImmutableMap<GrammaticalMeaning, Spelling> forms
     ) {
-        this.inflection = infl;
+        this.part = pos;
         this.persistent = pers;
         this.headwords = forms;
     }
@@ -121,9 +123,7 @@ public final class GeneratedLexeme implements Lexeme {
             .map(Rethrowing.rethrowFunction(GrammaticalMeaning::grammemes))
             .collect(Collectors.toImmutableSet());
         builder.putAll(this.headwords);
-        final ImmutableSet<GrammaticalMeaning> all =
-            this.inflection.allPossibleInflectedMeanings();
-        for (final GrammaticalMeaning meaning : all) {
+        for (final GrammaticalMeaning meaning : this.part.meaningVariations()) {
             if (headwordMeanings.contains(meaning.grammemes())) {
                 continue;
             }
@@ -131,16 +131,16 @@ public final class GeneratedLexeme implements Lexeme {
                 this.closestHeadwordMeaning(meaning);
             builder.put(
                 meaning,
-                this.inflection.createStem(
+                this.part.lexeme(
+                    this.headwords.get(closest),
                     new GmCombined(
                         ImmutableList.of(
                             this.persistent,
                             closest
                         )
-                    ),
-                    this.headwords.get(closest)
+                    )
                 )
-                    .form(meaning)
+                    .wordForm(meaning)
             );
         }
         return builder.build();
