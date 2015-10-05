@@ -50,11 +50,23 @@ public final class AnyPartOfSpeechTest {
     }
 
     /**
-     * {@link AnyPartOfSpeech} can return only always failing inflection rules.
+     * {@link AnyPartOfSpeech} can not return meaning variations.
+     * @throws Exception If fails
+     */
+    @Test(expected = UnsupportedOperationException.class)
+    public void failsAtReturningMeanings() throws Exception {
+        new AnyPartOfSpeech().meaningVariations();
+    }
+
+    /**
+     * {@link AnyPartOfSpeech} can not generate a lexeme.
      * @throws Exception If fails
      */
     @Test(expected = UnsupportedOperationException.class)
     public void failsAtReturningInflection() throws Exception {
-        new AnyPartOfSpeech().meaningVariations();
+        new AnyPartOfSpeech().lexeme(
+            Mockito.mock(Spelling.class),
+            Mockito.mock(GrammaticalMeaning.class)
+        );
     }
 }

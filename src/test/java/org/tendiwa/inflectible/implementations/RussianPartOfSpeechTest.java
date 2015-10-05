@@ -60,7 +60,7 @@ public final class RussianPartOfSpeechTest {
     }
 
     /**
-     * {@link RussianNounInflection} can generate spellings for Russian nouns.
+     * {@link RussianPartOfSpeech} can generate spellings for Russian nouns.
      * @throws Exception If fails
      */
     @Test
