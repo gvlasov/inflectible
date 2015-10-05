@@ -120,8 +120,8 @@ public final class LxWithSuppletivism implements Lexeme {
             ImmutableMap.builder();
         final ImmutableSet<ImmutableSet<Grammeme>> headwordMeanings =
             this.headwords.keySet().stream()
-            .map(Rethrowing.rethrowFunction(GrammaticalMeaning::grammemes))
-            .collect(Collectors.toImmutableSet());
+                .map(Rethrowing.rethrowFunction(GrammaticalMeaning::grammemes))
+                .collect(Collectors.toImmutableSet());
         builder.putAll(this.headwords);
         for (final GrammaticalMeaning meaning : this.part.meaningVariations()) {
             if (headwordMeanings.contains(meaning.grammemes())) {

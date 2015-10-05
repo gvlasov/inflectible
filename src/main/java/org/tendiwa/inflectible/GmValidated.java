@@ -34,7 +34,6 @@ import com.google.common.collect.ImmutableSet;
  * @since 0.2.0
  */
 public final class GmValidated implements GrammaticalMeaning {
-
     /**
      * Part of speech.
      */

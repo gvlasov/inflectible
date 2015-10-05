@@ -42,7 +42,7 @@ import org.tendiwa.inflectible.implementations.RussianPartOfSpeech;
  * @version $Id$
  * @since 0.3.0
  */
-public final class GeneratedLexemeTest {
+public final class LxWithSuppletivismTest {
     /**
      * {@link LxWithSuppletivism} can generate word forms from multiple
      * headwords.
