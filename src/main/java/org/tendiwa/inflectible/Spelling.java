@@ -35,4 +35,25 @@ public interface Spelling {
      * @return String value of the spelling
      */
     String string();
+
+    /**
+     * Returns the last character of the headword.
+     * @return Last character of the headword
+     */
+    default char lastChar() {
+        return this.string().charAt(
+            this.string().length() - 1
+        );
+    }
+
+    /**
+     * Returns the headword without the last letter.
+     * @return Headword without the last letter
+     */
+    default String withoutLastLetter() {
+        return this.string().substring(
+            0,
+            this.string().length() - 1
+        );
+    }
 }
