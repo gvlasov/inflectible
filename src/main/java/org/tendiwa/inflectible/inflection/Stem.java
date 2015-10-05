@@ -23,9 +23,6 @@
  */
 package org.tendiwa.inflectible.inflection;
 
-import org.tendiwa.inflectible.GrammaticalMeaning;
-import org.tendiwa.inflectible.Spelling;
-
 /**
  * Main part of a word to which various endings are added.
  * @see <a href="https://en.wikipedia.org/wiki/Word_stem">Word stem article
@@ -36,12 +33,9 @@ import org.tendiwa.inflectible.Spelling;
  */
 public interface Stem {
     /**
-     * Returns a spelling derived from this stem with particular grammatical
-     * meaning.
-     * @param grammemes Grammatical meaning
-     * @return Spelling derived from this stem with particular grammatical
-     *  meaning
-     * @throws Exception If fails
+     * Returns how this stem is spelled.
+     * @return Spelling of this stem.
+     * @throws Exception If could not obtain spelling
      */
-    Spelling form(GrammaticalMeaning grammemes) throws Exception;
+    String spelling() throws Exception;
 }
