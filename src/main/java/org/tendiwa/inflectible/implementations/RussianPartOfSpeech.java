@@ -24,10 +24,15 @@
 package org.tendiwa.inflectible.implementations;
 
 import com.google.common.collect.ImmutableSet;
+import java.util.Set;
+import java.util.function.BiFunction;
+import org.tendiwa.inflectible.AnyPartOfSpeech;
+import org.tendiwa.inflectible.GmValidated;
 import org.tendiwa.inflectible.GrammaticalCategory;
+import org.tendiwa.inflectible.GrammaticalMeaning;
+import org.tendiwa.inflectible.Lexeme;
 import org.tendiwa.inflectible.PartOfSpeech;
-import org.tendiwa.inflectible.inflection.NotImplementedInflection;
-import org.tendiwa.inflectible.inflection.PartOfSpeechInflection;
+import org.tendiwa.inflectible.Spelling;
 
 /**
  * Part of speech in Russian language.
@@ -46,7 +51,93 @@ public enum RussianPartOfSpeech implements PartOfSpeech {
             RussianGrammaticalCategory.Число,
             RussianGrammaticalCategory.Падеж
         ),
-        new RussianNounInflection()
+        ImmutableSet.<GrammaticalMeaning>of(
+            new GmValidated(
+                new AnyPartOfSpeech(),
+                ImmutableSet.of(
+                    RussianGrammeme.Ед,
+                    RussianGrammeme.И
+                )
+            ),
+            new GmValidated(
+                new AnyPartOfSpeech(),
+                ImmutableSet.of(
+                    RussianGrammeme.Ед,
+                    RussianGrammeme.Р
+                )
+            ),
+            new GmValidated(
+                new AnyPartOfSpeech(),
+                ImmutableSet.of(
+                    RussianGrammeme.Ед,
+                    RussianGrammeme.Д
+                )
+            ),
+            new GmValidated(
+                new AnyPartOfSpeech(),
+                ImmutableSet.of(
+                    RussianGrammeme.Ед,
+                    RussianGrammeme.В
+                )
+            ),
+            new GmValidated(
+                new AnyPartOfSpeech(),
+                ImmutableSet.of(
+                    RussianGrammeme.Ед,
+                    RussianGrammeme.Т
+                )
+            ),
+            new GmValidated(
+                new AnyPartOfSpeech(),
+                ImmutableSet.of(
+                    RussianGrammeme.Ед,
+                    RussianGrammeme.П
+                )
+            ),
+            new GmValidated(
+                new AnyPartOfSpeech(),
+                ImmutableSet.of(
+                    RussianGrammeme.Мн,
+                    RussianGrammeme.И
+                )
+            ),
+            new GmValidated(
+                new AnyPartOfSpeech(),
+                ImmutableSet.of(
+                    RussianGrammeme.Мн,
+                    RussianGrammeme.Р
+                )
+            ),
+            new GmValidated(
+                new AnyPartOfSpeech(),
+                ImmutableSet.of(
+                    RussianGrammeme.Мн,
+                    RussianGrammeme.Д
+                )
+            ),
+            new GmValidated(
+                new AnyPartOfSpeech(),
+                ImmutableSet.of(
+                    RussianGrammeme.Мн,
+                    RussianGrammeme.В
+                )
+            ),
+            new GmValidated(
+                new AnyPartOfSpeech(),
+                ImmutableSet.of(
+                    RussianGrammeme.Мн,
+                    RussianGrammeme.Т
+                )
+            ),
+            new GmValidated(
+                new AnyPartOfSpeech(),
+                ImmutableSet.of(
+                    RussianGrammeme.Мн,
+                    RussianGrammeme.П
+                )
+            )
+        ),
+        RussianNoun::new
     ),
 
     /**
@@ -60,7 +151,8 @@ public enum RussianPartOfSpeech implements PartOfSpeech {
             RussianGrammaticalCategory.Число,
             RussianGrammaticalCategory.Форма
         ),
-        new NotImplementedInflection()
+        ImmutableSet.<GrammaticalMeaning>of(),
+        (spelling, meaning) -> new NotImplementedLexeme()
     ),
 
     /**
@@ -73,7 +165,8 @@ public enum RussianPartOfSpeech implements PartOfSpeech {
             RussianGrammaticalCategory.Число,
             RussianGrammaticalCategory.Падеж
         ),
-        new NotImplementedInflection()
+        ImmutableSet.<GrammaticalMeaning>of(),
+        (spelling, meaning) -> new NotImplementedLexeme()
     ),
 
     /**
@@ -82,7 +175,8 @@ public enum RussianPartOfSpeech implements PartOfSpeech {
      */
     Нареч(
         ImmutableSet.<GrammaticalCategory>of(),
-        new NotImplementedInflection()
+        ImmutableSet.<GrammaticalMeaning>of(),
+        (spelling, meaning) -> new NotImplementedLexeme()
     ),
 
     /**
@@ -96,7 +190,8 @@ public enum RussianPartOfSpeech implements PartOfSpeech {
             RussianGrammaticalCategory.Число,
             RussianGrammaticalCategory.Род
         ),
-        new NotImplementedInflection()
+        ImmutableSet.<GrammaticalMeaning>of(),
+        (spelling, meaning) -> new NotImplementedLexeme()
     );
 
     /**
@@ -105,22 +200,35 @@ public enum RussianPartOfSpeech implements PartOfSpeech {
     private final transient ImmutableSet<? extends GrammaticalCategory> used;
 
     /**
-     * Inflection rules of this part of speech.
+     * How to generate a lexeme from a spelling and persistent grammatical
+     * meaning.
      */
-    private final transient PartOfSpeechInflection inflect;
+    private final transient
+        BiFunction<Spelling, GrammaticalMeaning, Lexeme> inflection;
+
+    /**
+     * All possible combinations of meanings a word in this part of speech can
+     * assume in the process of inflection.
+     */
+    private final transient Set<GrammaticalMeaning> all;
 
     /**
      * Ctor.
      * @param categories Grammatical categories that can be used in this part of
      *  speech
-     * @param infl Inflection rules of this part of speech
+     * @param meanings All possible combinations of meanings a word in this
+     *  part of speech can assume in the process of inflection.
+     * @param generator How to generate a lexeme from a spelling and persistent
+     *  grammatical meaning.
      */
     RussianPartOfSpeech(
         final ImmutableSet<? extends GrammaticalCategory> categories,
-        final PartOfSpeechInflection infl
+        final Set<GrammaticalMeaning> meanings,
+        final BiFunction<Spelling, GrammaticalMeaning, Lexeme> generator
     ) {
         this.used = categories;
-        this.inflect = infl;
+        this.all = meanings;
+        this.inflection = generator;
     }
 
     @Override
@@ -129,7 +237,15 @@ public enum RussianPartOfSpeech implements PartOfSpeech {
     }
 
     @Override
-    public PartOfSpeechInflection inflection() {
-        return this.inflect;
+    public Lexeme lexeme(
+        final Spelling headword,
+        final GrammaticalMeaning persistent
+    ) {
+        return this.inflection.apply(headword, persistent);
+    }
+
+    @Override
+    public Set<GrammaticalMeaning> meaningVariations() throws Exception {
+        return this.all;
     }
 }

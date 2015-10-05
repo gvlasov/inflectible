@@ -23,8 +23,7 @@
  */
 package org.tendiwa.inflectible;
 
-import org.tendiwa.inflectible.inflection.NotImplementedInflection;
-import org.tendiwa.inflectible.inflection.PartOfSpeechInflection;
+import java.util.Set;
 
 /**
  * Part of speech that doesn't have any restrictions on what grammatical
@@ -42,7 +41,15 @@ public final class AnyPartOfSpeech implements PartOfSpeech {
     }
 
     @Override
-    public PartOfSpeechInflection inflection() {
-        return new NotImplementedInflection();
+    public Lexeme lexeme(
+        final Spelling headword,
+        final GrammaticalMeaning persistent
+    ) throws Exception {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Set<GrammaticalMeaning> meaningVariations() throws Exception {
+        throw new UnsupportedOperationException();
     }
 }

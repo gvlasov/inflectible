@@ -23,7 +23,7 @@
  */
 package org.tendiwa.inflectible;
 
-import org.tendiwa.inflectible.inflection.PartOfSpeechInflection;
+import java.util.Set;
 
 /**
  * A part of speech is a category of words which have similar grammatical
@@ -54,9 +54,24 @@ public interface PartOfSpeech {
     boolean usesCategory(GrammaticalCategory category) throws Exception;
 
     /**
-     * Returns the rules of inflection for this part of speech.
-     * @return The rules of inflection for this part of speech
-     * @throws Exception If could not obtain the rules of inflection
+     * Returns a lexeme with its form generated from some headword.
+     * @param headword Dictionary form
+     * @param persistent Grammatical meaning common to all forms the
+     *  generated lexeme.
+     * @return Generated lexeme
+     * @throws Exception if could not construct the lexeme
      */
-    PartOfSpeechInflection inflection() throws Exception;
+    Lexeme lexeme(
+        Spelling headword,
+        GrammaticalMeaning persistent
+    ) throws Exception;
+
+    /**
+     * Returns all possible combinations of inflecting grammemes for this
+     * part of speech.
+     * @return All possible combinations of inflecting grammemes for this
+     *  part of speech.
+     * @throws Exception if could not obtain the meaning variations.
+     */
+    Set<GrammaticalMeaning> meaningVariations() throws Exception;
 }
