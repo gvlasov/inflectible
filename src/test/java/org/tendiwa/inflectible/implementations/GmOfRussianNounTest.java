@@ -21,40 +21,47 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.tendiwa.inflectible.inflection;
+package org.tendiwa.inflectible.implementations;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.mockito.Mockito;
-import org.tendiwa.inflectible.GrammaticalMeaning;
-import org.tendiwa.inflectible.Spelling;
 
 /**
- * Unit tests for {@link NotImplementedInflection}.
+ * Unit tests for {@link GmOfRussianNoun}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.3.0
  */
-public final class NotImplementedInflectionTest {
+public final class GmOfRussianNounTest {
     /**
-     * {@link NotImplementedInflection} can always fail when asked to create
-     * a stem.
+     * {@link GmOfRussianNoun} can be checked for equality against instances
+     * of its class.
      * @throws Exception If fails
      */
-    @Test(expected = UnsupportedOperationException.class)
-    public void failsToCreateStem() throws Exception {
-        new NotImplementedInflection().createStem(
-            Mockito.mock(GrammaticalMeaning.class),
-            Mockito.mock(Spelling.class)
-        );
+    @Test
+    public void obeysEqualsContract() throws Exception {
+        EqualsVerifier.forClass(GmOfRussianNoun.class)
+            .suppress(Warning.TRANSIENT_FIELDS)
+            .verify();
     }
 
     /**
-     * {@link NotImplementedInflection} can always fail when asked to returns
-     * all its possible inflected meanings.
+     * {@link GmOfRussianNoun} can returns the two grammemes it was
+     * initialized with.
      * @throws Exception If fails
      */
-    @Test(expected = UnsupportedOperationException.class)
-    public void failsToReturnPossibleInflectedMeanings() throws Exception {
-        new NotImplementedInflection().allPossibleInflectedMeanings();
+    @Test
+    public void containsGrammemes() throws Exception {
+        MatcherAssert.assertThat(
+            new GmOfRussianNoun(
+                RussianGrammeme.Ед,
+                RussianGrammeme.И
+            )
+                .grammemes(),
+            Matchers.contains(RussianGrammeme.Ед, RussianGrammeme.И)
+        );
     }
 }

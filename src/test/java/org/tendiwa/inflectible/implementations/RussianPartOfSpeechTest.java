@@ -23,11 +23,13 @@
  */
 package org.tendiwa.inflectible.implementations;
 
+import com.google.common.collect.ImmutableSet;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.tendiwa.inflectible.GrammaticalCategory;
+import org.tendiwa.inflectible.SpBasic;
 
 /**
  * Unit tests for {@link RussianPartOfSpeech}.
@@ -54,6 +56,23 @@ public final class RussianPartOfSpeechTest {
                 RussianGrammaticalCategory.Число
             ),
             CoreMatchers.is(true)
+        );
+    }
+
+    /**
+     * {@link RussianNounInflection} can generate spellings for Russian nouns.
+     * @throws Exception If fails
+     */
+    @Test
+    public void canGenerateNouns() throws Exception {
+        MatcherAssert.assertThat(
+            RussianPartOfSpeech.Сущ.lexeme(
+                new SpBasic("Игорь"),
+                () -> ImmutableSet.of(RussianGrammeme.Муж)
+            )
+                .wordForm(() -> ImmutableSet.of(RussianGrammeme.В))
+                .string(),
+            CoreMatchers.equalTo("Игоря")
         );
     }
 }

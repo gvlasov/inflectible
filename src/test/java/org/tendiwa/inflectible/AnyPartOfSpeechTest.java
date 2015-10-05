@@ -55,6 +55,6 @@ public final class AnyPartOfSpeechTest {
      */
     @Test(expected = UnsupportedOperationException.class)
     public void failsAtReturningInflection() throws Exception {
-        new AnyPartOfSpeech().inflection().allPossibleInflectedMeanings();
+        new AnyPartOfSpeech().meaningVariations();
     }
 }

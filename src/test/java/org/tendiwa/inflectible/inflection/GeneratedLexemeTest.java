@@ -32,26 +32,27 @@ import org.mockito.Mockito;
 import org.tendiwa.inflectible.GmEmpty;
 import org.tendiwa.inflectible.GmValidated;
 import org.tendiwa.inflectible.GrammaticalMeaning;
+import org.tendiwa.inflectible.PartOfSpeech;
 import org.tendiwa.inflectible.implementations.RussianGrammeme;
-import org.tendiwa.inflectible.implementations.RussianNounInflection;
 import org.tendiwa.inflectible.implementations.RussianPartOfSpeech;
 
 /**
- * Unit tests for {@link GeneratedLexeme}.
+ * Unit tests for {@link LxWithSuppletivism}.
  * @author Georgy Vlasov (suseika@tendiwa.org)
  * @version $Id$
  * @since 0.3.0
  */
 public final class GeneratedLexemeTest {
     /**
-     * {@link GeneratedLexeme} can generate word forms from multiple headwords.
+     * {@link LxWithSuppletivism} can generate word forms from multiple
+     * headwords.
      * @throws Exception If fails
      */
     @Test
     public void worksWithMultipleHeadwords() throws Exception {
         MatcherAssert.assertThat(
-            new GeneratedLexeme(
-                new RussianNounInflection(),
+            new LxWithSuppletivism(
+                RussianPartOfSpeech.Сущ,
                 new GmEmpty(),
                 ImmutableMap.of(
                     new GmEmpty(),
@@ -75,8 +76,9 @@ public final class GeneratedLexemeTest {
     }
 
     /**
-     * {@link GeneratedLexeme} can returns its persistent grammatical meaning,
-     * and it is the same grammatical meaning that is passed to the constructor.
+     * {@link LxWithSuppletivism} can returns its persistent grammatical
+     * meaning, and it is the same grammatical meaning that is passed to the
+     * constructor.
      * @throws Exception If fails
      */
     @Test
@@ -84,14 +86,11 @@ public final class GeneratedLexemeTest {
         final GrammaticalMeaning meaning = Mockito.mock(
             GrammaticalMeaning.class
         );
-        final PartOfSpeechInflection inflection = Mockito.mock(
-            PartOfSpeechInflection.class
-        );
-        Mockito.when(inflection.allPossibleInflectedMeanings())
-            .thenReturn(ImmutableSet.of());
+        final PartOfSpeech part = Mockito.mock(PartOfSpeech.class);
+        Mockito.when(part.meaningVariations()).thenReturn(ImmutableSet.of());
         MatcherAssert.assertThat(
-            new GeneratedLexeme(
-                inflection,
+            new LxWithSuppletivism(
+                part,
                 meaning,
                 ImmutableMap.of()
             )

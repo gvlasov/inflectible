@@ -23,12 +23,11 @@
  */
 package org.tendiwa.inflectible;
 
+import java.util.Set;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.tendiwa.inflectible.inflection.NotImplementedInflection;
-import org.tendiwa.inflectible.inflection.PartOfSpeechInflection;
 
 /**
  * Unit tests for {@link EnumBasedGrammar}.
@@ -110,8 +109,17 @@ public final class EnumBasedGrammarTest {
             }
 
             @Override
-            public PartOfSpeechInflection inflection() throws Exception {
-                return new NotImplementedInflection();
+            public Set<GrammaticalMeaning> meaningVariations()
+                throws Exception {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public Lexeme lexeme(
+                final Spelling headword,
+                final GrammaticalMeaning persistent
+            ) throws Exception {
+                throw new UnsupportedOperationException();
             }
         };
     }
