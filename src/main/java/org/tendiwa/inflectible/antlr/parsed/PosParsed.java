@@ -23,11 +23,14 @@
  */
 package org.tendiwa.inflectible.antlr.parsed;
 
+import java.util.Set;
 import org.tendiwa.inflectible.Grammar;
 import org.tendiwa.inflectible.GrammaticalCategory;
+import org.tendiwa.inflectible.GrammaticalMeaning;
+import org.tendiwa.inflectible.Lexeme;
 import org.tendiwa.inflectible.PartOfSpeech;
+import org.tendiwa.inflectible.Spelling;
 import org.tendiwa.inflectible.antlr.LexemeParser;
-import org.tendiwa.inflectible.inflection.PartOfSpeechInflection;
 
 /**
  * Part of speech parsed from an ANTLR parse tree.
@@ -67,8 +70,15 @@ final class PosParsed implements PartOfSpeech {
     }
 
     @Override
-    public PartOfSpeechInflection inflection() throws Exception {
-        return this.delegate().inflection();
+    public Lexeme lexeme(
+        final Spelling headword, final GrammaticalMeaning persistent
+    ) throws Exception {
+        return this.delegate().lexeme(headword, persistent);
+    }
+
+    @Override
+    public Set<GrammaticalMeaning> meaningVariations() throws Exception {
+        return this.delegate().meaningVariations();
     }
 
     @Override
