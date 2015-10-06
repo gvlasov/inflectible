@@ -68,8 +68,6 @@
                     <instrumentation>
                         <excludes>
                             <exclude>org/tendiwa/inflectible/antlr/*</exclude>
-                            <exclude>org/tendiwa/inflectible/FilledOutText.class</exclude>
-                            <exclude>org/tendiwa/inflectible/implementations/EnglishPartOfSpeech.class</exclude>
                         </excludes>
                     </instrumentation>
                     <check>
