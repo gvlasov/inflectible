@@ -25,13 +25,12 @@ package org.tendiwa.inflectible.implementations;
 
 import com.google.common.collect.ImmutableSet;
 import java.util.Set;
-import org.tendiwa.inflectible.AnyPartOfSpeech;
-import org.tendiwa.inflectible.GmValidated;
 import org.tendiwa.inflectible.GrammaticalCategory;
 import org.tendiwa.inflectible.GrammaticalMeaning;
 import org.tendiwa.inflectible.Lexeme;
 import org.tendiwa.inflectible.PartOfSpeech;
 import org.tendiwa.inflectible.Spelling;
+import org.tenidwa.collections.utils.CartesianProduct;
 
 /**
  * Part of speech in Russian language.
@@ -50,91 +49,17 @@ public enum RussianPartOfSpeech implements PartOfSpeech {
             RussianGrammaticalCategory.Число,
             RussianGrammaticalCategory.Падеж
         ),
-        ImmutableSet.<GrammaticalMeaning>of(
-            new GmValidated(
-                new AnyPartOfSpeech(),
-                ImmutableSet.of(
-                    RussianGrammeme.Ед,
-                    RussianGrammeme.И
-                )
+        new CartesianProduct<>(
+            ImmutableSet.of(RussianGrammeme.Ед, RussianGrammeme.Мн),
+            ImmutableSet.of(
+                RussianGrammeme.И,
+                RussianGrammeme.Р,
+                RussianGrammeme.Д,
+                RussianGrammeme.В,
+                RussianGrammeme.Т,
+                RussianGrammeme.П
             ),
-            new GmValidated(
-                new AnyPartOfSpeech(),
-                ImmutableSet.of(
-                    RussianGrammeme.Ед,
-                    RussianGrammeme.Р
-                )
-            ),
-            new GmValidated(
-                new AnyPartOfSpeech(),
-                ImmutableSet.of(
-                    RussianGrammeme.Ед,
-                    RussianGrammeme.Д
-                )
-            ),
-            new GmValidated(
-                new AnyPartOfSpeech(),
-                ImmutableSet.of(
-                    RussianGrammeme.Ед,
-                    RussianGrammeme.В
-                )
-            ),
-            new GmValidated(
-                new AnyPartOfSpeech(),
-                ImmutableSet.of(
-                    RussianGrammeme.Ед,
-                    RussianGrammeme.Т
-                )
-            ),
-            new GmValidated(
-                new AnyPartOfSpeech(),
-                ImmutableSet.of(
-                    RussianGrammeme.Ед,
-                    RussianGrammeme.П
-                )
-            ),
-            new GmValidated(
-                new AnyPartOfSpeech(),
-                ImmutableSet.of(
-                    RussianGrammeme.Мн,
-                    RussianGrammeme.И
-                )
-            ),
-            new GmValidated(
-                new AnyPartOfSpeech(),
-                ImmutableSet.of(
-                    RussianGrammeme.Мн,
-                    RussianGrammeme.Р
-                )
-            ),
-            new GmValidated(
-                new AnyPartOfSpeech(),
-                ImmutableSet.of(
-                    RussianGrammeme.Мн,
-                    RussianGrammeme.Д
-                )
-            ),
-            new GmValidated(
-                new AnyPartOfSpeech(),
-                ImmutableSet.of(
-                    RussianGrammeme.Мн,
-                    RussianGrammeme.В
-                )
-            ),
-            new GmValidated(
-                new AnyPartOfSpeech(),
-                ImmutableSet.of(
-                    RussianGrammeme.Мн,
-                    RussianGrammeme.Т
-                )
-            ),
-            new GmValidated(
-                new AnyPartOfSpeech(),
-                ImmutableSet.of(
-                    RussianGrammeme.Мн,
-                    RussianGrammeme.П
-                )
-            )
+            GmOfRussianNoun::new
         )
     ) {
         @Override
@@ -237,7 +162,7 @@ public enum RussianPartOfSpeech implements PartOfSpeech {
      * All possible combinations of meanings a word in this part of speech can
      * assume in the process of inflection.
      */
-    private final transient Set<GrammaticalMeaning> all;
+    private final transient Set<? extends GrammaticalMeaning> all;
 
     /**
      * Ctor.
@@ -248,7 +173,7 @@ public enum RussianPartOfSpeech implements PartOfSpeech {
      */
     RussianPartOfSpeech(
         final ImmutableSet<? extends GrammaticalCategory> categories,
-        final Set<GrammaticalMeaning> meanings
+        final Set<? extends GrammaticalMeaning> meanings
     ) {
         this.used = categories;
         this.all = meanings;
@@ -260,7 +185,8 @@ public enum RussianPartOfSpeech implements PartOfSpeech {
     }
 
     @Override
-    public Set<GrammaticalMeaning> meaningVariations() throws Exception {
+    public Set<? extends GrammaticalMeaning> meaningVariations()
+        throws Exception {
         return this.all;
     }
 }
