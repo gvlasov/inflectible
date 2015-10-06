@@ -73,5 +73,5 @@ public interface PartOfSpeech {
      *  part of speech.
      * @throws Exception if could not obtain the meaning variations.
      */
-    Set<GrammaticalMeaning> meaningVariations() throws Exception;
+    Set<? extends GrammaticalMeaning> meaningVariations() throws Exception;
 }

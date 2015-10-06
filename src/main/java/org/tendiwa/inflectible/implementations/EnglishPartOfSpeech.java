@@ -125,7 +125,8 @@ public enum EnglishPartOfSpeech implements PartOfSpeech {
     }
 
     @Override
-    public Set<GrammaticalMeaning> meaningVariations() throws Exception {
+    public Set<? extends GrammaticalMeaning> meaningVariations()
+        throws Exception {
         return this.all;
     }
 }
