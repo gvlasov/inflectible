@@ -27,6 +27,7 @@ import com.google.common.collect.ImmutableList;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.Test;
+import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 /**
@@ -46,11 +47,14 @@ public final class FilledOutTextTest {
         final String text = "Template";
         Mockito.when(template.fillUp(Mockito.any(), Mockito.any()))
             .thenReturn(text);
+        final Vocabulary vocabulary = Mockito.mock(Vocabulary.class);
+        Mockito.when(vocabulary.lexeme(Matchers.any()))
+            .thenReturn(new SingleFormLexeme("anything"));
         MatcherAssert.assertThat(
             new FilledOutText(
                 template,
-                Mockito.mock(Vocabulary.class),
-                ImmutableList.of()
+                vocabulary,
+                ImmutableList.of(() -> "DUDE", () -> "GAL")
             )
                 .string(),
             CoreMatchers.equalTo(text)
