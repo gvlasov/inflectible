@@ -29,7 +29,9 @@ import org.hamcrest.MatcherAssert;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.tendiwa.inflectible.GrammaticalCategory;
+import org.tendiwa.inflectible.GrammaticalMeaning;
 import org.tendiwa.inflectible.SpBasic;
+import org.tendiwa.inflectible.Spelling;
 
 /**
  * Unit tests for {@link RussianPartOfSpeech}.
@@ -73,6 +75,54 @@ public final class RussianPartOfSpeechTest {
                 .wordForm(() -> ImmutableSet.of(RussianGrammeme.В))
                 .string(),
             CoreMatchers.equalTo("Игоря")
+        );
+    }
+
+    /**
+     * {@link RussianPartOfSpeech#Глаг} can not do anything sensible yet.
+     * @throws Exception If fails
+     */
+    @Test(expected = UnsupportedOperationException.class)
+    public void verbUnsupported() throws Exception {
+        RussianPartOfSpeech.Глаг.lexeme(
+            Mockito.mock(Spelling.class),
+            Mockito.mock(GrammaticalMeaning.class)
+        );
+    }
+
+    /**
+     * {@link RussianPartOfSpeech#Прил} can not do anything sensible yet.
+     * @throws Exception If fails
+     */
+    @Test(expected = UnsupportedOperationException.class)
+    public void adjectiveUnsupported() throws Exception {
+        RussianPartOfSpeech.Прил.lexeme(
+            Mockito.mock(Spelling.class),
+            Mockito.mock(GrammaticalMeaning.class)
+        );
+    }
+
+    /**
+     * {@link RussianPartOfSpeech#Нареч} can not do anything sensible yet.
+     * @throws Exception If fails
+     */
+    @Test(expected = UnsupportedOperationException.class)
+    public void adverbUnsupported() throws Exception {
+        RussianPartOfSpeech.Нареч.lexeme(
+            Mockito.mock(Spelling.class),
+            Mockito.mock(GrammaticalMeaning.class)
+        );
+    }
+
+    /**
+     * {@link RussianPartOfSpeech#Местоим} can not do anything sensible yet.
+     * @throws Exception If fails
+     */
+    @Test(expected = UnsupportedOperationException.class)
+    public void pronounUnsupported() throws Exception {
+        RussianPartOfSpeech.Местоим.lexeme(
+            Mockito.mock(Spelling.class),
+            Mockito.mock(GrammaticalMeaning.class)
         );
     }
 }

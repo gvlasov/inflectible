@@ -25,7 +25,6 @@ package org.tendiwa.inflectible.implementations;
 
 import com.google.common.collect.ImmutableSet;
 import java.util.Set;
-import java.util.function.BiFunction;
 import org.tendiwa.inflectible.GrammaticalCategory;
 import org.tendiwa.inflectible.GrammaticalMeaning;
 import org.tendiwa.inflectible.Lexeme;
@@ -47,9 +46,16 @@ public enum EnglishPartOfSpeech implements PartOfSpeech {
         ImmutableSet.of(
             EnglishGrammaticalCategory.Number
         ),
-        ImmutableSet.<GrammaticalMeaning>of(),
-        (spelling, meaning) -> new NotImplementedLexeme()
-    ),
+        ImmutableSet.<GrammaticalMeaning>of()
+    ) {
+        @Override
+        public Lexeme lexeme(
+            final Spelling headword,
+            final GrammaticalMeaning persistent
+        ) throws Exception {
+            throw new UnsupportedOperationException();
+        }
+    },
 
     /**
      * Verb.
@@ -61,18 +67,32 @@ public enum EnglishPartOfSpeech implements PartOfSpeech {
             EnglishGrammaticalCategory.Person,
             EnglishGrammaticalCategory.Tense
         ),
-        ImmutableSet.<GrammaticalMeaning>of(),
-        (spelling, meaning) -> new NotImplementedLexeme()
-    ),
+        ImmutableSet.<GrammaticalMeaning>of()
+    ) {
+        @Override
+        public Lexeme lexeme(
+            final Spelling headword,
+            final GrammaticalMeaning persistent
+        ) throws Exception {
+            throw new UnsupportedOperationException();
+        }
+    },
 
     /**
      * Adjective.
      */
     Adjective(
         ImmutableSet.<GrammaticalCategory>of(),
-        ImmutableSet.<GrammaticalMeaning>of(),
-        (spelling, meaning) -> new NotImplementedLexeme()
-    );
+        ImmutableSet.<GrammaticalMeaning>of()
+    ) {
+        @Override
+        public Lexeme lexeme(
+            final Spelling headword,
+            final GrammaticalMeaning persistent
+        ) throws Exception {
+            throw new UnsupportedOperationException();
+        }
+    };
 
     /**
      * Grammatical categories that can be used in this part of speech.
@@ -85,42 +105,23 @@ public enum EnglishPartOfSpeech implements PartOfSpeech {
     private final transient Set<GrammaticalMeaning> all;
 
     /**
-     * How to generate a lexeme from a spelling and persistent grammatical
-     * meaning.
-     */
-    private final transient
-        BiFunction<Spelling, GrammaticalMeaning, Lexeme> inflection;
-
-    /**
      * Ctor.
      * @param categories Grammatical categories that can be used in this part of
      *  speech
      * @param meanings All possible combinations of meanings a word in this
      *  part of speech can assume in the process of inflection.
-     * @param generator How to generate a lexeme from a spelling and persistent
-     *  grammatical meaning.
      */
     EnglishPartOfSpeech(
         final ImmutableSet<? extends GrammaticalCategory> categories,
-        final Set<GrammaticalMeaning> meanings,
-        final BiFunction<Spelling, GrammaticalMeaning, Lexeme> generator
+        final Set<GrammaticalMeaning> meanings
     ) {
         this.used = categories;
         this.all = meanings;
-        this.inflection = generator;
     }
 
     @Override
     public boolean usesCategory(final GrammaticalCategory category) {
         return this.used.contains(category);
-    }
-
-    @Override
-    public Lexeme lexeme(
-        final Spelling headword,
-        final GrammaticalMeaning persistent
-    ) throws Exception {
-        return this.inflection.apply(headword, persistent);
     }
 
     @Override

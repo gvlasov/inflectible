@@ -25,7 +25,6 @@ package org.tendiwa.inflectible.implementations;
 
 import com.google.common.collect.ImmutableSet;
 import java.util.Set;
-import java.util.function.BiFunction;
 import org.tendiwa.inflectible.AnyPartOfSpeech;
 import org.tendiwa.inflectible.GmValidated;
 import org.tendiwa.inflectible.GrammaticalCategory;
@@ -136,9 +135,16 @@ public enum RussianPartOfSpeech implements PartOfSpeech {
                     RussianGrammeme.П
                 )
             )
-        ),
-        RussianNoun::new
-    ),
+        )
+    ) {
+        @Override
+        public Lexeme lexeme(
+            final Spelling headword,
+            final GrammaticalMeaning persistent
+        ) throws Exception {
+            return new RussianNoun(headword, persistent);
+        }
+    },
 
     /**
      * Verb.
@@ -151,9 +157,16 @@ public enum RussianPartOfSpeech implements PartOfSpeech {
             RussianGrammaticalCategory.Число,
             RussianGrammaticalCategory.Форма
         ),
-        ImmutableSet.<GrammaticalMeaning>of(),
-        (spelling, meaning) -> new NotImplementedLexeme()
-    ),
+        ImmutableSet.<GrammaticalMeaning>of()
+    ) {
+        @Override
+        public Lexeme lexeme(
+            final Spelling headword,
+            final GrammaticalMeaning persistent
+        ) throws Exception {
+            throw new UnsupportedOperationException();
+        }
+    },
 
     /**
      * Adjective.
@@ -165,9 +178,16 @@ public enum RussianPartOfSpeech implements PartOfSpeech {
             RussianGrammaticalCategory.Число,
             RussianGrammaticalCategory.Падеж
         ),
-        ImmutableSet.<GrammaticalMeaning>of(),
-        (spelling, meaning) -> new NotImplementedLexeme()
-    ),
+        ImmutableSet.<GrammaticalMeaning>of()
+    ) {
+        @Override
+        public Lexeme lexeme(
+            final Spelling headword,
+            final GrammaticalMeaning persistent
+        ) throws Exception {
+            throw new UnsupportedOperationException();
+        }
+    },
 
     /**
      * Adverb.
@@ -175,9 +195,16 @@ public enum RussianPartOfSpeech implements PartOfSpeech {
      */
     Нареч(
         ImmutableSet.<GrammaticalCategory>of(),
-        ImmutableSet.<GrammaticalMeaning>of(),
-        (spelling, meaning) -> new NotImplementedLexeme()
-    ),
+        ImmutableSet.<GrammaticalMeaning>of()
+    ) {
+        @Override
+        public Lexeme lexeme(
+            final Spelling headword,
+            final GrammaticalMeaning persistent
+        ) throws Exception {
+            throw new UnsupportedOperationException();
+        }
+    },
 
     /**
      * Pronoun.
@@ -190,21 +217,21 @@ public enum RussianPartOfSpeech implements PartOfSpeech {
             RussianGrammaticalCategory.Число,
             RussianGrammaticalCategory.Род
         ),
-        ImmutableSet.<GrammaticalMeaning>of(),
-        (spelling, meaning) -> new NotImplementedLexeme()
-    );
+        ImmutableSet.<GrammaticalMeaning>of()
+    ) {
+        @Override
+        public Lexeme lexeme(
+            final Spelling headword,
+            final GrammaticalMeaning persistent
+        ) throws Exception {
+            throw new UnsupportedOperationException();
+        }
+    };
 
     /**
      * Grammatical categories that can be used in this part of speech.
      */
     private final transient ImmutableSet<? extends GrammaticalCategory> used;
-
-    /**
-     * How to generate a lexeme from a spelling and persistent grammatical
-     * meaning.
-     */
-    private final transient
-        BiFunction<Spelling, GrammaticalMeaning, Lexeme> inflection;
 
     /**
      * All possible combinations of meanings a word in this part of speech can
@@ -218,30 +245,18 @@ public enum RussianPartOfSpeech implements PartOfSpeech {
      *  speech
      * @param meanings All possible combinations of meanings a word in this
      *  part of speech can assume in the process of inflection.
-     * @param generator How to generate a lexeme from a spelling and persistent
-     *  grammatical meaning.
      */
     RussianPartOfSpeech(
         final ImmutableSet<? extends GrammaticalCategory> categories,
-        final Set<GrammaticalMeaning> meanings,
-        final BiFunction<Spelling, GrammaticalMeaning, Lexeme> generator
+        final Set<GrammaticalMeaning> meanings
     ) {
         this.used = categories;
         this.all = meanings;
-        this.inflection = generator;
     }
 
     @Override
     public boolean usesCategory(final GrammaticalCategory category) {
         return this.used.contains(category);
-    }
-
-    @Override
-    public Lexeme lexeme(
-        final Spelling headword,
-        final GrammaticalMeaning persistent
-    ) {
-        return this.inflection.apply(headword, persistent);
     }
 
     @Override
