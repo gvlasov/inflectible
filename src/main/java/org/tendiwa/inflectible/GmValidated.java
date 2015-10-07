@@ -60,7 +60,7 @@ public final class GmValidated implements GrammaticalMeaning {
     // To be  refactored in #47
     @Override
     public ImmutableSet<Grammeme> grammemes() throws Exception {
-        if (this.hasGrammemesInSameCategory()) {
+        if (this.hasAlternativeGrammemes()) {
             throw new IllegalStateException(
                 String.format(
                     Joiner.on("").join(
@@ -71,7 +71,7 @@ public final class GmValidated implements GrammaticalMeaning {
                 )
             );
         }
-        if (this.hasGrammemesFromOtherPartOfSpeech()) {
+        if (this.hasAlienGrammemes()) {
             throw new IllegalStateException(
                 String.format(
                     Joiner.on("").join(
@@ -88,11 +88,18 @@ public final class GmValidated implements GrammaticalMeaning {
     /**
      * Checks if this grammatical meaning has grammemes that can't be used for
      * current part of speech.
-     * @return True iff this grammatical meaning has grammemes that can't be
-     *  used for current part of speech.
+     * <p/>
+     * For example, if a grammatical meaning for an
+     * EnglishNoun has a grammeme from the English grammatical category of
+     * tense (present, past or future).
+     * <p/>
+     * Another example would be a grammatical meaning of a noun in one language
+     * having an grammeme from another language.
+     * @return True iff this grammatical meaning has grammemes alien to its
+     *  part of speech.
      * @throws Exception If could not check for category usage
      */
-    private boolean hasGrammemesFromOtherPartOfSpeech() throws Exception {
+    private boolean hasAlienGrammemes() throws Exception {
         boolean answer = false;
         for (final Grammeme grammeme : this.meaning) {
             if (!this.part.usesCategory(grammeme.category())) {
@@ -108,7 +115,7 @@ public final class GmValidated implements GrammaticalMeaning {
      * {@link org.tendiwa.inflectible.GrammaticalCategory}.
      * @return True iff any of grammemes are from the same grammatical category.
      */
-    private boolean hasGrammemesInSameCategory() {
+    private boolean hasAlternativeGrammemes() {
         return this.meaning.stream()
             .map(Grammeme::category)
             .distinct()
