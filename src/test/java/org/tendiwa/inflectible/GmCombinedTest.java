@@ -25,8 +25,8 @@ package org.tendiwa.inflectible;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -54,8 +54,8 @@ public final class GmCombinedTest {
             )
         );
         MatcherAssert.assertThat(
-            meaning.grammemes().containsAll(ImmutableList.of(one, two, three)),
-            CoreMatchers.is(true)
+            meaning.grammemes(),
+            Matchers.containsInAnyOrder(one, two, three)
         );
     }
 }
