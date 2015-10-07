@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/Suseika/inflectible.svg?branch=master)](https://travis-ci.org/Suseika/inflectible)
-[![Coverage Status](https://coveralls.io/repos/Suseika/inflectible/badge.svg?branch=master&service=github)](https://coveralls.io/github/Suseika/inflectible?branch=195)
+[![Coverage Status](https://coveralls.io/repos/Suseika/inflectible/badge.svg?branch=master&service=github)](https://coveralls.io/github/Suseika/inflectible?branch=master)
 
 # Inflectible
 
