@@ -112,9 +112,7 @@
                         <artifactId>cobertura-maven-plugin</artifactId>
                         <version>2.7</version>
                         <configuration>
-                            <check>
-                                <haltOnFailure>false</haltOnFailure>
-                            </check>
+                            <check/>
                             <format>html</format>
                         </configuration>
                         <executions>
@@ -140,9 +138,7 @@
                         <artifactId>cobertura-maven-plugin</artifactId>
                         <version>2.7</version>
                         <configuration>
-                            <check>
-                                <haltOnFailure>false</haltOnFailure>
-                            </check>
+                            <check/>
                             <format>xml</format>
                         </configuration>
                         <executions>
@@ -168,7 +164,6 @@
                                 </goals>
                                 <configuration>
                                     <timestampFormat>yyyy-MM-dd'T'HH:mm:ss</timestampFormat>
-                                    <repoToken>UWws1aLlb19NmzxxUwoEjfr4STdAG4oQS</repoToken>
                                 </configuration>
                             </execution>
                         </executions>
