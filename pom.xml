@@ -104,7 +104,35 @@
             </build>
         </profile>
         <profile>
-            <id>cobertura-forcereport</id>
+            <id>cobertura-report</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>cobertura-maven-plugin</artifactId>
+                        <version>2.7</version>
+                        <configuration>
+                            <check>
+                                <haltOnFailure>false</haltOnFailure>
+                            </check>
+                            <format>html</format>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>cobertura-report</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>clean</goal>
+                                    <goal>cobertura</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>coveralls</id>
             <build>
                 <plugins>
                     <plugin>
