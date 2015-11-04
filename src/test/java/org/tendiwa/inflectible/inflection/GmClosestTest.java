@@ -36,6 +36,11 @@ import org.tendiwa.inflectible.implementations.EnglishGrammeme;
  * @since 0.3.0
  */
 public final class GmClosestTest {
+    /**
+     * {@link GmClosest} can become the closest grammatical meaning from the
+     * source set.
+     * @throws Exception If fails
+     */
     @Test
     public void becomesClosestMeaning() throws Exception {
         MatcherAssert.assertThat(
@@ -60,6 +65,12 @@ public final class GmClosestTest {
         );
     }
 
+    /**
+     * {@link GmClosest} can consider the meaning that has more common
+     * grammemes with the target meaning to be more similar to the target
+     * meaning.
+     * @throws Exception If fails
+     */
     @Test
     public void considersMeaningWithMoreCommonGrammemesMoreSimilar() throws
         Exception {
@@ -80,5 +91,17 @@ public final class GmClosestTest {
             ).grammemes(),
             Matchers.contains(EnglishGrammeme.Plur, EnglishGrammeme.Ger)
         );
+    }
+
+    /**
+     * {@link GmClosest} can not work with an empty source set.
+     * @throws Exception If fails
+     */
+    @Test(expected = IllegalStateException.class)
+    public void doesntWorkWithEmptySourceSet() throws Exception {
+        new GmClosest(
+            ImmutableSet.of(),
+            () -> ImmutableSet.of(EnglishGrammeme.Plur)
+        ).grammemes();
     }
 }

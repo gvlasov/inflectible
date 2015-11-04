@@ -42,24 +42,29 @@ public final class GmClosest implements GrammaticalMeaning {
     /**
      * Possible grammatical meanings.
      */
-    private final Set<? extends GrammaticalMeaning> possible;
+    private final transient Set<? extends GrammaticalMeaning> possible;
 
     /**
      * Target grammatical meaning.
      */
-    private final GrammaticalMeaning target;
+    private final transient GrammaticalMeaning target;
 
     /**
      * Ctor.
      * @param meanings Possible grammatical meanings
-     * @param target Target grammatical meanings
+     * @param tgt Target grammatical meaning
      */
     GmClosest(
         final Set<? extends GrammaticalMeaning> meanings,
-        final GrammaticalMeaning target
+        final GrammaticalMeaning tgt
     ) {
         this.possible = meanings;
-        this.target = target;
+        this.target = tgt;
+    }
+
+    @Override
+    public ImmutableSet<Grammeme> grammemes() throws Exception {
+        return this.closest().grammemes();
     }
 
     /**
@@ -85,10 +90,5 @@ public final class GmClosest implements GrammaticalMeaning {
                 )
             )
             .get();
-    }
-
-    @Override
-    public ImmutableSet<Grammeme> grammemes() throws Exception {
-        return this.closest().grammemes();
     }
 }
