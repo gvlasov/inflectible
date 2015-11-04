@@ -1,6 +1,10 @@
 [![Build Status](https://travis-ci.org/Suseika/inflectible.svg?branch=master)](https://travis-ci.org/Suseika/inflectible)
 [![Coverage Status](https://coveralls.io/repos/Suseika/inflectible/badge.svg?branch=master&service=github)](https://coveralls.io/github/Suseika/inflectible?branch=master)
 
+<a href="http://www.yegor256.com/2015/04/16/award.html">
+  <img src="http://img.teamed.io/award/2015/winner.png"
+  style="width:203px;height:45px;"/></a>
+
 # Inflectible
 
 Inflectible is a flexible template engine with 
