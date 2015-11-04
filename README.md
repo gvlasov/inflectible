@@ -3,7 +3,7 @@
 
 <a href="http://www.yegor256.com/2015/04/16/award.html">
   <img src="http://img.teamed.io/award/2015/winner.png"
-  style="width:203px;height:45px;"/></a>
+  width="203"/></a>
 
 # Inflectible
 
