@@ -1,0 +1,83 @@
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Georgy Vlasov
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.tendiwa.inflectible.antlr.parsed;
+
+import com.google.common.collect.ImmutableSet;
+import java.util.List;
+import org.antlr.v4.runtime.tree.TerminalNode;
+import org.tendiwa.inflectible.Grammar;
+import org.tendiwa.inflectible.Grammeme;
+import org.tendiwa.inflectible.antlr.LexemeParser;
+import org.tendiwa.inflectible.antlr.TemplateParser;
+import org.tenidwa.collections.utils.Collectors;
+import org.tenidwa.collections.utils.Rethrowing;
+
+/**
+ * Markup of a list of grammemes.
+ * @author Georgy Vlasov (suseika@tendiwa.org)
+ * @version $Id$
+ * @since 0.3.0
+ */
+public final class GrammemesMarkup {
+    /**
+     * Nodes with grammemes.
+     */
+    private final transient List<TerminalNode> nodes;
+
+    /**
+     * Ctor.
+     * @param ctx Grammemes context from a template parser
+     */
+    public GrammemesMarkup(
+        final TemplateParser.GrammemesContext ctx
+    ) {
+        this.nodes = ctx.GRAMMEME();
+    }
+
+    /**
+     * Ctor.
+     * @param ctx Grammemes context from a lexeme parser
+     */
+    public GrammemesMarkup(
+        final LexemeParser.GrammemesContext ctx
+    ) {
+        this.nodes = ctx.GRAMMEME();
+    }
+
+    /**
+     * Extracts grammemes from the markup using a particular grammar.
+     * @param grammar Grammar
+     * @return Grammemes from the markup
+     */
+    public ImmutableSet<Grammeme> grammemes(final Grammar grammar) {
+        return this.nodes.stream()
+            .map(TerminalNode::getText)
+            .map(
+                Rethrowing.rethrowFunction(
+                    grammar::grammemeByName
+                )
+            )
+            .collect(Collectors.toImmutableSet());
+    }
+}
