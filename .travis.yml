@@ -3,6 +3,9 @@ jdk:
   - oraclejdk8
 notifications:
   email: false
+# Disable the default build process
+install: true
+# Use custom build process instead
 script:
   - mvn clean install -Pcobertura -Pcobertura-report -Pcoveralls -DTRAVIS_JOB_ID=$TRAVIS_JOB_ID
 addons:
