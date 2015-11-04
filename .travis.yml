@@ -5,3 +5,7 @@ notifications:
   email: false
 script:
   - mvn clean install -Pcobertura -Pqulice -Pcobertura-report -Pcoveralls -DTRAVIS_JOB_ID=$TRAVIS_JOB_ID
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
