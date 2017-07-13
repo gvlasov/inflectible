@@ -119,7 +119,7 @@ in Russian, where a lexeme for НОЖ (KNIFE) would look like this:
     ножам  <Мн Д>
     ножи   <Мн В>
     ножами <Мн Т>
-    ноже   <Мн П>
+    ножах  <Мн П>
 }
 ```
 There are 12 different forms a word НОЖ can assume under different
