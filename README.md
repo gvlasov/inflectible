@@ -16,7 +16,7 @@ It can use correct word forms where other template engines can't.
 ```xml
 <dependency>
     <groupId>org.tendiwa</groupId>
-    <artifactId>inflectible</groupId>
+    <artifactId>inflectible</artifactId>
     <version>0.2.0</version>
 </dependency>
 ```
